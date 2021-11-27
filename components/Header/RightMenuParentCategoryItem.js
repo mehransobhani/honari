@@ -1,6 +1,7 @@
 import { CopyrightOutlined } from '@material-ui/icons';
 import React, {useState} from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const RightMenuParentCategoryItem = (props) => {
     const [information, setInformation] = useState(props.information);
@@ -13,9 +14,9 @@ const RightMenuParentCategoryItem = (props) => {
                 {
                     showChildrenCategories == true
                     ?
-                        <img src='/assets/images/main_images/down_arrow_black_small.png' className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} onClick={() => {setShowChildrenCategories(false)}} /> 
+                        <Image src='/assets/images/main_images/down_arrow_black_small.png' className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} onClick={() => {setShowChildrenCategories(false)}} /> 
                     :
-                        <img src='/assets/images/main_images/left_arrow_black_small.png' className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} onClick={() => {setShowChildrenCategories(true)}} />        
+                        <Image src='/assets/images/main_images/left_arrow_black_small.png' className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} onClick={() => {setShowChildrenCategories(true)}} />        
                 }
             </div>
             {

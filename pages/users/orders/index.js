@@ -8,8 +8,9 @@ import {useCookies} from 'react-cookie';
 import Link from 'next/link';
 import {connect} from 'react-redux';
 import * as actionTypes from '../../../store/actions';
+import Image from 'next/image';
 
-const userOrders = (props) => {
+const UserOrders = (props) => {
 
     const [cookies , setCookie , removeCookie] = useCookies();
     const [userAllowd, setUserAllowed] = useState(false);
@@ -93,7 +94,7 @@ const userOrders = (props) => {
     const noPreviousOrder = (
         <div className={['row', 'px-2'].join(' ')}>
             <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'py-3'].join(' ')} style={{background: '#F2F2F2', borderRadius: '4px'}}>
-                <img src='/assets/images/main_images/shopping_cart_yellow.png' style={{width: '50px', height: '50px'}} />
+                <Image src='/assets/images/main_images/shopping_cart_yellow.png' style={{width: '50px', height: '50px'}} />
                 <h6 className={['mb-0', 'text-center', 'mt-3'].join(' ')} style={{color: '#a67a00', fontSize: '17px', fontWeight: '500'}}>تاکنون سفارشی ثبت نکرده‌اید</h6>
             </div>
         </div>
@@ -132,7 +133,7 @@ const userOrders = (props) => {
                                     <Link href={'/users/factor/' + item.id} ><a className={['col-1', 'text-center', 'pointer'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>مشاهده</a></Link>
                                     <span className={['col-2', 'text-center', 'd-none'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>مرجوعی / نقص سفارش</span>
                                     <span className={['col-2', 'text-center'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>
-                                        <img src='/assets/images/main_images/return_delivery_red.png' className={['pointer'].join(' ')} style={{width: '20px', height: '20px'}} />
+                                        <Image src='/assets/images/main_images/return_delivery_red.png' className={['pointer'].join(' ')} style={{width: '20px', height: '20px'}} />
                                     </span>
                                 </div>
                                 <div className={['row', 'px-2', 'py-2', 'mt-1', 'd-md-none'].join(' ')} style={{borderRadius: '3px', background: '#F2F2F2'}}>
@@ -182,7 +183,7 @@ const userOrders = (props) => {
                     <div className={['container'].join(' ')}>
                             <div className={['row', 'rtl', 'mt-3'].join(' ')}>
                                 <div className={['col-2', 'd-none', 'd-md-flex', 'flex-column', 'align-items-center'].join(' ')}>
-                                    <img src='/assets/images/main_images/user_full_circle_main.png' style={{width: '50%'}} />
+                                    <Image src='/assets/images/main_images/user_full_circle_main.png' style={{width: '50%'}} />
                                     <Link href='/users/view'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>نمایه کاربر</a></Link>
                                     <h6 className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2', 'mb-0'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #00BAC6', fontSize: '17px',borderRadius: '4px', color: '#00BAC6'}}>سفارش‌های من</h6>
                                     <Link href='/users/showreturned'><a onClick={() => {props.reduxStartLoading()}} onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>تاریخچه مرجوعی</a></Link>
@@ -253,7 +254,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(userOrders);
+export default connect(mapStateToProps, mapDispatchToProps)(UserOrders);
 
 export async function getServerSideProps(context){
     

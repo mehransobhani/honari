@@ -8,8 +8,9 @@ import {useCookies} from 'react-cookie';
 import Link from 'next/link';
 import * as actionTypes from '../../../store/actions';
 import {connect} from 'react-redux';
+import Image from 'next/image';
 
-const usersOrderInfo = (props) => {
+const UsersOrderInfo = (props) => {
 
     const [cookies , setCookie , removeCookie] = useCookies();
     const router = useRouter();
@@ -118,7 +119,7 @@ const usersOrderInfo = (props) => {
                                     <div onClick={clicked} className={['row', 'rtl', 'py-3', 'mt-2', 'align-items-center'].join(' ')} style={{borderRadius: '3px', background: '#F2F2F2'}}>
                                         <span className={['col-1', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{fontSize: '14px'}}>{counter + 1}</span>
                                         <span className={['col-1', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{fontSize: '14px'}}>
-                                            <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '30px', height: '30px'}} />
+                                            <Image src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '30px', height: '30px'}} />
                                         </span>
                                         <Link href={'/' + item.url}><a className={['col-4', 'mb-0', 'text-right', 'font11md17'].join(' ')} style={{fontSize: '14px'}}>{item.productName}</a></Link>
                                         <span className={['col-1', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{fontSize: '14px'}}>{item.count * item.packCount}</span>
@@ -157,7 +158,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(usersOrderInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersOrderInfo);
 
 export async function getServerSideProps(context){
     

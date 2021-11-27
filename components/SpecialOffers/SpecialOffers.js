@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SpecialOfferCard from './SpecialOfferCard.js';
 import styles from './style.module.css';
+import Image from 'next/image';
 
 const SpecialOffer = () => {
 
@@ -29,9 +30,9 @@ const SpecialOffer = () => {
                 </div>
             </div>
             <div className={['col-12', 'text-center', 'rtl', 'mt-2'].join(' ')}>
-                <img onClick={() => {changePage(0)}} src={page == 0 ? '/assets/images/main_images/circle_red_small.png' : '/assets/images/main_images/circle_gray_small.png'}  style={{width: '14px'}} className={['pointer'].join(' ')} />
-                <img onClick={() => {changePage(1)}} src={page == 1 ? '/assets/images/main_images/circle_red_small.png' : '/assets/images/main_images/circle_gray_small.png'} style={{width: '14px'}} className={['pointer', 'mx-2'].join(' ')} />
-                <img onClick={() => {changePage(2)}} src={page == 2 ? '/assets/images/main_images/circle_red_small.png' : '/assets/images/main_images/circle_gray_small.png'} style={{width: '14px'}} className={['pointer'].join(' ')}/>
+                <Image onClick={() => {changePage(0)}} src={page == 0 ? '/assets/images/main_images/circle_red_small.png' : '/assets/images/main_images/circle_gray_small.png'}  style={{width: '14px'}} className={['pointer'].join(' ')} />
+                <Image onClick={() => {changePage(1)}} src={page == 1 ? '/assets/images/main_images/circle_red_small.png' : '/assets/images/main_images/circle_gray_small.png'} style={{width: '14px'}} className={['pointer', 'mx-2'].join(' ')} />
+                <Image onClick={() => {changePage(2)}} src={page == 2 ? '/assets/images/main_images/circle_red_small.png' : '/assets/images/main_images/circle_gray_small.png'} style={{width: '14px'}} className={['pointer'].join(' ')}/>
             </div>
         </div>
     )

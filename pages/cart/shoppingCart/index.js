@@ -6,8 +6,9 @@ import Footer from '../../../components/Footer/Footer';
 import Head from 'next/head';
 import * as Constants from '../../../components/constants';
 import axios from 'axios';
+import Image from 'next/image';
 
-const shoppingCart = (props) => {
+const ShoppingCart = (props) => {
 
     const [increaseProcessings, setIncreaseProcessings] = useState([]);
     const [decreaseProcessings, setDecreaseProcessings] = useState([]);
@@ -114,7 +115,7 @@ const shoppingCart = (props) => {
         <div className={['container', 'mt-4'].join(' ')}>
             <div className={['row', 'mx-1'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center', 'p-3'].join(' ')} style={{borderRadius: '3px', border: '1px solid #DEDEDE'}}>
-                    <img src='/assets/images/main_images/shopping_cart_yellow.png' style={{width: '100px', height: '100px'}}/> 
+                    <Image src='/assets/images/main_images/shopping_cart_yellow.png' style={{width: '100px', height: '100px'}}/> 
                     <h6 className={['text-center', 'mb-0', 'mt-4'].join(' ')}>سبد خرید شما خالی است</h6>
                 </div>
             </div>
@@ -496,14 +497,14 @@ const shoppingCart = (props) => {
                             <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between'].join(' ')}>
                                 <div className={['d-flex', 'flex-column', 'align-items-right'].join(' ')}>
                                     <div className={['d-flex', 'felx-row', 'rtl', 'align-items-center', 'justify-content-right'].join(' ')}>
-                                        <img src='/assets/images/header_cart.png' style={{width: '20px', heigth: '20px'}} />
+                                        <Image src='/assets/images/header_cart.png' style={{width: '20px', heigth: '20px'}} />
                                         <h5 className={['text-right', 'rtl', 'mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', color: '#444444'}}>سبد خرید شما</h5>
                                     </div>
                                     <p className={['mb-0'].join(' ')} style={{fontSize: '14px', color: '#444444'}}>وجود کالاها در سبدخرید به معنی رزرو آنها نیست و تا زمان موجود بودن در سبد خرید خواهند ماند</p>
                                 </div>
                                 <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>ادامه ثبت سفارش</h6>
-                                    <img className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
+                                    <Image className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
                                 </div>
                             </div>
                         </div>
@@ -523,7 +524,7 @@ const shoppingCart = (props) => {
                                     return (
                                         <div className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'ltr', 'p-0'].join(' ')} style={{background: 'white', borderRight: '1px solid #DEDEDE', borderBottom: '1px solid #DEDEDE', borderLeft: '1px solid #DEDEDE'}}>
                                             <div className={['d-flex', 'felx-row', 'align-items-center', 'justify-content-center'].join(' ')} style={{width: '40px', height: '100%', borderRight: '1px solid #DEDEDE', background: '#F7F7F7'}}>
-                                                <img className={['pointer'].join(' ')} src='/assets/images/main_images/bin_red.png' style={{width: '20px', height: '20px'}} onClick={() => {removeProductFromCart(counter)}} />
+                                                <Image className={['pointer'].join(' ')} src='/assets/images/main_images/bin_red.png' style={{width: '20px', height: '20px'}} onClick={() => {removeProductFromCart(counter)}} />
                                             </div>
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'py-2', 'pr-2'].join(' ')} style={{flex: '1'}}>
                                                 {
@@ -539,9 +540,9 @@ const shoppingCart = (props) => {
                                                     )
                                                 }
                                                 <div className={['mb-0', 'text-center', 'ltr', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-center'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>
-                                                    <img className={['pointer'].join(' ')} src='/assets/images/main_images/minus_gray_circle.png' style={{width: '20px', height: '20px'}} onClick={() => {decreaseProductCountByOne(counter)}} />
+                                                    <Image className={['pointer'].join(' ')} src='/assets/images/main_images/minus_gray_circle.png' style={{width: '20px', height: '20px'}} onClick={() => {decreaseProductCountByOne(counter)}} />
                                                     <h6 className={['mb-0', 'px-2'].join(' ')} style={{fontSize: '17px'}}>{product.count}</h6>
-                                                    <img className={['pointer'].join(' ')} src='/assets/images/main_images/plus_gray_circle.png' style={{width: '20px', height: '20px'}} onClick={() => {increaseProductCountByOne(counter)}} />
+                                                    <Image className={['pointer'].join(' ')} src='/assets/images/main_images/plus_gray_circle.png' style={{width: '20px', height: '20px'}} onClick={() => {increaseProductCountByOne(counter)}} />
                                                 </div>
                                                 {
                                                     product.price === product.discountedPrice
@@ -557,7 +558,7 @@ const shoppingCart = (props) => {
                                                 }
                                                 <h6 className={['mb-0', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1.3'}}>{product.label}</h6>
                                                 <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right'].join(' ')} style={{flex: '2'}}>
-                                                    <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + product.prodID + '.jpg'} style={{width: '100px', height: '100px'}} />
+                                                    <Image src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + product.prodID + '.jpg'} style={{width: '100px', height: '100px'}} />
                                                     <h6 className={['mb-0', 'pr-1', 'rtl', 'text-right'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>{product.name}</h6>
                                                 </div>
                                             </div>
@@ -567,7 +568,7 @@ const shoppingCart = (props) => {
                             }
                             <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-left', 'ltr', 'px-0', 'mt-2'].join(' ')}>
                                 <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center'].join(' ')} style={{width: '40px', background: '#F7F7F7', borderLeft: '1px solid #DEDEDE', borderTop: '1px solid #DEDEDE', borderBottom: '1px solid #DEDEDE'}}>
-                                    <img className={['pointer'].join(' ')} src='/assets/images/main_images/bin_red.png' style={{width: '20px', height: '20px'}} onClick={() => {wipeTheCart()}} />
+                                    <Image className={['pointer'].join(' ')} src='/assets/images/main_images/bin_red.png' style={{width: '20px', height: '20px'}} onClick={() => {wipeTheCart()}} />
                                 </div>
                                 <div className={['d-flex', 'flex-column', 'rtl'].join(' ')} style={{border: '1px solid #DEDEDE', width: '30%'}}>
                                     <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
@@ -587,7 +588,7 @@ const shoppingCart = (props) => {
                             <div className={['col-12', 'px-0', 'mt-2', 'd-flex', 'flex-row', 'ltr'].join(' ')}>
                                 <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>ادامه ثبت سفارش</h6>
-                                    <img className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
+                                    <Image className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
                                 </div>
                             </div>
                         </div>
@@ -596,7 +597,7 @@ const shoppingCart = (props) => {
                         <div className={['row'].join(' ')}>
                             <div className={['col-12', 'd-flex', 'flex-column', 'justify-content-right', 'align-items-right'].join(' ')}>
                                 <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')}>
-                                    <img src='/assets/images/header_cart.png' style={{width: '14px', height: '14px'}} />
+                                    <Image src='/assets/images/header_cart.png' style={{width: '14px', height: '14px'}} />
                                     <h6 className={['mb-0', 'rtl', 'text-right', 'mr-1'].join(' ')} style={{fontSize: '22px', color: '#444444'}}>سبد خرید شما</h6>
                                 </div>
                                 <p className={['mb-0', 'text-right', 'rtl'].join(' ')} style={{fontSize: '14px', color: '#444444'}}>وجود کالاها در سبدخرید به معنی رزرو آنها نیست و تا زمان موجود بودن در سبد خرید خواهند ماند</p>
@@ -619,7 +620,7 @@ const shoppingCart = (props) => {
                                 </div>
                                 <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0'].join(' ')} style={{borderRadius: '0 0 2px 2px', background: '#00BAC6'}}>
                                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>ادامه ثبت سفارش</h6>
-                                    <img className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
+                                    <Image className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
                                 </div>
                             </div>
                         </div>
@@ -629,10 +630,10 @@ const shoppingCart = (props) => {
                                     return(
                                         <div className={['col-12', 'p-0', 'mt-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8'}}>
                                             <div className={['d-flex', 'flex-row', 'ltr', 'pb-0', 'pl-1', 'pt-1'].join(' ')}>
-                                                <img src='/assets/images/main_images/bin_red.png' className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} onClick={() => {removeProductFromCart(counter)}} />
+                                                <Image src='/assets/images/main_images/bin_red.png' className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} onClick={() => {removeProductFromCart(counter)}} />
                                             </div>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'px-3'].join(' ')}>
-                                                <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + product.prodID + '.jpg'} style={{width: '70px', height: '70px'}} />
+                                                <Image src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + product.prodID + '.jpg'} style={{width: '70px', height: '70px'}} />
                                                 <div className={['d-flex', 'flex-column', 'pr-2'].join(' ')} style={{flex: '1'}}>
                                                     <h6 className={['text-right', 'rtl', 'mb-0'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>{product.name}</h6>
                                                     <h6 className={['text-right', 'rtl', 'mb-0', 'mt-auto'].join(' ')} style={{fontSize: '14px', color: '#444444'}}>{product.label}</h6>
@@ -657,9 +658,9 @@ const shoppingCart = (props) => {
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'px-3'].join(' ')}>
                                                 <h6 className={['text-right', 'mb-0'].join(' ')} style={{fontSize: '14px'}}>تعداد</h6>
                                                 <div className={['d-flex', 'flex-row', 'align-items-center', 'ltr'].join(' ')}>
-                                                    <img src='/assets/images/main_images/minus_gray_circle.png' className={['pointer'].join(' ')} style={{width: '20px', height: '20px'}} onClick={() => {decreaseProductCountByOne(counter)}} />
+                                                    <Image src='/assets/images/main_images/minus_gray_circle.png' className={['pointer'].join(' ')} style={{width: '20px', height: '20px'}} onClick={() => {decreaseProductCountByOne(counter)}} />
                                                     <h6 className={['px-2', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '14px'}}>{product.count}</h6>
-                                                    <img src='/assets/images/main_images/plus_gray_circle.png' className={['pointer'].join(' ')} style={{width: '20px', height: '20px'}} onClick={() => {increaseProductCountByOne(counter)}} />
+                                                    <Image src='/assets/images/main_images/plus_gray_circle.png' className={['pointer'].join(' ')} style={{width: '20px', height: '20px'}} onClick={() => {increaseProductCountByOne(counter)}} />
                                                 </div>
                                             </div>
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'px-3', 'mt-2', 'pt-2'].join(' ')} style={{background: '#F7F7F7', borderTop: '1px dashed #DEDEDE'}}>
@@ -699,7 +700,7 @@ const shoppingCart = (props) => {
                                 </div>
                                 <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>ادامه ثبت سفارش</h6>
-                                    <img className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
+                                    <Image className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
                                 </div>
                             </div>
                         </div>
@@ -742,7 +743,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(shoppingCart);
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart);
 
 export async function getServerSideProps(context){
     

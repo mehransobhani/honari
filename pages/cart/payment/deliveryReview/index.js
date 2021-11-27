@@ -7,7 +7,7 @@ import * as Constants from '../../../../components/constants';
 import * as actionTypes from '../../../../store/actions';
 import {connect} from 'react-redux';
 
-const deliveryReview = () => {
+const DeliveryReview = () => {
 
     useEffect(() => {
         props.reduxUpdateUserTotally(props.ssrUser);
@@ -86,7 +86,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(deliveryReview);
+export default connect(mapStateToProps, mapDispatchToProps)(DeliveryReview);
 
 export async function getServerSideProps(context){
     

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-function banners(){
+function Banners(){
     return(
         <div className={['container'].join(' ')}>
             <div className={['row']}>
@@ -10,4 +10,4 @@ function banners(){
     );
 }
 
-export default banners;
+export default Banners;

@@ -14,7 +14,7 @@ import RootCategory from '../../../../components/RootCategory/RootCategory';
 import * as actionTypes from '../../../../store/actions';
 import {connect} from 'react-redux';
 
-const category = (props) => {
+const Category = (props) => {
     const router = useRouter();
     const {route} = router.query;
     const [urlString, setUrlString] = useState('');
@@ -174,7 +174,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(category);
+export default connect(mapStateToProps, mapDispatchToProps)(Category);
 
 export async function getServerSideProps(context){
     

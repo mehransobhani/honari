@@ -10,8 +10,9 @@ import {connect} from 'react-redux';
 import * as actionTypes from '../../../store/actions';
 import styles from './style.module.css';
 import { FormatListNumberedRtlOutlined, MicNone } from '@material-ui/icons';
+import Image from 'next/image';
 
-const userBalance = (props) => {
+const UserBalance = (props) => {
 
     const [cookies , setCookie , removeCookie] = useCookies();
     const [userPreviousRequests, setUserPreviousRequests] = useState([]);
@@ -176,7 +177,7 @@ const userBalance = (props) => {
                     <div className={['container'].join(' ')}>
                         <div className={['row', 'rtl', 'mt-3'].join(' ')}>
                             <div className={['col-2', 'd-none', 'd-md-flex', 'flex-column', 'align-items-center'].join(' ')}>
-                                <img src='/assets/images/main_images/user_full_circle_main.png' style={{width: '50%'}} />
+                                <Image src='/assets/images/main_images/user_full_circle_main.png' style={{width: '50%'}} />
                                 <Link href='/users/view'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>نمایه کاربر</a></Link>
                                 <Link href='/users/orders'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>سفارش‌های من</a></Link>
                                 <Link href='/users/showreturned'><a onClick={() => {props.reduxStartLoading()}} onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>تاریخچه مرجوعی</a></Link>
@@ -343,7 +344,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(userBalance);
+export default connect(mapStateToProps, mapDispatchToProps)(UserBalance);
 
 export async function getServerSideProps(context){
     

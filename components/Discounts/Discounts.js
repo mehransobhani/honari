@@ -1,8 +1,9 @@
 import DiscountCard from './DiscountCard/DiscountCard';
-const discount = () =>{
+import Image from 'next/image';
+const Discount = () =>{
     return (
         <div className={['row', 'pt-3', 'pb-3'].join(' ')} style={{background: '#00BAC6'}}>
-            <div className={['col-12', 'text-center'].join(' ')}><img src="/assets/images/gift.png" style={{width: '120px'}}/></div>
+            <div className={['col-12', 'text-center'].join(' ')}><Image src="/assets/images/gift.png" style={{width: '120px'}}/></div>
             <h4 className={['col-12', 'text-light', 'text-center', 'mt-3'].join(' ')}>تخفیفات ویژه</h4>
             <div className={['container-fluid', 'mt-3', 'mb-3'].join(' ')}>
                 <div className={['row', 'justify-content-around', 'm-0', 'pr-0', 'pl-0'].join(' ')} style={{width: '100%'}}>
@@ -20,4 +21,4 @@ const discount = () =>{
     );
 }
 
-export default discount;
+export default Discount;
