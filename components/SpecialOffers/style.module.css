@@ -1,0 +1,66 @@
+@media only screen and (max-width: 768px) {
+    .cardImage{
+        border-radius: 18px 18px 0 0;
+    }
+    .specialTitle{
+        font-size: 14px;
+    }
+    .counterElement{
+        background-color: white;
+        color: red;
+        width: 18px !important;
+        display: inline-block;
+        text-align: center;
+        font-size: 12px;
+        border-radius: 4px;
+    }
+    .prices{
+        text-align: center;
+    }
+}
+@media only screen and (min-width: 768px) {
+    .cardImage{
+        border-radius: 18px 0 0 18px;
+    }
+    .counterElement{
+        background-color: white;
+        color: red;
+        width: 24px !important;
+        display: inline-block;
+        text-align: center;
+        padding-top: 0.25rem !important;
+        padding-bottom: 0.25rem !important;
+        margin-left: 0.12rem !important;
+        margin-right: 0.12rem !important;
+        border-radius: 4px;
+    }
+    .prices{
+        text-align: right;
+    }
+}
+.more{
+    border-radius: 8px;
+    padding: 3px 6px 3px 6px;
+    
+}
+.more:hover{
+    background-color: #F2F2F2;
+    color: #00BAC6;
+}
+.hover{
+    background-color: #f2f2f2;
+}
+.hover:hover{
+    background-color: white;
+}
+.counterElement{
+    background-color: white;
+    color: red;
+    width: 24px !important;
+    display: inline-block;
+    text-align: center;
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+    margin-left: 0.12rem !important;
+    margin-right: 0.12rem !important;
+}

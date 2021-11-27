@@ -11,6 +11,82 @@ a {
   text-decoration: none;
 }
 
-* {
+@media only screen and (max-width: 768px) {
+  .font11md17{
+    font-size: 11px !important;
+  }
+}
+
+.font11md17{
+  font-size: 17px;
+}
+
+@font-face {
+  font-family: IranSansWeb;
+  src: url("/assets/fonts/IRANSansWeb.woff2") format('woff2');
+}
+@font-face {
+  font-family: IranSansWebFaNum;
+  src: url("/assets/fonts/IRANSansWeb(FaNum).woff2") format('woff2');
+}
+*{
+  font-family: IranSansWebFaNum;
   box-sizing: border-box;
+}
+.pointer:hover{
+  cursor: pointer;
+}
+.rtl{
+  direction: rtl;
+}
+.ltr{
+  direction: ltr;
+}
+.initialShadow{
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+}
+.initialShadow:hover{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.link{
+  color: black;
+}
+.link:hover{
+  text-decoration: none;
+}
+p{
+  font-size: 14px;
+}
+.breadcrumbItem:hover{
+  color: #00bac6;
+  cursor: pointer;
+}
+table{
+  direction: rtl;
+}
+td{
+  direction: rtl;
+}
+.MuiButtonBase-root .MuiListItem-root .MuiMenuItem-root .MuiMenuItem-gutters .MuiListItem-gutters .MuiListItem-button{
+  font-family: IranSansWebFaNum;
+  direction: rtl;
+  font-size: 10px;
+}
+.Mui-selected{
+  background-color: #00bac6 !important;
+  color: white !important;
+  font-family: IranSansWebFaNum !important;
+}
+.MuiPaginationItem-page:hover{
+  background-color: #00bac6 !important;
+  color: white;
+}
+.MuiPaginationItem-page{
+  font-family: IranSansWebFaNum !important;
+}
+p{
+  font-family: IranSansWebFaNum !important;
+}
+span{
+  font-family: IranSansWebFaNum !important;
 }

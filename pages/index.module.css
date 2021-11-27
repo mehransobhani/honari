@@ -1,0 +1,35 @@
+@media only screen and (max-width: 768px) {
+    .tripleBannerImage{
+        width: 40px;
+    }
+    .tripleBannerTitle{
+        font-size: 12px;
+    }
+    .tripleBanner{
+        background-color: #F2F2F2;
+    }
+    .bigBanner{
+        border-radius: 0px;
+    }
+    .topThreeBanners{
+        border-radius: 0px !important;
+    }
+}
+@media only screen and (min-width: 768px) {
+    .tripleBannerImage{
+        width: 60px;
+    }
+    .bigBanner{
+        border-radius: 5px;
+    }
+}
+.item:hover{
+    background-color: #F2F2F2;
+}
+.menuItem:hover{
+    background-color: white;
+    color: #00bac6;
+}
+.banner:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

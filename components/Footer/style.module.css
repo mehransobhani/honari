@@ -1,0 +1,23 @@
+@media only screen and (max-width: 768px) {
+    .topBarText{
+        font-weight: bold;
+    }
+    .floatAlignedText{
+        text-align: center;
+    }
+    .social{
+        flex: 1;
+    }
+}
+@media only screen and (min-width: 768px) {
+    .floatAlignedText{
+        text-align: right;
+    }
+    .dashBoardered{
+        border-right: 1px dashed #c4c4c4;
+    }
+}
+.social{
+    border-radius: 4px;
+    border: 1px solid #dedede;
+}

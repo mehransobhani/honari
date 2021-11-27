@@ -1,0 +1,16 @@
+@media only screen and (max-width: 768px) {
+    .firstCourseImage{
+        border-radius: 4px 4px 0 0;
+    }
+    .firstCourseInfoBody{
+        border-radius: 0 0 4px 4px;
+    }
+}
+@media only screen and (min-width: 768px) {
+    .firstCourseImage{
+        border-radius: 0 4px 4px 0;
+    }
+    .firstCourseInfoBody{
+        border-radius: 4px 0 0 4px;
+    }
+}

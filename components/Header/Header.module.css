@@ -1,0 +1,44 @@
+.item:hover{
+    background-color: #F2F2F2;
+}
+.menuItemHovered{
+    background-color: white;
+    color: #00bac6;
+}
+.dropdownItem{
+    font-size: 15px;
+}
+.dropdownItem:hover{
+    color: #00bac6;
+}
+.rightMenuItem{
+    font-size: 14px;
+}
+.menuItem{
+    font-size: 13px;
+    background-color: #F7F7F7;
+}
+.desktopHeaderAcademyButton{
+    font-size: 14px;
+    background-color: #00bac6;
+    border-style: none;
+    border-radius: 3px;
+    color: white;
+    height: 32px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.desktopHeaderParentMenu{
+    height: 24px;
+    font-size: 14px;
+    color: #2b2b2b;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    background-color: #f7f7f7;
+    border-radius: 0px;
+    border: none;
+}
+.desktopHeaderParentMenu:hover{
+    color: #00bac6;
+}

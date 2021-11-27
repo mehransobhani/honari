@@ -1,0 +1,24 @@
+.addToCartButton{
+    color: #00bac6;
+    background-color: white;
+}
+.addToCartButton:hover{
+    color: white;
+    background-color: #00bac6;
+}
+.removeFromCartButton{
+    color: #bf0000;
+    background-color: white;
+}
+.removeFromCartButton:hover{
+    color: white;
+    background-color: #bf0000;
+}
+.axiosProcessingButton{
+    color: #2B2B2B;
+    background-color: #fcba03;
+}
+.productDoesNotExist{
+    color: #2B2B2B;
+    background-color: #F2F2F2;
+}
