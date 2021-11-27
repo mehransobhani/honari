@@ -38,7 +38,7 @@ const TopSixProducts = (props) => {
                     items.map((item, counter) => {
                         let imageUrl='https://honari.com/image/resizeTest/shop/_600x/thumb_' + item.prodID + '.jpg';
                         return (
-                            <div className={['col-5', 'col-md-2', 'px-2', 'py-0', 'my-0', 'mb-2'].join(' ')}>
+                            <div className={['col-5', 'col-md-2', 'px-2', 'py-0', 'my-0', 'mb-2'].join(' ')} key={counter}>
                                 <Link href={'/' + item.productUrl}>
                                     <a className={['d-flex', 'pointer', 'flex-column', 'shadow-sm', styles.banner].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', height: '100%'}}>
                                         <Image src={imageUrl} className={['rounded-top'].join(' ')} style={{width: '100%', height: 'auto'}} />

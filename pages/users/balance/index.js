@@ -180,7 +180,7 @@ const UserBalance = (props) => {
                                 <Image src='/assets/images/main_images/user_full_circle_main.png' style={{width: '50%'}} />
                                 <Link href='/users/view'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>نمایه کاربر</a></Link>
                                 <Link href='/users/orders'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>سفارش‌های من</a></Link>
-                                <Link href='/users/showreturned'><a onClick={() => {props.reduxStartLoading()}} onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>تاریخچه مرجوعی</a></Link>
+                                <Link href='/users/showreturned'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>تاریخچه مرجوعی</a></Link>
                                 <Link href='/users/charge_account'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>موجودی / شارژ حساب</a></Link>
                                 <Link href='https://honari.com/academy/user/courses'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>کلاس‌های من</a></Link>
                                 <h6 className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2', 'mb-0'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #00BAC6', fontSize: '17px',borderRadius: '4px', color: '#00BAC6'}}>تسویه حساب</h6>
@@ -247,7 +247,7 @@ const UserBalance = (props) => {
                                     {
                                         userPreviousRequests.map((item, counter) => {
                                             return(
-                                                <div className={['row', 'mt-2', 'p-1', 'rtl', 'align-items-center', 'd-none', 'd-md-flex'].join(' ')} style={{background: '#F2F2F2', borderRadius: '3px'}}>
+                                                <div key={counter} className={['row', 'mt-2', 'p-1', 'rtl', 'align-items-center', 'd-none', 'd-md-flex'].join(' ')} style={{background: '#F2F2F2', borderRadius: '3px'}}>
                                                     <span className={['col-1', 'text-center'].join(' ')} style={{fontSize: '14px'}}>{counter + 1}</span>
                                                     <span className={['col-4', 'text-center'].join(' ')} style={{fontSize: '14px'}}>{item.sheba}</span>
                                                     <span className={['col-2', 'text-center', 'rtl'].join(' ')} style={{fontSize: '14px'}}>{parseInt(item.balance).toLocaleString() + ' تومان'}</span>
@@ -281,7 +281,7 @@ const UserBalance = (props) => {
                                     {
                                         userPreviousRequests.map((item, counter) => {
                                             return(
-                                                <div className={['row', 'mt-2', 'p-1', 'rtl', 'align-items-center', 'd-md-none'].join(' ')} style={{background: '#F2F2F2', borderRadius: '3px'}}>
+                                                <div key={counter} className={['row', 'mt-2', 'p-1', 'rtl', 'align-items-center', 'd-md-none'].join(' ')} style={{background: '#F2F2F2', borderRadius: '3px'}}>
                                                     <span className={['col-12', 'text-right'].join(' ')} style={{fontSize: '14px'}}>{"شماره شبا : ‌" + item.sheba}</span>
                                                     <span className={['col-6', 'text-right', 'rtl'].join(' ')} style={{fontSize: '14px'}}>{"تاریخ : " + item.date}</span>
                                                     <span className={['col-6', 'text-right', 'rtl'].join(' ')} style={{fontSize: '14px'}}>{"زمان :‌ " + item.time}</span>

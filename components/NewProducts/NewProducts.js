@@ -47,7 +47,7 @@ const NewProduct = (props) => {
                 {
                     products.map((product, counter) => {
                             return(
-                                <NewProductCard imageUrl={'https://honari.com/image/resizeTest/shop/_600x/thumb_' + product.prodID + '.jpg'} name={product.name} categoryName={product.categoryName} price={product.price} discountedPrice={product.price} anchor={product.url}/>
+                                <NewProductCard key={counter} imageUrl={'https://honari.com/image/resizeTest/shop/_600x/thumb_' + product.prodID + '.jpg'} name={product.name} categoryName={product.categoryName} price={product.price} discountedPrice={product.price} anchor={product.url}/>
                             );
                     })
                 }

@@ -116,7 +116,7 @@ const UsersOrderInfo = (props) => {
                         (
                             userOrderInformation.map((item, counter) => {
                                 return(
-                                    <div onClick={clicked} className={['row', 'rtl', 'py-3', 'mt-2', 'align-items-center'].join(' ')} style={{borderRadius: '3px', background: '#F2F2F2'}}>
+                                    <div key={counter} onClick={clicked} className={['row', 'rtl', 'py-3', 'mt-2', 'align-items-center'].join(' ')} style={{borderRadius: '3px', background: '#F2F2F2'}}>
                                         <span className={['col-1', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{fontSize: '14px'}}>{counter + 1}</span>
                                         <span className={['col-1', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{fontSize: '14px'}}>
                                             <Image src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '30px', height: '30px'}} />

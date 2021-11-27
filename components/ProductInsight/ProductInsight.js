@@ -255,7 +255,7 @@ const ProductInsight = (props) =>{
                         {
                             breadcrumbState.map((bread, count)=>{
                                 return(
-                                    <Link href={'/shop/product/category/' + bread.url} ><a className={['breadcrumbItem', 'mb-0'].join(' ')} style={{fontSize: '14px'}} >{bread.name}</a></Link>
+                                    <Link key={count} href={'/shop/product/category/' + bread.url} ><a className={['breadcrumbItem', 'mb-0'].join(' ')} style={{fontSize: '14px'}} >{bread.name}</a></Link>
                                 );
                             })
                         }
@@ -423,9 +423,9 @@ const ProductInsight = (props) =>{
                             <table className={['table', 'table-striped'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', backgroundColor: 'white'}}>
                                 <tbody>
                                     {
-                                        productFeaturesState.map((feature)=>{
+                                        productFeaturesState.map((feature, index)=>{
                                             return(
-                                                <tr>
+                                                <tr key={index}>
                                                     <td className={['text-right', 'ltr'].join(' ')}>{feature.title}</td>
                                                     <td className={['text-right', 'ltr'].join(' ')}>{feature.value}</td>
                                                 </tr> 

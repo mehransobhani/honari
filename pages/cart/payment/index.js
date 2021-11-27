@@ -104,7 +104,7 @@ const Payment = (props) => {
 
     let userDoesNotHaveAddressComponent = (
         <div className={['container']}>
-            <div class={['row', 'mt-5', 'px-2'].join(' ')}>
+            <div className={['row', 'mt-5', 'px-2'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')}>
                     <Image src='/assets/images/main_images/location_black.png' style={{width: '16px', height: '16px'}}/>
                     <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', fontWeight: '500', color: '500'}}>آدرس</h6>
@@ -234,7 +234,7 @@ const Payment = (props) => {
                             backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: '#F2F2F2'};
                         }
                         return( 
-                            <div className={['col-12', 'col-md-6', 'p-3', 'd-flex', 'flex-row', 'align-items-center', 'justify-cotent-right', 'pointer'].join(' ')} style={backgroundStyle} onClick={() => {setSelectedDeliveryOption(counter);}}>
+                            <div key={counter} className={['col-12', 'col-md-6', 'p-3', 'd-flex', 'flex-row', 'align-items-center', 'justify-cotent-right', 'pointer'].join(' ')} style={backgroundStyle} onClick={() => {setSelectedDeliveryOption(counter);}}>
                                 {
                                     selectedDeliverOption === counter
                                     ?
@@ -243,7 +243,7 @@ const Payment = (props) => {
                                     <Image src='/assets/images/main_images/rec_black_empty.png' style={{width: '18px', height: '18px'}} />
                                 }
                                 <div className={['d-flex', 'flex-column', 'justify-content-right'].join(' ')}>
-                                    <h5 class={['mb-0', 'mr-3', 'text-right'].join(' ')} style={{fontSize: '17px', fontWeight: '500'}}>{option.fname}</h5>
+                                    <h5 className={['mb-0', 'mr-3', 'text-right'].join(' ')} style={{fontSize: '17px', fontWeight: '500'}}>{option.fname}</h5>
                                     <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'text-right', 'mr-3'].join(' ')}>
                                         {priceTitle}
                                         {previousPrice}

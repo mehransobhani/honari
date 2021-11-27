@@ -311,7 +311,7 @@ const CategoryInsight = (props) => {
                                     {
                                         JSON.parse(filter.options).map((option, index)=>{
                                             return(
-                                                <div>
+                                                <div key={index}>
                                                     <input type='checkbox' className={[''].join(' ')} value={option} checked={isTheCheckboxSelected({en_name: filter.enName, value: option})} onChange={() => {filterCheckboxChanged({en_name: filter.enName, value: option})}} />
                                                     <label className={['mr-1', 'mb-1'].join(' ')} style={{fontSize: '13px', color: '#444444'}} >{option}</label>
                                                 </div>
@@ -349,7 +349,7 @@ const CategoryInsight = (props) => {
                         {
                             categoryBreadcrumbs.map((cb, count)=>{
                                 return(
-                                    <Link href={cb.url} ><a className={['breadcrumbItem', 'mb-0'].join(' ')} style={{fontSize: '14px'}} >{cb.name}</a></Link>
+                                    <Link key={count} href={cb.url} ><a className={['breadcrumbItem', 'mb-0'].join(' ')} style={{fontSize: '14px'}} >{cb.name}</a></Link>
                                 );
                             })
                         }
@@ -407,7 +407,7 @@ const CategoryInsight = (props) => {
                                                         {
                                                             JSON.parse(filter.options).map((option, index)=>{
                                                                 return(
-                                                                    <div>
+                                                                    <div key={index}>
                                                                         <input type='checkbox' className={[''].join(' ')} value={option} checked={isTheCheckboxSelected({en_name: filter.enName, value: option})} onChange={() => {filterCheckboxChanged({en_name: filter.enName, value: option})}} />
                                                                         <label className={['mr-1', 'mb-1'].join(' ')} style={{fontSize: '14px'}} >{option}</label>
                                                                     </div>
@@ -459,7 +459,7 @@ const CategoryInsight = (props) => {
                                         addedFilters.map((f, index)=>{
                                                 console.log(addedFilters);
                                                 return(
-                                                    <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'ml-2', 'p-1'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede', backgroundColor: '#f2f2f2'}}>
+                                                    <div key={index} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'ml-2', 'p-1'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede', backgroundColor: '#f2f2f2'}}>
                                                         <Image src="/assets/images/main_images/cross_gray_small.png" style={{width: '14px'}} onClick={()=>{deleteFilter(index)}} />
                                                         <span className={['pr-1', 'mr-1'].join(' ')} style={{fontSize: '13px', borderRight: '1px dashed #757575'}}>{f.value}</span>
                                                     </div>

@@ -1,6 +1,6 @@
 import ProductItem from './ProductItem/ProductItem';
 
-const ProductItem = () => {
+const ProductIt = () => {
     return (
         <div className={['container-fluid'].join(' ')}>
             <div className={['row'].join(' ')} style={{direction: 'rtl'}}>
@@ -16,4 +16,4 @@ const ProductItem = () => {
     );
 }
 
-export default ProductItem;
+export default ProductIt;

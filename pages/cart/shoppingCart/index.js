@@ -522,7 +522,7 @@ const ShoppingCart = (props) => {
                             {
                                 props.reduxCart.information.map((product, counter) => {
                                     return (
-                                        <div className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'ltr', 'p-0'].join(' ')} style={{background: 'white', borderRight: '1px solid #DEDEDE', borderBottom: '1px solid #DEDEDE', borderLeft: '1px solid #DEDEDE'}}>
+                                        <div key={counter} className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'ltr', 'p-0'].join(' ')} style={{background: 'white', borderRight: '1px solid #DEDEDE', borderBottom: '1px solid #DEDEDE', borderLeft: '1px solid #DEDEDE'}}>
                                             <div className={['d-flex', 'felx-row', 'align-items-center', 'justify-content-center'].join(' ')} style={{width: '40px', height: '100%', borderRight: '1px solid #DEDEDE', background: '#F7F7F7'}}>
                                                 <Image className={['pointer'].join(' ')} src='/assets/images/main_images/bin_red.png' style={{width: '20px', height: '20px'}} onClick={() => {removeProductFromCart(counter)}} />
                                             </div>
@@ -628,7 +628,7 @@ const ShoppingCart = (props) => {
                             {
                                 props.reduxCart.information.map((product, counter) => {
                                     return(
-                                        <div className={['col-12', 'p-0', 'mt-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8'}}>
+                                        <div key={counter} className={['col-12', 'p-0', 'mt-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8'}}>
                                             <div className={['d-flex', 'flex-row', 'ltr', 'pb-0', 'pl-1', 'pt-1'].join(' ')}>
                                                 <Image src='/assets/images/main_images/bin_red.png' className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} onClick={() => {removeProductFromCart(counter)}} />
                                             </div>
