@@ -22,7 +22,7 @@ import * as actionTypes from '../../store/actions';
 import {connect} from 'react-redux';
 import Image from 'next/image';
 
-function bigHeader(props){
+function BigHeader(props){
 
     const router = useRouter();
 
@@ -668,7 +668,7 @@ function bigHeader(props){
                     {
                         props.reduxCart.information.map((item, counter) => {
                             return(
-                                <div className={['rtl', 'd-flex', 'flex-row', 'py-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                                <div key={counter} className={['rtl', 'd-flex', 'flex-row', 'py-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
                                     <Image src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '60px', height: '60px', borderRadius: '2px'}} />
                                     <div className={['d-flex', 'flex-column'].join(' ')} style={{flex: '1'}}>
                                         <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
@@ -744,7 +744,7 @@ function bigHeader(props){
                     {
                         props.reduxCart.information.map((item, counter) => {
                             return(
-                                <div className={['rtl', 'd-flex', 'flex-row', 'py-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                                <div key={counter} className={['rtl', 'd-flex', 'flex-row', 'py-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
                                     <Image src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '60px', height: '60px', borderRadius: '2px'}} />
                                     <div className={['d-flex', 'flex-column', 'pl-1'].join(' ')} style={{flex: '1'}}>
                                         <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
@@ -897,7 +897,7 @@ function bigHeader(props){
                                 ?
                                     academyClasses.map((academyClass, counter) => {
                                         return (
-                                            <div className={['px-2', 'py-3', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                                            <div key={counter} className={['px-2', 'py-3', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
                                                 <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>{academyClass.name}</h5>
                                                 <Image src='/assets/images/main_images/left_arrow_black_small.png' className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} />
                                             </div>
@@ -935,7 +935,7 @@ function bigHeader(props){
                     {
                         subMenus.map((sm, counter) => {
                             return(
-                                <li className={['col-3', 'd-flex', 'flex-row', 'align-items-center', 'pointer', 'mt-2', styles.dropdownItem].join(' ')}>
+                                <li key={counter} className={['col-3', 'd-flex', 'flex-row', 'align-items-center', 'pointer', 'mt-2', styles.dropdownItem].join(' ')}>
                                     {sm.name}
                                 </li>
                             );
@@ -1224,4 +1224,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(bigHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(BigHeader);
