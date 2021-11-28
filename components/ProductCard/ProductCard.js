@@ -187,7 +187,7 @@ const ProductCard = (props) => {
         <div className={['col-6', 'col-md-3', 'p-2'].join(' ')}>
             <div className={['d-flex', 'flex-column'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede', height: '100%'}} >
                 <div style={{position: 'relative'}}>
-                    <Image src={'https://honari.com/image/resizeTest/shop/_600x/thumb_' + props.information.prodID + '.jpg'} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
+                    <img src={'https://honari.com/image/resizeTest/shop/_600x/thumb_' + props.information.prodID + '.jpg'} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
                 </div>
                 <div className={['p-3', 'text-right', 'rtl'].join(' ')}>
                     <Link href={'/' + props.information.productUrl}><a><h6 className={['font-weight-bold', 'text-right', 'rtl', 'mb-3'].join(' ')}>{props.information.productName}</h6></a></Link>

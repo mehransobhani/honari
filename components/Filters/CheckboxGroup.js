@@ -112,7 +112,7 @@ const Checkbox = (props) => {
         <div className={['rtl', 'text-right', 'p-3'].join(' ')} style={{borderBottom: '1px solid #dedede'}}>
             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer'].join(' ')} onClick={filterHeaderClicked}>
                 <h6 className={['font-weight-bold', 'text-right', 'mb-1'].join(' ')} style={{fontSize: '15px'}}>{props.information.name}</h6>
-                <Image src={filterImage} style={{width: '10px', height: '10px'}} />
+                <img src={filterImage} style={{width: '10px', height: '10px'}} />
             </div>
             <div className={['d-none'].join} hidden={showStatus} style={{maxHeight: '200px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#dedede, #dedede'}}>
                 {

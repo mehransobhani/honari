@@ -80,7 +80,7 @@ const User = () => {
         <div className={['container', 'd-flex', 'align-items-center', 'justify-content-center'].join(' ')} style={{height: '100vh'}}>
             <div className={['p-3', 'justify-content-center', 'd-flex', 'flex-column'].join(' ')} style={{width: '360px', borderRadius: '8px', border: '1px solid #dedede'}}>
                 <div className={['rtl', 'mt-3', 'd-flex', 'flex-row', 'justify-content-center'].join(' ')}>
-                    <Image src="/assets/images/main_images/honari.png" className={['d-inline']} style={{width: '62px', height: '62px'}} />
+                    <img src="/assets/images/main_images/honari.png" className={['d-inline']} style={{width: '62px', height: '62px'}} />
                     <div className={['d-flex', 'flex-column', 'text-right'].join(' ')}>
                         <span className={['rtl', 'font-weight-bold', 'mb-0', 'mr-2', 'mt-1', 'text-right', 'h5'].join(' ')}>هنری</span>
                         <span className={['text-right','mr-2', 'mb-1', 'mt-auto'].join(' ')} style={{fontSize: '14px'}}>تحقق رویای هنرمندانه تو</span>

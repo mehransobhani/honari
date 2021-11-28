@@ -14,7 +14,7 @@ const NewProductCard = (props) => {
               pathname: 'http://localhost:3000/' + props.anchor
             }}>
                 <a className={['d-flex', 'pointer', 'flex-column', 'shadow-sm', styles.banner].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', height: '100%'}}>
-                    <Image src={props.imageUrl} className={['rounded-top'].join(' ')} style={{width: '100%', height: 'auto'}} />
+                    <img src={props.imageUrl} className={['rounded-top'].join(' ')} style={{width: '100%', height: 'auto'}} />
                     <div className={['w-100'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
                     <p className={['text-muted', 'rtl', 'w-100', 'pt-2', 'px-2', 'text-right', 'm-0'].join(' ')} style={{fontSize: '14px'}}>{props.categoryName}</p>
                     <p className={['w-100', 'rtl', 'text-right', 'm-0', 'pb-2', 'px-2'].join(' ')}>{props.name}</p>

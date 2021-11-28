@@ -12,7 +12,7 @@ const NewProductCard = (props) => {
         <div className={['col-5', 'col-md-2', 'px-2', 'py-0', 'my-0', 'mb-2'].join(' ')}>
             <Link href={'/' + props.anchor}>
                 <a className={['d-flex', 'pointer', 'flex-column', 'shadow-sm', styles.banner].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', height: '100%'}}>
-                    <Image src={props.imageUrl} className={['rounded-top'].join(' ')} style={{width: '100%', height: 'auto'}} />
+                    <img src={props.imageUrl} className={['rounded-top'].join(' ')} style={{width: '100%', height: 'auto'}} />
                     <div className={['w-100'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
                     <p className={['w-100', 'rtl', 'text-right', 'mt-2', 'pb-2', 'px-2'].join(' ')}>{props.name}</p>
                     <div className={['mt-auto'].join(' ')}>

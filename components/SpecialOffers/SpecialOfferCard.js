@@ -42,7 +42,7 @@ const SpecialOfferCard = (props) => {
             <div className={['container-fluid', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px'}}>
                 <div className={['row', 'ltr'].join(' ')}>
                     <div className={['col-12', 'col-md-6', 'm-0','p-3', 'd-flex'].join(' ')}>
-                        <Image className={['rounded-circle'].join(' ')} src={props.imageUrl} style={{flex: '1', width: '100%', height: 'auto'}} />
+                        <img className={['rounded-circle'].join(' ')} src={props.imageUrl} style={{flex: '1', width: '100%', height: 'auto'}} />
                     </div>
                     <div className={['col-12', 'col-md-6', 'd-flex', 'flex-column', 'p-0', 'pb-3', 'p-md-3'].join(' ')} style={{backgroundColor: props.bgColor}}>
                         <h5 className={['mb-1', 'mb-md-4', 'mx-1', 'px-3', 'px-md-0', 'pt-3', 'pt-md-0', 'text-right', 'rtl', 'font-weight-bold', styles.specialTitle].join(' ')}>یک دو سه چهار پنج شش هفت هشت نه ده</h5>

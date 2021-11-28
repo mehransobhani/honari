@@ -29,7 +29,7 @@ const TopSixProducts = (props) => {
             </div>
             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3', 'pointer'].join(' ')}>
                 <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>
-                <Image src='/assets/images/main_images/left_black_small.png' style={{width: '18px', height: '18px'}} />
+                <img src='/assets/images/main_images/left_black_small.png' style={{width: '18px', height: '18px'}} />
             </div>
         </div>
         <div className={['row','mt-2', 'mt-md-3', 'px-1'].join(' ')}>
@@ -41,7 +41,7 @@ const TopSixProducts = (props) => {
                             <div className={['col-5', 'col-md-2', 'px-2', 'py-0', 'my-0', 'mb-2'].join(' ')} key={counter}>
                                 <Link href={'/' + item.productUrl}>
                                     <a className={['d-flex', 'pointer', 'flex-column', 'shadow-sm', styles.banner].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', height: '100%'}}>
-                                        <Image src={imageUrl} className={['rounded-top'].join(' ')} style={{width: '100%', height: 'auto'}} />
+                                        <img src={imageUrl} className={['rounded-top'].join(' ')} style={{width: '100%', height: 'auto'}} />
                                         <div className={['w-100'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
                                         <p className={['text-muted', 'rtl', 'w-100', 'pt-2', 'px-2', 'text-right', 'm-0'].join(' ')} style={{fontSize: '11px'}}>{item.categoryName}</p>
                                         <p className={['w-100', 'rtl', 'text-right', 'm-0', 'pb-2', 'px-2'].join(' ')}>{item.productName}</p>
@@ -71,7 +71,7 @@ const TopSixProducts = (props) => {
             </div>
         </div>
         <div className={['pointer', 'd-none', 'd-md-flex', 'w-100', 'align-items-center', 'justify-content-center', 'text-center', 'mt-2'].join(' ')} style={{borderRadius: '8px'}}>
-                <Image src='/assets/images/main_images/left_black_small.png' style={{width: '18px', height: '18px'}} />
+                <img src='/assets/images/main_images/left_black_small.png' style={{width: '18px', height: '18px'}} />
                 <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>
         </div>
         </React.Fragment>

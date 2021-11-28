@@ -30,7 +30,7 @@ const QuickView = (props) => {
             <div className={['row', 'd-flex', 'justify-content-center', 'p-2'].join(' ')}>
                 <div className={['col-7', 'row'].join(' ')} style={{borderRadius: '4px', backgroundColor: 'white', minHeight: '240px'}}>
                     <div className={['col-5']}>
-                        <Image src={'https://honari.com/image/resizeTest/shop/_600x/thumb_' + productBasicInformation.prodID + '.jpg'} style={{width: '100%', height: 'auto', borderRadius: '4px'}} />
+                        <img src={'https://honari.com/image/resizeTest/shop/_600x/thumb_' + productBasicInformation.prodID + '.jpg'} style={{width: '100%', height: 'auto', borderRadius: '4px'}} />
                     </div>
                     <div className={['col-7'].join(' ')}>
                         <h4>{props.id}</h4>

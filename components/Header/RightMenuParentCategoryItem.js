@@ -14,9 +14,9 @@ const RightMenuParentCategoryItem = (props) => {
                 {
                     showChildrenCategories == true
                     ?
-                        <Image src='/assets/images/main_images/down_arrow_black_small.png' className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} onClick={() => {setShowChildrenCategories(false)}} /> 
+                        <img src='/assets/images/main_images/down_arrow_black_small.png' className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} onClick={() => {setShowChildrenCategories(false)}} /> 
                     :
-                        <Image src='/assets/images/main_images/left_arrow_black_small.png' className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} onClick={() => {setShowChildrenCategories(true)}} />        
+                        <img src='/assets/images/main_images/left_arrow_black_small.png' className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} onClick={() => {setShowChildrenCategories(true)}} />        
                 }
             </div>
             {

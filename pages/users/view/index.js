@@ -82,7 +82,7 @@ const UserPanel  = (props) => {
                         <div className={['container'].join(' ')}>
                             <div className={['row', 'rtl', 'mt-3'].join(' ')}>
                                 <div className={['col-2', 'd-none', 'd-md-flex', 'flex-column', 'align-items-center'].join(' ')}>
-                                    <Image src='/assets/images/main_images/user_full_circle_main.png' style={{width: '50%'}} />
+                                    <img src='/assets/images/main_images/user_full_circle_main.png' style={{width: '50%'}} />
                                     <h6 className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2', 'mb-0'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #00BAC6', fontSize: '17px',borderRadius: '4px', color: '#00BAC6'}}>نمایه کاربر</h6>
                                     <Link href='/users/orders'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>سفارش‌های من</a></Link>
                                     <Link href='/users/showreturned'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>تاریخچه مرجوعی</a></Link>
@@ -105,7 +105,7 @@ const UserPanel  = (props) => {
                                     </div>
                                 </div>
                                 <div className={['col-12', 'col-md-10', 'container', 'mt-3', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center'].join(' ')}>
-                                    <Image src='/assets/images/main_images/user_full_circle_main.png' className={['d-md-none'].join(' ')} style={{width: '20%'}} />
+                                    <img src='/assets/images/main_images/user_full_circle_main.png' className={['d-md-none'].join(' ')} style={{width: '20%'}} />
                                     <div className={['row', 'mt-3', 'px-2'].join(' ')}>
                                         <div className={['col-12', 'col-md-6', 'p-2'].join(' ')}>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
