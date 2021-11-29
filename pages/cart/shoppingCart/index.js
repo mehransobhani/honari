@@ -7,6 +7,7 @@ import Head from 'next/head';
 import * as Constants from '../../../components/constants';
 import axios from 'axios';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const ShoppingCart = (props) => {
 
@@ -144,6 +145,13 @@ const ShoppingCart = (props) => {
             price += (item.price - item.discountedPrice) * item.count;
         });
         return price;
+    }
+
+    const updateProductInLocalStorage = (index, count) => {
+        let localStorageCart = JSON.parse(localStorage.getItem('user_cart'));
+        console.warn(localStorageCart);
+        localStorageCart[index].count = count;
+        localStorage.setItem('user_cart', JSON.stringify(localStorageCart));
     }
 
     const increaseProductCountByOne = (key) => {
@@ -502,10 +510,12 @@ const ShoppingCart = (props) => {
                                     </div>
                                     <p className={['mb-0'].join(' ')} style={{fontSize: '14px', color: '#444444'}}>وجود کالاها در سبدخرید به معنی رزرو آنها نیست و تا زمان موجود بودن در سبد خرید خواهند ماند</p>
                                 </div>
-                                <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
+                                <Link href={'/cart/payment'}>
+                                <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'pointer'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>ادامه ثبت سفارش</h6>
                                     <img className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
                                 </div>
+                                </Link>
                             </div>
                         </div>
                         <div className={['row', 'px-3'].join(' ')}>
@@ -586,10 +596,12 @@ const ShoppingCart = (props) => {
                                 </div>
                             </div>
                             <div className={['col-12', 'px-0', 'mt-2', 'd-flex', 'flex-row', 'ltr'].join(' ')}>
-                                <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
+                                <Link href={'/cart/payment'}>
+                                <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'pointer'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>ادامه ثبت سفارش</h6>
                                     <img className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
                                 </div>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -618,10 +630,12 @@ const ShoppingCart = (props) => {
                                         )
                                     }
                                 </div>
-                                <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0'].join(' ')} style={{borderRadius: '0 0 2px 2px', background: '#00BAC6'}}>
+                                <Link href={'/cart/payment'}>
+                                <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'pointer'].join(' ')} style={{borderRadius: '0 0 2px 2px', background: '#00BAC6'}}>
                                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>ادامه ثبت سفارش</h6>
                                     <img className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
                                 </div>
+                                </Link>
                             </div>
                         </div>
                         <div className={['row', 'px-3', 'mt-0'].join(' ')}>
@@ -698,10 +712,12 @@ const ShoppingCart = (props) => {
                                         )
                                     }
                                 </div>
-                                <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
+                                <Link href={'/cart/payment'}>
+                                <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3', 'pointer'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>ادامه ثبت سفارش</h6>
                                     <img className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
                                 </div>
+                                </Link>
                             </div>
                         </div>
                     </div>

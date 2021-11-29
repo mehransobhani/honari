@@ -134,9 +134,9 @@ const ProductInsight = (props) =>{
         if(event.target.value < 1){
             event.target.value = 1;
             setOrderCount(1);
-        }else if(event.target.value > productInformation.productStock){
-            event.target.value = productInformation.productStock;
-            setOrderCount(productInformation.productStock);
+        }else if(event.target.value > productInformation.maxCount){
+            event.target.value = productInformation.maxCount;
+            setOrderCount(productInformation.maxCount);
         }else{
             setOrderCount(event.target.value);
         }

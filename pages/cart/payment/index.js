@@ -8,6 +8,7 @@ import * as Constants from '../../../components/constants';
 import * as actionTypes from '../../../store/actions';
 import {connect} from 'react-redux';
 import Image from 'next/image';
+import { SkipPreviousOutlined } from '@material-ui/icons';
 
 const Payment = (props) => {
 
@@ -16,8 +17,10 @@ const Payment = (props) => {
     const [userInformation, setUserInformation] = useState({});
     const [userAddress, setUserAddress] = useState({});
     const [deliverOptions, setDeliveryOptions] = useState([]);
-    const [selectedDeliverOption, setSelectedDeliveryOption] = useState(-1);
+    const [selectedDeliveryId, setSelectedDeliveryId] = useState(-1);
     const [userAddressStatus, setUserAddressStatus] = useState(null);
+    const [availableWorkTimes, setAvailableWorkTimes] = useState([]);
+    const [selectedWorkTimeDate, setSelectedWorkTimeDate] = useState(0);
 
     useEffect(() => {
         props.reduxUpdateUserTotally(props.ssrUser);
@@ -82,6 +85,27 @@ const Payment = (props) => {
         }
     }, [props.reduxUser.status, 'NI']);
 
+    const getActiveDeliveryWorkTimes = () => {
+        axios.post(Constants.apiUrl + '/api/user-delivery-service-work-times',{
+            deliveryServiceId: 1,
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + props.ssrCookies.user_server_token, 
+            }
+        }).then((res) => {
+            let response = res.data;
+            if(response.status === 'done'){
+                setAvailableWorkTimes(response.workTimes);
+            }else if(response.status === 'failed'){
+                console.warn(response.message);
+                props.reduxUpdateSnackbar('warning', true, response.umessage);
+            }
+        }).catch((error) => {
+            console.error(error);
+            props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+        });
+    }
+
     const getUserDeliveryOptions = () => {
         axios.post(Constants.apiUrl + '/api/user-delivery-options',{},{
             headers: {
@@ -90,17 +114,52 @@ const Payment = (props) => {
         }).then((res) => {
             let response = res.data;
             if(response.status == 'done'){
+                console.warn(response.options);
                 setDeliveryOptions(response.options);
             }else if(response.status === 'failed'){
                 alert(response.message);
                 alert(response.umessage);
             }
         }).catch((error) => {
-            alert('مشکل در برقراری ارتباط');
+            alert('خطا در برقراری ارتباط');
             console.log(error);
         });
     }
 
+    const setTemporaryInformation = (serviceId, workTime) => {
+        axios.post(Constants.apiUrl + '/api/user-set-delivery-service-temporary-information',{
+            serviceId: serviceId,
+            workTime: workTime,
+        },{
+            headers: {
+                'Authorization': 'Bearer ' + cookies.user_server_token, 
+            }
+        }).then((res) => {
+            let response = res.data;
+            if(response.status === 'failed'){
+                console.error(response.message);
+                props.reduxUpdateSnackbar('error', true, response.umessage);
+            }
+        }).catch((error) => {
+            console.error(error);
+            props.reduxUpdateSnackbar('error', true, "خطا در برقراری ارتباط");
+        });
+    }
+
+    const deliveryServiceSelected =  (serviceId) => {
+        setSelectedDeliveryId(serviceId);
+        if(serviceId == 3){
+            setAvailableWorkTimes([]);
+            setTemporaryInformation(serviceId, 0);
+        }else if (serviceId == 1 || serviceId == 2){
+            getActiveDeliveryWorkTimes(serviceId);
+        }
+    }
+
+    const workTimeSelected = (workTime) => {
+        setSelectedWorkTimeDate(workTime);
+        setTemporaryInformation(selectedDeliveryId, workTime);
+    }
 
     let userDoesNotHaveAddressComponent = (
         <div className={['container']}>
@@ -139,7 +198,7 @@ const Payment = (props) => {
                 </div>
                 <div className={['col-12', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'mt-2'].join(' ')} style={{background: 'linear-gradient(270deg, #DEEEEF 0%, rgba(222, 238, 239, 0) 89.58%)', border: '1px solid #DEDEDE'}}>
                     <div className={['d-flex', 'flex-row', 'align-items-center', 'px-3', 'py-2'].join(' ')}>
-                        <img src='/assets/images/main_images/rec.png' style={{width: '14px', height: '14px'}}/>
+                        <img src='/assets/images/main_images/rec_main_full.png' style={{width: '14px', height: '14px'}}/>
                         <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px'}}>ارسال به این آدرس</p>
                     </div>
                     <a href='https://honari.com/user/edit-address' className={['d-flex', 'flex-row', 'align-items-center', 'px-3', 'py-2'].join(' ')}>
@@ -213,7 +272,7 @@ const Payment = (props) => {
             <div className={['row', 'mt-4', 'mx-1'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')}>
                     <img src='/assets/images/main_images/delivery_time.png' style={{width: '16px', height: '16px'}}/>
-                    <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', fontWeight: '500', color: '500'}}>شیوه و زمان ارسال</h6>
+                    <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', fontWeight: '500', color: '500'}}>شیوه ارسال</h6>
                 </div>
             </div>
             <div className={['row', 'mt-2', 'rtl', 'mx-1'].join(' ')}>
@@ -228,15 +287,18 @@ const Payment = (props) => {
                             price = null;
                         }else if(option.discountedPrice < option.price){
                             price = null;
+                        }else if(option.discountedPrice == option.price){
+                            discountedPrice = null;
+                            previousPrice = null;
                         }
                         let backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: 'white'};
-                        if(counter === selectedDeliverOption){
+                        if(option.id === selectedDeliveryId){
                             backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: '#F2F2F2'};
                         }
                         return( 
-                            <div key={counter} className={['col-12', 'col-md-6', 'p-3', 'd-flex', 'flex-row', 'align-items-center', 'justify-cotent-right', 'pointer'].join(' ')} style={backgroundStyle} onClick={() => {setSelectedDeliveryOption(counter);}}>
+                            <div key={counter} className={['col-12', 'col-md-6', 'p-3', 'd-flex', 'flex-row', 'align-items-center', 'justify-cotent-right', 'pointer'].join(' ')} style={backgroundStyle} onClick={() => {deliveryServiceSelected(option.id);}}>
                                 {
-                                    selectedDeliverOption === counter
+                                    selectedDeliveryId === option.id
                                     ?
                                     <img src='/assets/images/main_images/rec_main_full.png' style={{width: '18px', height: '18px'}} />
                                     :
@@ -256,6 +318,47 @@ const Payment = (props) => {
                     })
                 }
             </div>
+            {
+                availableWorkTimes.length !== 0
+                ?
+                (
+                    <React.Fragment>
+                        <div className={['row', 'mt-4', 'mx-1'].join(' ')}>
+                            <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')}>
+                                <img src='/assets/images/main_images/delivery_time.png' style={{width: '16px', height: '16px'}}/>
+                                <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', fontWeight: '500', color: '500'}}>زمان ارسال</h6>
+                            </div>
+                        </div>
+                        <div className={['row', 'mt-2', 'rtl', 'mx-1'].join(' ')}>
+                            {
+                                availableWorkTimes.map((workTime, counter) => {
+                                    let backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: 'white'};
+                                    if(workTime.timestamp === selectedWorkTimeDate){
+                                        backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: '#F2F2F2'};
+                                    }
+                                    return( 
+                                        <div key={counter} className={['col-12', 'col-md-4', 'p-3', 'd-flex', 'flex-row', 'align-items-center', 'justify-cotent-right', 'pointer'].join(' ')} style={backgroundStyle} onClick={() => {workTimeSelected(workTime.timestamp);}}>
+                                            {
+                                                selectedWorkTimeDate === workTime.timestamp
+                                                ?
+                                                <img src='/assets/images/main_images/rec_main_full.png' style={{width: '18px', height: '18px'}} />
+                                                :
+                                                <img src='/assets/images/main_images/rec_black_empty.png' style={{width: '18px', height: '18px'}} />
+                                            }
+                                            <div className={['d-flex', 'flex-column', 'justify-content-right', 'pr-3'].join(' ')}>
+                                                <h6 className={['text-right', 'rtl', 'mb-2'].join(' ')}>{workTime.day + "  " + workTime.label}</h6>
+                                                <h6 className={['text-right', 'rtl', 'mb-0'].join(' ')}>{workTime.date}</h6>
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                            }
+                        </div>
+                    </React.Fragment>
+                )
+                :
+                null
+            }
         </div>
     );
 
@@ -329,7 +432,8 @@ const mapDispatchToProps = (dispatch) => {
         reduxDecreaseCountByOne: (d) => dispatch({type: actionTypes.DECREASE_COUNT_BY_ONE, productId: d}),
         reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productId: d}),
         reduxWipeCart: () => dispatch({type: actionTypes.WIPE_CART}),
-        reduxUpdateUserTotally: (d) => dispatch({type: actionTypes.UPDATE_USER_TOTALLY, data: d})
+        reduxUpdateUserTotally: (d) => dispatch({type: actionTypes.UPDATE_USER_TOTALLY, data: d}),
+        reduxUpdateSnackbar: (k,s,t) => dispatch({type: actionTypes.UPDATE_SNACKBAR, kind: k, show: s, title: t})
     }
 }
 
@@ -361,7 +465,7 @@ export async function getServerSideProps(context){
                     ssrCookies: context.req.cookies
                 },
                 redirect: {
-                    destination: '/'
+                    destination: 'https://honari.com/user?site=shop&callBack=%2F'
                 }
             }
         }
@@ -374,7 +478,7 @@ export async function getServerSideProps(context){
                 ssrCookies: context.req.cookies
             },
             redirect: {
-                destination: '/'
+                destination: 'https://honari.com/user?site=shop&callBack=%2F'
             }
         };
     }

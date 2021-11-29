@@ -28,6 +28,9 @@
     font-size: 14px;
     text-align: center;
 }
+.desktopHeaderAcademyButton:hover{
+    color: white;
+}
 
 .desktopHeaderParentMenu{
     height: 24px;

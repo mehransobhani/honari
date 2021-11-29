@@ -7,7 +7,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { makeStyles } from '@material-ui/core/styles';
 import QuickView from '../QickView/QuickView';
-import { PortraitSharp } from '@material-ui/icons';
+import { LocalConvenienceStoreOutlined, PortraitSharp } from '@material-ui/icons';
 import axios from 'axios';
 import * as Constants from '../constants';
 import {connect} from 'react-redux';
@@ -74,7 +74,7 @@ const ProductCard = (props) => {
                     let response = res.data;
                     if(response.status === 'done'){
                         let info = response.information;
-                        props.reduxAddToCart({
+                        /*props.reduxAddToCart({
                             productId: info.productId,
                             name: info.productName,
                             categoryId: info.categoryId,
@@ -88,6 +88,21 @@ const ProductCard = (props) => {
                             price: info.productPrice,
                             discountedPrice: info.discountedPrice,
                             discountPercent: info.discountPercent
+                        });*/
+                        props.reduxAddToCart({
+                            productId: props.information.productId,
+                            name: props.information.productName,
+                            categoryId: props.information.categoryId,
+                            prodID: props.information.prodID,
+                            url: props.information.productUrl,
+                            count: props.information.productCount,
+                            unitCount: props.information.productUnitCount,
+                            unitName: props.information.productUnitName,
+                            label: props.information.productLabel,
+                            basePrice: props.information.productBasePrice,
+                            price: props.information.productPrice,
+                            discountedPrice: props.information.discountedPrice,
+                            discountPercent: props.information.discountPercent 
                         });
                         setProductExistInCart(true);
                     }else if(response.status === 'failed'){
@@ -115,7 +130,7 @@ const ProductCard = (props) => {
                         newItem.count = 1;
                         cart.push(newItem);
                         localStorage.setItem('user_cart', JSON.stringify(cart));
-                        props.reduxAddToCart({
+                        /*props.reduxAddToCart({
                             productId: info.productId,
                             name: info.productName,
                             categoryId: info.categoryId,
@@ -129,6 +144,21 @@ const ProductCard = (props) => {
                             price: info.productPrice,
                             discountedPrice: info.discountedPrice,
                             discountPercent: info.discountPercent
+                        });*/
+                        props.reduxAddToCart({
+                            productId: props.information.productId,
+                            name: props.information.productName,
+                            categoryId: props.information.categoryId,
+                            prodID: props.information.prodID,
+                            url: props.information.productUrl,
+                            count: 1,
+                            unitCount: props.information.productUnitCount,
+                            unitName: props.information.productUnitName,
+                            label: props.information.productLabel,
+                            basePrice: props.information.productBasePrice,
+                            price: props.information.productPrice,
+                            discountedPrice: props.information.discountedPrice,
+                            discountPercent: props.information.discountPercent
                         });
                         setProductExistInCart(true);
                     }else if(response.status === 'failed'){
@@ -187,7 +217,7 @@ const ProductCard = (props) => {
         <div className={['col-6', 'col-md-3', 'p-2'].join(' ')}>
             <div className={['d-flex', 'flex-column'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede', height: '100%'}} >
                 <div style={{position: 'relative'}}>
-                    <img src={'https://honari.com/image/resizeTest/shop/_600x/thumb_' + props.information.prodID + '.jpg'} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
+                    <img src={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + props.information.prodID + '.jpg'} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
                 </div>
                 <div className={['p-3', 'text-right', 'rtl'].join(' ')}>
                     <Link href={'/' + props.information.productUrl}><a><h6 className={['font-weight-bold', 'text-right', 'rtl', 'mb-3'].join(' ')}>{props.information.productName}</h6></a></Link>
@@ -195,19 +225,19 @@ const ProductCard = (props) => {
                         props.information.productPrice != -1 ?
                         props.information.productPrice != props.information.discountedPrice ?
                         props.information.discountedPrice == 0 ?
-                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')}>
+                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'align-self-end'].join(' ')}>
                             <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0', 'p-1', 'text-muted'].join(' ')} style={{borderRadius: '4px', backgroundColor: '#f2f2f2', fontSize: '14px'}}><del>{props.information.productPrice.toLocaleString()}</del></h6>
                             <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0', 'mr-1'].join(' ')}>رایگان</h6>
                         </div>
                         :
-                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')}>
+                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'align-self-end'].join(' ')}>
                             <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0', 'p-1', 'text-muted'].join(' ')} style={{borderRadius: '4px', backgroundColor: '#f2f2f2', fontSize: '14px'}}><del>{props.information.productPrice.toLocaleString()}</del></h6>
                             <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0', 'mr-1'].join(' ')}>{props.information.discountedPrice.toLocaleString() + ' تومان '}</h6>
                         </div>
                         :
-                        <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0'].join(' ')}>{props.information.productPrice.toLocaleString() + ' تومان '}</h6>        
+                        <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0', 'align-self-end'].join(' ')}>{props.information.productPrice.toLocaleString() + ' تومان '}</h6>        
                         :
-                        <span className={['text-right', 'rtl', 'mb-0', 'px-2'].join(' ')} style={{backgroundColor: 'white', color: 'white', borderRadius: '4px'}}>ناموجود</span>
+                        <span className={['text-right', 'rtl', 'mb-0', 'px-2', 'align-self-end'].join(' ')} style={{backgroundColor: 'white', color: 'white', borderRadius: '4px'}}>ناموجود</span>
                     }
                 </div>
                 {

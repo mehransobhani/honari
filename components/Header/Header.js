@@ -50,7 +50,7 @@ function BigHeader(props){
     const [windowWidth, setWindowWidth] = useState(0);
 
     useEffect(() => {
-        setWindowWidth(window.innerWidth);
+        setWindowWidth(window.outerWidth);
     }, []);
 
     const handleChange = (panel) => (event, isExpanded) => {
@@ -657,72 +657,86 @@ function BigHeader(props){
 
     const DesktopCart = (
         <div className={['container-fluid', 'shadow-sm', 'rounded-sm', 'pr-2', 'pl-3'].join(' ')} style={{width: '500px', backgroundColor: 'white', position: 'absolute', left: '0.7rem', top: '32px', zIndex: '600'}}>
-            <div className={['row', 'mt-2', 'pr-3', 'pl-1'].join(' ')}>
-                <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')} style={{background: '#B3FFFE', borderRadius: '4px'}}>
-                    <div style={{flex: getFreeDeliveryFlexNumber(), background: '#00BAC6', height: '14px', borderRadius: '4px'}}></div>
-                </div>
-                {getDeliveryPriceText()}
-            </div>
-            <div className={['row'].join(' ')} style={{overflow: 'scroll', maxHeight: '250px'}}>
-                <div className={['col-12', 'mx-0', 'px-1'].join(' ')}>
-                    {
-                        props.reduxCart.information.map((item, counter) => {
-                            return(
-                                <div key={counter} className={['rtl', 'd-flex', 'flex-row', 'py-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                                    <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '60px', height: '60px', borderRadius: '2px'}} />
-                                    <div className={['d-flex', 'flex-column'].join(' ')} style={{flex: '1'}}>
-                                        <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
-                                            <img src='/assets/images/main_images/bin_red.png' style={{width: '16px', height: '16px'}} onClick={() => {removeProductFromCart(counter)}} />
-                                            <p className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '14px', color: "#444444", flex: '1'}}>{item.name}</p>
-                                        </div>
-                                        <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between', 'align-items-center'].join(' ')} style={{marginTop: 'auto'}}>
-                                            <div className={['d-flex', 'flex-row', 'ltr', 'align-items-center'].join(' ')}>
-                                                <img src='/assets/images/main_images/minus_gray_circle.png' style={{width: '18px', height: '18px'}} onClick={() => {decreaseProductCountByOne(counter)}}/>
-                                                <span className={['px-1', 'mb-0'].join(' ')} style={{fontSize: '16px', color: '#444444'}}>{item.count}</span>
-                                                <img src='/assets/images/main_images/plus_gray_circle.png' style={{width: '18px', height: '18px'}} onClick={() => {increaseProductCountByOne(counter)}}/>
-                                            </div>
-                                            <div className={['d-flex', 'flex-row', 'text-right', 'rtl'].join(' ')} style={{flex: '1'}}>
-                                                {
-                                                    item.price !== item.discountedPrice
-                                                    ?
-                                                    (
-                                                        <React.Fragment>
-                                                            <p className={['mb-0', 'rtl', 'mr-1', 'rtl'].join(' ')} style={{fontSize: '13px', color: '#444444'}}><del className={['px-1'].join(' ')} style={{color: 'gray'}}>{(item.price * item.count).toLocaleString()}</del></p>
-                                                            <p className={['mb-0', 'rtl', 'mr-1', 'rtl'].join(' ')} style={{fontSize: '13px', color: '#00BAC6'}}>{(item.discountedPrice * item.count).toLocaleString() + " تومان"}</p>
-                                                        </React.Fragment>
-                                                    )
-                                                    :
-                                                    (
-                                                        <p className={['mb-0', 'rtl', 'mr-1'].join(' ')} style={{fontSize: '13px', color: '#444444'}}>{(item.price * item.count).toLocaleString() + " تومان"}</p>
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })
-                    } 
-                </div>
-            </div>
-            <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'text-right', 'mt-1', 'pr-3', 'pl-2'].join(' ')}>
-                <p className={['mb-0'].join(' ')} style={{fontSize: '13px', color: '#444444'}}> مبلغ قابل پرداخت : </p>
-                {
-                sumOfCartDiscountedPrices() !== sumOfCartPrices()
-                ?
-                (
+            {
+                props.reduxCart.information.length !== 0 ? (
                     <React.Fragment>
-                        <p className={['mb-0', 'rtl'].join(' ')}><del style={{color: 'gray'}}>{sumOfCartPrices().toLocaleString()}</del></p>
-                        <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString() + " تومان "}</p>
+                        <div className={['row', 'mt-2', 'pr-3', 'pl-1'].join(' ')}>
+                            <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')} style={{background: '#B3FFFE', borderRadius: '4px'}}>
+                                <div style={{flex: getFreeDeliveryFlexNumber(), background: '#00BAC6', height: '14px', borderRadius: '4px'}}></div>
+                            </div>
+                            {getDeliveryPriceText()}
+                        </div>
+                        <div className={['row'].join(' ')} style={{overflow: 'scroll', maxHeight: '250px'}}>
+                            <div className={['col-12', 'mx-0', 'px-1'].join(' ')}>
+                                {
+                                    props.reduxCart.information.map((item, counter) => {
+                                        return(
+                                            <div key={counter} className={['rtl', 'd-flex', 'flex-row', 'py-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                                                <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '60px', height: '60px', borderRadius: '2px'}} />
+                                                <div className={['d-flex', 'flex-column'].join(' ')} style={{flex: '1'}}>
+                                                    <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
+                                                        <img src='/assets/images/main_images/bin_red.png' style={{width: '16px', height: '16px'}} onClick={() => {removeProductFromCart(counter)}} />
+                                                        <Link href={"/" + item.url}><a className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '14px', color: "#444444", flex: '1'}}>{item.name}</a></Link>
+                                                    </div>
+                                                    <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between', 'align-items-center'].join(' ')} style={{marginTop: 'auto'}}>
+                                                        <div className={['d-flex', 'flex-row', 'ltr', 'align-items-center'].join(' ')}>
+                                                            <img src='/assets/images/main_images/minus_gray_circle.png' style={{width: '18px', height: '18px'}} onClick={() => {decreaseProductCountByOne(counter)}}/>
+                                                            <span className={['px-1', 'mb-0'].join(' ')} style={{fontSize: '16px', color: '#444444'}}>{item.count}</span>
+                                                            <img src='/assets/images/main_images/plus_gray_circle.png' style={{width: '18px', height: '18px'}} onClick={() => {increaseProductCountByOne(counter)}}/>
+                                                        </div>
+                                                        <div className={['d-flex', 'flex-row', 'text-right', 'rtl'].join(' ')} style={{flex: '1'}}>
+                                                            {
+                                                                item.price !== item.discountedPrice
+                                                                ?
+                                                                (
+                                                                    <React.Fragment>
+                                                                        <p className={['mb-0', 'rtl', 'mr-1', 'rtl'].join(' ')} style={{fontSize: '13px', color: '#444444'}}><del className={['px-1'].join(' ')} style={{color: 'gray'}}>{(item.price * item.count).toLocaleString()}</del></p>
+                                                                        <p className={['mb-0', 'rtl', 'mr-1', 'rtl'].join(' ')} style={{fontSize: '13px', color: '#00BAC6'}}>{(item.discountedPrice * item.count).toLocaleString() + " تومان"}</p>
+                                                                    </React.Fragment>
+                                                                )
+                                                                :
+                                                                (
+                                                                    <p className={['mb-0', 'rtl', 'mr-1'].join(' ')} style={{fontSize: '13px', color: '#444444'}}>{(item.price * item.count).toLocaleString() + " تومان"}</p>
+                                                                )
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+                                } 
+                            </div>
+                        </div>
+                        <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'text-right', 'mt-1', 'pr-3', 'pl-2'].join(' ')}>
+                            <p className={['mb-0'].join(' ')} style={{fontSize: '13px', color: '#444444'}}> مبلغ قابل پرداخت : </p>
+                            {
+                            sumOfCartDiscountedPrices() !== sumOfCartPrices()
+                            ?
+                            (
+                                <React.Fragment>
+                                    <p className={['mb-0', 'rtl'].join(' ')}><del style={{color: 'gray'}}>{sumOfCartPrices().toLocaleString()}</del></p>
+                                    <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString() + " تومان "}</p>
+                                </React.Fragment>
+                            )  
+                            :
+                            (
+                                <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString()}</p>
+                            )
+                            }
+                            <Link href='/cart/shoppingCart' ><a onClick={()=>{props.reduxStartLoading()}} className={['col-12', 'py-1', 'text-center', 'mb-1', 'mt-2'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: '#00BAC6', border: 'none', borderRadius: '2px', outline: 'none'}}>تکمیل فرآیند خرید</a></Link>
+                        </div>
                     </React.Fragment>
-                )  
+                )
                 :
                 (
-                    <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString()}</p>
+                    <div className={['d-flex', 'flex-column', 'align-items-center', 'justify-content-center', 'py-3'].join(' ')}>
+                        <img src='/assets/images/main_images/cart.png' style=   {{width: '60px', height: '60px'}}/>
+                        <p className={['rtl', 'text-center', 'mb-0', 'mt-2'].join(" ")}>سبدخرید شما خالی است</p>
+                    </div>
                 )
-                }
-                <Link href='/cart/shoppingCart' ><a className={['col-12', 'py-1', 'text-center', 'mb-1', 'mt-2'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: '#00BAC6', border: 'none', borderRadius: '2px', outline: 'none'}}>تکمیل فرآیند خرید</a></Link>
-            </div>                   
+            }
+                               
         </div>
     );
 
@@ -731,75 +745,90 @@ function BigHeader(props){
             <div className={['d-flex', 'flex-row', 'text-right', 'justify-content-right', 'align-items-center', 'rtl', 'px-3', 'pt-2', 'pb-1'].join(' ')} style={{position: 'sticky'}}>
                 <img src='/assets/images/main_images/cross_red.png' style={{width: '22px', height: '22px'}} onClick={toggleCartDrawer('left', false)} />
             </div>
-            <div className={['container'].join(' ')}>
-                <div className={['row', 'mt-2', 'px-3'].join(' ')}>
-                    <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')} style={{background: '#B3FFFE', borderRadius: '4px'}}>
-                        <div style={{flex: getFreeDeliveryFlexNumber(), background: '#00BAC6', height: '14px', borderRadius: '4px'}}></div>
-                    </div>
-                    {getDeliveryPriceText()}
-                </div>
-            </div>
-            <div className={['row'].join(' ')} style={{overflow: 'scroll', maxHeight: '250px'}}>
-                <div className={['col-12', 'pr-3', 'pl-4'].join(' ')}>
-                    {
-                        props.reduxCart.information.map((item, counter) => {
-                            return(
-                                <div key={counter} className={['rtl', 'd-flex', 'flex-row', 'py-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                                    <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '60px', height: '60px', borderRadius: '2px'}} />
-                                    <div className={['d-flex', 'flex-column', 'pl-1'].join(' ')} style={{flex: '1'}}>
-                                        <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
-                                            <img src='/assets/images/main_images/bin_red.png' style={{width: '16px', height: '16px'}} onClick={() => {removeProductFromCart(counter)}} />
-                                            <p className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '14px', color: "#444444", flex: '1'}}>{item.name}</p>
-                                        </div>
-                                        <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between', 'align-items-center'].join(' ')} style={{marginTop: 'auto'}}>
-                                            <div className={['d-flex', 'flex-row', 'ltr', 'align-items-center'].join(' ')}>
-                                                <img src='/assets/images/main_images/minus_gray_circle.png' style={{width: '18px', height: '18px'}} onClick={() => {decreaseProductCountByOne(counter)}}/>
-                                                <span className={['px-1', 'mb-0'].join(' ')} style={{fontSize: '16px', color: '#444444'}}>{item.count}</span>
-                                                <img src='/assets/images/main_images/plus_gray_circle.png' style={{width: '18px', height: '18px'}} onClick={() => {increaseProductCountByOne(counter)}}/>
-                                            </div>
-                                            <div className={['d-flex', 'flex-row', 'text-right', 'rtl'].join(' ')} style={{flex: '1'}}>
-                                                {
-                                                    item.price !== item.discountedPrice
-                                                    ?
-                                                    (
-                                                        <React.Fragment>
-                                                            <p className={['mb-0', 'rtl', 'mr-1', 'rtl'].join(' ')} style={{fontSize: '13px', color: '#444444'}}><del className={['px-1'].join(' ')} style={{color: 'gray'}}>{(item.price * item.count).toLocaleString()}</del></p>
-                                                            <p className={['mb-0', 'rtl', 'mr-1', 'rtl'].join(' ')} style={{fontSize: '13px', color: '#00BAC6'}}>{(item.discountedPrice * item.count).toLocaleString() + " تومان"}</p>
-                                                        </React.Fragment>
-                                                    )
-                                                    :
-                                                    (
-                                                        <p className={['mb-0', 'rtl', 'mr-1'].join(' ')} style={{fontSize: '13px', color: '#444444'}}>{(item.price * item.count).toLocaleString() + " تومان"}</p>
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })
-                    } 
-                </div>
-            </div>
-            <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'text-right', 'mt-1', 'mr-3', 'ml-3'].join(' ')}>
-                <p className={['mb-0'].join(' ')} style={{fontSize: '13px', color: '#444444'}}> مبلغ قابل پرداخت : </p>
-                {
-                sumOfCartDiscountedPrices() !== sumOfCartPrices()
+            {
+                props.reduxCart.information.length !== 0
                 ?
                 (
                     <React.Fragment>
-                        <p className={['mb-0', 'rtl'].join(' ')}><del style={{color: 'gray'}}>{sumOfCartPrices().toLocaleString()}</del></p>
-                        <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString() + " تومان "}</p>
+                        <div className={['container'].join(' ')}>
+                            <div className={['row', 'mt-2', 'px-3'].join(' ')}>
+                                <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')} style={{background: '#B3FFFE', borderRadius: '4px'}}>
+                                    <div style={{flex: getFreeDeliveryFlexNumber(), background: '#00BAC6', height: '14px', borderRadius: '4px'}}></div>
+                                </div>
+                                {getDeliveryPriceText()}
+                            </div>
+                        </div>
+                        <div className={['row'].join(' ')} style={{overflow: 'scroll', maxHeight: '250px'}}>
+                            <div className={['col-12', 'pr-3', 'pl-4'].join(' ')}>
+                                {
+                                    props.reduxCart.information.map((item, counter) => {
+                                        return(
+                                            <div key={counter} className={['rtl', 'd-flex', 'flex-row', 'py-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                                                <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '60px', height: '60px', borderRadius: '2px'}} />
+                                                <div className={['d-flex', 'flex-column', 'pl-1'].join(' ')} style={{flex: '1'}}>
+                                                    <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
+                                                        <img src='/assets/images/main_images/bin_red.png' style={{width: '16px', height: '16px'}} onClick={() => {removeProductFromCart(counter)}} />
+                                                        <Link href={"/" + item.url}><a className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '14px', color: "#444444", flex: '1'}}>{item.name}</a></Link>
+                                                    </div>
+                                                    <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between', 'align-items-center'].join(' ')} style={{marginTop: 'auto'}}>
+                                                        <div className={['d-flex', 'flex-row', 'ltr', 'align-items-center'].join(' ')}>
+                                                            <img src='/assets/images/main_images/minus_gray_circle.png' style={{width: '18px', height: '18px'}} onClick={() => {decreaseProductCountByOne(counter)}}/>
+                                                            <span className={['px-1', 'mb-0'].join(' ')} style={{fontSize: '16px', color: '#444444'}}>{item.count}</span>
+                                                            <img src='/assets/images/main_images/plus_gray_circle.png' style={{width: '18px', height: '18px'}} onClick={() => {increaseProductCountByOne(counter)}}/>
+                                                        </div>
+                                                        <div className={['d-flex', 'flex-row', 'text-right', 'rtl'].join(' ')} style={{flex: '1'}}>
+                                                            {
+                                                                item.price !== item.discountedPrice
+                                                                ?
+                                                                (
+                                                                    <React.Fragment>
+                                                                        <p className={['mb-0', 'rtl', 'mr-1', 'rtl'].join(' ')} style={{fontSize: '13px', color: '#444444'}}><del className={['px-1'].join(' ')} style={{color: 'gray'}}>{(item.price * item.count).toLocaleString()}</del></p>
+                                                                        <p className={['mb-0', 'rtl', 'mr-1', 'rtl'].join(' ')} style={{fontSize: '13px', color: '#00BAC6'}}>{(item.discountedPrice * item.count).toLocaleString() + " تومان"}</p>
+                                                                    </React.Fragment>
+                                                                )
+                                                                :
+                                                                (
+                                                                    <p className={['mb-0', 'rtl', 'mr-1'].join(' ')} style={{fontSize: '13px', color: '#444444'}}>{(item.price * item.count).toLocaleString() + " تومان"}</p>
+                                                                )
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+                                } 
+                            </div>
+                        </div>
+                        <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'text-right', 'mt-1', 'mr-3', 'ml-3'].join(' ')}>
+                            <p className={['mb-0'].join(' ')} style={{fontSize: '13px', color: '#444444'}}> مبلغ قابل پرداخت : </p>
+                            {
+                            sumOfCartDiscountedPrices() !== sumOfCartPrices()
+                            ?
+                            (
+                                <React.Fragment>
+                                    <p className={['mb-0', 'rtl'].join(' ')}><del style={{color: 'gray'}}>{sumOfCartPrices().toLocaleString()}</del></p>
+                                    <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString() + " تومان "}</p>
+                                </React.Fragment>
+                            )  
+                            :
+                            (
+                                <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString()}</p>
+                            )
+                            }
+                            <Link href='/cart/shoppingCart' ><a onClick={() => {props.reduxStartLoading()}} className={['col-12', 'py-1', 'text-center', 'mb-1', 'mt-2'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: '#00BAC6', border: 'none', borderRadius: '2px', outline: 'none'}}>تکمیل فرآیند خرید</a></Link>
+                            <button onClick={toggleCartDrawer('left', false)} className={['col-12', 'py-1', 'text-center', 'mb-1', 'mt-2', 'pointer'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: 'white', border: 'none', borderRadius: '2px', outline: 'none', color: 'red', borderRadius: '2px', border: '1px solid red'}}>بستن</button>
+                        </div> 
                     </React.Fragment>
-                )  
+                )
                 :
                 (
-                    <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString()}</p>
+                    <div className={['d-flex', 'flex-column', 'align-items-center', 'justify-content-center', 'py-3'].join(' ')}>
+                        <img src='/assets/images/main_images/cart.png' style=   {{width: '60px', height: '60px'}}/>
+                        <p className={['rtl', 'text-center', 'mb-0', 'mt-2'].join(" ")}>سبدخرید شما خالی است</p>
+                    </div> 
                 )
-                }
-                <Link href='/cart/shoppingCart' ><a className={['col-12', 'py-1', 'text-center', 'mb-1', 'mt-2'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: '#00BAC6', border: 'none', borderRadius: '2px', outline: 'none'}}>تکمیل فرآیند خرید</a></Link>
-                <button onClick={toggleCartDrawer('left', false)} className={['col-12', 'py-1', 'text-center', 'mb-1', 'mt-2', 'pointer'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: 'white', border: 'none', borderRadius: '2px', outline: 'none', color: 'red', borderRadius: '2px', border: '1px solid red'}}>بستن</button>
-            </div> 
+            }
         </div>
     );
 
@@ -851,9 +880,9 @@ function BigHeader(props){
         return (
             <div className={['']} style={{minWidth: '270px', overflowX: 'hidden'}}>
                 <div className={['d-flex', 'flex-row', 'rtl'].join(' ')} style={{background: '#E0F6F2', padding: '10px'}}>
-                    <img src='/assets/images/main_images/honari.png' style={{width: '36px', height: '36px'}} />
+                    <Link href={'/'}><img src='/assets/images/main_images/honari.png' style={{width: '36px', height: '36px'}} /></Link>
                     <div className={['d-flex', 'flex-column', 'rtl'].join(' ')}>
-                        <h2 className={['mr-2', 'mb-0', 'text-right'].join(' ')} style={{color: '#00BAC6', fontSize: '20px', fontWeight: '500'}}>هنری</h2>
+                        <Link href={'/'}><h2 className={['mr-2', 'mb-0', 'text-right'].join(' ')} style={{color: '#00BAC6', fontSize: '20px', fontWeight: '500'}}>هنری</h2></Link>
                         <h4 className={['mr-2', 'mb-0', 'text-right'].join(' ')} style={{color: '#949494', fontSize: '10px'}}>آموزش، الگو، مواداولیه</h4>
                     </div>
                 </div>
@@ -935,9 +964,9 @@ function BigHeader(props){
                     {
                         subMenus.map((sm, counter) => {
                             return(
-                                <li key={counter} className={['col-3', 'd-flex', 'flex-row', 'align-items-center', 'pointer', 'mt-2', styles.dropdownItem].join(' ')}>
+                                <Link key={counter} href={sm.url.substr(18)}><li className={['col-3', 'd-flex', 'flex-row', 'align-items-center', 'pointer', 'mt-2', styles.dropdownItem].join(' ')}>
                                     {sm.name}
-                                </li>
+                                </li></Link>
                             );
                         })
                     }
@@ -1039,15 +1068,15 @@ function BigHeader(props){
                 <div className={['row', 'pt-2', 'mb-0', 'pb-2', 'px-1'].join(' ')} style={{direction: 'rtl'}}>
                     <div className={['col-3', 'col-lg-7', 'rtl', 'text-right', 'd-flex', 'flex-row', 'pr-0', 'pr-lg-1', 'align-items-center', 'justify-content-lg-between'].join(' ')}>
                         <div className={['d-flex', 'flex-row', 'rtl'].join(' ')}>
-                            <img src='/assets/images/main_images/honari.png' className={['pointer', 'd-none', 'd-lg-block'].join(' ')} style={{width: '60px'}} />
+                            <Link href={'/'}><img src='/assets/images/main_images/honari.png' className={['pointer', 'd-none', 'd-lg-block'].join(' ')} style={{width: '60px'}} /></Link>
                             <div className={['pr-1', 'flex-column', 'align-items-center', 'd-none', 'd-lg-flex'].join(' ')}>
-                                <h1 className={['pr-1', 'align-self-start', 'm-0'].join(' ')} style={{fontSize: '24px', color: '#00bac6'}}>هنری</h1>
+                                <Link href={'/'}><h1 className={['pr-1', 'align-self-start', 'm-0', 'pointer'].join(' ')} style={{fontSize: '24px', color: '#00bac6'}}>هنری</h1></Link>
                                 <p className={['pr-1', 'align-self-end', 'mb-0', 'mt-2'].join(' ')}>آموزش، الگو، مواداولیه</p>
                             </div>
                         </div>
                         <form className={['rounded-sm', 'd-none', 'd-lg-flex', 'flex-row', 'rtl'].join(' ')}>
                             <button className={['p-2'].join(' ')} style={{borderRadius: '0 4px 4px 0', border: 'none', backgroundColor: '#00bac6', width: '40px'}}><img src='/assets/images/main_images/search_white.png' style={{width: '100%', padding: '2px'}}/></button>
-                            <input type='text' placeholder='عبارت مورد نظر را جستجو کنید' className={['pr-2'].join(' ')} style={{fontSize: '14px', height: '40px', width: '340px', outline: 'none', outlineOffset: 'none', border: '1px solid #C4C4C4', borderRadius: '4px 0 0 4px'}} />
+                            <input type='text' placeholder='عبارت مورد نظر را جستجو کنید' className={['pr-2'].join(' ')} style={{fontSize: '14px', height: '42px', width: '340px', outline: 'none', outlineOffset: 'none', border: '1px solid #C4C4C4', borderRadius: '4px 0 0 4px'}} />
                         </form>
                         {
                                 props.home != true 
@@ -1158,13 +1187,13 @@ function BigHeader(props){
                                 {
                                     menu.map((item, counter)=>{
                                         if(counter < 10){
-                                            return <li className={[styles.desktopHeaderParentMenu, 'list-group-item', 'pointer', 'm-0', 'text-center', 'rounded-0','pr-2', 'pl-2', 'mt-0', setActived(selectedMenu)].join(' ')} style={{height: '100%'}}  onMouseEnter={()=>{setHover({status: true, number: counter, title: 'tile'})}} onMouseLeave={()=>{setHover({status: false, number: counter, title: hover.title})}}>{item.parentName}</li>
+                                            return <Link href={item.parentUrl.substr(18)}><a><li className={[styles.desktopHeaderParentMenu, 'list-group-item', 'pointer', 'm-0', 'text-center', 'rounded-0','pr-2', 'pl-2', 'mt-0', setActived(selectedMenu)].join(' ')} style={{height: '100%'}}  onMouseEnter={()=>{setHover({status: true, number: counter, title: 'tile'})}} onMouseLeave={()=>{setHover({status: false, number: counter, title: hover.title})}}>{item.parentName}</li></a></Link>
                                         }
                                     })
                                 }
                             </ul>
                             <div className={['text-center', 'mr-auto'].join(' ')} style={{}}>
-                                <button className={[styles.desktopHeaderAcademyButton, 'px-4'].join(' ')} onClick={() => {props.reduxUpdateSnackbar('success', true, 'اکنون نمایش دادیم')}}>هنری آکادمی</button>
+                                <a href={'https://honari.com/academy'} className={[styles.desktopHeaderAcademyButton, 'px-4', 'py-1'].join(' ')}>هنری آکادمی</a>
                             </div>
                         </div>
                     </div>

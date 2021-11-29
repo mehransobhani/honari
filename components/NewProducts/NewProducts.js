@@ -10,7 +10,7 @@ const NewProduct = (props) => {
     const [products, setProducts] = useState([]);
 
     useEffect(()=>{
-        axios.get(Constants.apiUrl + '/api/get-six-new-products').then((response)=>{
+        axios.get(Constants.apiUrl + '/api/six-new-products').then((response)=>{
           if(response.data.status === 'done'){
             console.log(response.data.products);
             setProducts(response.data.products);
@@ -47,7 +47,7 @@ const NewProduct = (props) => {
                 {
                     products.map((product, counter) => {
                             return(
-                                <NewProductCard key={counter} imageUrl={'https://honari.com/image/resizeTest/shop/_600x/thumb_' + product.prodID + '.jpg'} name={product.name} categoryName={product.categoryName} price={product.price} discountedPrice={product.price} anchor={product.url}/>
+                                <NewProductCard key={counter} information={product}/>
                             );
                     })
                 }

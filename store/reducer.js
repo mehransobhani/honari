@@ -338,7 +338,22 @@ const reducer = (state = initialState, action) => {
                     ...categoryFilter,
                     results: action.results
                 }
-            }
+            };
+        case actionTypes.WIPE_CATEGORY_FILTER:
+            return {
+                ...state,
+                categoryFilter: {
+                    id: -1,
+                    maxPrice: 0,
+                    minPrice: 0,
+                    page: 1,
+                    maxPage: 1,
+                    order: "new",
+                    key: "",
+                    options: [],
+                    results: []
+                }
+            };
         default:
             return state;
 

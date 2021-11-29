@@ -1,4 +1,4 @@
-import { CopyrightOutlined } from '@material-ui/icons';
+import { ChildFriendly, CopyrightOutlined } from '@material-ui/icons';
 import React, {useState} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -23,7 +23,7 @@ const RightMenuParentCategoryItem = (props) => {
                 showChildrenCategories == true && information.children != [] && information.children != undefined
                 ?
                     information.children.map((child, counter) => {
-                        return <Link key={counter} href={child.url}><h6 className={['text-right', 'rtl', 'pr-3', 'mt-3', 'mb-0', 'pointer'].join(' ')} style={{fontSize: '12px'}}>{child.name}</h6></Link>
+                        return <Link key={counter} href={child.url.substr(18)}><h6 className={['text-right', 'rtl', 'pr-3', 'mt-3', 'mb-0', 'pointer'].join(' ')} style={{fontSize: '12px'}}>{child.name}</h6></Link>
                     })
                 :
                     null

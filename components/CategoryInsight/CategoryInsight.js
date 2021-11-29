@@ -46,7 +46,8 @@ const CategoryInsight = (props) => {
     };
 
     useEffect(() => {
-        setWindowHeight(window.innerHeight);
+        setWindowHeight(window.outerHeight);
+        props.reduxWipeCategoryFilterTotally();
     }, []);
 
     const paginationChanged = (event, page) =>{
@@ -293,13 +294,12 @@ const CategoryInsight = (props) => {
             <div className={['row'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'pt-3', 'pb-0', 'px-3'].join(' ')}>
                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>فیلترها</h6>
-                    <img src='/assets/images/main_images/cross_black.png' style={{width: '17px', height: '17px'}}/>
+                    <img src='/assets/images/main_images/cross_black.png' onClick={filterDrawer('bottom', false)} style={{width: '17px', height: '17px'}}/>
                 </div>
             </div>
             {
                 filters.map((filter, key)=>{
                     if(filter.type === 'radio'){
-                        console.warn(filter);
                         //return <CheckboxGroup information={filter} filterUpdated={filterItemUpdated} key={key} deletedFilter={recentlyDeletedFilter} />;
                         return(
                             <div className={['rtl', 'text-right', 'py-3', 'px-1'].join(' ')} style={{borderBottom: '1px solid #D8D8D8'}}>
@@ -376,7 +376,7 @@ const CategoryInsight = (props) => {
                 </div>
                 <div className={['d-flex', 'flex-column', 'd-md-none', 'align-items-center', 'justify-content-center', 'rtl'].join(' ')}>
                     <h6 className={['mb-0', 'text-right'].join(' ')} style={{width: '100%'}}>{categoryName}</h6>
-                    <div className={['d-flex', 'flex-row', 'rtl', 'py-2', 'px-3', 'mt-3', 'align-items-center', 'justify-content-center', 'w-100', 'pointer'].join(' ')} onClick={filterDrawer('right', true)} style={{color: '#00bac6', borderRadius: '4px', border: '2px solid #00bac6'}}>
+                    <div className={['d-flex', 'flex-row', 'rtl', 'py-2', 'px-3', 'mt-3', 'align-items-center', 'justify-content-center', 'w-100', 'pointer'].join(' ')} onClick={filterDrawer('bottom', true)} style={{color: '#00bac6', borderRadius: '4px', border: '2px solid #00bac6'}}>
                         <img src='/assets/images/main_images/filter_main.png' style={{width: '17px', height: '17px'}} />
                         <span className={['mr-2', 'font-weight-bold'].join(' ')} style={{color: '#00bac6', fontSize: '14px'}}>فیلترها</span> 
                     </div>
@@ -395,7 +395,6 @@ const CategoryInsight = (props) => {
                                 {
                                     filters.map((filter, key)=>{
                                         if(filter.type === 'radio'){
-                                            console.warn(filter);
                                             //return <CheckboxGroup information={filter} filterUpdated={filterItemUpdated} key={key} deletedFilter={recentlyDeletedFilter} />;
                                             return(
                                                 <div className={['rtl', 'text-right', 'p-3'].join(' ')} style={{borderBottom: '1px solid #dedede'}}>
@@ -473,7 +472,6 @@ const CategoryInsight = (props) => {
                                 <div className={['row', 'd-flex', 'align-items-stretch', 'px-3'].join(' ')}>
                                 {
                                     props.reduxCategoryFilter.results.map((r, key)=>{
-                                        console.warn(r);
                                         return(
                                             <ProductCard information={r} key={key} />
                                         );
@@ -496,9 +494,7 @@ const CategoryInsight = (props) => {
                                         </button>
                                     </div>
                                     :
-                                    <div className={['col-12', 'mt-3'].join(' ')}>
-                                        <h5 className={['col-12', 'text-center', 'py-3', 'font-weight-bold', 'mb-0'].join(' ')} style={{backgroundColor: '#fffecc', borderRadius: '4px', border: '1px solid #c9c761', color: '#a19f47'}}>موردی یافت نشد</h5>
-                                    </div>
+                                    null
                                 }
                             </div>
                         </div>
@@ -537,7 +533,8 @@ const mapDispatchToProps = (dispatch) => {
         reduxAddToCategoryFilterOptions: (en, v) => dispatch({type: actionTypes.ADD_CATEGORY_FILTER_OPTION, en_name: en, value: v}),
         reduxRemoveFromCategoryFilterOptions: (en, v) => dispatch({type: actionTypes.REMOVE_CATEGORY_FILTER_OPTION, en_name: en, value: v}) ,
         reduxUpdateCategoryFilterResults: (r) => dispatch({type: actionTypes.UPDATE_CATEGORY_FILTER_RESULTS, results: r}),
-        reduxUpdateCategoryFilterKey: (k) => dispatch({type: actionTypes.UPDATE_CATEGORY_FILTER_KEY, key: k})
+        reduxUpdateCategoryFilterKey: (k) => dispatch({type: actionTypes.UPDATE_CATEGORY_FILTER_KEY, key: k}),
+        reduxWipeCategoryFilterTotally: () => dispatch({type: actionTypes.WIPE_CATEGORY_FILTER}) 
     }
 }
 
