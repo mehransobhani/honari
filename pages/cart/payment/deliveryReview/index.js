@@ -179,6 +179,7 @@ const DeliveryReview = (props) => {
                         });
                         newApprovedGiftCodes.push({code: giftCodeInputText, type: response.type, discountPrice: response.discountPrice});
                         setApprovedGiftCodesInformation(newApprovedGiftCodes);
+                        // I have to start warking from here by the way
                     }else{
                         props.reduxUpdateSnackbar('warning', true, 'شما یک بار این کد تخفیف را وارد کرده اید');
                     }
