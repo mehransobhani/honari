@@ -152,6 +152,7 @@ const Payment = (props) => {
             setAvailableWorkTimes([]);
             setTemporaryInformation(serviceId, 0);
         }else if (serviceId == 1 || serviceId == 2){
+            setTemporaryInformation(serviceId, 0);
             getActiveDeliveryWorkTimes(serviceId);
         }
     }
@@ -326,7 +327,7 @@ const Payment = (props) => {
                         <div className={['row', 'mt-4', 'mx-1'].join(' ')}>
                             <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')}>
                                 <img src='/assets/images/main_images/delivery_time.png' style={{width: '16px', height: '16px'}}/>
-                                <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', fontWeight: '500', color: '500'}}>زمان ارسال</h6>
+                                <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '16px', fontWeight: '500', color: '500'}}>زمان ارسال سفارشتان را از بازه‌های زیر انتخاب کنید</h6>
                             </div>
                         </div>
                         <div className={['row', 'mt-2', 'rtl', 'mx-1'].join(' ')}>
@@ -359,6 +360,22 @@ const Payment = (props) => {
                 :
                 null
             }
+            <div className={['row', 'pl-3'].join(' ')}>
+                {
+                    (selectedDeliveryId == 3 && selectedWorkTimeDate == 0) || ((selectedDeliveryId == 1 || selectedDeliveryId == 2) && selectedWorkTimeDate != 0)
+                    ?
+                    <Link href={'/cart/payment/deliveryReview'}><div onClick={() => {props.reduxStartLoading()}} className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3', 'pointer', 'ml-1'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
+                        <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>تایید و نهایی کردن خرید</h6>
+                        <img className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
+                    </div></Link>
+                    :
+                    <div onClick={() => {props.reduxUpdateSnackbar('warning', true, 'لطفا اطلاعات روش و زمان ارسال را به درستی وارد کنید')}} className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3', 'pointer', 'ml-1'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
+                        <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>تایید و نهایی کردن خرید</h6>
+                        <img className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
+                    </div>
+                }
+                
+            </div>
         </div>
     );
 
@@ -433,7 +450,9 @@ const mapDispatchToProps = (dispatch) => {
         reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productId: d}),
         reduxWipeCart: () => dispatch({type: actionTypes.WIPE_CART}),
         reduxUpdateUserTotally: (d) => dispatch({type: actionTypes.UPDATE_USER_TOTALLY, data: d}),
-        reduxUpdateSnackbar: (k,s,t) => dispatch({type: actionTypes.UPDATE_SNACKBAR, kind: k, show: s, title: t})
+        reduxUpdateSnackbar: (k,s,t) => dispatch({type: actionTypes.UPDATE_SNACKBAR, kind: k, show: s, title: t}),
+        reduxStartLoading: () => dispatch({type: actionTypes.START_LOADING}),
+        reduxStopLoading: () => dispatch({type: actionTypes.STOP_LOADING}),
     }
 }
 
