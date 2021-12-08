@@ -101,6 +101,7 @@ const reducer = (state = initialState, action) => {
             };
         case actionTypes.ADD_TO_CART :
             newCartProducts = state.cart.information;
+            console.log(action.data);
             newCartProducts.push(action.data);
             return {    
                 ...state,
@@ -112,7 +113,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.REMOVE_FROM_CART :
             newCartProducts = [];
             state.cart.information.map((item, counter) => {
-                if(item.productId !== action.productId){
+                if(item.productPackId !== action.productPackId){
                     newCartProducts.push(item);
                 }
             });
@@ -126,7 +127,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.INCREASE_COUNT_BY_ONE:
             newCartProducts = [];
             state.cart.information.map((item, counter) => {
-                if(item.productId === action.productId){
+                if(item.productPackId === action.productPackId){
                     let newItem = item;
                     newItem.count = item.count + 1;
                     newCartProducts.push(newItem);
@@ -144,7 +145,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.DECREASE_COUNT_BY_ONE:
             newCartProducts = [];
             state.cart.information.map((item, counter) => {
-                if(item.productId === action.productId){
+                if(item.productPackId === action.productPackId){
                     let newItem = item;
                     newItem.count = item.count - 1;
                     newCartProducts.push(newItem);

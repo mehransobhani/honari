@@ -27,22 +27,29 @@ const Home = (props) => {
     alert('search form submitted');
   }
 
-  const [firstBannerImageState, setFirstBannerImageState] = useState(['', '']);
-  const [secondBannerImageState, setSecondBannerImageState] = useState(['', '']);
-  const [thirdBannerImageState, setThirdBannerImageState] = useState(['', '']);
+  const [firstBannerImageState, setFirstBannerImageState] = useState(null);
+  const [secondBannerImageState, setSecondBannerImageState] = useState(null);
+  const [thirdBannerImageState, setThirdBannerImageState] = useState(null);
+  const [mainBanners, setMainBanners] = useState([]);
 
   const [sixNewProductsState, setSixNewProductsState] = useState([]);
 
   useEffect(()=>{
-    axios.get(Constants.apiUrl + '/api/get-banners').then((response)=>{
-      console.log(response);
-        if(response.data.status === 'done'){
-          setFirstBannerImageState([response.data.banners.firstImage, response.data.banners.firstAnchor]);
-          setSecondBannerImageState([response.data.banners.secondImage, response.data.banners.secondAnchor]);
-          setThirdBannerImageState([response.data.banners.thirdImage, response.data.banners.thirdAnchor]);
-        }
+    axios.get(Constants.apiUrl + '/api/top-three-home-banners').then((res)=>{
+      let response = res.data;
+      if(response.status === 'done'){
+        let banners = response.banners;
+        setMainBanners(banners)
+        //setFirstBannerImageState(banners[0]);
+        //setSecondBannerImageState(banners[1]);
+        //setThirdBannerImageState(banners[2]);
+      }else if(response.status === 'failed'){
+        console.warn(response.message);
+        props.reduxUpdateSnackbar('warning', true, response.umessage);
+      }
     }).catch((error)=>{
       console.log(error);
+      props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
     });
   }, []);
 
@@ -53,19 +60,65 @@ const Home = (props) => {
   useEffect(() => {
     props.reduxUpdateUserTotally(props.ssrUser);
     if(props.ssrUser.status === 'LOGIN'){
-        console.warn(props.ssrUser.information);
-        axios.post(Constants.apiUrl + "/api/user-cart", {},{
-            headers: {
-                'Authorization': 'Bearer ' + props.ssrCookies.user_server_token, 
+      if(localStorage.getItem('user_cart') !== '[]' && localStorage.getItem('user_cart') !== undefined && localStorage.getItem('user_cart') !== null){
+        axios.post(Constants.apiUrl + "/api/user-cart-change", {
+          cart: JSON.parse(localStorage.getItem('user_cart')),
+        }, {
+          headers: {
+            'Authorization': 'Bearer ' + props.ssrCookies.user_server_token, 
+          }
+        }).then((res) => {
+          let response = res.data;
+          if(response.status === 'done'){ 
+            let cartArray = [];
+            console.warn(response.cart);
+            if(response.cart !== '{}'){
+                response.cart.map((item, counter) => {
+                    cartArray.push({
+                        productId: item.productId,
+                        productPackId: item.productPackId,
+                        name: item.productName,
+                        categoryId: item.categoryId,
+                        prodID: item.prodID,
+                        url: item.productUrl,
+                        count: item.productCount,
+                        unitCount: item.productUnitCount,
+                        unitName: item.productUnitName,
+                        label: item.productLabel,
+                        basePrice: item.productBasePrice,
+                        price: item.productPrice,
+                        discountedPrice: item.discountedPrice,
+                        discountPercent: item.discountPercent
+                    });
+                });
+                props.reduxUpdateCart(cartArray);
+            }else{
+                props.reduxUpdateCart([]);
             }
+            localStorage.setItem('user_cart', '[]');
+          }else if(response.status === 'failed'){
+            console.warn(response.message);
+            props.reduxUpdateSnackbar('warning', true, response.umessage);
+          }
+        }).catch((error) => {
+          console.error(error);
+          props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+        });
+      }else{
+        axios.post(Constants.apiUrl + "/api/user-cart", {},{
+          headers: {
+              'Authorization': 'Bearer ' + props.ssrCookies.user_server_token, 
+          }
         }).then((res)=>{
             let response = res.data;
             if(response.status === 'done'){
                 let cartArray = [];
+                console.warn(response.cart);
                 if(response.cart !== '{}'){
                     response.cart.map((item, counter) => {
                         cartArray.push({
                             productId: item.productId,
+                            productPackId: item.productPackId,
                             name: item.productName,
                             categoryId: item.categoryId,
                             prodID: item.prodID,
@@ -92,7 +145,8 @@ const Home = (props) => {
             console.error(error);
             props.reduxUpdateCart([]);
             alert('مشکلی پیش آمده لطفا مجددا امتحان کنید');
-        });
+        }); 
+      }
     }else if(props.ssrUser.status === 'GUEST'){
         let cart = localStorage.getItem('user_cart');
         if(cart === undefined || cart === null){
@@ -108,6 +162,7 @@ const Home = (props) => {
                     response.cart.map((item, counter) => {
                         cartArray.push({
                             productId: item.productId,
+                            productPackId: item.productPackId,
                             name: item.productName,
                             categoryId: item.categoryId,
                             prodID: item.prodID,
@@ -144,15 +199,23 @@ const Home = (props) => {
             <button className={['px-3', 'pointer'].join(' ')} style={{height: '36px', borderRadius: '16px', background: '#EAEAEA', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دوره‌های آنلاین</button>
             <button className={['px-3', 'pointer'].join(' ')} style={{height: '36px', borderRadius: '16px', background: '#EAEAEA', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>راهنمای خرید</button>
         </div>
-        <div className={['row', 'rtl', 'mt-0', 'mt-md-4', 'px-md-2', 'align-items-stretch'].join(' ')} style={{}}>
-          <div className={['col-12', 'col-md-7', 'pr-0', 'pl-0', 'pl-md-2', ].join(' ')}>
-            <Link href={secondBannerImageState[1]}><img src='/assets/images/f.jpg' className={['pointer', 'shadow-sm', styles.topThreeBanners].join(' ')} style={{width: '100%', height: '100%', borderRadius: '4px'}} /></Link>
-          </div>
-          <div className={['col-12', 'col-md-5', 'pl-3', 'pr-3', 'pr-md-3', 'pl-md-0', 'd-flex', 'flex-row', 'flex-md-column'].join(' ')}>
-            <Link href={firstBannerImageState[1]}><img src='/assets/images/f.jpg' className={['pointer', 'mt-3', 'mt-md-0', 'shadow-sm', styles.topThreeBanners].join(' ')} style={{height: 'auto', width: '100%', flex: '1', borderRadius: '4px'}} /></Link>
-            <Link href={thirdBannerImageState[1]}><img src='/assets/images/f.jpg' className={['pointer', 'mt-3', 'mt-md-4', 'mr-3', 'mr-md-0', 'shadow-sm', styles.topThreeBanners].join(' ')} style={{height: 'auto', width: '100%', flex: '1', borderRadius: '4px'}} /></Link>
-          </div>
-        </div>
+        {
+          mainBanners.length !== 0
+          ?
+          (
+            <div className={['row', 'rtl', 'mt-0', 'mt-md-4', 'px-md-2', 'align-items-stretch'].join(' ')} style={{}}>
+              <div className={['col-12', 'col-md-7', 'pr-0', 'pl-0', 'pl-md-2', ].join(' ')}>
+                <Link href={mainBanners[0].anchor}><img src={mainBanners[0].img} className={['pointer', 'shadow-sm', styles.topThreeBanners].join(' ')} style={{width: '100%', height: '100%', borderRadius: '4px'}} /></Link>
+              </div>
+              <div className={['col-12', 'col-md-5', 'pl-3', 'pr-3', 'pr-md-3', 'pl-md-0', 'd-flex', 'flex-row', 'flex-md-column'].join(' ')}>
+                <Link href={mainBanners[0].anchor}><img src={mainBanners[1].img} className={['pointer', 'mt-3', 'mt-md-0', 'shadow-sm', styles.topThreeBanners].join(' ')} style={{height: 'auto', width: '100%', flex: '1', borderRadius: '4px'}} /></Link>
+                <Link href={mainBanners[0].anchor}><img src={mainBanners[2].img} className={['pointer', 'mt-3', 'mt-md-4', 'mr-3', 'mr-md-0', 'shadow-sm', styles.topThreeBanners].join(' ')} style={{height: 'auto', width: '100%', flex: '1', borderRadius: '4px'}} /></Link>
+              </div>
+            </div>
+          )
+          :
+          null
+        }
         <div className={['row', 'rtl', 'mt-3', 'mt-md-4', 'px-md-2', styles.tripleBanner].join(' ')}>
           <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-between', 'align-items-center', 'px-0', 'mx-0', 'py-2', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px'}}>
             <div className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
@@ -258,7 +321,8 @@ const mapDispatchToProps = (dispatch) => {
       reduxDecreaseCountByOne: (d) => dispatch({type: actionTypes.DECREASE_COUNT_BY_ONE, productId: d}),
       reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productId: d}),
       reduxWipeCart: () => dispatch({type: actionTypes.WIPE_CART}),
-      reduxUpdateUserTotally: (d) => dispatch({type: actionTypes.UPDATE_USER_TOTALLY, data: d})
+      reduxUpdateUserTotally: (d) => dispatch({type: actionTypes.UPDATE_USER_TOTALLY, data: d}),
+      reduxUpdateSnackbar: (k,s,t) => dispatch({type: actionTypes.UPDATE_SNACKBAR, kind: k, show: s, title: t}),
   }
 }
 

@@ -46,6 +46,7 @@ const ShoppingCart = (props) => {
                         response.cart.map((item, counter) => {
                             cartArray.push({
                                 productId: item.productId,
+                                productPackId: item.productPackId,
                                 name: item.productName,
                                 categoryId: item.categoryId,
                                 prodID: item.prodID,
@@ -88,6 +89,7 @@ const ShoppingCart = (props) => {
                         response.cart.map((item, counter) => {
                             cartArray.push({
                                 productId: item.productId,
+                                productPackId: item.productPackId,
                                 name: item.productName,
                                 categoryId: item.categoryId,
                                 prodID: item.prodID,
@@ -168,13 +170,13 @@ const ShoppingCart = (props) => {
                 }
                 setIncreaseProcessings(newIncreaseProcessings);
                 axios.post(Constants.apiUrl + '/api/guest-check-cart-changes', {
-                    productId: props.reduxCart.information[key].productId,
+                    productPackId: props.reduxCart.information[key].productPackId,
                     count: props.reduxCart.information[key].count + 1
                 }).then((res) => {
                     let response = res.data;
                     if(response.status == 'done'){
                         updateProductInLocalStorage(key, response.count);
-                        props.reduxIncreaseCountByOne(props.reduxCart.information[key].productId);
+                        props.reduxIncreaseCountByOne(props.reduxCart.information[key].productPackId);
                         let newIncreaseProcessings = [];
                         let i =0;
                         for(i=0; i < increaseProcessings.length; i++){
@@ -225,7 +227,7 @@ const ShoppingCart = (props) => {
                 }
                 setIncreaseProcessings(newIncreaseProcessings);
                 axios.post(Constants.apiUrl + '/api/user-increase-cart-by-one', {
-                    productId: props.reduxCart.information[key].productId
+                    productPackId: props.reduxCart.information[key].productPackId
                 }, {
                     headers: {
                         'Authorization': 'Bearer ' + props.ssrCookies.user_server_token, 
@@ -233,7 +235,7 @@ const ShoppingCart = (props) => {
                 }).then((res) => {
                     let response = res.data;
                     if(response.status == 'done'){
-                        props.reduxIncreaseCountByOne(props.reduxCart.information[key].productId);
+                        props.reduxIncreaseCountByOne(props.reduxCart.information[key].productPackId);
                         let newIncreaseProcessings = [];
                         let i = 0;
                         for(i; i < increaseProcessings.length; i++){
@@ -292,7 +294,7 @@ const ShoppingCart = (props) => {
                 }
                 setDecreaseProcessings(newDecreaseProcessings);
                 axios.post(Constants.apiUrl + '/api/guest-check-cart-changes', {
-                    productId: props.reduxCart.information[key].productId,
+                    productPackId: props.reduxCart.information[key].productPackId,
                     count: props.reduxCart.information[key].count - 1
                 }).then((res) => {
                     let newDecreaseProcessings = [];
@@ -308,7 +310,7 @@ const ShoppingCart = (props) => {
                     let response = res.data;
                     if(response.status == 'done'){
                         updateProductInLocalStorage(key, response.count);
-                        props.reduxDecreaseCountByOne(props.reduxCart.information[key].productId);
+                        props.reduxDecreaseCountByOne(props.reduxCart.information[key].productPackId);
                     }else if(response.status == 'failed'){
                         newCart = [];
                         i = 0;
@@ -348,7 +350,7 @@ const ShoppingCart = (props) => {
                 }
                 setDecreaseProcessings(newDecreaseProcessings);
                 axios.post(Constants.apiUrl + '/api/user-decrease-cart-by-one', {
-                    productId: props.reduxCart.information[key].productId
+                    productPackId: props.reduxCart.information[key].productPackId
                 }, {
                     headers: {
                         'Authorization': 'Bearer ' + props.ssrCookies.user_server_token, 
@@ -366,7 +368,7 @@ const ShoppingCart = (props) => {
                             }
                         }
                         setDecreaseProcessings(newDecreaseProcessings);
-                        props.reduxDecreaseCountByOne(props.reduxCart.information[key].productId);
+                        props.reduxDecreaseCountByOne(props.reduxCart.information[key].productPackId);
                     }else if(response.status === 'failed'){
                         let newDecreaseProcessings = [];
                         let i = 0;
@@ -405,12 +407,12 @@ const ShoppingCart = (props) => {
                 let localStorageCart = JSON.parse(localStorage.getItem('user_cart'));
                 let newLocalStorageCart = [];
                 localStorageCart.map((item, counter) => {
-                    if(item.id !== props.reduxCart.information[key].productId){
+                    if(item.id !== props.reduxCart.information[key].productPackId){
                         newLocalStorageCart.push(item);
                     }
                 });
                 localStorage.setItem('user_cart', JSON.stringify(newLocalStorageCart));
-                props.reduxRemoveFromCart(props.reduxCart.information[key].productId);
+                props.reduxRemoveFromCart(props.reduxCart.information[key].productPackId);
             }else if(props.reduxUser.status === 'LOGIN'){
                 let newRemoveProcessings = [];
                 let i = 0;
@@ -423,7 +425,7 @@ const ShoppingCart = (props) => {
                 }
                 setRemoveProcessings(newRemoveProcessings);
                 axios.post(Constants.apiUrl + '/api/user-remove-from-cart', {
-                    productId: props.reduxCart.information[key].productId
+                    productPackId: props.reduxCart.information[key].productPackId
                 }, {
                     headers: {
                         'Authorization': 'Bearer ' + props.ssrCookies.user_server_token, 
@@ -441,7 +443,7 @@ const ShoppingCart = (props) => {
                     setRemoveProcessings(newRemoveProcessings);
                     let response = res.data;
                     if(response.status == 'done'){
-                        props.reduxRemoveFromCart(props.reduxCart.information[key].productId);
+                        props.reduxRemoveFromCart(props.reduxCart.information[key].productPackId);
                     }else if(response.status == 'failed'){
                         console.error(response.message);
                         props.reduxUpdateSnackbar('warning', true, response.umessage);
@@ -749,9 +751,9 @@ const mapDispatchToProps = (dispatch) => {
     return{
         reduxUpdateCart: (d) => dispatch({type: actionTypes.UPDATE_CART, data: d}),
         //reduxAddToCart: (d) => dispatch({type: actionTypes.ADD_TO_CART, data: d}),
-        reduxIncreaseCountByOne: (d) => dispatch({type: actionTypes.INCREASE_COUNT_BY_ONE, productId: d}),
-        reduxDecreaseCountByOne: (d) => dispatch({type: actionTypes.DECREASE_COUNT_BY_ONE, productId: d}),
-        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productId: d}),
+        reduxIncreaseCountByOne: (d) => dispatch({type: actionTypes.INCREASE_COUNT_BY_ONE, productPackId: d}),
+        reduxDecreaseCountByOne: (d) => dispatch({type: actionTypes.DECREASE_COUNT_BY_ONE, productPackId: d}),
+        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productPackId: d}),
         reduxWipeCart: () => dispatch({type: actionTypes.WIPE_CART}),
         reduxUpdateUserTotally: (d) => dispatch({type: actionTypes.UPDATE_USER_TOTALLY, data: d}),
         reduxStopLoading: () => dispatch({type: actionTypes.STOP_LOADING}),

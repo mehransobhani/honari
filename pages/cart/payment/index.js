@@ -21,6 +21,7 @@ const Payment = (props) => {
     const [userAddressStatus, setUserAddressStatus] = useState(null);
     const [availableWorkTimes, setAvailableWorkTimes] = useState([]);
     const [selectedWorkTimeDate, setSelectedWorkTimeDate] = useState(0);
+    const [selectedWorkTimeId, setSelectedWorkTimeId] = useState(0);
 
     useEffect(() => {
         props.reduxUpdateUserTotally(props.ssrUser);
@@ -126,10 +127,11 @@ const Payment = (props) => {
         });
     }
 
-    const setTemporaryInformation = (serviceId, workTime) => {
+    const setTemporaryInformation = (serviceId, workTime, workTimeId) => {
         axios.post(Constants.apiUrl + '/api/user-set-delivery-service-temporary-information',{
             serviceId: serviceId,
             workTime: workTime,
+            workTimeId: workTimeId,
         },{
             headers: {
                 'Authorization': 'Bearer ' + cookies.user_server_token, 
@@ -150,16 +152,17 @@ const Payment = (props) => {
         setSelectedDeliveryId(serviceId);
         if(serviceId == 3){
             setAvailableWorkTimes([]);
-            setTemporaryInformation(serviceId, 0);
+            setTemporaryInformation(serviceId, 0, 0);
         }else if (serviceId == 1 || serviceId == 2){
-            setTemporaryInformation(serviceId, 0);
+            setTemporaryInformation(serviceId, 0, 0);
             getActiveDeliveryWorkTimes(serviceId);
         }
     }
 
-    const workTimeSelected = (workTime) => {
+    const workTimeSelected = (workTime, id) => {
         setSelectedWorkTimeDate(workTime);
-        setTemporaryInformation(selectedDeliveryId, workTime);
+        setSelectedWorkTimeId(id);
+        setTemporaryInformation(selectedDeliveryId, workTime, id);
     }
 
     let userDoesNotHaveAddressComponent = (
@@ -198,73 +201,73 @@ const Payment = (props) => {
                     <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', fontWeight: '500', color: '500'}}>آدرس</h6>
                 </div>
                 <div className={['col-12', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'mt-2'].join(' ')} style={{background: 'linear-gradient(270deg, #DEEEEF 0%, rgba(222, 238, 239, 0) 89.58%)', border: '1px solid #DEDEDE'}}>
-                    <div className={['d-flex', 'flex-row', 'align-items-center', 'px-3', 'py-2'].join(' ')}>
+                    <div className={['d-flex', 'flex-row', 'align-items-center', 'px-0', 'px-md-3', 'py-2'].join(' ')}>
                         <img src='/assets/images/main_images/rec_main_full.png' style={{width: '14px', height: '14px'}}/>
                         <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px'}}>ارسال به این آدرس</p>
                     </div>
-                    <a href='https://honari.com/user/edit-address' className={['d-flex', 'flex-row', 'align-items-center', 'px-3', 'py-2'].join(' ')}>
+                    <a href='https://honari.com/user/edit-address' className={['d-flex', 'flex-row', 'align-items-center', 'px-0', 'px-md-3', 'py-2'].join(' ')}>
                         <img src='/assets/images/main_images/pencil_main.png' style={{width: '14px', height: '14px'}}/>
                         <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px'}}>ویرایش</p>
                     </a>
                 </div>
                 <div className={['col-12'].join(' ')} style={{border: '1px solid #D8D8D8'}}>
-                    <div className={['d-flex', 'flex-row', 'align-items-center', 'py-2', 'rtl'].join(' ')}>
-                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-                            <p className={['mb-0'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>تحویل گیرنده :</p>
-                            <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}>{props.reduxUser.information.name}</p>
+                    <div className={['d-flex', 'flex-column', 'flex-md-row', 'align-items-center', 'justify-content-right', 'py-2', 'rtl'].join(' ')}>
+                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'w-100'].join(' ')} style={{flex: '1'}}>
+                            <p className={['mb-0', 'font14md17'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>تحویل گیرنده :</p>
+                            <p className={['mb-0', 'pr-2', 'font14md17'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}>{props.reduxUser.information.name}</p>
                         </div>
-                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-                            <p className={['mb-0'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>شماره موبایل :</p>
-                            <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}>{props.reduxUser.information.username}</p>
+                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'w-100', 'mt-2', 'mt-md-0'].join(' ')} style={{flex: '1'}}>
+                            <p className={['mb-0', 'font14md17'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>شماره موبایل :</p>
+                            <p className={['mb-0', 'pr-2', 'font14md17'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}>{props.reduxUser.information.username}</p>
                         </div>
-                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-                            <p className={['mb-0'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>تلفن ثابت :</p>
-                            <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}>{props.reduxUser.information.telephone}</p>
+                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'w-100', 'mt-2', 'mt-md-0'].join(' ')} style={{flex: '1'}}>
+                            <p className={['mb-0', 'font14md17'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>تلفن ثابت :</p>
+                            <p className={['mb-0', 'pr-2', 'font14md17'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}>{props.reduxUser.information.telephone}</p>
+                        </div>
+                    </div>
+                    <div style={{height: '1px', borderBottom: '1px dashed #D8D8D8'}}></div>
+                    <div className={['d-flex', 'flex-column', 'flex-md-row', 'align-items-center', 'py-2', 'rtl'].join(' ')}>
+                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'w-100'].join(' ')} style={{flex: '1'}}>
+                            <p className={['mb-0', 'font14md17'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>استان :</p>
+                            {
+                                userAddress !== undefined
+                                ?
+                                <p className={['mb-0', 'pr-2', 'font14md17'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}>{userAddress.province}</p>
+                                :
+                                <p className={['mb-0', 'pr-2', 'font14md17'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}></p>
+                            }
+                        </div>
+                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'w-100', 'mt-2', 'mt-md-0'].join(' ')} style={{flex: '1'}}>
+                            <p className={['mb-0', 'font14md17'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>شهر :</p>
+                            {
+                                userAddress !== undefined
+                                ?
+                                <p className={['mb-0', 'pr-2', 'font14md17'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}>{userAddress.city}</p>
+                                :
+                                <p className={['mb-0', 'pr-2', 'font14md17'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}></p>
+                            }
+                        </div>
+                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'w-100', 'mt-2', 'mt-md-0'].join(' ')} style={{flex: '1'}}>
+                            <p className={['mb-0', 'font14md17'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>کد پستی :</p>
+                            {
+                                userAddress !== undefined
+                                ?
+                                <p className={['mb-0', 'pr-2', 'font14md17'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}>{userAddress.postal}</p>
+                                :
+                                <p className={['mb-0', 'pr-2', 'font14md17'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}></p>
+                            }
                         </div>
                     </div>
                     <div style={{height: '1px', borderBottom: '1px dashed #D8D8D8'}}></div>
                     <div className={['d-flex', 'flex-row', 'align-items-center', 'py-2', 'rtl'].join(' ')}>
                         <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-                            <p className={['mb-0'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>استان :</p>
-                            {
-                                userAddress !== undefined
-                                ?
-                                <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}>{userAddress.province}</p>
-                                :
-                                <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}></p>
-                            }
-                        </div>
-                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-                            <p className={['mb-0'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>شهر :</p>
-                            {
-                                userAddress !== undefined
-                                ?
-                                <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}>{userAddress.city}</p>
-                                :
-                                <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}></p>
-                            }
-                        </div>
-                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-                            <p className={['mb-0'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>کد پستی :</p>
-                            {
-                                userAddress !== undefined
-                                ?
-                                <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}>{userAddress.postal}</p>
-                                :
-                                <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}></p>
-                            }
-                        </div>
-                    </div>
-                    <div style={{height: '1px', borderBottom: '1px dashed #D8D8D8'}}></div>
-                    <div className={['d-flex', 'flex-row', 'align-items-center', 'py-2', 'rtl'].join(' ')}>
-                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-                            <p className={['mb-0'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>آدرس :</p>
+                            <p className={['mb-0', 'font14md17'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>آدرس :</p>
                             {
                                 userAddress !== undefined 
                                 ?
-                                <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}>{userAddress.address}</p>
+                                <p className={['mb-0', 'pr-2', 'font14md17'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}>{userAddress.address}</p>
                                 :
-                                <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}></p>
+                                <p className={['mb-0', 'pr-2', 'font14md17'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}></p>
                             }
                         </div>
                     </div>
@@ -338,7 +341,7 @@ const Payment = (props) => {
                                         backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: '#F2F2F2'};
                                     }
                                     return( 
-                                        <div key={counter} className={['col-12', 'col-md-4', 'p-3', 'd-flex', 'flex-row', 'align-items-center', 'justify-cotent-right', 'pointer'].join(' ')} style={backgroundStyle} onClick={() => {workTimeSelected(workTime.timestamp);}}>
+                                        <div key={counter} className={['col-12', 'col-md-4', 'p-3', 'd-flex', 'flex-row', 'align-items-center', 'justify-cotent-right', 'pointer'].join(' ')} style={backgroundStyle} onClick={() => {workTimeSelected(workTime.timestamp, workTime.worktimeId);}}>
                                             {
                                                 selectedWorkTimeDate === workTime.timestamp
                                                 ?

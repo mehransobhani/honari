@@ -147,8 +147,8 @@ const ProductInsight = (props) =>{
             if(props.reduxUser.status === 'LOGIN'){
                 setAxiosProcessing(true);
                 axios.post(Constants.apiUrl + '/api/user-add-to-cart', {
-                    productId: productInformation.productId,
-                    productCount: orderCount
+                    productPackId: productInformation.productPackId,
+                    productPackCount: orderCount
                 },{
                     headers: {
                         'Authorization': 'Bearer ' + cookies.user_server_token, 
@@ -158,6 +158,7 @@ const ProductInsight = (props) =>{
                     if(response.status === 'done'){
                         props.reduxAddToCart({
                             productId: productInformation.productId,
+                            productPackId: productInformation.productPackId,
                             name: productInformation.productName,
                             categoryId: productInformation.categoryId,
                             prodID: productInformation.prodID,
@@ -185,6 +186,7 @@ const ProductInsight = (props) =>{
                 console.warn(productInformation);
                 props.reduxAddToCart({
                     productId: productInformation.productId,
+                    productPackId: productInformation.productPackId,
                     name: productInformation.productName,
                     categoryId: productInformation.categoryId,
                     prodID: productInformation.prodID,
@@ -198,7 +200,7 @@ const ProductInsight = (props) =>{
                     discountedPrice: productInformation.discountedPrice,
                     discountPercent: productInformation.discountPercent
                 });
-                cart.push({id: id, count: orderCount});
+                cart.push({id: productInformation.productPackId, count: orderCount});
                 localStorage.setItem('user_cart', JSON.stringify(cart));
                 setProductExistsInCart(true);
             }
@@ -210,7 +212,7 @@ const ProductInsight = (props) =>{
             if(props.reduxUser.status === 'LOGIN'){
                 setAxiosProcessing(true);
                 axios.post(Constants.apiUrl + '/api/user-remove-from-cart', {
-                    productId: productInformation.productId
+                    productPackId: productInformation.productPackId
                 },{
                     headers: {
                         'Authorization': 'Bearer ' + cookies.user_server_token, 
@@ -218,7 +220,7 @@ const ProductInsight = (props) =>{
                 }).then((res) => {
                     let response = res.data;
                     if(response.status === 'done'){
-                        props.reduxRemoveFromCart(id);
+                        props.reduxRemoveFromCart(productInformation.productPackId);
                         setProductExistsInCart(false);
                     }else if(response.status === 'failed'){
                         alert(response.umessage);
@@ -237,7 +239,7 @@ const ProductInsight = (props) =>{
                     }
                 });
                 localStorage.setItem('user_cart', JSON.stringify(newCart));
-                props.reduxRemoveFromCart(productInformation.productId);
+                props.reduxRemoveFromCart(productInformation.productPackId);
                 setProductExistsInCart(false);
             }
         }
@@ -457,7 +459,7 @@ const mapDispatchToProps = (dispatch) => {
     return{
         reduxUpdateCart: (d) => dispatch({type: actionTypes.UPDATE_CART, data: d}),
         reduxAddToCart: (d) => dispatch({type: actionTypes.ADD_TO_CART, data: d}),
-        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productId: d})
+        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productPackId: d})
     }
 }
 

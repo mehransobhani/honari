@@ -38,6 +38,7 @@ const Category = (props) => {
                         response.cart.map((item, counter) => {
                             cartArray.push({
                                 productId: item.productId,
+                                productPackId: item.productPackId,
                                 name: item.productName,
                                 categoryId: item.categoryId,
                                 prodID: item.prodID,
@@ -80,6 +81,7 @@ const Category = (props) => {
                         response.cart.map((item, counter) => {
                             cartArray.push({
                                 productId: item.productId,
+                                productPackId: item.productPackId,
                                 name: item.productName,
                                 categoryId: item.categoryId,
                                 prodID: item.prodID,
@@ -166,9 +168,9 @@ const mapDispatchToProps = (dispatch) => {
     return{
         reduxUpdateCart: (d) => dispatch({type: actionTypes.UPDATE_CART, data: d}),
         //reduxAddToCart: (d) => dispatch({type: actionTypes.ADD_TO_CART, data: d}),
-        reduxIncreaseCountByOne: (d) => dispatch({type: actionTypes.INCREASE_COUNT_BY_ONE, productId: d}),
-        reduxDecreaseCountByOne: (d) => dispatch({type: actionTypes.DECREASE_COUNT_BY_ONE, productId: d}),
-        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productId: d}),
+        reduxIncreaseCountByOne: (d) => dispatch({type: actionTypes.INCREASE_COUNT_BY_ONE, productPackId: d}),
+        reduxDecreaseCountByOne: (d) => dispatch({type: actionTypes.DECREASE_COUNT_BY_ONE, productPackId: d}),
+        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productPackId: d}),
         reduxWipeCart: () => dispatch({type: actionTypes.WIPE_CART}),
         reduxUpdateUserTotally: (d) => dispatch({type: actionTypes.UPDATE_USER_TOTALLY, data: d})
     }

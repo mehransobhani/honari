@@ -15,10 +15,24 @@ a {
   .font11md17{
     font-size: 11px !important;
   }
+  .font14md17{
+    font-size: 14px !important;
+  }
+  .font11md14{
+    font-size: 11px !important  ;
+  }
 }
 
 .font11md17{
   font-size: 17px;
+}
+
+.font14md17{
+  font-size: 17px;
+}
+
+.font11md14{
+  font-size: 14px;
 }
 
 @font-face {

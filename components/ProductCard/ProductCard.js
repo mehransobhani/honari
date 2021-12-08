@@ -39,7 +39,7 @@ const ProductCard = (props) => {
     useEffect(() => {
         let found = false;
         props.reduxCart.information.map((item, counter) => {
-            if(props.information.productId === item.productId){
+            if(props.information.productPackId === item.productPackId){
                 found = true;
             }
         });
@@ -51,7 +51,7 @@ const ProductCard = (props) => {
     const checkProductExistsInCart = () => {
         let found = false;
         props.reduxCart.information.map((item, counter) => {
-            if(item.productId == props.information.productId){
+            if(item.productPackId == props.information.productPackId){
                 found = true;
             }
         });
@@ -63,8 +63,8 @@ const ProductCard = (props) => {
             if(props.reduxUser.status === 'LOGIN'){
                 setAxiosProcessing(true);
                 axios.post(Constants.apiUrl + '/api/user-add-to-cart', {
-                    productId: props.information.productId,
-                    productCount: 1
+                    productPackId: props.information.productPackId,
+                    productPackCount: 1
                 },{
                     headers: {
                         'Authorization': 'Bearer ' + cookies.user_server_token, 
@@ -89,13 +89,30 @@ const ProductCard = (props) => {
                             discountedPrice: info.discountedPrice,
                             discountPercent: info.discountPercent
                         });*/
-                        props.reduxAddToCart({
-                            productId: props.information.productId,
+                        /*  productId: props.information.productId,
+                            productPackId: props.information.productPackId,
                             name: props.information.productName,
                             categoryId: props.information.categoryId,
                             prodID: props.information.prodID,
                             url: props.information.productUrl,
                             count: props.information.productCount,
+                            unitCount: props.information.productUnitCount,
+                            unitName: props.information.productUnitName,
+                            label: props.information.productLabel,
+                            basePrice: props.information.productBasePrice,
+                            price: props.information.productPrice,
+                            discountedPrice: props.information.discountedPrice,
+                            discountPercent: props.information.discountPercent
+                            */
+                        props.reduxAddToCart({
+                            productId: props.information.productId,
+                            productPackId: props.information.productPackId,
+                            name: props.information.productName,
+                            categoryId: props.information.categoryId,
+                            prodID: props.information.prodID,
+                            url: props.information.productUrl,
+                            //count: props.information.productCount,
+                            count: 1,
                             unitCount: props.information.productUnitCount,
                             unitName: props.information.productUnitName,
                             label: props.information.productLabel,
@@ -117,8 +134,8 @@ const ProductCard = (props) => {
             }else if(props.reduxUser.status === 'GUEST'){
                 setAxiosProcessing(true);
                 axios.post(Constants.apiUrl + '/api/guest-add-to-cart',{
-                    productId: props.information.productId,
-                    productCount: 1
+                    productPackId: props.information.productPackId,
+                    productPackCount: 1
                 }).then((res) => {
                     setAxiosProcessing(false);
                     let response = res.data;
@@ -126,27 +143,13 @@ const ProductCard = (props) => {
                         let info = response.information;
                         let cart = JSON.parse(localStorage.getItem('user_cart')); 
                         let newItem = {};
-                        newItem.id = props.information.productId;
+                        newItem.id = props.information.productPackId;
                         newItem.count = 1;
                         cart.push(newItem);
                         localStorage.setItem('user_cart', JSON.stringify(cart));
-                        /*props.reduxAddToCart({
-                            productId: info.productId,
-                            name: info.productName,
-                            categoryId: info.categoryId,
-                            prodID: info.prodID,
-                            url: info.productUrl,
-                            count: 1,
-                            unitCount: info.productUnitCount,
-                            unitName: info.productUnitName,
-                            label: info.productLabel,
-                            basePrice: info.productBasePrice,
-                            price: info.productPrice,
-                            discountedPrice: info.discountedPrice,
-                            discountPercent: info.discountPercent
-                        });*/
                         props.reduxAddToCart({
                             productId: props.information.productId,
+                            productPackId: props.information.productPackId,
                             name: props.information.productName,
                             categoryId: props.information.categoryId,
                             prodID: props.information.prodID,
@@ -178,7 +181,7 @@ const ProductCard = (props) => {
             if(props.reduxUser.status === 'LOGIN'){
                 setAxiosProcessing(true);
                 axios.post(Constants.apiUrl + '/api/user-remove-from-cart', {
-                    productId: props.information.productId
+                    productPackId: props.information.productPackId
                 },{
                     headers: {
                         'Authorization': 'Bearer ' + cookies.user_server_token, 
@@ -187,7 +190,7 @@ const ProductCard = (props) => {
                     setAxiosProcessing(false);
                     let response = res.data;
                     if(response.status === 'done'){
-                        props.reduxRemoveFromCart(props.information.productId);
+                        props.reduxRemoveFromCart(props.information.productPackId);
                         setProductExistInCart(false);
                     }else if(response.status === 'failed'){
                         console.warn(response.message)
@@ -202,19 +205,23 @@ const ProductCard = (props) => {
                 let cart = JSON.parse(localStorage.getItem('user_cart'));
                 let newCart = [];
                 cart.map((item, counter) => {
-                    if(item.id !== props.information.productId){
+                    if(item.id !== props.information.productPackId){
                         newCart.push(item);
                     }
                 });
                 localStorage.setItem('user_cart', JSON.stringify(newCart));
-                props.reduxRemoveFromCart(props.information.productId);
+                props.reduxRemoveFromCart(props.information.productPackId);
                 setProductExistInCart(false);
             }
         }
     }
 
+    const warn = () => {
+        console.info(props.information);
+    }
+
     return(
-        <div className={['col-6', 'col-md-3', 'p-2'].join(' ')}>
+        <div className={['col-6', 'col-md-3', 'p-2'].join(' ')} onClick={warn}>
             <div className={['d-flex', 'flex-column'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede', height: '100%'}} >
                 <div style={{position: 'relative'}}>
                     <img src={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + props.information.prodID + '.jpg'} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
@@ -274,7 +281,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         reduxAddToCart: (d) => dispatch({type: actionTypes.ADD_TO_CART, data: d}),
-        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productId: d})
+        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productPackId: d})
     }
 }
 

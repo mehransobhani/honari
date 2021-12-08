@@ -208,13 +208,13 @@ function BigHeader(props){
                 }
                 setIncreaseProcessings(newIncreaseProcessings);
                 axios.post(Constants.apiUrl + '/api/guest-check-cart-changes', {
-                    productId: props.reduxCart.information[key].productId,
+                    productPackId: props.reduxCart.information[key].productPackId,
                     count: props.reduxCart.information[key].count + 1
                 }).then((res) => {
                     let response = res.data;
                     if(response.status == 'done'){
                         updateProductInLocalStorage(key, response.count);
-                        props.reduxIncreaseCountByOne(props.reduxCart.information[key].productId);
+                        props.reduxIncreaseCountByOne(props.reduxCart.information[key].productPackId);
                         let newIncreaseProcessings = [];
                         let i =0;
                         for(i=0; i < increaseProcessings.length; i++){
@@ -265,7 +265,7 @@ function BigHeader(props){
                 }
                 setIncreaseProcessings(newIncreaseProcessings);
                 axios.post(Constants.apiUrl + '/api/user-increase-cart-by-one', {
-                    productId: props.reduxCart.information[key].productId
+                    productPackId: props.reduxCart.information[key].productPackId
                 }, {
                     headers: {
                         'Authorization': 'Bearer ' + cookies.user_server_token, 
@@ -273,7 +273,7 @@ function BigHeader(props){
                 }).then((res) => {
                     let response = res.data;
                     if(response.status == 'done'){
-                        props.reduxIncreaseCountByOne(props.reduxCart.information[key].productId);
+                        props.reduxIncreaseCountByOne(props.reduxCart.information[key].productPackId);
                         let newIncreaseProcessings = [];
                         let i = 0;
                         for(i; i < increaseProcessings.length; i++){
@@ -332,7 +332,7 @@ function BigHeader(props){
                 }
                 setDecreaseProcessings(newDecreaseProcessings);
                 axios.post(Constants.apiUrl + '/api/guest-check-cart-changes', {
-                    productId: props.reduxCart.information[key].productId,
+                    productPackId: props.reduxCart.information[key].productPackId,
                     count: props.reduxCart.information[key].count - 1
                 }).then((res) => {
                     let newDecreaseProcessings = [];
@@ -348,7 +348,7 @@ function BigHeader(props){
                     let response = res.data;
                     if(response.status == 'done'){
                         updateProductInLocalStorage(key, response.count);
-                        props.reduxDecreaseCountByOne(props.reduxCart.information[key].productId);
+                        props.reduxDecreaseCountByOne(props.reduxCart.information[key].productPackId);
                     }else if(response.status == 'failed'){
                         newCart = [];
                         i = 0;
@@ -388,7 +388,7 @@ function BigHeader(props){
                 }
                 setDecreaseProcessings(newDecreaseProcessings);
                 axios.post(Constants.apiUrl + '/api/user-decrease-cart-by-one', {
-                    productId: props.reduxCart.information[key].productId
+                    productPackId: props.reduxCart.information[key].productPackId
                 }, {
                     headers: {
                         'Authorization': 'Bearer ' + cookies.user_server_token, 
@@ -406,7 +406,7 @@ function BigHeader(props){
                             }
                         }
                         setDecreaseProcessings(newDecreaseProcessings);
-                        props.reduxDecreaseCountByOne(props.reduxCart.information[key].productId);
+                        props.reduxDecreaseCountByOne(props.reduxCart.information[key].productPackId);
                     }else if(response.status === 'failed'){
                         let newDecreaseProcessings = [];
                         let i = 0;
@@ -445,12 +445,12 @@ function BigHeader(props){
                 let localStorageCart = JSON.parse(localStorage.getItem('user_cart'));
                 let newLocalStorageCart = [];
                 localStorageCart.map((item, counter) => {
-                    if(item.id !== props.reduxCart.information[key].productId){
+                    if(item.id !== props.reduxCart.information[key].productPackId){
                         newLocalStorageCart.push(item);
                     }
                 });
                 localStorage.setItem('user_cart', JSON.stringify(newLocalStorageCart));
-                props.reduxRemoveFromCart(props.reduxCart.information[key].productId);
+                props.reduxRemoveFromCart(props.reduxCart.information[key].productPackId);
             }else if(props.reduxUser.status === 'LOGIN'){
                 let newRemoveProcessings = [];
                 let i = 0;
@@ -463,7 +463,7 @@ function BigHeader(props){
                 }
                 setRemoveProcessings(newRemoveProcessings);
                 axios.post(Constants.apiUrl + '/api/user-remove-from-cart', {
-                    productId: props.reduxCart.information[key].productId
+                    productPackId: props.reduxCart.information[key].productPackId
                 }, {
                     headers: {
                         'Authorization': 'Bearer ' + cookies.user_server_token, 
@@ -481,7 +481,7 @@ function BigHeader(props){
                     setRemoveProcessings(newRemoveProcessings);
                     let response = res.data;
                     if(response.status == 'done'){
-                        props.reduxRemoveFromCart(props.reduxCart.information[key].productId);
+                        props.reduxRemoveFromCart(props.reduxCart.information[key].productPackId);
                     }else if(response.status == 'failed'){
                         console.error(response.message);
                         props.reduxUpdateSnackbar('warning', true, response.umessage);
@@ -1247,9 +1247,9 @@ const mapDispatchToProps = (dispatch) => {
         reduxStartLoading: () => dispatch({type: actionTypes.START_LOADING}),
         reduxStopLoading: () => dispatch({type: actionTypes.STOP_LOADING}),
         reduxUpdateSnackbar: (k,s,t) => dispatch({type: actionTypes.UPDATE_SNACKBAR, kind: k, show: s, title: t}),
-        reduxIncreaseCountByOne: (d) => dispatch({type: actionTypes.INCREASE_COUNT_BY_ONE, productId: d}),
-        reduxDecreaseCountByOne: (d) => dispatch({type: actionTypes.DECREASE_COUNT_BY_ONE, productId: d}),
-        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productId: d}),
+        reduxIncreaseCountByOne: (d) => dispatch({type: actionTypes.INCREASE_COUNT_BY_ONE, productPackId: d}),
+        reduxDecreaseCountByOne: (d) => dispatch({type: actionTypes.DECREASE_COUNT_BY_ONE, productPackId: d}),
+        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productPackId: d}),
     }
 }
 
