@@ -1,5 +1,5 @@
 import styles from './Header.module.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Popover from '@material-ui/core/Popover';
@@ -25,6 +25,7 @@ import Image from 'next/image';
 function BigHeader(props){
 
     const router = useRouter();
+    const desktopSearchBar = useRef(null)
 
     const [state, setState] = React.useState({right: false});
     const [expanded, setExpanded] = React.useState(false);
@@ -48,9 +49,15 @@ function BigHeader(props){
     const [decreaseProcessings, setDecreaseProcessings] = useState([]);
     const [removeProcessings, setRemoveProcessings] = useState([]);
     const [windowWidth, setWindowWidth] = useState(0);
+    const [searchResults, setSearchResults] = useState([]);
+    const [desktopSearchBarWidth, setDesktopSearchBarWidth] = useState(0);
+    const [moreSearchCategoriesClass, setMoreSearchCategoriesClass] = useState('d-none');
+    const [showSearchResults, setShowSearchResults] = useState(true);
+    
 
     useEffect(() => {
         setWindowWidth(window.outerWidth);
+        setDesktopSearchBarWidth(desktopSearchBar.current.offsetWidth);
     }, []);
 
     const handleChange = (panel) => (event, isExpanded) => {
@@ -987,6 +994,153 @@ function BigHeader(props){
         </div>
     );
 
+    const getSearchResults = (event) => {
+        //?apiToken=21bb3b6e-0f96-4718-8d6c-8f03a538927e&query=' + encodeURIComponent('منجوق')
+        let input= event.target.value;
+        axios.post(Constants.apiUrl + '/api/search-autocomplete', {
+            input: input,
+        }).then((res) => {
+            let response = res.data;
+            if(response.status === 'done'){
+                setSearchResults(response.result[0].autoComplete);
+                setShowSearchResults(true);
+                setMoreSearchCategoriesClass('d-none');
+            }
+            console.warn(response);
+        }).catch((err) => {
+            console.error(err);
+            props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+        });
+    }
+
+    const desktopSearchResults = () => {
+        if(searchResults.length !== 0 && showSearchResults){
+            return (
+                <div className={['d-flex', 'flex-column'].join(' ')} style={{background: 'white', display: 'flex', position: 'absolute', top: '3.3rem', minWidth: '330px', width: desktopSearchBarWidth, zIndex: '999999999', borderRadius: '2px'}}>
+                    <div className={['d-flex', 'flex-row', 'ltr', 'text-left', 'justify-content-left', 'pt-2', 'px-2'].join(' ')}>
+                        <img src='/assets/images/main_images/close_gray_small.png' className={['pointer'].join(' ')} style={{width: '17px', heigth: '17px'}} onClick={() => {setShowSearchResults(false)}} />
+                    </div>
+                    <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'px-2', 'pt-2'].join(' ')}>
+                        <h5 className={['mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در دسته‌ها</b></h5>
+                        <h6 className={['mb-0', 'pointer'].join(' ')} style={{fontSize: '12px', color: '#00BAC6'}} onClick={()=>{setMoreSearchCategoriesClass('d-flex')}}>{moreSearchCategoriesClass === 'd-none' ? "مشاهده همه" : ''}</h6>
+                    </div>
+                    {
+                        searchResults.map((item, index) => {
+                            if(item.fields === null){
+                                if(index <= 2){
+                                    return(
+                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', ].join(' ')}>
+                                            <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
+                                            <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
+                                        </div>
+                                    );
+                                }else{
+                                    return(
+                                        <div className={['flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', moreSearchCategoriesClass].join(' ')}>
+                                            <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
+                                            <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
+                                        </div>
+                                    );
+                                }
+                            }
+                        })
+                    }
+                    <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#949494', height: '1px'}}></div>
+                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-0', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در محصولات</b></h6>
+                    <div className={['d-flex', 'flex-column'].join(' ')} style={{maxHeight: '100px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8'}}>
+                    {
+                        searchResults.map((item, index) => {
+                            if(item.fields !== null){
+                                return(
+                                    <div key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-1'].join(' ')}>
+                                        <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
+                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
+                                            <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
+                                            {
+                                                item.fields.has_stock === 'true'
+                                                ?
+                                                    <h6 className={['mb-0', 'rtl'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{parseInt(item.fields.product_price).toLocaleString() + " تومان"}</h6>
+                                                :
+                                                    <h6 className={['mb-0', 'px-2', 'py-1'].join(' ')} style={{fontSize: '13px', color: '#00BAC6', background: '#F7F7F7', borderRadius: '2px'}}>ناموجود</h6>
+                                            }
+                                        </div>
+                                    </div>
+                                );
+                            }
+                        })
+                    }
+                    </div>
+                </div>
+            );
+        }else{
+            return null;
+        }
+    }
+
+    const phoneSearchResults = () => {
+        if(searchResults.length !== 0 && showSearchResults){
+            return (
+                <div className={['d-md-none', 'w-100'].join(' ')} style={{background: 'white', width: '100%', position: 'relative', top: '0.5rem', left: '0', zIndex: '1000'}}>
+                    <div className={['d-flex', 'flex-row', 'ltr', 'text-left', 'justify-content-left', 'pt-2', 'px-2'].join(' ')}>
+                        <img src='/assets/images/main_images/close_gray_small.png' className={['pointer'].join(' ')} style={{width: '17px', heigth: '17px'}} onClick={() => {setShowSearchResults(false)}} />
+                    </div>
+                    <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'px-2', 'pt-2'].join(' ')}>
+                        <h5 className={['mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در دسته‌ها</b></h5>
+                        <h6 className={['mb-0', 'pointer'].join(' ')} style={{fontSize: '12px', color: '#00BAC6'}} onClick={()=>{setMoreSearchCategoriesClass('d-flex')}}>{moreSearchCategoriesClass === 'd-none' ? "مشاهده همه" : ''}</h6>
+                    </div>
+                    {
+                        searchResults.map((item, index) => {
+                            if(item.fields === null){
+                                if(index <= 2){
+                                    return(
+                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', ].join(' ')}>
+                                            <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
+                                            <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
+                                        </div>
+                                    );
+                                }else{
+                                    return(
+                                        <div className={['flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', moreSearchCategoriesClass].join(' ')}>
+                                            <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
+                                            <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
+                                        </div>
+                                    );
+                                }
+                            }
+                        })
+                    }
+                    <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#949494', height: '1px'}}></div>
+                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-0', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در محصولات</b></h6>
+                    <div className={['d-flex', 'flex-column'].join(' ')} style={{maxHeight: '100px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8'}}>
+                    {
+                        searchResults.map((item, index) => {
+                            if(item.fields !== null){
+                                return(
+                                    <div key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-1'].join(' ')}>
+                                        <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
+                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
+                                            <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
+                                            {
+                                                item.fields.has_stock === 'true'
+                                                ?
+                                                    <h6 className={['mb-0', 'rtl'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{parseInt(item.fields.product_price).toLocaleString() + " تومان"}</h6>
+                                                :
+                                                    <h6 className={['mb-0', 'px-2', 'py-1'].join(' ')} style={{fontSize: '13px', color: '#00BAC6', background: '#F7F7F7', borderRadius: '2px'}}>ناموجود</h6>
+                                            }
+                                        </div>
+                                    </div>
+                                );
+                            }
+                        })
+                    }
+                    </div>
+                </div>
+            );
+        }else{
+            return null;
+        }
+    }
+
     return (
         <React.Fragment>
             <Drawer anchor="right" open={state['right']} onClose={toggleDrawer('right', false)}>
@@ -1074,9 +1228,10 @@ function BigHeader(props){
                                 <p className={['pr-1', 'align-self-end', 'mb-0', 'mt-2'].join(' ')}>آموزش، الگو، مواداولیه</p>
                             </div>
                         </div>
-                        <form className={['rounded-sm', 'd-none', 'd-lg-flex', 'flex-row', 'rtl'].join(' ')}>
+                        <form ref={desktopSearchBar} className={['rounded-sm', 'd-none', 'd-lg-flex', 'flex-row', 'rtl'].join(' ')}>
                             <button className={['p-2'].join(' ')} style={{borderRadius: '0 4px 4px 0', border: 'none', backgroundColor: '#00bac6', width: '40px'}}><img src='/assets/images/main_images/search_white.png' style={{width: '100%', padding: '2px'}}/></button>
-                            <input type='text' placeholder='عبارت مورد نظر را جستجو کنید' className={['pr-2'].join(' ')} style={{fontSize: '14px', height: '42px', width: '340px', outline: 'none', outlineOffset: 'none', border: '1px solid #C4C4C4', borderRadius: '4px 0 0 4px'}} />
+                            <input type='text' onChange={getSearchResults} placeholder='عبارت مورد نظر را جستجو کنید' className={['pr-2'].join(' ')} style={{fontSize: '14px', height: '42px', width: '340px', outline: 'none', outlineOffset: 'none', border: '1px solid #C4C4C4', borderRadius: '4px 0 0 4px'}} />
+                            {desktopSearchResults()}
                         </form>
                         {
                                 props.home != true 
@@ -1091,7 +1246,7 @@ function BigHeader(props){
                                 <img src='/assets/images/main_images/search_main.png' className={['pointer'].join(' ')} style={{width: '15px', height: '15px'}}/>
                             </div>
                             <div style={{height: '30px', background: '#F7F7F7'}}>
-                                <input type='search' placeholder='جست و جو کنید' className={['rtl', 'px-2'].join(' ')} style={{fontSize: '14px', height: '30px', border: 'none', outlineStyle: 'none', outlineOffset: 'none', outlineColor: 'none', background: '#F7F7F7', border: '1px solid #D8D8D8', borderRadius: '0px 3px 3px 0px'}} /> 
+                                <input type='search' placeholder='جست و جو کنید' onChange={getSearchResults} className={['rtl', 'px-2'].join(' ')} style={{fontSize: '14px', height: '30px', border: 'none', outlineStyle: 'none', outlineOffset: 'none', outlineColor: 'none', background: '#F7F7F7', border: '1px solid #D8D8D8', borderRadius: '0px 3px 3px 0px'}} /> 
                             </div>
                         </div>
                         {/*<h1 className={['pr-1', 'm-0', 'd-block', 'd-lg-none'].join(' ')} style={{fontSize: '22px', color: '#00bac6'}}>هنری</h1>*/}
@@ -1176,6 +1331,7 @@ function BigHeader(props){
                             <img src='/assets/images/main_images/search_main.png' style={{width: '22px'}} className={['ml-1', 'pointer'].join(' ')} onClick={searchFormSubmited}/>
                         </form>
                     </div>
+                    {phoneSearchResults()}
                 </div>
             </div>
             <div className={['container-fluid', 'd-none', 'd-lg-block', 'shadow-sm', 'align-items-center'].join(' ')} style={{backgroundColor: '#F7F7F7', height: '48px'}}>

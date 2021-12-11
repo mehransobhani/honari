@@ -1,24 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import {useRouter} from 'next/router';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Link from 'next/link';
-import ProductCard from '../ProductCard/ProductCard';
+import * as Constants from '../../../components/constants';
+import Header from '../../../components/Header/Header';
+import Footer from '../../../components/Footer/Footer';
+import {useRouter}  from 'next/router';
+import * as actionTypes from '../../../store/actions';
+import {connect} from 'react-redux';
+import ProductCard from '../../../components/ProductCard/ProductCard';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Pagination from '@material-ui/lab/Pagination';
-import axios from 'axios';
-import * as Constants from '../constants';
-import CheckboxGroup from '../Filters/CheckboxGroup';
-import Header from '../Header/Header';
-import * as actionTypes from '../../store/actions';
-import {connect} from 'react-redux';
 import Drawer from '@material-ui/core/Drawer';
-import Image from 'next/image';
 
-const CategoryInsight = (props) => {
+const SearchWithCategory = (props) => {
 
-    let router = useRouter();
-    let url = router.query;
+    const router = useRouter();
+
     const [addedFilters, setAddedFilters] = useState([]);
     const [visibleProducts, setVisibleProducts] = useState([]);
     const [orderState, setOrderState] = useState('new');
@@ -29,7 +27,7 @@ const CategoryInsight = (props) => {
     const [productFound, setProductFound] = useState(true);
     const [state, setState] = React.useState({bottom: false});
     const [p, setP] = useState(1);
-    const [pages, setPages] = useState(0);
+    const [pages, setPages] = useState(12);
     const [filters, setFilters] = useState([]);
     const [filterMinPrice, setFilterMinprice] = useState(0);
     const [filterMaxPrice, setFilterMaxPrice] = useState(0);
@@ -37,6 +35,10 @@ const CategoryInsight = (props) => {
     const [phoneFilterOpenStatus, setPhoneFilterOpenStatus] = useState(false);
     const [visibleFilterGroupId, setVisibleFilterGroupId] = useState(-1);
     const [windowHeight, setWindowHeight] = useState(0);
+
+    const [category, setCategory] = useState('');
+    const [facets, setFacets] = useState([]);
+
 
     const filterDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -46,247 +48,108 @@ const CategoryInsight = (props) => {
     };
 
     useEffect(() => {
-        setWindowHeight(window.outerHeight);
-        props.reduxWipeCategoryFilterTotally();
-    }, []);
-
-    const paginationChanged = (event, page) =>{
-        props.reduxUpdateCategoryFilterPage(page);
-        getNewProducts({page: page});
-    }
-
-    const paginationNextButtonClicked = () => {
-        if(props.reduxCategoryFilter.page !== props.reduxCategoryFilter.maxPage){
-            props.reduxUpdateCategoryFilterPage(props.reduxCategoryFilter.page + 1);
-            getNewProducts({page: props.reduxCategoryFilter.page + 1});
+        if(router.query.query !== undefined){
+            setCategory(router.query.query)
+            receiveData();
         }
-    }
+    }, [router.query.query, undefined]);
 
-    const paginationPrevButtonClicked = () => {
-        if(props.reduxCategoryFilter.page !== 1){
-            let b = props.reduxUpdateCategoryFilterPage(props.reduxCategoryFilter.page - 1);
-            getNewProducts({page: props.reduxCategoryFilter.page - 1});
-        }
-    }
-
-    const sortByMenuChanged = (event) => {
-        if(props.reduxCategoryFilter.order !== event.target.value){
-            props.reduxUpdateCategoryFilterPage(1);
-            props.reduxUpdateCategoryFilterOrder(event.target.value);
-            getNewProducts({page: 1, order: event.target.value});
-        }
-    }
-
-    useEffect(()=>{
-        props.reduxUpdateCategoryFilterId(props.id);
-        axios.post(Constants.apiUrl + '/api/category-filters', {
-            id: props.id
-        }).then((res)=>{
-            let response = res.data;
-            if(response.status === 'done' && response.found === true){
-                setFilters(response.filters);
-            }else if(response.status === 'failed'){
-                console.log(response.message)
-            }
-        }).catch((error)=>{
-            console.log(error);
-        });
-    },[]);
-
-    useEffect(()=>{
-        if(props.reduxCategoryFilter.id !== -1){
-            axios.post(Constants.apiUrl + '/api/filtered-paginated-category-products', {
-                id: props.reduxCategoryFilter.id,
-                page: props.reduxCategoryFilter.page,
-                order: props.reduxCategoryFilter.order,
-                minPrice: props.reduxCategoryFilter.minPrice,
-                maxPrice: props.reduxCategoryFilter.maxPrice,
-                filters: props.reduxCategoryFilter.options,
+    useEffect(() => {
+        props.reduxUpdateUserTotally(props.ssrUser);
+        if(props.ssrUser.status === 'LOGIN'){
+            console.warn(props.ssrUser.information);
+            axios.post(Constants.apiUrl + "/api/user-cart", {},{
+                headers: {
+                    'Authorization': 'Bearer ' + props.ssrCookies.user_server_token, 
+                }
             }).then((res)=>{
                 let response = res.data;
                 if(response.status === 'done'){
-                    setCategoryName(response.categoryName);
-                }
-                if(response.status === 'done' && response.found === true){
-                    props.reduxUpdateCategoryFilterResults(response.products);
-                    props.reduxUpdateCategoryFilterMaxPage(Math.ceil(response.count/12));
-                    //setVisibleProducts(response.products);
-                    //setPages(Math.ceil(response.count/12));
-                    //setProductFound(true);
+                    let cartArray = [];
+                    if(response.cart !== '{}'){
+                        response.cart.map((item, counter) => {
+                            cartArray.push({
+                                productId: item.productId,
+                                productPackId: item.productPackId,
+                                name: item.productName,
+                                categoryId: item.categoryId,
+                                prodID: item.prodID,
+                                url: item.productUrl,
+                                count: item.productCount,
+                                unitCount: item.productUnitCount,
+                                unitName: item.productUnitName,
+                                label: item.productLabel,
+                                basePrice: item.productBasePrice,
+                                price: item.productPrice,
+                                discountedPrice: item.discountedPrice,
+                                discountPercent: item.discountPercent
+                            });
+                        });
+                        props.reduxUpdateCart(cartArray);
+                    }else{
+                        props.reduxUpdateCart([]);
+                    }
                 }else if(response.status === 'failed'){
                     console.warn(response.message);
-                    props.reduxUpdateSnackbar('warning', true, response.umessage);
+                    console.warn(response.umessage);
                 }
             }).catch((error)=>{
                 console.error(error);
-                props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+                props.reduxUpdateCart([]);
+                alert('مشکلی پیش آمده لطفا مجددا امتحان کنید');
             });
-        }
-    },[props.reduxCategoryFilter.id, -1]);
-
-    useEffect(()=>{
-        axios.post(Constants.apiUrl + '/api/category-banners', {
-            id: props.id,
-        }).then((res)=>{
-            let response = res.data;
-            if(response.status === 'done'){
-                if(response.found === true){
-                    setCategoryBanners(response.banners);
-                }else{
-                    console.log('This category does not have any banner');
-                }
-            }else if(response.status === 'failed'){
-                console.log(response.message);
-            }
-        }).catch((error)=>{
-            console.log(error);
-        });
-    },[]);
-
-    useEffect(()=>{
-        axios.post(Constants.apiUrl + '/api/category-breadcrumb',{
-            id: props.id,
-        }).then((res)=>{
-            let response = res.data;
-            if(response.status === 'done'){
-                setCategoryBreadcrumbs(response.categories);
+        }else if(props.ssrUser.status === 'GUEST'){
+            let cart = localStorage.getItem('user_cart');
+            if(cart === undefined || cart === null){
+                localStorage.setItem('user_cart', '[]');
+                props.reduxUpdateCart([]);
             }else{
-                console.log(response.message);
+                axios.post(Constants.apiUrl + '/api/guest-cart',{
+                    cart: localStorage.getItem('user_cart')
+                }).then((res) => {
+                    const response = res.data;
+                    if(response.status === 'done'){
+                        let cartArray = [];
+                        response.cart.map((item, counter) => {
+                            cartArray.push({
+                                productId: item.productId,
+                                productPackId: item.productPackId,
+                                name: item.productName,
+                                categoryId: item.categoryId,
+                                prodID: item.prodID,
+                                url: item.productUrl,
+                                count: item.productCount,
+                                unitCount: item.productUnitCount,
+                                unitName: item.productUnitName,
+                                label: item.productLabel,
+                                basePrice: item.productBasePrice,
+                                price: item.productPrice,
+                                discountedPrice: item.discountedPrice,
+                                discountPercent: item.discountPercent
+                            });
+                        });
+                        props.reduxUpdateCart(cartArray);
+                    }
+                }).catch((error) => {
+                    console.log(error);
+                    alert('مشکل در برقراری ارتباط');
+                })
             }
-        }).catch((error)=>{
-            console.log(error);
-        });
-    }, []);
+        }
+    }, [props.reduxUser.status, 'NI']);
 
-    const getNewProducts = (obj) => {
-        let page = obj.page;
-        let order = obj.order;
-        let filters = obj.filters;
-        let key = obj.key;
-        let min = obj.minPrice;
-        let max = obj.maxPrice;
-        if(page === undefined){
-            page = props.reduxCategoryFilter.page;
-        }
-        if(order === undefined){
-            order = props.reduxCategoryFilter.order;
-        }
-        if(filters === undefined){
-            filters = props.reduxCategoryFilter.options;
-        }
-        if(key === undefined){
-            key = props.reduxCategoryFilter.key;
-        }
-        if(min === undefined){
-            min = props.reduxCategoryFilter.minPrice;
-        }
-        if(max === undefined){
-            max = props.reduxCategoryFilter.maxPrice;
-        }
-        axios.post(Constants.apiUrl + '/api/filtered-paginated-category-products', {
-            id: props.reduxCategoryFilter.id,
-            page: page,//props.reduxCategoryFilter.page,
-            order: order,//props.reduxCategoryFilter.order,
-            searchInput: key,
-            minPrice: min,
-            maxPrice: max,
-            filters: filters
-        }).then((res)=>{
+    const receiveData = () => {
+        axios.post(Constants.apiUrl + '/api/search-with-category', {
+            category: router.query.query,
+            page: '1',
+            facets: []
+        }).then((res) => {
             let response = res.data;
-            if(response.status === 'done'){
-                props.reduxUpdateCategoryFilterMaxPage(Math.ceil(response.count/12));
-                props.reduxUpdateCategoryFilterResults(response.products);
-                /*if(response.products.length === 0){
-                    props.reduxUpdateCategoryFilterResults([]);
-                    props.reduxUpdateCategoryFilterPage(1);
-                }*/
-                
-            }else if(response.status === 'failed'){
-                console.warn(response.message);
-                props.reduxUpdateSnackbar('warning', true, response.umessage);
-            }
-        }).catch((error)=>{
-            console.error(error);
-            props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+            console.log(response);
+        }).catch((err) => {
+            console.log(err);
+
         });
-    }
-
-    const searchInputChanged = (event) => {
-        let input = event.target.value;
-        props.reduxUpdateCategoryFilterKey(input);
-        props.reduxUpdateCategoryFilterPage(1);
-        getNewProducts({page: 1, key: input});
-    }
-
-    const minPriceChanged = (event) => {
-        let value = event.target.value;
-        if(value == 0 || value == ''){
-            setFilterMinprice(0);
-        }else{
-            setFilterMinprice(event.target.value);
-        }
-    }
-
-    const maxPriceChanged = (event) => {
-        let value = event.target.value;
-        if(value == 0 || value == ''){
-            setFilterMaxPrice(0);
-        }else{
-            setFilterMaxPrice(value);
-        }
-    }
-
-    const priceFilterButtonClicked = () => {
-        props.reduxUpdateCategoryFilterPriceMargin(filterMinPrice, filterMaxPrice);
-        getNewProducts({page: 1, minPrice: filterMinPrice, maxPrice: filterMaxPrice});
-    }
-
-    const deleteFilter = (index) => {
-        /*let newFilters = [];
-        addedFilters.map((f, i)=>{
-            if(i !== index){
-                newFilters.push(f);
-            }else{
-                setRecentlyDeletedFilter(f);
-            }
-        });
-        setAddedFilters(newFilters);
-        getNewProducts({filter: newFilters});*/
-    }
-
-    const filterCheckboxChanged = (item) => {
-        let found = false;
-        props.reduxCategoryFilter.options.map((o, counter) => {
-            if(o.en_name === item.en_name && o.value === item.value){
-                found = true;    
-            }
-        });
-        if(found){
-            let nCheckboxFilter = [];
-            props.reduxCategoryFilter.options.map((item, counter) => {
-                if(item.en_name !== item.en_name || item.value !== item.value){
-                    nCheckboxFilter.push(item);
-                }
-            });
-            props.reduxRemoveFromCategoryFilterOptions(item.en_name, item.value);
-            getNewProducts({page: 1, filters: nCheckboxFilter});
-        }else{
-            let nCheckboxFilter = [];
-            nCheckboxFilter = props.reduxCategoryFilter.options;
-            nCheckboxFilter.push(item);
-            props.reduxAddToCategoryFilterOptions(item.en_name, item.value);
-            getNewProducts({page: 1, filters: nCheckboxFilter});
-        }
-    }
-
-    const isTheCheckboxSelected = (item) => {
-        let found = false;
-        props.reduxCategoryFilter.options.map((o, counter) => {
-            if(o.en_name == item.en_name && o.value == item.value){
-                found = true;
-            }
-        });
-        return found;
     }
 
     const phoneFilter = (
@@ -335,6 +198,36 @@ const CategoryInsight = (props) => {
         </div>
     );
 
+    const minPriceChanged = (event) => {
+        let value = event.target.value;
+        if(value == 0 || value == ''){
+            setFilterMinprice(0);
+        }else{
+            setFilterMinprice(event.target.value);
+        }
+    }
+
+    const maxPriceChanged = (event) => {
+        let value = event.target.value;
+        if(value == 0 || value == ''){
+            setFilterMaxPrice(0);
+        }else{
+            setFilterMaxPrice(value);
+        }
+    }
+
+    const priceFilterButtonClicked = () => {
+        props.reduxUpdateCategoryFilterPriceMargin(filterMinPrice, filterMaxPrice);
+        getNewProducts({page: 1, minPrice: filterMinPrice, maxPrice: filterMaxPrice});
+    }
+
+    const sortByMenuChanged = (event) => {
+        if(props.reduxCategoryFilter.order !== event.target.value){
+            props.reduxUpdateCategoryFilterPage(1);
+            props.reduxUpdateCategoryFilterOrder(event.target.value);
+            getNewProducts({page: 1, order: event.target.value});
+        }
+    }
 
     return(
         <React.Fragment>
@@ -342,20 +235,6 @@ const CategoryInsight = (props) => {
                 {phoneFilter}
             </Drawer>
             <Header />
-            <div className={['d-none', 'd-md-block'].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
-                <div className={['container', 'd-flex', 'flex-row', 'align-items-center', 'rtl', 'py-2', 'px-2'].join(' ')}>
-                    <Breadcrumbs>
-                    <p className={['p-1', 'mb-0', 'd-none', 'd-md-block'].join(' ')} style={{backgroundColor: 'white', border: '1px solid #8bf0f7', borderRadius: '14px 1px 1px 14px'}}>اینجا هستید</p>
-                        {
-                            categoryBreadcrumbs.map((cb, count)=>{
-                                return(
-                                    <Link key={count} href={cb.url} ><a className={['breadcrumbItem', 'mb-0'].join(' ')} style={{fontSize: '14px'}} >{cb.name}</a></Link>
-                                );
-                            })
-                        }
-                    </Breadcrumbs>
-                </div>
-            </div>
             <div className={['container'].join(' ')} style={{overflowX: 'hidden'}}>
                 <div className={['row', 'rtl', 'mt-3'].join(' ')}>
                     {
@@ -389,9 +268,6 @@ const CategoryInsight = (props) => {
                                 <img src='/assets/images/main_images/filter_black.png' style={{width: '13px'}} />
                                 <span className={['font-weight-bold','mr-2'].join(' ')} style={{fontSize: '14px'}} >فیلتر کردن محصولات</span>
                             </div>
-                                <div className={['w-100', 'px-3', 'mt-3'].join(' ')}>
-                                    <input type="text" className={['form-control', 'text-right', 'rtl'].join(' ')} placeholder="نام محصول را جستجو کنید" onChange={searchInputChanged}/>
-                                </div>
                                 {
                                     filters.map((filter, key)=>{
                                         if(filter.type === 'radio'){
@@ -438,7 +314,7 @@ const CategoryInsight = (props) => {
                     <div className={[''].join(' ')} style={{flex: '4'}}>
                         <div className={['container'].join(' ')}>
                             <div className={['row'].join(' ')}>
-                                <div className={['col-12', 'd-none', 'd-md-block'].join(' ')}>
+                                <div className={['col-12', 'd-none'].join(' ')}>
                                         <div>
                                             <p className={['d-inline-block', 'px-2'].join(' ')}>مرتب‌سازی براساس :</p>
                                             <Select
@@ -538,4 +414,43 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryInsight);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchWithCategory);
+
+export async function getServerSideProps(context){
+    
+    if(context.req.cookies.user_server_token !== undefined){
+        const res = await fetch(Constants.apiUrl + '/api/user-information',{
+            method: 'POST',
+            headers: new Headers(
+                {
+                    'Authorization': 'Bearer ' + context.req.cookies.user_server_token
+                }
+            )
+        });
+        let response = await res.json();
+        if(await response.status === 'done' && await response.found === true){
+            return {
+                props: {
+                    ssrUser: {status: 'LOGIN', information: await response.information},
+                    ssrCookies: context.req.cookies
+                }
+            }
+        }else{
+            return {
+                props: {
+                    ssrUser: {status: 'GUEST', information: {}},
+                    ssrCookies: context.req.cookies
+                }
+            }
+        }
+        
+    }else{
+        console.log("DOES NOT HAVE ANY COOKIES");
+        return{
+            props: {
+                ssrUser: {status: 'GUEST', information: {}},
+                ssrCookies: context.req.cookies
+            }
+        };
+    }
+}

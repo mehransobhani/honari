@@ -21,6 +21,19 @@ const initialState = {
         options: [],
         results: []
     },
+    searchFilter: {
+        page: 1,
+        maxPage: 1,
+        facets: [
+            {
+                name: 'product_price',
+                min: null,
+                max: null,
+                values: []
+            }
+        ],
+        results: []
+    },
     loading: false,
     snackbars: {
         success: {
@@ -69,6 +82,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     let newCartProducts = [];
     let categoryFilter = state.categoryFilter;
+    let searchFilter = state.searchFilter;
     switch(action.type){
         case actionTypes.UPDATE_USER :
             return {
@@ -355,9 +369,126 @@ const reducer = (state = initialState, action) => {
                     results: []
                 }
             };
+        case actionTypes.ADD_SEARCH_FILTER_FACET:
+            let added = false;
+            let founds = false;
+            let newFacets = [];
+            state.searchFilter.facets.map((f, i) => {
+                if(f.name === action.name){
+                    f.values.map((v, c) => {
+                        if(v === action.value){
+                            founds = true;
+                        }
+                    });
+                    if(!founds && !added){
+                        let newValues = f.values;
+                        newValues.push(action.value);
+                        newFacets.push({name: f.name, min: f.min, max: f.max, values: newValues});
+                    }
+                }
+            });
+            if(!founds && !added){
+                newFacets.push({name: action.name, min: action.min, max: action.max, values: [action.value]});
+            }
+            return {
+                ...state,
+                searchFilter: {
+                    page: 1,
+                    maxPage: 1,
+                    facets: newFacets,
+                    results: []
+                }
+            };
+        case actionTypes.REMOVE_SEARCH_FILTER_FACET:
+            let newFacet = [];
+            state.searchFilter.facets.map((f, i) => {
+                if(f.name === action.name){
+                    let newValues = [];
+                    f.values.map((v, c) => {
+                        if(v !== action.value){
+                            newValues.push(v);
+                        }
+                    });
+                    newFacet.push({name: f.name, min: f.min, max: f.max, values: newValues});
+                }else{
+                    newFacet.push(f);
+                }
+            });
+            return {
+                ...state,
+                searchFilter: {
+                    page: 1,
+                    maxPage: 1,
+                    facets: newFacet,
+                    results: []
+                }
+            };
+        case actionTypes.UPDATE_SEARCH_FILTER_PAGE:
+            return {
+                ...state,
+                searchFilter: {
+                    ...searchFilter, 
+                    page: action.page
+                }
+            };
+        case actionTypes.UPDATE_SEARCH_FILTER_MAX_PAGES:
+            return {
+                ...state,
+                searchFilter: {
+                    ...searchFilter,
+                    maxPage: action.maxPage
+                }
+            };
+        case actionTypes.WIPE_SEARCH_FILTER_FACETS:
+            return {
+                ...state,
+                searchFilter: {
+                    page: 1,
+                    maxPage: 1,
+                    facets: [{name: 'product_price', min: null, max: null, values: []}],
+                    results: []
+                }
+            };
+        case actionTypes.UPDATE_SEARCH_FILTER_RESULTS:
+            return {
+                ...state,
+                searchFilter: {
+                    ...searchFilter,
+                    results: action.results
+                }
+            };
+        case actionTypes.UPDATE_SEARCH_FILTER_PRICE:
+            let nfs = state.searchFilter.facets;
+            state.searchFilter.facets.map((f, i) => {
+                if(f.name === 'product_price'){
+                    nfs.push({name: 'product_price', min: action.min, max: action.max, values: []});
+                }else{
+                    nfs.push(f);
+                }
+            });
+            return {
+                ...state,
+                searchFilter: {
+                    ...searchFilter,
+                    page: 1,
+                    maxPage: 1,
+                    facets: nfs,
+                    results: []
+                }
+            };
         default:
             return state;
+        /*
+        // {"name":"product_price","min":"12000","max":"100000","values":[]
+        // {"name":"جنس نخ","min":null,"max":null,"values":["پنبه ای","مصنوعی"]}
 
+        export const ADD_SEARCH_FILTER_FACET = 'ADD_SEARCH_FILTER_FACET';
+        export const REMOVE_SEARCH_FILTER_FACET = 'REMOVE_SEARCH_FILTER_FACET';
+        export const WIPE_SEARCH_FILTER_FACETS = 'WIPE_SEARCH_FILTER_FACETS';
+        export const UPDATE_SEARCH_FILTER_RESULTS = 'UPDATE_SEARCH_FILTER_RESULTS';
+        export const UPDATE_SEARCH_FILTER_MAX_PAGES = 'UPDATE_SEARCH_FILTER_MAX_PAGES';
+        export const UPDATE_SEARCH_FILTER_PAGE = 'UPDATE_SEARCH_FILTER_PAGE';
+        */
     }
 }
 
