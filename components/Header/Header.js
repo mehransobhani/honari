@@ -52,11 +52,12 @@ function BigHeader(props){
     const [searchResults, setSearchResults] = useState([]);
     const [desktopSearchBarWidth, setDesktopSearchBarWidth] = useState(0);
     const [moreSearchCategoriesClass, setMoreSearchCategoriesClass] = useState('d-none');
-    const [showSearchResults, setShowSearchResults] = useState(true);
+    const [showSearchResults, setShowSearchResults] = useState(false);
     
 
     useEffect(() => {
         setWindowWidth(window.outerWidth);
+        setShowSearchResults(false);
         setDesktopSearchBarWidth(desktopSearchBar.current.offsetWidth);
     }, []);
 
@@ -1029,17 +1030,21 @@ function BigHeader(props){
                             if(item.fields === null){
                                 if(index <= 2){
                                     return(
-                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', ].join(' ')}>
-                                            <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
-                                            <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
-                                        </div>
+                                        <Link href={'/search/SearchWithCategory/?query=' + item.category}>
+                                            <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', ].join(' ')}>
+                                                <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
+                                                <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
+                                            </a>
+                                        </Link>
                                     );
                                 }else{
                                     return(
-                                        <div className={['flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', moreSearchCategoriesClass].join(' ')}>
-                                            <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
-                                            <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
-                                        </div>
+                                        <Link href={'/search/SearchWithCategory/?query=' + item.category}>
+                                            <a onClick={props.reduxStartLoading} className={['flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', moreSearchCategoriesClass].join(' ')}>
+                                                <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
+                                                <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
+                                            </a>
+                                        </Link>
                                     );
                                 }
                             }
@@ -1052,19 +1057,21 @@ function BigHeader(props){
                         searchResults.map((item, index) => {
                             if(item.fields !== null){
                                 return(
-                                    <div key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-1'].join(' ')}>
-                                        <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
-                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
-                                            <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
-                                            {
-                                                item.fields.has_stock === 'true'
-                                                ?
-                                                    <h6 className={['mb-0', 'rtl'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{parseInt(item.fields.product_price).toLocaleString() + " تومان"}</h6>
-                                                :
-                                                    <h6 className={['mb-0', 'px-2', 'py-1'].join(' ')} style={{fontSize: '13px', color: '#00BAC6', background: '#F7F7F7', borderRadius: '2px'}}>ناموجود</h6>
-                                            }
-                                        </div>
-                                    </div>
+                                    <Link href={item.fields.product_url}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-1'].join(' ')}>
+                                            <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
+                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
+                                                <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
+                                                {
+                                                    item.fields.has_stock === 'true'
+                                                    ?
+                                                        <h6 className={['mb-0', 'rtl'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{parseInt(item.fields.product_price).toLocaleString() + " تومان"}</h6>
+                                                    :
+                                                        <h6 className={['mb-0', 'px-2', 'py-1'].join(' ')} style={{fontSize: '13px', color: '#00BAC6', background: '#F7F7F7', borderRadius: '2px'}}>ناموجود</h6>
+                                                }
+                                            </div>
+                                        </a>
+                                    </Link>
                                 );
                             }
                         })
@@ -1093,17 +1100,21 @@ function BigHeader(props){
                             if(item.fields === null){
                                 if(index <= 2){
                                     return(
-                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', ].join(' ')}>
-                                            <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
-                                            <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
-                                        </div>
+                                        <Link href={'/search/SearchWithCategory/?query=' + item.category}>
+                                            <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', ].join(' ')}>
+                                                <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
+                                                <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
+                                            </a>
+                                        </Link>
                                     );
                                 }else{
                                     return(
-                                        <div className={['flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', moreSearchCategoriesClass].join(' ')}>
-                                            <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
-                                            <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
-                                        </div>
+                                        <Link href={'/search/SearchWithCategory/?query=' + item.category}>
+                                            <a className={['flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', moreSearchCategoriesClass].join(' ')}>
+                                                <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
+                                                <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
+                                            </a>
+                                        </Link>
                                     );
                                 }
                             }
@@ -1116,19 +1127,21 @@ function BigHeader(props){
                         searchResults.map((item, index) => {
                             if(item.fields !== null){
                                 return(
-                                    <div key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-1'].join(' ')}>
-                                        <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
-                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
-                                            <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
-                                            {
-                                                item.fields.has_stock === 'true'
-                                                ?
-                                                    <h6 className={['mb-0', 'rtl'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{parseInt(item.fields.product_price).toLocaleString() + " تومان"}</h6>
-                                                :
-                                                    <h6 className={['mb-0', 'px-2', 'py-1'].join(' ')} style={{fontSize: '13px', color: '#00BAC6', background: '#F7F7F7', borderRadius: '2px'}}>ناموجود</h6>
-                                            }
-                                        </div>
-                                    </div>
+                                    <Link href={item.fields.product_url}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-1'].join(' ')}>
+                                            <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
+                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
+                                                <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
+                                                {
+                                                    item.fields.has_stock === 'true'
+                                                    ?
+                                                        <h6 className={['mb-0', 'rtl'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{parseInt(item.fields.product_price).toLocaleString() + " تومان"}</h6>
+                                                    :
+                                                        <h6 className={['mb-0', 'px-2', 'py-1'].join(' ')} style={{fontSize: '13px', color: '#00BAC6', background: '#F7F7F7', borderRadius: '2px'}}>ناموجود</h6>
+                                                }
+                                            </div>
+                                        </a>
+                                    </Link>
                                 );
                             }
                         })
@@ -1228,9 +1241,9 @@ function BigHeader(props){
                                 <p className={['pr-1', 'align-self-end', 'mb-0', 'mt-2'].join(' ')}>آموزش، الگو، مواداولیه</p>
                             </div>
                         </div>
-                        <form ref={desktopSearchBar} className={['rounded-sm', 'd-none', 'd-lg-flex', 'flex-row', 'rtl'].join(' ')}>
-                            <button className={['p-2'].join(' ')} style={{borderRadius: '0 4px 4px 0', border: 'none', backgroundColor: '#00bac6', width: '40px'}}><img src='/assets/images/main_images/search_white.png' style={{width: '100%', padding: '2px'}}/></button>
-                            <input type='text' onChange={getSearchResults} placeholder='عبارت مورد نظر را جستجو کنید' className={['pr-2'].join(' ')} style={{fontSize: '14px', height: '42px', width: '340px', outline: 'none', outlineOffset: 'none', border: '1px solid #C4C4C4', borderRadius: '4px 0 0 4px'}} />
+                        <form action='/search/SearchResult' method='GET' ref={desktopSearchBar} className={['rounded-sm', 'd-none', 'd-lg-flex', 'flex-row', 'rtl'].join(' ')}>
+                            <button type='submin' className={['p-2', 'pointer'].join(' ')} style={{borderRadius: '0 4px 4px 0', border: 'none', backgroundColor: '#00bac6', width: '40px'}}><img src='/assets/images/main_images/search_white.png' style={{width: '100%', padding: '2px'}}/></button>
+                            <input name='query' type='text' onChange={getSearchResults} placeholder='عبارت مورد نظر را جستجو کنید' className={['pr-2'].join(' ')} style={{fontSize: '14px', height: '42px', width: '340px', outline: 'none', outlineOffset: 'none', border: '1px solid #C4C4C4', borderRadius: '4px 0 0 4px'}} />
                             {desktopSearchResults()}
                         </form>
                         {
@@ -1241,14 +1254,14 @@ function BigHeader(props){
                                 null
                         }
                         {/*##### searchbox for mobile view #####*/}
-                        <div className={['d-flex', 'flex-row', 'ltr', 'd-md-none', 'pr-1'].join(' ')} style={{height: '30px'}} >
+                        <form method='GET' action='/search/SearchResult' className={['d-flex', 'flex-row', 'ltr', 'd-md-none', 'pr-1'].join(' ')} style={{height: '30px'}} >
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'p-0', 'pointer'].join(' ')} style={{width: '30px', height: '30px', background: '#F7F7F7', borderTop: '1px solid #D8D8D8', borderBottom: '1px solid #D8D8D8', borderLeft: '1px solid #D8D8D8', borderRadius: '3px 0px 0px 3px'}}>
                                 <img src='/assets/images/main_images/search_main.png' className={['pointer'].join(' ')} style={{width: '15px', height: '15px'}}/>
                             </div>
                             <div style={{height: '30px', background: '#F7F7F7'}}>
-                                <input type='search' placeholder='جست و جو کنید' onChange={getSearchResults} className={['rtl', 'px-2'].join(' ')} style={{fontSize: '14px', height: '30px', border: 'none', outlineStyle: 'none', outlineOffset: 'none', outlineColor: 'none', background: '#F7F7F7', border: '1px solid #D8D8D8', borderRadius: '0px 3px 3px 0px'}} /> 
+                                <input name='query' type='search' placeholder='جست و جو کنید' onChange={getSearchResults} className={['rtl', 'px-2'].join(' ')} style={{fontSize: '14px', height: '30px', border: 'none', outlineStyle: 'none', outlineOffset: 'none', outlineColor: 'none', background: '#F7F7F7', border: '1px solid #D8D8D8', borderRadius: '0px 3px 3px 0px'}} /> 
                             </div>
-                        </div>
+                        </form>
                         {/*<h1 className={['pr-1', 'm-0', 'd-block', 'd-lg-none'].join(' ')} style={{fontSize: '22px', color: '#00bac6'}}>هنری</h1>*/}
                     </div>
                     <div className={['col-9', 'col-lg-5', 'text-left', 'd-flex', 'align-items-center', 'ltr', 'p-0'].join(' ')}>

@@ -476,19 +476,18 @@ const reducer = (state = initialState, action) => {
                     results: []
                 }
             };
+        case actionTypes.UPDATE_SEARCH_FILTER_FACETS:
+            return {
+                ...state,
+                searchFilter: {
+                    page: 1,
+                    maxPage: 1,
+                    facets: action.facets,
+                    results: []
+                }
+            };
         default:
             return state;
-        /*
-        // {"name":"product_price","min":"12000","max":"100000","values":[]
-        // {"name":"جنس نخ","min":null,"max":null,"values":["پنبه ای","مصنوعی"]}
-
-        export const ADD_SEARCH_FILTER_FACET = 'ADD_SEARCH_FILTER_FACET';
-        export const REMOVE_SEARCH_FILTER_FACET = 'REMOVE_SEARCH_FILTER_FACET';
-        export const WIPE_SEARCH_FILTER_FACETS = 'WIPE_SEARCH_FILTER_FACETS';
-        export const UPDATE_SEARCH_FILTER_RESULTS = 'UPDATE_SEARCH_FILTER_RESULTS';
-        export const UPDATE_SEARCH_FILTER_MAX_PAGES = 'UPDATE_SEARCH_FILTER_MAX_PAGES';
-        export const UPDATE_SEARCH_FILTER_PAGE = 'UPDATE_SEARCH_FILTER_PAGE';
-        */
     }
 }
 

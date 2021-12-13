@@ -16,6 +16,7 @@ const UserOrders = (props) => {
     const [userAllowd, setUserAllowed] = useState(false);
     const [userStatus, setUserStatus] = useState('loggedOut');
     const [userOrders, setUserOrders] = useState(null);
+    const [loadingOrderIndex, setLoadingOrderIndex] = useState(-1);
 
     useEffect(() => {
         props.reduxUpdateUserTotally(props.ssrUser);
@@ -91,6 +92,69 @@ const UserOrders = (props) => {
         });
     }
 
+    const getOrderStatus = (status) => {
+        switch (status){
+            case 1:
+                return 'آماده سازی';
+            case 2:
+                return 'آماده سازی';
+            case 3:
+                return 'پایان آماده‌سازی';
+            case 4: 
+                return 'بررسی سفارش';
+            case 5:
+                return 'بسته بندی';
+            case 6:
+                return 'پرداخت نشده';
+            case 7:
+                return 'لغو شده';
+            case 9:
+                return 'ارسال شده';
+        }
+    }
+
+    const updateUserOrderStatus  = (index, status) => {
+        let newUserOrders = [];
+        for(let i = 0; i< userOrders.length; i++){
+            if(i === index){
+                let o = userOrders[i];
+                o.status = status;
+                newUserOrders.push(o);
+            }else{
+                newUserOrders.push(userOrders[i]);
+            }
+        }
+        setUserOrders(newUserOrders);
+    }
+
+    const cancelOrder = (orderIndex) => {
+        if(loadingOrderIndex !== -1){
+            return;
+        }
+        setLoadingOrderIndex(orderIndex);
+        axios.post(Constants.apiUrl + '/api/user-cancel-order', {
+            orderId: userOrders[orderIndex].id
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + props.ssrCookies.user_server_token, 
+            }
+        }).then((res) => {
+            setLoadingOrderIndex(-1);
+            let response = res.data;
+            if(response.status === 'done'){
+                updateUserOrderStatus(orderIndex, 7);
+                props.reduxUpdateSnackbar('success', true, 'سفارش با موفقیت لغو شد');
+            }else if(response.status === 'failed'){
+                console.warn(response.message);
+                prpos.reduxUpdateSnackbar('warning', true, response.umessage);
+            }
+        }).catch((error) => {
+            setLoadingOrderIndex(-1);
+            console.error(error);
+            props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+        });
+    }
+
     const noPreviousOrder = (
         <div className={['row', 'px-2'].join(' ')}>
             <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'py-3'].join(' ')} style={{background: '#F2F2F2', borderRadius: '4px'}}>
@@ -109,7 +173,7 @@ const UserOrders = (props) => {
                 <span className={['col-2', 'text-center'].join(' ')} style={{fontSize: '12px', color: '#00BAC6', fontWeight: '500'}}>مبلغ</span>
                 <span className={['col-2', 'text-center'].join(' ')} style={{fontSize: '12px', color: '#00BAC6', fontWeight: '500'}}>کد رهگیری</span>
                 <span className={['col-1', 'text-center'].join(' ')} style={{fontSize: '12px', color: '#00BAC6', fontWeight: '500'}}>مشاهده</span>
-                <span className={['col-2', 'text-center'].join(' ')} style={{fontSize: '12px', color: '#00BAC6', fontWeight: '500'}}>مرجوعی / نقص سفارش</span>
+                <span className={['col-2', 'text-center'].join(' ')} style={{fontSize: '12px', color: '#00BAC6', fontWeight: '500'}}>عملیات</span>
             </div>
             {
                 userOrders !== null && userOrders.length !== 0 && userOrders !== undefined && userOrders !== '[]'
@@ -120,26 +184,31 @@ const UserOrders = (props) => {
                             <React.Fragment key={counter}>
                                 <div className={['row', 'px-2', 'py-3', 'mt-1', 'd-none', 'd-md-flex'].join(' ')} style={{borderRadius: '3px', background: '#F2F2F2'}}>
                                     <span className={['col-1', 'text-center'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>{counter + 1}</span>
-                                    {
-                                        item.status == 9
-                                        ?
-                                        <span className={['col-2', 'text-center', 'rtl'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>تحویل داده شده</span>
-                                        :
-                                        <span className={['col-2', 'text-center', 'rtl'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>{item.status}</span>
-                                    }
+                                    <span className={['col-2', 'text-center', 'rtl'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>{getOrderStatus(item.status)}</span>
                                     <span className={['col-2', 'text-center', 'rtl'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>{item.date}</span>
                                     <span className={['col-2', 'text-center', 'rtl'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>{item.price + ' تومان'}</span>
-                                    <span className={['col-2', 'text-center'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>کد رهگیری</span>
+                                    <span className={['col-2', 'text-center'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>{item.orderReferenceId}</span>
                                     <Link href={'/users/factor/' + item.id} ><a className={['col-1', 'text-center', 'pointer'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>مشاهده</a></Link>
-                                    <span className={['col-2', 'text-center', 'd-none'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>مرجوعی / نقص سفارش</span>
                                     <span className={['col-2', 'text-center'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>
-                                        <img src='/assets/images/main_images/return_delivery_red.png' className={['pointer'].join(' ')} style={{width: '20px', height: '20px'}} />
+                                        {
+                                            loadingOrderIndex !== counter
+                                            ?
+                                                (
+                                                    item.status === 1
+                                                    ?
+                                                        <button onClick={() => {cancelOrder(counter)}} className={['text-center', 'mb-0', 'pointer'].join(' ')} style={{fontSize: '11px', background: 'none', color: 'red', border: 'none', outline: 'none'}}>لغو سفارش</button>
+                                                    :
+                                                        null
+                                                )
+                                            :
+                                            <button className={['text-center', 'mb-0', 'pointer', 'txt-warning'].join(' ')} style={{fontSize: '11px', background: 'none', border: 'none', outline: 'none'}}>کمی صبر کنید</button>
+                                        }
                                     </span>
                                 </div>
                                 <div className={['row', 'px-2', 'py-2', 'mt-1', 'd-md-none'].join(' ')} style={{borderRadius: '3px', background: '#F2F2F2'}}>
                                     <div className={['col-6', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right'].join(' ')}>
                                         <h6 className={['mb-0', 'pl-2'].join(' ')} style={{fontSize: '11px'}}>وضعیت :</h6>
-                                        <h6 className={['mb-0'].join(' ')} style={{fontSize: '11px'}}>تحویل داده شده</h6>
+                                        <h6 className={['mb-0'].join(' ')} style={{fontSize: '11px'}}>{getOrderStatus(item.status)}</h6>
                                     </div>
                                     <div className={['col-6', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right'].join(' ')}>
                                         <h6 className={['mb-0', 'pl-2'].join(' ')} style={{fontSize: '11px'}}>تاریخ ثبت :</h6>
@@ -151,13 +220,19 @@ const UserOrders = (props) => {
                                     </div>
                                     <div className={['col-6', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'mt-3'].join(' ')}>
                                         <h6 className={['mb-0', 'pl-2'].join(' ')} style={{fontSize: '11px'}}>کد رهگیری :</h6>
-                                        <h6 className={['mb-0'].join(' ')} style={{fontSize: '11px'}}>124654</h6>
+                                        <h6 className={['mb-0'].join(' ')} style={{fontSize: '11px'}}>{item.orderReferenceId}</h6>
                                     </div>
                                     <div className={['col-6', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'mt-3'].join(' ')}>
                                         <Link href={'/users/factor/' + item.id} ><a className={[''].join(' ')} style={{fontSize: '11px', color: '#00BAC6'}}>مشاهده جزئیات</a></Link>
                                     </div>
                                     <div className={['col-6', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'mt-3'].join(' ')}>
-                                        <Link href='' ><a className={[''].join(' ')} style={{fontSize: '11px', color: 'red'}}>ثبت مرجوعی</a></Link>
+                                        {
+                                            item.status === 1
+                                            ?
+                                                <button onClick={() => {cancelOrder(counter)}} className={['text-center', 'mb-0', 'pointer'].join(' ')} style={{fontSize: '11px', background: 'none', color: 'red', border: 'none', outline: 'none'}}>لغو سفارش</button>
+                                            :
+                                                null
+                                        }
                                     </div>
                                 </div>
                             </React.Fragment>

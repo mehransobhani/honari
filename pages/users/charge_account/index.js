@@ -96,14 +96,34 @@ const ChargeAccount = (props) => {
     }
 
     const confirmButtonClicked = () => {
-        if(ajaxProcessing === false){
-            if(requestedPrice < 100){
-                props.reduxUpdateSnackbar('warning', true, 'مبلغ موردنظر باید بیشتر از ۱۰۰ تومان باشد')
-            }else{
-                setAjaxProcessing(true);
-                setConfirmButtonText("درحال انتقال به صفحه‌ی پرداخت");
-            }
+        if(ajaxProcessing){
+            return;
         }
+        if(requestedPrice < 100){
+            return;
+        }
+        setAjaxProcessing(true);
+        axios.post(Constants.apiUrl + '/api/user-charge-wallet', {
+            price: requestedPrice
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + props.ssrCookies.user_server_token, 
+            }
+        }).then((res) => {
+            let response = res.data;
+            if(response.status === 'done'){
+                setConfirmButtonText("درحال انتقال به صفحه‌ی پرداخت");
+                window.location.href = 'https://pep.shaparak.ir/payment.aspx?n=' + response.token;
+            }else if(response.status === 'failed'){
+                console.warn(response.message);
+                props.reduxUpdateSnackbar('warning', true, response.umessage);
+            }
+            setAjaxProcessing(false);
+        }).catch((error) => {
+            console.error(error);
+            props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+            setAjaxProcessing(false);
+        });
     }
 
     return(
