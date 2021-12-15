@@ -5,7 +5,7 @@ const SideFilter = () => {
         <div className={['container-fluid']}>
             <div className={['row'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'align-items-center', 'text-right', 'pr-1'].join(' ')} style={{direction: 'rtl'}}>
-                    <img src='/assets/images/main_images/filter.png' style={{width: '36px'}}/>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/filter.png'} style={{width: '36px'}}/>
                     <h5 className={['mb-0', 'mr-2'].join(' ')}>فیلتر موارد</h5>
                 </div>
                 <div className={['container-fluid'].join(' ')}>

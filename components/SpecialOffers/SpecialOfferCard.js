@@ -11,7 +11,7 @@ const SpecialOfferCard = (props) => {
     const renderer = ({ hours, minutes, seconds, completed }) => {
         if (completed) {
             // Render a completed state
-            return <span>done</span>;
+            return <h6 className={['text-center', 'mb-0'].join(' ')} style={{color: '#575757', fontSize: '17px'}}>زمان تخفیف به پایان رسیده‌است</h6>;
         } else {
             let s1 = parseInt(seconds / 10);
             let s2 = seconds % 10;

@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import {useRouter}  from 'next/router';
 import axios from 'axios';
 import Link from 'next/link';
-import * as Constants from '../../../components/constants';
-import * as actionTypes from '../../../store/actions';
-import Header from '../../../components/Header/Header';
-import Footer from '../../../components/Footer/Footer';
+import Header from '../../../../components/Header/Header';
+import Footer from '../../../../components/Footer/Footer';
+import Head from 'next/head';
+import {useRouter}  from 'next/router';
 import {connect} from 'react-redux';
+import * as actionTypes from '../../../../store/actions';
+import * as Constants from '../../../../components/constants';
+//import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
 
-const Result = (props) => {
+
+const PasargadOrderPaymentResult = (props) => {
     const router = useRouter();
     const [paymentResult, setPaymentResult] = useState(null);
 
@@ -103,7 +107,7 @@ const Result = (props) => {
                 </div>
                 <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center', 'mt-3', 'py-4', 'px-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8', background: '#F7F7F7'}}>
                     <p className={['text-center', 'mb-0'].join(' ')}>برای کسب اطلاعات بیشتر و آگاهی از وضعیت سفارش خود میتوانید به قسمت سفارش‌های من در حساب کاربری خود مراجعه کنید</p>
-                    <h6 className={['mb-0', 'mt-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#00BAC6'}}><b>{"کد سفارش شما : " + orderId}</b></h6>
+                    <h6 className={['mb-0', 'mt-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#00BAC6'}}><b>{"کد سفارش شما : " + ""}</b></h6>
                     <Link href='/' ><a onClick={() => {props.reduxStartLoading()}} className={['mb-0', 'px-3', 'py-2', 'text-center', 'mt-3'].join(" ")} style={{background: '#00BAC6', color: 'white', borderRadius: '2px'}}>بازگشت به صفحه‌ی اصلی</a></Link>
                 </div>
             </div>
@@ -122,16 +126,16 @@ const Result = (props) => {
                 <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center', 'mt-3', 'py-4', 'px-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8', background: '#F7F7F7'}}>
                     <p className={['text-center', 'mb-0'].join(' ')}>به علت ناموفق بودن پرداخت، سفارش شما نهایی نشده است</p>
                     <p className={['text-center', 'mb-0'].join(' ')}>برای تایید سفارش خود مجددا از سبد خرید اقدام کنید</p>
-                    <h6 className={['mb-0', 'mt-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#00BAC6'}}><b>{"کد سفارش شما : " + orderId}</b></h6>
+                    <h6 className={['mb-0', 'mt-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#00BAC6'}}><b>{"کد سفارش شما : " + ""}</b></h6>
                     <Link href='/cart/shoppingCart' ><a onClick={() => {props.reduxStartLoading()}} className={['mb-0', 'px-3', 'py-2', 'text-center', 'mt-3'].join(" ")} style={{background: '#00BAC6', color: 'white', borderRadius: '2px'}}>بازگشت به سبد خرید</a></Link>
                 </div>
             </div>
         </div>
     );
 
-    return(
+    return (    
         <React.Fragment>
-            <Header />
+            <Header /> 
             {
                 paymentResult !== null
                 ?
@@ -172,7 +176,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Result);
+export default connect(mapStateToProps, mapDispatchToProps)(PasargadOrderPaymentResult);
 
 export async function getServerSideProps(context){
     

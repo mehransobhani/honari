@@ -169,11 +169,11 @@ const Payment = (props) => {
         <div className={['container']}>
             <div className={['row', 'mt-5', 'px-2'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')}>
-                    <img src='/assets/images/main_images/location_black.png' style={{width: '16px', height: '16px'}}/>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/location_black.png'} style={{width: '16px', height: '16px'}}/>
                     <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', fontWeight: '500', color: '500'}}>آدرس</h6>
                 </div>
                 <div className={['col-12', 'mt-2', 'd-flex', 'flex-column', 'align-items-center'].join(' ')} style={{border: '1px dashed #D8D8D8', background: '#F9F9F9'}}>
-                    <img src='/assets/images/main_images/delivery_location.png' className={['mt-4'].join(' ')} style={{width: '70px', height: '70px'}} />
+                    <img src={Constants.baseUrl + '/assets/images/main_images/delivery_location.png'} className={['mt-4'].join(' ')} style={{width: '70px', height: '70px'}} />
                     <p className={['mb-0', 'text-center', 'rtl', 'mt-2'].join(' ')} style={{fontSize: '17px', fontWeight: '500'}}>آدرس موردنظرتان برای ارسال سفارش را اضافه کنید</p>
                     <a href='https://honari.com/user/edit-address' className={['px-4', 'py-3', 'mt-3', 'mb-3', 'rtl'].join(' ')} style={{background: '#00BAC6', color: 'white'}}>
                     + اضافه کردن آدرس جدید
@@ -181,12 +181,12 @@ const Payment = (props) => {
                 </div>
                 <div className={['col-12', 'mt-3', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'px-0'].join(' ')}>
                     <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')}>
-                        <img src='/assets/images/main_images/right_arrow_black.png' style={{width: '8px', height: '8px'}} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/right_arrow_black.png'} style={{width: '8px', height: '8px'}} />
                         <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '444444', fontSize: '17px'}}>بازگشت و ادامه خرید</p>
                     </div>
                     <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3', 'py-2'].join(' ')} style={{borderRadius: '1px', background: '#DEDEDE', cursor: 'none'}}>
                         <p className={['mb-0', 'pl-2'].join(' ')} style={{color: '#949494', fontSize: '17px'}}>تایید و نهایی کردن خرید</p>
-                        <img src='/assets/images/main_images/left_arrow_gray_small.png' style={{width: '8px', height: '8px'}} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_gray_small.png'} style={{width: '8px', height: '8px'}} />
                     </div>
                 </div>
             </div>
@@ -197,16 +197,16 @@ const Payment = (props) => {
         <div className={['container'].join(' ')}>
             <div className={['row', 'mt-3', 'mx-1'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')}>
-                    <img src='/assets/images/main_images/location_black.png' style={{width: '16px', height: '16px'}}/>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/location_black.png'} style={{width: '16px', height: '16px'}}/>
                     <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', fontWeight: '500', color: '500'}}>آدرس</h6>
                 </div>
                 <div className={['col-12', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'mt-2'].join(' ')} style={{background: 'linear-gradient(270deg, #DEEEEF 0%, rgba(222, 238, 239, 0) 89.58%)', border: '1px solid #DEDEDE'}}>
                     <div className={['d-flex', 'flex-row', 'align-items-center', 'px-0', 'px-md-3', 'py-2'].join(' ')}>
-                        <img src='/assets/images/main_images/rec_main_full.png' style={{width: '14px', height: '14px'}}/>
+                        <img src={Constants.baseUrl + '/assets/images/main_images/rec_main_full.png'} style={{width: '14px', height: '14px'}}/>
                         <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px'}}>ارسال به این آدرس</p>
                     </div>
                     <a href='https://honari.com/user/edit-address' className={['d-flex', 'flex-row', 'align-items-center', 'px-0', 'px-md-3', 'py-2'].join(' ')}>
-                        <img src='/assets/images/main_images/pencil_main.png' style={{width: '14px', height: '14px'}}/>
+                        <img src={Constants.baseUrl + '/assets/images/main_images/pencil_main.png'} style={{width: '14px', height: '14px'}}/>
                         <p className={['mb-0', 'pr-2'].join(' ')} style={{color: '#444444', fontSize: '17px'}}>ویرایش</p>
                     </a>
                 </div>
@@ -275,7 +275,7 @@ const Payment = (props) => {
             </div>
             <div className={['row', 'mt-4', 'mx-1'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')}>
-                    <img src='/assets/images/main_images/delivery_time.png' style={{width: '16px', height: '16px'}}/>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/delivery_time.png'} style={{width: '16px', height: '16px'}}/>
                     <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', fontWeight: '500', color: '500'}}>شیوه ارسال</h6>
                 </div>
             </div>
@@ -304,9 +304,9 @@ const Payment = (props) => {
                                 {
                                     selectedDeliveryId === option.id
                                     ?
-                                    <img src='/assets/images/main_images/rec_main_full.png' style={{width: '18px', height: '18px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/rec_main_full.png'} style={{width: '18px', height: '18px'}} />
                                     :
-                                    <img src='/assets/images/main_images/rec_black_empty.png' style={{width: '18px', height: '18px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/rec_black_empty.png'} style={{width: '18px', height: '18px'}} />
                                 }
                                 <div className={['d-flex', 'flex-column', 'justify-content-right'].join(' ')}>
                                     <h5 className={['mb-0', 'mr-3', 'text-right'].join(' ')} style={{fontSize: '17px', fontWeight: '500'}}>{option.fname}</h5>
@@ -329,7 +329,7 @@ const Payment = (props) => {
                     <React.Fragment>
                         <div className={['row', 'mt-4', 'mx-1'].join(' ')}>
                             <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')}>
-                                <img src='/assets/images/main_images/delivery_time.png' style={{width: '16px', height: '16px'}}/>
+                                <img src={Constants.baseUrl + '/assets/images/main_images/delivery_time.png'} style={{width: '16px', height: '16px'}}/>
                                 <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '16px', fontWeight: '500', color: '500'}}>زمان ارسال سفارشتان را از بازه‌های زیر انتخاب کنید</h6>
                             </div>
                         </div>
@@ -345,9 +345,9 @@ const Payment = (props) => {
                                             {
                                                 selectedWorkTimeDate === workTime.timestamp
                                                 ?
-                                                <img src='/assets/images/main_images/rec_main_full.png' style={{width: '18px', height: '18px'}} />
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/rec_main_full.png'} style={{width: '18px', height: '18px'}} />
                                                 :
-                                                <img src='/assets/images/main_images/rec_black_empty.png' style={{width: '18px', height: '18px'}} />
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/rec_black_empty.png'} style={{width: '18px', height: '18px'}} />
                                             }
                                             <div className={['d-flex', 'flex-column', 'justify-content-right', 'pr-3'].join(' ')}>
                                                 <h6 className={['text-right', 'rtl', 'mb-2'].join(' ')}>{workTime.day + "  " + workTime.label}</h6>
@@ -369,12 +369,12 @@ const Payment = (props) => {
                     ?
                     <Link href={'/cart/payment/deliveryReview'}><div onClick={() => {props.reduxStartLoading()}} className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3', 'pointer', 'ml-1'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                         <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>تایید و نهایی کردن خرید</h6>
-                        <img className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
+                        <img className={['mr-2'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '10px', height: '10px'}} />
                     </div></Link>
                     :
                     <div onClick={() => {props.reduxUpdateSnackbar('warning', true, 'لطفا اطلاعات روش و زمان ارسال را به درستی وارد کنید')}} className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3', 'pointer', 'ml-1'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                         <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>تایید و نهایی کردن خرید</h6>
-                        <img className={['mr-2'].join(' ')} src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '10px', height: '10px'}} />
+                        <img className={['mr-2'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '10px', height: '10px'}} />
                     </div>
                 }
                 
@@ -382,37 +382,10 @@ const Payment = (props) => {
         </div>
     );
 
-    //<div className={['col-12'].join(' ')} style={{height: '1px', width: '100%', display: 'relative', top: '11px', background: '#00BAC6'}}></div>
-
-    /*
-<div className={['w-100'].join(' ')} style={{display: 'relative', top: '20px'}}>
-                            <div className={['d-flex', 'flex-row', 'rtl', 'w-100'].join(' ')} style={{height: '20px', paddingTop: '20px'}}>
-                                <div style={{flex: '1', height: '2px', width: '100%', background: '#00ABC6'}}></div>
-                                <div style={{flex: '1', height: '2px', width: '100%', background: '#00ABC6'}}></div>
-                                <div style={{flex: '1', height: '2px', width: '100%', background: '#00ABC6'}}></div>
-                                <div style={{flex: '1', height: '2px', width: '100%', background: '#00ABC6'}}></div>
-                                <div style={{flex: '1', height: '2px', width: '100%', background: '#00ABC6'}}></div>
-                                <div style={{flex: '1', height: '2px', width: '100%', background: 'yellow'}}></div>
-                            </div>
-                        </div>
-
-                        <div className={['row', 'rtl', 'py-4'].join(' ')} style={{backgroundColor: '#F7F7F7'}}>
-                        
-                        <div className={['col-4', 'text-center'].join(' ')}>
-                            <immg src='/assets/images/main_images/checked_main_circle.png' style={{width: '20px', height: '20px'}} />
-                        </div>
-                        <div className={['col-4', 'text-center'].join(' ')}>
-                            <immg src='/assets/images/main_images/checked_main_circle.png' style={{width: '20px', height: '20px'}} />
-                        </div>
-                        <div className={['col-4', 'text-center'].join(' ')}>
-                            <immg src='/assets/images/main_images/checked_gray_circle.png' style={{width: '20px', height: '20px'}} />
-                        </div>
-                    </div>
-    */
     return(
         <React.Fragment>
             <Header />
-                <img src='/assets/images/main_images/secondStep.png' style={{width: '100%'}} />
+                <img src={Constants.baseUrl + '/assets/images/main_images/secondStep.png'} style={{width: '100%'}} />
                 {
                     props.reduxUser.status !== 'NI'
                     ?

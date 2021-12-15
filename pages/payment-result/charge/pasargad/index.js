@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import {useRouter}  from 'next/router';
 import axios from 'axios';
 import Link from 'next/link';
-import * as Constants from '../../../components/constants';
-import * as actionTypes from '../../../store/actions';
-import Header from '../../../components/Header/Header';
-import Footer from '../../../components/Footer/Footer';
+import Header from '../../../../components/Header/Header';
+import Footer from '../../../../components/Footer/Footer';
+import Head from 'next/head';
+import {useRouter}  from 'next/router';
 import {connect} from 'react-redux';
+import * as actionTypes from '../../../../store/actions';
+import * as Constants from '../../../../components/constants';
+//import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
 
-const Result = (props) => {
+
+const PasargadChargePaymentResult = (props) => {
     const router = useRouter();
     const [paymentResult, setPaymentResult] = useState(null);
 
@@ -52,12 +56,12 @@ const Result = (props) => {
                     }
                 }else if(response.status === 'failed'){
                     console.warn(response.message);
-                    console.warn(response.umessage);
+                    props.reduxUpdateSnackbar('warning', true, response.umessage);
                 }
             }).catch((error)=>{
                 console.error(error);
                 props.reduxUpdateCart([]);
-                alert('مشکلی پیش آمده لطفا مجددا امتحان کنید');
+                props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
             });
         }else if(props.ssrUser.status === 'GUEST'){
             window.location.href = 'https://honari.com/user/login';
@@ -65,7 +69,7 @@ const Result = (props) => {
     }, []);
 
     useEffect(() => {
-        axios.post(Constants.apiUrl + "/api/user-pasargad-payment-result", {
+        axios.post(Constants.apiUrl + "/api/user-pasargad-charge-result", {
             iN: router.query.iN,
             iD: router.query.iD,
             tref: router.query.tref,
@@ -81,10 +85,11 @@ const Result = (props) => {
                     setPaymentResult(true);
                 }else{
                     setPaymentResult(false);
+                    props.reduxUpdateSnackbar('warning', true, response.umessage);
                 }
             }else if(response.status === 'failed'){
                 console.warn(response.message);
-                console.warn(response.umessage);
+                props.reduxUpdateSnackbar('warning', true, response.umessage);
             }
         }).catch((error)=>{
             console.error(error);
@@ -98,12 +103,12 @@ const Result = (props) => {
             <div className={['row', 'px-2'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center'].join(' ')}>
                     <img src={Constants.baseUrl + '/assets/images/main_images/checked_green_huge.png'} className={['mt-3'].join(' ')} style={{width: '76px', height: '76px'}} />
-                    <h5 className={['mb-0', 'text-center', 'mt-2'].join(' ')} style={{fontSize: '22px', color: 'black'}}><b>سفارش با موفقیت ثبت شد</b></h5>
-                    <p className={['mb-0', 'text-center', 'mt-2'].join(' ')} style={{fontSize: '17px'}}>پردازش سفارش شما آغاز شده است و در اولین فرصت آماده تحویل خواهد بود</p>
+                    <h5 className={['mb-0', 'text-center', 'mt-2'].join(' ')} style={{fontSize: '22px', color: 'black'}}><b>کیف پول شما با موفقیت شارژ شد</b></h5>
+                    <p className={['mb-0', 'text-center', 'mt-2'].join(' ')} style={{fontSize: '17px'}}>مبلغ حساب کاربری شما افزایش یافت. شما میتوانید از این مبلغ برای پرداخت سفارش‌های خود استفاده کنید</p>
                 </div>
                 <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center', 'mt-3', 'py-4', 'px-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8', background: '#F7F7F7'}}>
-                    <p className={['text-center', 'mb-0'].join(' ')}>برای کسب اطلاعات بیشتر و آگاهی از وضعیت سفارش خود میتوانید به قسمت سفارش‌های من در حساب کاربری خود مراجعه کنید</p>
-                    <h6 className={['mb-0', 'mt-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#00BAC6'}}><b>{"کد سفارش شما : " + orderId}</b></h6>
+                    <p className={['text-center', 'mb-0'].join(' ')}>برای کسب اطلاعات بیشتر و آگاهی از وضعیت کیف پول خود میتوانید به حساب کاربری خود مراجعه کنید</p>
+                    <h6 className={['mb-0', 'mt-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#00BAC6'}}><b>{"کد سفارش شما : " + ""}</b></h6>
                     <Link href='/' ><a onClick={() => {props.reduxStartLoading()}} className={['mb-0', 'px-3', 'py-2', 'text-center', 'mt-3'].join(" ")} style={{background: '#00BAC6', color: 'white', borderRadius: '2px'}}>بازگشت به صفحه‌ی اصلی</a></Link>
                 </div>
             </div>
@@ -120,18 +125,18 @@ const Result = (props) => {
                     <p className={['mb-0', 'text-center', 'mt-2'].join(' ')} style={{fontSize: '17px'}}>درصورت عدم بازگشت مبلغ در این بازه زمانی با پشتیبانی بانک خود تماس حاصل نمایید</p>
                 </div>
                 <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center', 'mt-3', 'py-4', 'px-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8', background: '#F7F7F7'}}>
-                    <p className={['text-center', 'mb-0'].join(' ')}>به علت ناموفق بودن پرداخت، سفارش شما نهایی نشده است</p>
-                    <p className={['text-center', 'mb-0'].join(' ')}>برای تایید سفارش خود مجددا از سبد خرید اقدام کنید</p>
-                    <h6 className={['mb-0', 'mt-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#00BAC6'}}><b>{"کد سفارش شما : " + orderId}</b></h6>
+                    <p className={['text-center', 'mb-0'].join(' ')}>به علت ناموفق بودن پرداخت، کیف پول شما شارژ نشده است</p>
+                    <p className={['text-center', 'mb-0'].join(' ')}>برای افزایش اعتبار حساب کابری خود مجددا درخواست دهید</p>
+                    <h6 className={['mb-0', 'mt-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#00BAC6'}}><b>{"کد سفارش شما : " + ""}</b></h6>
                     <Link href='/cart/shoppingCart' ><a onClick={() => {props.reduxStartLoading()}} className={['mb-0', 'px-3', 'py-2', 'text-center', 'mt-3'].join(" ")} style={{background: '#00BAC6', color: 'white', borderRadius: '2px'}}>بازگشت به سبد خرید</a></Link>
                 </div>
             </div>
         </div>
     );
 
-    return(
+    return (    
         <React.Fragment>
-            <Header />
+            <Header /> 
             {
                 paymentResult !== null
                 ?
@@ -172,7 +177,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Result);
+export default connect(mapStateToProps, mapDispatchToProps)(PasargadChargePaymentResult);
 
 export async function getServerSideProps(context){
     

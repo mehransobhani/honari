@@ -268,7 +268,7 @@ const DeliveryReview = (props) => {
         <div className={['container'].join(' ')} >
             <div className={['row', 'px-2'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center'].join(' ')}>
-                    <img src='/assets/images/main_images/checked_green_huge.png' className={['mt-3'].join(' ')} style={{width: '76px', height: '76px'}} />
+                    <img src={Constants.baseUrl + '/assets/images/main_images/checked_green_huge.png'} className={['mt-3'].join(' ')} style={{width: '76px', height: '76px'}} />
                     <h5 className={['mb-0', 'text-center', 'mt-2'].join(' ')} style={{fontSize: '22px', color: 'black'}}><b>سفارش با موفقیت ثبت شد</b></h5>
                     <p className={['mb-0', 'text-center', 'mt-2'].join(' ')} style={{fontSize: '17px'}}>پردازش سفارش شما آغاز شده است و در اولین فرصت آماده تحویل خواهد بود</p>
                 </div>
@@ -301,7 +301,7 @@ const DeliveryReview = (props) => {
             let response = res.data;
             if(response.status === 'done'){
                 if(response.stage === 'payment'){
-                    window.location.href = response.bankpaymentLink;
+                    window.location.href = response.bankPaymentLink;
                 }else if(response.stage === 'done'){
                     setOrderStage('done');
                     setOrderId(response.orderId);
@@ -346,7 +346,7 @@ const DeliveryReview = (props) => {
                     <div className={['container-fluid'].join(' ')}>
                         <div className={['row'].join(' ')}>
                             <div className={['col-12', 'px-0'].join(' ')}>
-                                <img src='/assets/images/main_images/thirdStep.png' className={['w-100'].join(" ")} />
+                                <img src={Constants.baseUrl + '/assets/images/main_images/thirdStep.png'} className={['w-100'].join(" ")} />
                             </div>
                         </div>
                     </div>
@@ -354,7 +354,7 @@ const DeliveryReview = (props) => {
                         <div className={['row'].join(' ')}>
                             <div className={['col-12', 'mt-4', 'px-0'].join(' ')}>
                                 <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl'].join(' ')}>
-                                    <img src='/assets/images/main_images/form.png' style={{width: '18px', heigth: '18px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/form.png'} style={{width: '18px', heigth: '18px'}} />
                                     <h4 className={['text-right', 'mb-0', 'mr-2'].join(' ')} style={{fontSize: '24px', color: '#2b2b2b'}}><b>فاکتور نهایی خرید</b></h4>
                                 </div>
                             </div>
@@ -412,9 +412,9 @@ const DeliveryReview = (props) => {
                                 {
                                     giftCodeCheckboxSelected
                                     ?
-                                    <img className={['pointer'].join(' ')} src='/assets/images/main_images/selected_checkbox.png' style={{width: '15px', height: '15px'}} onClick={() => {setGiftCodeCheckboxSelected(false)}} />
+                                    <img className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/selected_checkbox.png'} style={{width: '15px', height: '15px'}} onClick={() => {setGiftCodeCheckboxSelected(false)}} />
                                     :
-                                    <img className={['pointer'].join(' ')} src='/assets/images/main_images/unselected_checkbox.png' style={{width: '15px', height: '15px'}} onClick={() => {setGiftCodeCheckboxSelected(true)}} />
+                                    <img className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/unselected_checkbox.png'} style={{width: '15px', height: '15px'}} onClick={() => {setGiftCodeCheckboxSelected(true)}} />
                                 }
                                 <h6 className={['text-right', 'mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '24px', color: '#2B2B2B'}}><b>کد تخفیف دارم</b></h6>
                             </div>
@@ -443,7 +443,7 @@ const DeliveryReview = (props) => {
                                                 <div className={['col-6', 'd-flex', 'flex-row', 'align-items-center', 'py-2'].join(' ')}>
                                                     <div className={['d-flex', 'flex-column', 'justify-content-right', 'pr-5'].join(' ')} >
                                                         <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')}>
-                                                            <img src='/assets/images/main_images/tick.png' style={{width: '12px', height: '12px'}} />
+                                                            <img src={Constants.baseUrl + '/assets/images/main_images/tick.png'} style={{width: '12px', height: '12px'}} />
                                                             <h6 className={['mb-0', 'pr-1'].join(" ")} style={{fontFamily: 'IranSansWeb', color: '#00A128', fontSize: '17px'}}>{
                                                                 "کد تخفیف " + item.code + " اعمال شد"
                                                             }</h6>
@@ -473,7 +473,7 @@ const DeliveryReview = (props) => {
                                                     <div className={['col-6', 'd-flex', 'flex-row', 'align-items-center', 'py-2'].join(' ')}>
                                                         <div className={['d-flex', 'flex-column', 'justify-content-right', 'pr-5'].join(' ')} >
                                                             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')}>
-                                                                <img src='/assets/images/main_images/tick.png' style={{width: '12px', height: '12px'}} />
+                                                                <img src={Constants.baseUrl + '/assets/images/main_images/tick.png'} style={{width: '12px', height: '12px'}} />
                                                                 <h6 className={['mb-0', 'pr-1'].join(" ")} style={{fontFamily: 'IranSansWeb', color: '#00A128', fontSize: '17px'}}>{
                                                                 "کد تخفیف " + item.code + " اعمال شد"
                                                             }</h6>
@@ -509,7 +509,7 @@ const DeliveryReview = (props) => {
                                 <h5 className={['mb-0'].join(' ')} style={{fontSize: '24px', color: '#2B2B2B'}}><b>شیوه پرداخت</b></h5>
                             </div>
                             <div className={['col-12', 'd-flex', 'flex-row', 'text-right', 'rtl', 'align-items-center', 'justify-content-right', 'py-2', 'mr-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                <img src='/assets/images/main_images/rec_main_full.png' style={{width: '14px', height: '14px'}} />
+                                <img src={Constants.baseUrl + '/assets/images/main_images/rec_main_full.png'} style={{width: '14px', height: '14px'}} />
                                 <div className={['d-flex', 'flex-column', 'justify-content-right', 'pr-3'].join(' ')}>
                                     <h6 className={['text-right', 'mb-0'].join(' ')} style={{fontSize: '24px', color: '#2B2B2B'}}>پرداخت آنلاین</h6>
                                     <h6 className={['text-right', 'mb-0', 'mt-1'].join(' ')} style={{fontSize: '14px', color: '#4B4B4B'}}>از طریق درگاه بانک</h6>
@@ -523,9 +523,9 @@ const DeliveryReview = (props) => {
                                         {
                                             walletCheckboxSelected 
                                             ?
-                                            <img className={['pointer'].join(' ')} src='/assets/images/main_images/selected_checkbox.png' style={{width: '15px', height: '15px'}} onClick={() => {toggleUserWalletUsage(false)}} />
+                                            <img className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/selected_checkbox.png'} style={{width: '15px', height: '15px'}} onClick={() => {toggleUserWalletUsage(false)}} />
                                             :
-                                            <img className={['pointer'].join(' ')} src='/assets/images/main_images/unselected_checkbox.png' style={{width: '15px', height: '15px'}} onClick={() => {toggleUserWalletUsage(true)}} />
+                                            <img className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/unselected_checkbox.png'} style={{width: '15px', height: '15px'}} onClick={() => {toggleUserWalletUsage(true)}} />
                                         }
                                         <h5 className={['mb-0', 'px-2', 'text-right'].join(' ')} style={{fontSize: '17px', color: '#2B2B2B', flex: '1'}}><b>استفاده از اعتبار حساب کاربری</b></h5>
                                     </div>
@@ -551,7 +551,7 @@ const DeliveryReview = (props) => {
                         <div className={['row', 'mt-4', 'd-none', 'd-md-flex'].join(' ')}>
                             <div className={['col-12', 'd-flex', 'd-flex', 'align-items-center', 'justify-content-between', 'rtl', 'px-0'].join(' ')}>
                                 <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')}>
-                                    <img src='/assets/images/main_images/right_arrow_black.png' className={['ml-2'].join(' ')} style={{width: '8px', height: '8px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/right_arrow_black.png'} className={['ml-2'].join(' ')} style={{width: '8px', height: '8px'}} />
                                     <h6 className={['mb-0', 'font14md17'].join(' ')} style={{color: '##2B2B2B'}}><b>بازگشت به صفحه قبل</b></h6>
                                 </div>
                                 <div className={['d-flex', 'flex-row'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8'}}>
@@ -563,7 +563,7 @@ const DeliveryReview = (props) => {
                                     </div>
                                     <div onClick={confirmOrder} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-2', 'py-2', 'pointer'].join(' ')} style={{background: '#00bac6'}}>
                                         <h6 className={['pl-2', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: 'white'}}>تایید و پرداخت سفارش</h6>
-                                        <img src='/assets/images/main_images/left_arrow_white_small.png' style={{width: '8px', height: '8px'}} />
+                                        <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '8px', height: '8px'}} />
                                     </div>
                                 </div>
                             </div>

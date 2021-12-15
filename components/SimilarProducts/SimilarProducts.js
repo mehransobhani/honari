@@ -42,7 +42,7 @@ const NewProduct = (props) => {
             </div>
             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3', 'pointer'].join(' ')}>
                 <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>
-                <img src='/assets/images/main_images/left_black_small.png' style={{width: '18px', height: '18px'}} />
+                <img src={Constants.baseUrl + '/assets/images/main_images/left_black_small.png'} style={{width: '18px', height: '18px'}} />
             </div>
         </div>
         <div className={['row','mt-2', 'mt-md-3'].join(' ')}>
@@ -57,7 +57,7 @@ const NewProduct = (props) => {
             </div>
         </div>
         <div className={['pointer', 'd-none', 'd-md-flex', 'w-100', 'align-items-center', 'justify-content-center', 'text-center', 'mt-2'].join(' ')} style={{borderRadius: '8px'}}>
-                <img src='/assets/images/main_images/left_black_small.png' style={{width: '18px', height: '18px'}} />
+                <img src={Constants.baseUrl + '/assets/images/main_images/left_black_small.png'} style={{width: '18px', height: '18px'}} />
                 <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>
         </div>
         </React.Fragment>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Constants from '../constants';
+import * as Constants from '../constants';
 import Link from 'next/link';
 import styles from './style.module.css';
 import Image from 'next/image';
+
 
 const TopSixProducts = (props) => {
     const [items, setItems] = useState([]);
@@ -29,7 +30,7 @@ const TopSixProducts = (props) => {
             </div>
             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3', 'pointer'].join(' ')}>
                 <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>
-                <img src='/assets/images/main_images/left_black_small.png' style={{width: '18px', height: '18px'}} />
+                <img src={Constants.baseUrl + '/assets/images/main_images/left_black_small.png'} style={{width: '18px', height: '18px'}} />
             </div>
         </div>
         <div className={['row','mt-2', 'mt-md-3', 'px-1'].join(' ')}>
@@ -71,7 +72,7 @@ const TopSixProducts = (props) => {
             </div>
         </div>
         <div className={['pointer', 'd-none', 'd-md-flex', 'w-100', 'align-items-center', 'justify-content-center', 'text-center', 'mt-2'].join(' ')} style={{borderRadius: '8px'}}>
-                <img src='/assets/images/main_images/left_black_small.png' style={{width: '18px', height: '18px'}} />
+                <img src={Constants.baseUrl + '/assets/images/main_images/left_black_small.png'} style={{width: '18px', height: '18px'}} />
                 <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>
         </div>
         </React.Fragment>

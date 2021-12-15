@@ -48,7 +48,7 @@ const Category = (props) => {
         });
     }, []);
 
-    useEffect(()=>{
+    /*useEffect(()=>{
         alert('hi');
         let i = props.id;
         if(i === 1){
@@ -77,7 +77,7 @@ const Category = (props) => {
         else if(i === 928){
             setBigImage('/assets/images/main_images/candle_black_big.png');
         }
-    }, []);
+    }, []);*/
     
 
     let info = 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطر آنچنان لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع است';
@@ -97,29 +97,37 @@ const Category = (props) => {
                     <div className={['col-12', 'col-md-4', 'px-2', 'px-md-0', 'pl-md-2'].join(' ')}>
                         <div className={['d-flex', 'flex-column', 'p-3', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede', height: '100%', borderRadius: '4px'}}>
                             <div className={['d-flex', 'flex-row'].join(' ')}>
-                                <img src={bigImage} style={{width: '40px', height: '40px'}} />
-                                <h1 className={['my-0', 'pr-2'].join(' ')} style={{fontSize: '32px'}} >{props.name}</h1>
+                                <img className={['d-none'].join(' ')} src={bigImage} style={{width: '40px', height: '40px'}} />
+                                <h1 className={['my-0', 'pr-2', 'rtl', 'text-right'].join(' ')} style={{fontSize: '32px'}} >{props.name}</h1>
                             </div>
                             <p className={['my-0', 'text-right', 'pt-3'].join(' ')}>{info}</p>
                             <div className={['d-flex', 'flex-row', 'rtl', 'mt-4', 'align-items-center', 'w-100', 'mr-0'].join(' ')}>
-                                <img src='/assets/images/main_images/down_arrow_main.png' style={{width: '14px', borderRadius: '4px'}} />
+                                <img src={Constants.baseUrl + '/assets/images/main_images/down_arrow_main.png'} style={{width: '14px', borderRadius: '4px'}} />
                                 <h6 className={['my-0', 'pr-1', 'pointer', 'font-weight-bold'].join(' ')} style={{color: '#00bac6'}}>دسته‌بندی محصولات</h6>
                             </div>
                         </div>
                     </div>
                     <div className={['col-12', 'col-md-8', 'px-2', 'p-md-0', 'pr-md-2', 'mt-3', 'mt-md-0'].join(' ')}>
-                        <img src='/assets/images/banner_images/banner_leather.jpg'style={{width: '100%', height: '100%', maxHeight: '400px', borderRadius: '4px'}} />
+                        <img src={Constants.baseUrl + '/assets/images/banner_images/banner_leather.jpg'} style={{width: '100%', height: '100%', maxHeight: '400px', borderRadius: '4px'}} />
                     </div>
                 </div>
-                <div className={['row', 'rtl', 'mt-5', 'px-1'].join(' ')}>
-                    <div className={['col-12', 'd-flex', 'flex-column', 'px-md-1'].join(' ')}>
-                        <div className={['d-flex', 'flex-row'].join(' ')}>
-                            <h5 className={['pb-2', 'mb-0', 'font-weight-bold', 'd-none', 'd-md-block'].join(' ')} style={{borderBottom: '1px solid black'}}>{' دسته‌بندی محصولات '}</h5>
-                            <h5 className={['pb-2', 'mb-0', 'd-block', 'd-md-none', 'font-weight-bold'].join(' ')}>{' دسته محصولات '}</h5>
+                {
+                    categoryBanners.length !== 0
+                    ?
+                    (
+                        <div className={['row', 'rtl', 'mt-5', 'px-1'].join(' ')}>
+                            <div className={['col-12', 'd-flex', 'flex-column', 'px-md-1'].join(' ')}>
+                                <div className={['d-flex', 'flex-row'].join(' ')}>
+                                    <h5 className={['pb-2', 'mb-0', 'font-weight-bold', 'd-none', 'd-md-block'].join(' ')} style={{borderBottom: '1px solid black'}}>{' دسته‌بندی محصولات '}</h5>
+                                    <h5 className={['pb-2', 'mb-0', 'd-block', 'd-md-none', 'font-weight-bold'].join(' ')}>{' دسته محصولات '}</h5>
+                                </div>
+                                <div style={{height: '1px', width: '100%', backgroundColor: '#dedede'}}></div>
+                            </div>
                         </div>
-                        <div style={{height: '1px', width: '100%', backgroundColor: '#dedede'}}></div>
-                    </div>
-                </div>
+                    )
+                    :
+                    null
+                }
                 <div className={['row', 'rtl', 'px-2', 'px-md-0', 'd-flex', 'align-items-stretch'].join(' ')}>
                     {
                         categoryBanners.map((cb, counter)=>{
@@ -128,7 +136,7 @@ const Category = (props) => {
                     }
                 </div>
                 {
-                    sixNewProducts.length !== 0 ? <TopSixProducts title='جدیدترین کالاها' entries={sixNewProducts} /> : null
+                    //sixNewProducts.length !== 0 ? <TopSixProducts title='جدیدترین کالاها' entries={sixNewProducts} /> : null
                 }
                 
             </div>
@@ -136,7 +144,7 @@ const Category = (props) => {
                 <div className={['container', 'px-0', 'pb-3'].join(' ')}>
                     <div className={['row', 'rtl'].join(' ')}>
                         <div className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'mt-3'].join(' ')}>
-                            <img src='/assets/images/main_images/scissors_black.png' style={{width: '20px'}} />
+                            <img src={Constants.baseUrl + '/assets/images/main_images/scissors_black.png'} style={{width: '20px'}} />
                             <h5 className={['mb-0', 'mr-1'].join(' ')}>جدیدترین آموزش‌ها</h5>
                         </div>
                     </div>
@@ -144,11 +152,11 @@ const Category = (props) => {
                         <div className={['col-12', 'col-md-6', 'px-2'].join(' ')}>
                             <div className={['rounded', 'd-flex', 'flex-column', 'flex-md-row', 'pointer', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede'}}>
                                 <div style={{flex: '1.3'}}>
-                                    <img src='/assets/images/banner_images/banner_leather.jpg' className={[styles.firstCourseImage].join(' ')} style={{width: '100%', height: '100%'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/banner_images/banner_leather.jpg'} className={[styles.firstCourseImage].join(' ')} style={{width: '100%', height: '100%'}} />
                                 </div>
                                 <div className={['d-flex', 'flex-column', 'rounded-left', 'p-2', styles.firstCourseInfoBody].join(' ')} style={{flex: '2', backgroundColor: 'white'}}>
                                     <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'p-1'].join(' ')}>
-                                        <img src='/assets/images/main_images/college_hat_white.png' className={['p-1'].join(' ')} style={{width: '26px', borderRadius: '0 4px 4px 0', backgroundColor: '#00bac6'}} />
+                                        <img src={Constants.baseUrl + '/assets/images/main_images/college_hat_white.png'} className={['p-1'].join(' ')} style={{width: '26px', borderRadius: '0 4px 4px 0', backgroundColor: '#00bac6'}} />
                                         <p className={['text-white', 'font-weight-bold', 'mr-0', 'mb-0', 'p-1'].join(' ')} style={{fontSize: '12px', borderRadius: '4px 0 0 4px', backgroundColor: '#00bac6'}}>دوره آنلاین</p>
                                     </div>
                                     <h6 className={['mb-0','mr-1', 'text-right', 'mt-3'].join(' ')}>آموزش مقدماتی چرم دوزی</h6>
@@ -161,11 +169,11 @@ const Category = (props) => {
                         <div className={['col-12', 'col-md-6', 'px-2'].join(' ')}>
                             <div className={['rounded', 'd-flex', 'flex-row', 'mt-4', 'mt-md-0', 'pointer', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede'}}>
                                 <div style={{flex: '1.3'}}>
-                                    <img src='/assets/images/banner_images/banner_leather.jpg' className={[styles.firstCourseImage].join(' ')} style={{width: '100%', height: '100%'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/banner_images/banner_leather.jpg'} className={[styles.firstCourseImage].join(' ')} style={{width: '100%', height: '100%'}} />
                                 </div>
                                 <div className={['d-flex', 'flex-column', 'rounded-left', 'p-2', styles.firstCourseInfoBody].join(' ')} style={{flex: '2', backgroundColor: 'white'}}>
                                     <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'p-1'].join(' ')}>
-                                        <img src='/assets/images/main_images/college_hat_white.png' className={['p-1'].join(' ')} style={{width: '26px', borderRadius: '0 4px 4px 0', backgroundColor: '#00bac6'}} />
+                                        <img src={Constants.baseUrl + '/assets/images/main_images/college_hat_white.png'} className={['p-1'].join(' ')} style={{width: '26px', borderRadius: '0 4px 4px 0', backgroundColor: '#00bac6'}} />
                                         <p className={['text-white', 'font-weight-bold', 'mr-0', 'mb-0', 'p-1'].join(' ')} style={{fontSize: '12px', borderRadius: '4px 0 0 4px', backgroundColor: '#00bac6'}}>دوره آنلاین</p>
                                     </div>
                                     <h6 className={['mb-0','mr-1', 'text-right', 'mt-3'].join(' ')}>آموزش مقدماتی چرم دوزی</h6>
@@ -178,9 +186,10 @@ const Category = (props) => {
                     </div>
                 </div>
             </div>
-                <div className={['container'].join(' ')}>
-                    <NewProducts title='پرفروش‌ترین کالاها' />
-                </div>
+            <div className={['container'].join(' ')}>
+                <NewProducts title='پرفروش‌ترین کالاها' />
+            </div>
+                
         </React.Fragment>
     );
 }

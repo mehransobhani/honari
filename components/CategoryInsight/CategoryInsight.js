@@ -294,7 +294,7 @@ const CategoryInsight = (props) => {
             <div className={['row'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'pt-3', 'pb-0', 'px-3'].join(' ')}>
                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>فیلترها</h6>
-                    <img src='/assets/images/main_images/cross_black.png' onClick={filterDrawer('bottom', false)} style={{width: '17px', height: '17px'}}/>
+                    <img src={Constants.baseUrl + '/public/assets/images/main_images/cross_black.png'} onClick={filterDrawer('bottom', false)} style={{width: '17px', height: '17px'}}/>
                 </div>
             </div>
             {
@@ -305,7 +305,7 @@ const CategoryInsight = (props) => {
                             <div className={['rtl', 'text-right', 'py-3', 'px-1'].join(' ')} style={{borderBottom: '1px solid #D8D8D8'}}>
                                 <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer'].join(' ')} onClick={() => {key === visibleFilterGroupId ?  setVisibleFilterGroupId(-1) : setVisibleFilterGroupId(key)}}>
                                     <h6 className={['mb-0']} style={{fontSize: '13px', color: '#444444'}}>{filter.name}</h6>
-                                    <img src={key === visibleFilterGroupId ? '/assets/images/main_images/minus_black.png' : '/assets/images/main_images/plus_black.png'} style={{width: '14px', heigth: '14px'}} />
+                                    <img src={key === visibleFilterGroupId ? Constants.baseUrl + '/assets/images/main_images/minus_black.png' : Constants.baseUrl + '/assets/images/main_images/plus_black.png'} style={{width: '14px', heigth: '14px'}} />
                                 </div>
                                 <div hidden={key === visibleFilterGroupId ? false : true} className={['mt-2', 'pr-3'].join(' ')} style={{overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#dedede, #dedede'}}>
                                     {
@@ -377,7 +377,7 @@ const CategoryInsight = (props) => {
                 <div className={['d-flex', 'flex-column', 'd-md-none', 'align-items-center', 'justify-content-center', 'rtl'].join(' ')}>
                     <h6 className={['mb-0', 'text-right'].join(' ')} style={{width: '100%'}}>{categoryName}</h6>
                     <div className={['d-flex', 'flex-row', 'rtl', 'py-2', 'px-3', 'mt-3', 'align-items-center', 'justify-content-center', 'w-100', 'pointer'].join(' ')} onClick={filterDrawer('bottom', true)} style={{color: '#00bac6', borderRadius: '4px', border: '2px solid #00bac6'}}>
-                        <img src='/assets/images/main_images/filter_main.png' style={{width: '17px', height: '17px'}} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/filter_main.png'} style={{width: '17px', height: '17px'}} />
                         <span className={['mr-2', 'font-weight-bold'].join(' ')} style={{color: '#00bac6', fontSize: '14px'}}>فیلترها</span> 
                     </div>
                 </div>
@@ -386,7 +386,7 @@ const CategoryInsight = (props) => {
                         <h1 className={['text-right', 'mb-3'].join(' ')} style={{fontSize: '26px', fontWeight: 'bold'}}>{categoryName}</h1>
                         <div className={['rtl'].join(' ')} style={{borderRadius: '4px'}}>
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'p-3'].join(' ')}>
-                                <img src='/assets/images/main_images/filter_black.png' style={{width: '13px'}} />
+                                <img src={Constants.baseUrl + '/assets/images/main_images/filter_black.png'} style={{width: '13px'}} />
                                 <span className={['font-weight-bold','mr-2'].join(' ')} style={{fontSize: '14px'}} >فیلتر کردن محصولات</span>
                             </div>
                                 <div className={['w-100', 'px-3', 'mt-3'].join(' ')}>
@@ -483,13 +483,13 @@ const CategoryInsight = (props) => {
                                     ?
                                     <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-center', 'align-items-center', 'mt-2'].join(' ')}>
                                         <button className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'shadow-sm'].join(' ')} onClick={paginationPrevButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
-                                            <img src='/assets/images/main_images/right_arrow_black.png' style={{width: '8px', height: '8px'}} />
+                                            <img src={Constants.baseUrl + '/assets/images/main_images/right_arrow_black.png'} style={{width: '8px', height: '8px'}} />
                                             <span className={['pr-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}}>قبلی</span>
                                         </button>
                                         <div className={['text-right', 'rtl', 'd-none', 'd-md-block'].join(' ')}><Pagination count={props.reduxCategoryFilter.maxPage} shape='rounded' onChange={paginationChanged} page={props.reduxCategoryFilter.page} hideNextButton={true} hidePrevButton={true} /></div>
                                         <span className={['d-block', 'd-md-none', 'px-3'].join(' ')}>{ props.reduxCategoryFilter.page + '  از  ' + props.reduxCategoryFilter.maxPage}</span>
                                         <button className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'ltr', 'shadow-sm'].join(' ')} onClick={paginationNextButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
-                                            <img src='/assets/images/main_images/left_arrow_black.png' style={{width: '8px', height: '8px'}} />
+                                            <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black.png'} style={{width: '8px', height: '8px'}} />
                                             <span className={['pl-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}}>بعدی</span>
                                         </button>
                                     </div>

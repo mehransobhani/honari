@@ -215,7 +215,7 @@ const SearchResult = (props) => {
                         </div>
                         <div className={['row', 'd-flex', 'align-items-stretch', 'px-3'].join(' ')}>
                             <div className={['col-12', 'd-flex', 'flex-row', 'text-right', 'rtl', 'align-items-center', 'mt-3', 'mb-1'].join(' ')}>
-                                <img src='/assets/images/main_images/search_black.png' style={{width: '17px', height: '17px'}} />
+                                <img src={Constants.baseUrl + '/assets/images/main_images/search_black.png'} style={{width: '17px', height: '17px'}} />
                                 <h2 className={['mb-0', 'pr-2'].join(' ')} style={{fontSize: '17px'}}>{'نتایج جستجو برای عبارت : ' + router.query.query}</h2>
                             </div>
                         {
@@ -231,13 +231,13 @@ const SearchResult = (props) => {
                             ?
                             <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-center', 'align-items-center', 'mt-2', 'rtl'].join(' ')}>
                                 <button className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'shadow-sm', 'rtl'].join(' ')} onClick={paginationPrevButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
-                                    <img src='/assets/images/main_images/right_arrow_black.png' style={{width: '8px', height: '8px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/right_arrow_black.png'} style={{width: '8px', height: '8px'}} />
                                     <span className={['pr-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}}>قبلی</span>
                                 </button>
                                 <div className={['text-right', 'rtl', 'd-none', 'd-md-block'].join(' ')}><Pagination count={pages} shape='rounded' onChange={paginationChanged} page={p} hideNextButton={true} hidePrevButton={true} /></div>
                                 <span className={['d-block', 'd-md-none', 'px-3', 'rtl'].join(' ')}>{ p + '  از  ' + pages}</span>
                                 <button className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'ltr', 'shadow-sm'].join(' ')} onClick={paginationNextButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
-                                    <img src='/assets/images/main_images/left_arrow_black.png' style={{width: '8px', height: '8px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black.png'} style={{width: '8px', height: '8px'}} />
                                     <span className={['pl-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}}>بعدی</span>
                                 </button>
                             </div>

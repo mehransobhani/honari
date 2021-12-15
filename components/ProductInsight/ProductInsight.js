@@ -265,6 +265,7 @@ const ProductInsight = (props) =>{
                 </div>
             </div>
             <div className={['container'].join(' ')} >
+                {parse('<div id="15444215659775694"><script type="text/JavaScript" src="https://www.aparat.com/embed/eVMWk?data[rnddiv]=15444215659775694&data[responsive]=yes"></script></div>')}
                 <div className={['row', 'rtl', 'mt-0', 'mt-md-3'].join(' ')}>
                     <div className={['col-12', 'col-md-5', 'px-0', 'px-md-2'].join(' ')}>
                         <img src={'https://honari.com/image/resizeTest/shop/_1000x/thumb_' + productInformation.prodID + '.jpg'} className={[styles.mainImage].join(' ')} style={{width: '100%'}} />
@@ -275,19 +276,19 @@ const ProductInsight = (props) =>{
                             {
                                 productInformation.productStatus === 1  ?
                                     <div  className={['d-flex', 'flex-row', 'align-items-center', 'bg-success', 'rtl', 'py-1', 'px-2'].join(' ')} style={{color: 'white', borderRadius: '13px'}}>
-                                        <img src='/assets/images/main_images/tick_white_small.png' style={{width: '12px', height: '12px'}} />
+                                        <img src={Constants.baseUrl + '/assets/images/main_images/tick_white_small.png'} style={{width: '12px', height: '12px'}} />
                                         <small className={['mb-0', 'mr-1'].join(' ')}>موجود</small>
                                     </div>
                                 :
                                     (productInformation.productStatus === -1 ?
                                         <div className={['d-flex', 'flex-row', 'align-items-center', 'bg-danger', 'rtl', 'py-1', 'px-2'].join(' ')} style={{color: 'white', borderRadius: '13px'}}>
-                                            <img src='/assets/images/main_images/cross_white_small.png' style={{width: '12px', height: '12px'}} />
+                                            <img src={Constants.baseUrl + '/assets/images/main_images/cross_white_small.png'} style={{width: '12px', height: '12px'}} />
                                             <small className={['mb-0', 'mr-1'].join(' ')}>ناموجود</small>
                                         </div>
                                     :
                                         (productInformation.productStatus === 0) ?
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'bg-warning', 'rtl', 'py-1', 'px-2'].join(' ')} style={{color: 'white', borderRadius: '13px'}}>
-                                                <img src='/assets/images/main_images/tick_white_small.png' style={{width: '12px', height: '12px'}} />
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/tick_white_small.png'} style={{width: '12px', height: '12px'}} />
                                                 <small className={['mb-0', 'mr-1'].join(' ')}>بزودی</small>
                                             </div>
                                         :
@@ -348,14 +349,14 @@ const ProductInsight = (props) =>{
                             {
                                 productExistsInCart === false ?
                                     <button className={['d-flex', 'flex-row', 'align-items-center', 'btn', 'mt-4'].join(' ')} style={{backgroundColor: '#00bac6'}} onClick={addToCartButtonClicked}>
-                                        <img src='/assets/images/main_images/cart_white_small.png' style={{width: '20px', height: '20px'}} />
+                                        <img src={Constants.baseUrl + '/assets/images/main_images/cart_white_small.png'} style={{width: '20px', height: '20px'}} />
                                         <span className={['text-white', 'mr-2'].join(' ')} >افزودن به سبد خرید</span>
                                     </button>
                                 :
                                 (
                                     productExistsInCart === true ?
                                         <button className={['d-flex', 'flex-row', 'align-items-center', 'btn', 'mt-4'].join(' ')} style={{backgroundColor: '#de3c31'}} onClick={removeFromCartButtonClicked}>
-                                            <img src='/assets/images/main_images/cart_white_small.png' style={{width: '20px', height: '20px'}} />
+                                            <img src={Constants.baseUrl + '/assets/images/main_images/cart_white_small.png'} style={{width: '20px', height: '20px'}} />
                                             <span className={['text-white', 'mr-2'].join(' ')} >حذف از سبد خرید</span>
                                         </button>
                                     :
@@ -371,7 +372,7 @@ const ProductInsight = (props) =>{
                                     <div className={['mt-3', 'mt-md-2'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
                                     <span className={['py-3', 'px-4', 'mt-2', 'd-inline-block'].join(' ')} style={{backgroundColor: '#8c8c8c', color: 'white', borderRadius: '4px'}}>موجود نیست</span>
                                     <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'mt-3'].join(' ')}>
-                                        <img src='/assets/images/main_images/bell_red.png' style={{width: '24px', height: '24px'}} />
+                                        <img src={Constants.baseUrl + '/assets/images/main_images/bell_red.png'} style={{width: '24px', height: '24px'}} />
                                         <span className={['mr-1', 'pointer'].join(' ')} style={{color: '#00bac6'}}>درصورت موجود شدن به من اطلاع دهید</span>
                                     </div>
                                 </div>
@@ -391,17 +392,17 @@ const ProductInsight = (props) =>{
                 </div>
                 <div className={['row', 'rtl', 'py-2', 'mt-4', 'shadow-sm', 'mb-0', 'mx-md-0', styles.banners].join(' ')}>
                     <div className={['col-4', 'd-flex', 'flex-column', 'flex-md-row', 'align-items-center', 'justify-content-center'].join(' ')}>
-                        <img src='/assets/images/main_images/stopwatch_black.png' className={[styles.infoImage].join(' ')} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/stopwatch_black.png'} className={[styles.infoImage].join(' ')} />
                         <p className={['mb-0', 'mx-md-1', 'font-weight-bold', styles.info].join(' ')}>ارسال سریع سفارش</p>
                         <p className={['mb-0', styles.info].join(' ')}>به سراسر کشور</p>
                     </div>
                     <div className={['col-4', 'd-flex', 'flex-column', 'flex-md-row', 'align-items-center', 'justify-content-center'].join(' ')}>
-                        <img src='/assets/images/main_images/truck_black.png' className={[styles.infoImage].join(' ')} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/truck_black.png'} className={[styles.infoImage].join(' ')} />
                         <p className={['mb-0', 'mx-md-1', 'font-weight-bold', styles.info].join(' ')}>ارسال رایگان</p>
                         <p className={['mb-0', 'text-center', styles.info].join(' ')}>خرید بالای ۱۰۰ هزار تومان</p>
                     </div>
                     <div className={['col-4', 'd-flex', 'flex-column', 'flex-md-row', 'align-items-center', 'justify-content-center'].join(' ')}>
-                        <img src='/assets/images/main_images/return_black.png' className={[styles.infoImage].join(' ')} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/return_black.png'} className={[styles.infoImage].join(' ')} />
                         <p className={['mb-0', 'mx-md-1', 'font-weight-bold', styles.info].join(' ')}>امکان مرجوعی کالا</p>
                         <p className={['mb-0', 'text-center', styles.info].join(' ')}>بدون محدودیت زمانی</p>
                     </div>
@@ -412,14 +413,14 @@ const ProductInsight = (props) =>{
                     <div className={['row', 'py-4', 'py-md-5'].join(' ')}>
                         <div className={['col-12', 'col-md-5', 'pl-1', 'px-0', 'px-md-3'].join(' ')}>
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'mb-2'].join(' ')}>
-                                <img src='/assets/images/main_images/paragraph_black.png' style={{width: '16px', height: '16px'}} />
+                                <img src={Constants.baseUrl + '/assets/images/main_images/paragraph_black.png'} style={{width: '16px', height: '16px'}} />
                                 <h6 className={['mb-0', 'mr-2', 'font-weight-bold'].join(' ')}>توضیحات محصول</h6>
                             </div>
                             <div className={['mb-0', 'rtl', 'text-right', styles.infoContainer].join(' ')} style={{maxHeight: '250px', overflowY: 'scroll', scrollbarWidth: 'thin'}}>{productDescriptionState}</div>
                         </div>
                         <div className={['col-12', 'col-md-7', 'px-0', 'px-md-3', 'mt-3', 'mt-md-0'].join(' ')} >
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'mb-2'].join(' ')}>
-                                <img src='/assets/images/main_images/clipboard_black.png' style={{width: '16px', height: '16px'}} />
+                                <img src={Constants.baseUrl + '/assets/images/main_images/clipboard_black.png'} style={{width: '16px', height: '16px'}} />
                                 <h6 className={['mb-0', 'mr-2', 'font-weight-bold'].join(' ')}>مشخصات محصول</h6>
                             </div>
                             <table className={['table', 'table-striped'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', backgroundColor: 'white'}}>

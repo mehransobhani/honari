@@ -683,14 +683,14 @@ function BigHeader(props){
                                                 <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '60px', height: '60px', borderRadius: '2px'}} />
                                                 <div className={['d-flex', 'flex-column'].join(' ')} style={{flex: '1'}}>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
-                                                        <img src='/assets/images/main_images/bin_red.png' style={{width: '16px', height: '16px'}} onClick={() => {removeProductFromCart(counter)}} />
+                                                        <img src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '16px', height: '16px'}} onClick={() => {removeProductFromCart(counter)}} />
                                                         <Link href={"/" + item.url}><a className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '14px', color: "#444444", flex: '1'}}>{item.name}</a></Link>
                                                     </div>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between', 'align-items-center'].join(' ')} style={{marginTop: 'auto'}}>
                                                         <div className={['d-flex', 'flex-row', 'ltr', 'align-items-center'].join(' ')}>
-                                                            <img src='/assets/images/main_images/minus_gray_circle.png' style={{width: '18px', height: '18px'}} onClick={() => {decreaseProductCountByOne(counter)}}/>
+                                                            <img src={Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png'} style={{width: '18px', height: '18px'}} onClick={() => {decreaseProductCountByOne(counter)}}/>
                                                             <span className={['px-1', 'mb-0'].join(' ')} style={{fontSize: '16px', color: '#444444'}}>{item.count}</span>
-                                                            <img src='/assets/images/main_images/plus_gray_circle.png' style={{width: '18px', height: '18px'}} onClick={() => {increaseProductCountByOne(counter)}}/>
+                                                            <img src={Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png'} style={{width: '18px', height: '18px'}} onClick={() => {increaseProductCountByOne(counter)}}/>
                                                         </div>
                                                         <div className={['d-flex', 'flex-row', 'text-right', 'rtl'].join(' ')} style={{flex: '1'}}>
                                                             {
@@ -739,7 +739,7 @@ function BigHeader(props){
                 :
                 (
                     <div className={['d-flex', 'flex-column', 'align-items-center', 'justify-content-center', 'py-3'].join(' ')}>
-                        <img src='/assets/images/main_images/cart.png' style=   {{width: '60px', height: '60px'}}/>
+                        <img src={Constants.baseUrl + '/assets/images/main_images/cart.png'} style=   {{width: '60px', height: '60px'}}/>
                         <p className={['rtl', 'text-center', 'mb-0', 'mt-2'].join(" ")}>سبدخرید شما خالی است</p>
                     </div>
                 )
@@ -751,7 +751,7 @@ function BigHeader(props){
     const phoneCartLayout = (
         <div style={{width: windowWidth, overflowX: 'hidden'}}>
             <div className={['d-flex', 'flex-row', 'text-right', 'justify-content-right', 'align-items-center', 'rtl', 'px-3', 'pt-2', 'pb-1'].join(' ')} style={{position: 'sticky'}}>
-                <img src='/assets/images/main_images/cross_red.png' style={{width: '22px', height: '22px'}} onClick={toggleCartDrawer('left', false)} />
+                <img src={Constants.baseUrl + '/assets/images/main_images/cross_red.png'} style={{width: '22px', height: '22px'}} onClick={toggleCartDrawer('left', false)} />
             </div>
             {
                 props.reduxCart.information.length !== 0
@@ -775,14 +775,14 @@ function BigHeader(props){
                                                 <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '60px', height: '60px', borderRadius: '2px'}} />
                                                 <div className={['d-flex', 'flex-column', 'pl-1'].join(' ')} style={{flex: '1'}}>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
-                                                        <img src='/assets/images/main_images/bin_red.png' style={{width: '16px', height: '16px'}} onClick={() => {removeProductFromCart(counter)}} />
+                                                        <img src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '16px', height: '16px'}} onClick={() => {removeProductFromCart(counter)}} />
                                                         <Link href={"/" + item.url}><a className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '14px', color: "#444444", flex: '1'}}>{item.name}</a></Link>
                                                     </div>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between', 'align-items-center'].join(' ')} style={{marginTop: 'auto'}}>
                                                         <div className={['d-flex', 'flex-row', 'ltr', 'align-items-center'].join(' ')}>
-                                                            <img src='/assets/images/main_images/minus_gray_circle.png' style={{width: '18px', height: '18px'}} onClick={() => {decreaseProductCountByOne(counter)}}/>
+                                                            <img src={Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png'} style={{width: '18px', height: '18px'}} onClick={() => {decreaseProductCountByOne(counter)}}/>
                                                             <span className={['px-1', 'mb-0'].join(' ')} style={{fontSize: '16px', color: '#444444'}}>{item.count}</span>
-                                                            <img src='/assets/images/main_images/plus_gray_circle.png' style={{width: '18px', height: '18px'}} onClick={() => {increaseProductCountByOne(counter)}}/>
+                                                            <img src={Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png'} style={{width: '18px', height: '18px'}} onClick={() => {increaseProductCountByOne(counter)}}/>
                                                         </div>
                                                         <div className={['d-flex', 'flex-row', 'text-right', 'rtl'].join(' ')} style={{flex: '1'}}>
                                                             {
@@ -832,7 +832,7 @@ function BigHeader(props){
                 :
                 (
                     <div className={['d-flex', 'flex-column', 'align-items-center', 'justify-content-center', 'py-3'].join(' ')}>
-                        <img src='/assets/images/main_images/cart.png' style=   {{width: '60px', height: '60px'}}/>
+                        <img src={Constants.baseUrl + '/assets/images/main_images/cart.png'} style=   {{width: '60px', height: '60px'}}/>
                         <p className={['rtl', 'text-center', 'mb-0', 'mt-2'].join(" ")}>سبدخرید شما خالی است</p>
                     </div> 
                 )
@@ -846,34 +846,34 @@ function BigHeader(props){
                 <li className={['col-12', 'shadow-sm', 'm-0', 'p-0'].join(' ')} style={{backgroundColor: 'white', fontSize: '1px'}}> </li>
                 <li className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'py-2', styles.dropdownItem].join(' ')}>
                     کاشی
-                    <img src='/assets/images/main_images/left_arrow_gray_small.png' className={['ml-1'].join(' ')} style={{width: '10px'}} />
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_gray_small.png'} className={['ml-1'].join(' ')} style={{width: '10px'}} />
                 </li>
                 <li className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'py-2', styles.dropdownItem].join(' ')}>
                     آجر تزئینی
-                    <img src='/assets/images/main_images/left_arrow_gray_small.png' className={['ml-1'].join(' ')} style={{width: '10px'}} />
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_gray_small.png'} className={['ml-1'].join(' ')} style={{width: '10px'}} />
                 </li>
                 <li className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'py-2', styles.dropdownItem].join(' ')}>
                     آینه
-                    <img src='/assets/images/main_images/left_arrow_gray_small.png' className={['ml-1'].join(' ')} style={{width: '10px'}} />
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_gray_small.png'} className={['ml-1'].join(' ')} style={{width: '10px'}} />
                 </li>
                 <li className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'py-2', styles.dropdownItem].join(' ')}>
                     ابزار
-                    <img src='/assets/images/main_images/left_arrow_gray_small.png' className={['ml-1'].join(' ')} style={{width: '10px'}} />
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_gray_small.png'} className={['ml-1'].join(' ')} style={{width: '10px'}} />
                 </li>
                 <li className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'py-2', styles.dropdownItem].join(' ')}>
                     شیشه تایل رنگی
-                    <img src='/assets/images/main_images/left_arrow_gray_small.png' className={['ml-1'].join(' ')} style={{width: '10px'}} />
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_gray_small.png'} className={['ml-1'].join(' ')} style={{width: '10px'}} />
                 </li>
                 <li className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'py-2', styles.dropdownItem].join(' ')}>
                     بیس چوبی
-                    <img src='/assets/images/main_images/left_arrow_gray_small.png' className={['ml-1'].join(' ')} style={{width: '10px'}} />
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_gray_small.png'} className={['ml-1'].join(' ')} style={{width: '10px'}} />
                 </li>
                 <li className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'py-2', styles.dropdownItem].join(' ')}>
                     <div className={['d-flex', 'flex-row', 'align-items-center']}>
-                        <img src='/assets/images/main_images/college_hat_main.png' className={['ml-1'].join(' ')} style={{width: '24px'}} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/college_hat_main.png'} className={['ml-1'].join(' ')} style={{width: '24px'}} />
                         <span style={{color: '#00bac6'}}>آموزش معرق کاشی</span>
                     </div>
-                    <img src='/assets/images/main_images/left_arrow_gray_small.png' className={['ml-1'].join(' ')} style={{width: '10px'}} />
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_gray_small.png'} className={['ml-1'].join(' ')} style={{width: '10px'}} />
                 </li>
             </ul>
         </React.Fragment>
@@ -888,7 +888,7 @@ function BigHeader(props){
         return (
             <div className={['']} style={{minWidth: '270px', overflowX: 'hidden'}}>
                 <div className={['d-flex', 'flex-row', 'rtl'].join(' ')} style={{background: '#E0F6F2', padding: '10px'}}>
-                    <Link href={'/'}><img src='/assets/images/main_images/honari.png' style={{width: '36px', height: '36px'}} /></Link>
+                    <Link href={'/'}><img src={Constants.baseUrl + '/assets/images/main_images/honari.png'} style={{width: '36px', height: '36px'}} /></Link>
                     <div className={['d-flex', 'flex-column', 'rtl'].join(' ')}>
                         <Link href={'/'}><h2 className={['mr-2', 'mb-0', 'text-right'].join(' ')} style={{color: '#00BAC6', fontSize: '20px', fontWeight: '500'}}>هنری</h2></Link>
                         <h4 className={['mr-2', 'mb-0', 'text-right'].join(' ')} style={{color: '#949494', fontSize: '10px'}}>آموزش، الگو، مواداولیه</h4>
@@ -936,7 +936,7 @@ function BigHeader(props){
                                         return (
                                             <div key={counter} className={['px-2', 'py-3', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
                                                 <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>{academyClass.name}</h5>
-                                                <img src='/assets/images/main_images/left_arrow_black_small.png' className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} />
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} />
                                             </div>
                                         );
                                     })
@@ -1019,7 +1019,7 @@ function BigHeader(props){
             return (
                 <div className={['d-flex', 'flex-column'].join(' ')} style={{background: 'white', display: 'flex', position: 'absolute', top: '3.3rem', minWidth: '330px', width: desktopSearchBarWidth, zIndex: '999999999', borderRadius: '2px'}}>
                     <div className={['d-flex', 'flex-row', 'ltr', 'text-left', 'justify-content-left', 'pt-2', 'px-2'].join(' ')}>
-                        <img src='/assets/images/main_images/close_gray_small.png' className={['pointer'].join(' ')} style={{width: '17px', heigth: '17px'}} onClick={() => {setShowSearchResults(false)}} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/close_gray_small.png'} className={['pointer'].join(' ')} style={{width: '17px', heigth: '17px'}} onClick={() => {setShowSearchResults(false)}} />
                     </div>
                     <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'px-2', 'pt-2'].join(' ')}>
                         <h5 className={['mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در دسته‌ها</b></h5>
@@ -1033,7 +1033,7 @@ function BigHeader(props){
                                         <Link href={'/search/SearchWithCategory/?query=' + item.category}>
                                             <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', ].join(' ')}>
                                                 <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
-                                                <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/link_arrow_gray_small.png'} style={{width: '10px', height: '10px'}} />
                                             </a>
                                         </Link>
                                     );
@@ -1042,7 +1042,7 @@ function BigHeader(props){
                                         <Link href={'/search/SearchWithCategory/?query=' + item.category}>
                                             <a onClick={props.reduxStartLoading} className={['flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', moreSearchCategoriesClass].join(' ')}>
                                                 <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
-                                                <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/link_arrow_gray_small.png'} style={{width: '10px', height: '10px'}} />
                                             </a>
                                         </Link>
                                     );
@@ -1089,7 +1089,7 @@ function BigHeader(props){
             return (
                 <div className={['d-md-none', 'w-100'].join(' ')} style={{background: 'white', width: '100%', position: 'relative', top: '0.5rem', left: '0', zIndex: '1000'}}>
                     <div className={['d-flex', 'flex-row', 'ltr', 'text-left', 'justify-content-left', 'pt-2', 'px-2'].join(' ')}>
-                        <img src='/assets/images/main_images/close_gray_small.png' className={['pointer'].join(' ')} style={{width: '17px', heigth: '17px'}} onClick={() => {setShowSearchResults(false)}} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/close_gray_small.png'} className={['pointer'].join(' ')} style={{width: '17px', heigth: '17px'}} onClick={() => {setShowSearchResults(false)}} />
                     </div>
                     <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'px-2', 'pt-2'].join(' ')}>
                         <h5 className={['mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در دسته‌ها</b></h5>
@@ -1103,7 +1103,7 @@ function BigHeader(props){
                                         <Link href={'/search/SearchWithCategory/?query=' + item.category}>
                                             <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', ].join(' ')}>
                                                 <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
-                                                <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/link_arrow_gray_small.png'} style={{width: '10px', height: '10px'}} />
                                             </a>
                                         </Link>
                                     );
@@ -1112,7 +1112,7 @@ function BigHeader(props){
                                         <Link href={'/search/SearchWithCategory/?query=' + item.category}>
                                             <a className={['flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', moreSearchCategoriesClass].join(' ')}>
                                                 <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
-                                                <img src='/assets/images/main_images/link_arrow_gray_small.png' style={{width: '10px', height: '10px'}} />
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/link_arrow_gray_small.png'} style={{width: '10px', height: '10px'}} />
                                             </a>
                                         </Link>
                                     );
@@ -1187,7 +1187,7 @@ function BigHeader(props){
                 props.reduxSnackbar.success.show
                 ?
                 <div className={['d-flex', 'flex-row', 'rtl', 'mr-2', 'mb-2', 'px-3', 'py-2', 'align-items-center'].join(' ')} style={{background: '#108a00', color: 'white', position: 'fixed', bottom: '0', right: '0', borderRadius: '2px', zIndex: '5000'}}>
-                    <img src='/assets/images/main_images/tick_white_small.png' className={['ml-2'].join(' ')} style={{width: '20px', height: '20px'}} />
+                    <img src={Constants.baseUrl + '/assets/images/main_images/tick_white_small.png'} className={['ml-2'].join(' ')} style={{width: '20px', height: '20px'}} />
                     <span>{props.reduxSnackbar.success.title}</span>
                 </div>
                 :
@@ -1197,7 +1197,7 @@ function BigHeader(props){
                 props.reduxSnackbar.warning.show
                 ?
                 <div className={['d-flex', 'flex-row', 'rtl', 'mr-2', 'mb-2', 'px-3', 'py-2', 'align-items-center'].join(' ')} style={{background: '#a1a100', color: 'white', position: 'fixed', bottom: '0', right: '0', borderRadius: '2px', zIndex: '5000'}}>
-                    <img src='/assets/images/main_images/alert_white_small.png' className={['ml-2'].join(' ')} style={{width: '20px', height: '20px'}} />
+                    <img src={Constants.baseUrl + '/assets/images/main_images/alert_white_small.png'} className={['ml-2'].join(' ')} style={{width: '20px', height: '20px'}} />
                     <span>{props.reduxSnackbar.warning.title}</span>
                 </div>
                 :
@@ -1207,7 +1207,7 @@ function BigHeader(props){
                 props.reduxSnackbar.error.show
                 ?
                 <div className={['d-flex', 'flex-row', 'rtl', 'mr-2', 'mb-2', 'px-3', 'py-2', 'align-items-center'].join(' ')} style={{background: '#a60000', color: 'white', position: 'fixed', bottom: '0', right: '0', borderRadius: '2px', zIndex: '5000'}}>
-                    <img src='/assets/images/main_images/close_white_small.png' className={['ml-2'].join(' ')} style={{width: '20px', height: '20px'}} />
+                    <img src={Constants.baseUrl + '/assets/images/main_images/close_white_small.png'} className={['ml-2'].join(' ')} style={{width: '20px', height: '20px'}} />
                     <span>{props.reduxSnackbar.error.title}</span>
                 </div>
                 :
@@ -1223,9 +1223,9 @@ function BigHeader(props){
                     ?
                     <React.Fragment>
                     <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'd-md-none', 'p-2', 'mt-1'].join(' ')}>
-                        <img src='/assets/images/main_images/menu_black_small.png' style={{width: '27px', height: '27px'}} onClick={toggleDrawer('right', true)} />
-                        <img src='/assets/images/main_images/honari.png' style={{width: '40px', height: '40px'}} />
-                        <img src='/assets/images/main_images/headphone.png' style={{width: '27px', height: '27px'}}/>
+                        <img src={Constants.baseUrl + '/assets/images/main_images/menu_black_small.png'} style={{width: '27px', height: '27px'}} onClick={toggleDrawer('right', true)} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/honari.png'} style={{width: '40px', height: '40px'}} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/headphone.png'} style={{width: '27px', height: '27px'}}/>
                     </div>
                     <div className={['row', 'mt-2', 'd-md-none'].join(' ')} style={{height: '1px', background: '#C4C4C4'}}></div>
                     </React.Fragment>
@@ -1235,28 +1235,28 @@ function BigHeader(props){
                 <div className={['row', 'pt-2', 'mb-0', 'pb-2', 'px-1'].join(' ')} style={{direction: 'rtl'}}>
                     <div className={['col-3', 'col-lg-7', 'rtl', 'text-right', 'd-flex', 'flex-row', 'pr-0', 'pr-lg-1', 'align-items-center', 'justify-content-lg-between'].join(' ')}>
                         <div className={['d-flex', 'flex-row', 'rtl'].join(' ')}>
-                            <Link href={'/'}><img src='/assets/images/main_images/honari.png' className={['pointer', 'd-none', 'd-lg-block'].join(' ')} style={{width: '60px'}} /></Link>
+                            <Link href={'/'}><img src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['pointer', 'd-none', 'd-lg-block'].join(' ')} style={{width: '60px'}} /></Link>
                             <div className={['pr-1', 'flex-column', 'align-items-center', 'd-none', 'd-lg-flex'].join(' ')}>
                                 <Link href={'/'}><h1 className={['pr-1', 'align-self-start', 'm-0', 'pointer'].join(' ')} style={{fontSize: '24px', color: '#00bac6'}}>هنری</h1></Link>
                                 <p className={['pr-1', 'align-self-end', 'mb-0', 'mt-2'].join(' ')}>آموزش، الگو، مواداولیه</p>
                             </div>
                         </div>
                         <form action='/search/SearchResult' method='GET' ref={desktopSearchBar} className={['rounded-sm', 'd-none', 'd-lg-flex', 'flex-row', 'rtl'].join(' ')}>
-                            <button type='submin' className={['p-2', 'pointer'].join(' ')} style={{borderRadius: '0 4px 4px 0', border: 'none', backgroundColor: '#00bac6', width: '40px'}}><img src='/assets/images/main_images/search_white.png' style={{width: '100%', padding: '2px'}}/></button>
+                            <button type='submin' className={['p-2', 'pointer'].join(' ')} style={{borderRadius: '0 4px 4px 0', border: 'none', backgroundColor: '#00bac6', width: '40px'}}><img src={Constants.baseUrl + '/assets/images/main_images/search_white.png'} style={{width: '100%', padding: '2px'}}/></button>
                             <input name='query' type='text' onChange={getSearchResults} placeholder='عبارت مورد نظر را جستجو کنید' className={['pr-2'].join(' ')} style={{fontSize: '14px', height: '42px', width: '340px', outline: 'none', outlineOffset: 'none', border: '1px solid #C4C4C4', borderRadius: '4px 0 0 4px'}} />
                             {desktopSearchResults()}
                         </form>
                         {
                                 props.home != true 
                             ?
-                                <img src='/assets/images/main_images/menu_black_small.png' className={['pointer', 'd-block', 'd-lg-none'].join(' ')} style={{width: '30px'}} onClick={toggleDrawer('right', true)} />
+                                <img src={Constants.baseUrl + '/assets/images/main_images/menu_black_small.png'} className={['pointer', 'd-block', 'd-lg-none'].join(' ')} style={{width: '30px'}} onClick={toggleDrawer('right', true)} />
                             :
                                 null
                         }
                         {/*##### searchbox for mobile view #####*/}
                         <form method='GET' action='/search/SearchResult' className={['d-flex', 'flex-row', 'ltr', 'd-md-none', 'pr-1'].join(' ')} style={{height: '30px'}} >
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'p-0', 'pointer'].join(' ')} style={{width: '30px', height: '30px', background: '#F7F7F7', borderTop: '1px solid #D8D8D8', borderBottom: '1px solid #D8D8D8', borderLeft: '1px solid #D8D8D8', borderRadius: '3px 0px 0px 3px'}}>
-                                <img src='/assets/images/main_images/search_main.png' className={['pointer'].join(' ')} style={{width: '15px', height: '15px'}}/>
+                                <img src={Constants.baseUrl + '/assets/images/main_images/search_main.png'} className={['pointer'].join(' ')} style={{width: '15px', height: '15px'}}/>
                             </div>
                             <div style={{height: '30px', background: '#F7F7F7'}}>
                                 <input name='query' type='search' placeholder='جست و جو کنید' onChange={getSearchResults} className={['rtl', 'px-2'].join(' ')} style={{fontSize: '14px', height: '30px', border: 'none', outlineStyle: 'none', outlineOffset: 'none', outlineColor: 'none', background: '#F7F7F7', border: '1px solid #D8D8D8', borderRadius: '0px 3px 3px 0px'}} /> 
@@ -1283,7 +1283,7 @@ function BigHeader(props){
                                     <span className={['bg-danger', 'px-2', 'mr-1', 'rounded'].join(' ')} style={{color: 'white', fontSize: '14px'}}>{newCartProductsNumber}</span>
                             */}
                             <small className={['m-0', 'd-none', 'd-md-block'].join(' ')}>سبد خرید</small>
-                            <img src='/assets/images/header_cart.png' className={['ml-1'].join(' ')} style={{width: '20px'}} />    
+                            <img src={Constants.baseUrl + '/assets/images/header_cart.png'} className={['ml-1'].join(' ')} style={{width: '20px'}} />    
                             {
                                 cartOpenState === true 
                                 ? 
@@ -1309,14 +1309,14 @@ function BigHeader(props){
                                 :
                                     <span className={['bg-danger', 'px-2', 'mr-1', 'rounded'].join(' ')} style={{color: 'white', fontSize: '14px'}}>{newCartProductsNumber}</span>
                             */}
-                            <img src='/assets/images/header_cart.png' className={['ml-1'].join(' ')} style={{width: '20px'}} onClick={toggleCartDrawer('left', true)} />    
+                            <img src={Constants.baseUrl + '/assets/images/header_cart.png'} className={['ml-1'].join(' ')} style={{width: '20px'}} onClick={toggleCartDrawer('left', true)} />    
                         </div>
                         {
                             props.reduxUser.status === 'GUEST'
                             ?
                             <a href="https://honari.com/user" className={['ltr', 'align-items-center', 'ml-1', 'p-2', 'pointer', 'd-none', 'd-md-flex'].join(' ')}>
                                 <small className={['m-0'].join(' ')}>ورود</small>
-                                <img src='/assets/images/header_user.png' className={['ml-1'].join(' ')} style={{width: '20px'}} />    
+                                <img src={Constants.baseUrl + '/assets/images/header_user.png'} className={['ml-1'].join(' ')} style={{width: '20px'}} />    
                             </a>
                             :
                             (
@@ -1324,7 +1324,7 @@ function BigHeader(props){
                                 ?
                                 <div className={['ltr', 'align-items-center', 'ml-1', 'p-2', 'pointer', 'd-none', 'd-md-flex'].join(' ')}>
                                     <small className={['m-0'].join(' ')}>{props.reduxUser.information.name}</small>
-                                    <img src='/assets/images/header_user.png' className={['ml-1'].join(' ')} style={{width: '20px'}} />    
+                                    <img src={Constants.baseUrl + '/assets/images/header_user.png'} className={['ml-1'].join(' ')} style={{width: '20px'}} />    
                                 </div>
                                 :
                                 null
@@ -1339,9 +1339,9 @@ function BigHeader(props){
                             }
                         </div>
                         <form onSubmit={searchFormSubmited} onSubmitCapture={null} className={['col-12', 'm-0', 'p-2', 'align-items-center', 'ml-2', 'ml-md-0', menuSearchBar].join(' ')} style={{border: '1px solid #00bac6', borderRadius: '18px'}}>
-                            <img src='/assets/images/main_images/cross_main.png' style={{width: '22px'}} className={['ml-1', 'pointer'].join(' ')} onClick={()=>{setMenuSearchBar('d-none'); setOtherMenuItems('d-flex');}}/>
+                            <img src={Constants.baseUrl + '/assets/images/main_images/cross_main.png'} style={{width: '22px'}} className={['ml-1', 'pointer'].join(' ')} onClick={()=>{setMenuSearchBar('d-none'); setOtherMenuItems('d-flex');}}/>
                             <input onSubmit={null} type="search" className={['w-100', 'text-right'].join(' ')} style={{direction: 'rtl', outline: 'none', outlineOffset: 'none',  borderStyle: 'none', fontSize: '12px'}} placeholder='در هنری جستجو کنید ...'/>
-                            <img src='/assets/images/main_images/search_main.png' style={{width: '22px'}} className={['ml-1', 'pointer'].join(' ')} onClick={searchFormSubmited}/>
+                            <img src={Constants.baseUrl + '/assets/images/main_images/search_main.png'} style={{width: '22px'}} className={['ml-1', 'pointer'].join(' ')} onClick={searchFormSubmited}/>
                         </form>
                     </div>
                     {phoneSearchResults()}
@@ -1378,9 +1378,9 @@ function BigHeader(props){
             {
                 smallSearchBarState === true ? 
                     <form className={['d-flex', 'd-lg-none', 'flex-row', 'rtl', 'px-2', 'py-3', 'shadow-sm', 'align-items-center'].join(' ')}>
-                        <img src='/assets/images/main_images/search_main.png' className={['pointer'].join(' ')} style={{width: '30px', padding: '4px'}} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/search_main.png'} className={['pointer'].join(' ')} style={{width: '30px', padding: '4px'}} />
                         <input type='text' placeholder='جستجو کنید ...' className={['mx-1'].join(' ')} style={{outline: 'none', outlineOffset: 'none', borderStyle: 'none', width: '100%'}} />
-                        <img src='/assets/images/main_images/cross_main.png' className={['pointer'].join(' ')} style={{width: '30px', padding: '4px'}} onClick={()=>{setSmallSearchBarState(false)}} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/cross_main.png'} className={['pointer'].join(' ')} style={{width: '30px', padding: '4px'}} onClick={()=>{setSmallSearchBarState(false)}} />
                     </form>
                 :
                 null

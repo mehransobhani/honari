@@ -158,7 +158,7 @@ const UserOrders = (props) => {
     const noPreviousOrder = (
         <div className={['row', 'px-2'].join(' ')}>
             <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'py-3'].join(' ')} style={{background: '#F2F2F2', borderRadius: '4px'}}>
-                <img src='/assets/images/main_images/shopping_cart_yellow.png' style={{width: '50px', height: '50px'}} />
+                <img src={Constants.baseUrl + '/assets/images/main_images/shopping_cart_yellow.png'} style={{width: '50px', height: '50px'}} />
                 <h6 className={['mb-0', 'text-center', 'mt-3'].join(' ')} style={{color: '#a67a00', fontSize: '17px', fontWeight: '500'}}>تاکنون سفارشی ثبت نکرده‌اید</h6>
             </div>
         </div>
@@ -258,7 +258,7 @@ const UserOrders = (props) => {
                     <div className={['container'].join(' ')}>
                             <div className={['row', 'rtl', 'mt-3'].join(' ')}>
                                 <div className={['col-2', 'd-none', 'd-md-flex', 'flex-column', 'align-items-center'].join(' ')}>
-                                    <img src='/assets/images/main_images/user_full_circle_main.png' style={{width: '50%'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/user_full_circle_main.png'} style={{width: '50%'}} />
                                     <Link href='/users/view'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>نمایه کاربر</a></Link>
                                     <h6 className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2', 'mb-0'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #00BAC6', fontSize: '17px',borderRadius: '4px', color: '#00BAC6'}}>سفارش‌های من</h6>
                                     <Link href='/users/showreturned'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>تاریخچه مرجوعی</a></Link>

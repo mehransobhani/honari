@@ -127,14 +127,14 @@ const Category = (props) => {
                         setComponent(<ProductInsight id={response.id}/>);
                     }else if(response.found === true && response.type === 'category'){
                         setPageTitle(response.name);
-                        setComponent(null);
-                        if(response.level === 1){
-                            setComponent(null);
-                            setComponent(<RootCategory id={response.id} name={response.name} route={route[0]} />);
-                        }else{
+                        //setComponent(null);
+                        //if(response.level === 1){
+                        //    setComponent(null);
+                        //    setComponent(<RootCategory id={response.id} name={response.name} route={route[0]} />);
+                        //}else{
                             setComponent(null);
                             setComponent(<CategoryInsight id={response.id} />);
-                        }
+                        //}
                     }
                     console.log(response);
                 }

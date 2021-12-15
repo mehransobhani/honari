@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './style.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
+import * as Constants from '../constants';
 
 const Footer = () => {
     return(
@@ -10,19 +11,19 @@ const Footer = () => {
                 <div className={['container', 'py-2'].join(' ')}>
                     <div className={['row', 'rtl'].join(' ')}>
                         <div className={['col-4', 'd-flex','flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')}>
-                            <img src='/assets/images/main_images/envelope_black_small.png' style={{width: '24px', height: '24px'}} />
+                            <img src={Constants.baseUrl + '/assets/images/main_images/envelope_black_small.png'} style={{width: '24px', height: '24px'}} />
                             <p className={['mb-0', 'mr-1', styles.topBarText].join(' ')} style={{color: 'black'}}>ایمیل</p>
                             <p className={['mb-0', 'mr-1'].join(' ')} style={{color: 'black'}}>info@honari.com</p>
                         </div>
                         <div className={['col-4', 'd-flex','flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center', 'pointer'].join(' ')} style={{borderRight: '1px dashed gray'}}>
-                            <img src='/assets/images/main_images/telegram_black_small.png' style={{width: '24px', height: '24px'}} />
+                            <img src={Constants.baseUrl + '/assets/images/main_images/telegram_black_small.png'} style={{width: '24px', height: '24px'}} />
                             <p className={['mb-0', 'mr-1', styles.topBarText].join(' ')} style={{color: 'black'}}>پشتیبانی تلگرام</p>
                             <p className={['mb-0', 'mr-1'].join(' ')} style={{color: 'black'}}>t.me/honaricom</p>
                         </div>
                         <div className={['col-4', 'd-flex','flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{borderRight: '1px dashed gray'}}>
-                            <img src='/assets/images/main_images/phone_black_small.png' style={{width: '24px', height: '24px'}} />
+                            <img src={Constants.baseUrl + '/assets/images/main_images/phone_black_small.png'} style={{width: '24px', height: '24px'}} />
                             <p className={['mb-0', 'mr-1', styles.topBarText].join(' ')} style={{color: 'black'}}>تلفن پشتیبانی</p>
-                            <p className={['mb-0', 'mr-1', 'ltr'].join(' ')} style={{color: 'black'}}>021 44232779</p>
+                            <p className={['mb-0', 'mr-1', 'ltr'].join(' ')} style={{color: 'black'}}>021 91003037</p>
                         </div>
                     </div>
                 </div>
@@ -40,15 +41,15 @@ const Footer = () => {
                             <p className={['text-center', 'font-weight-bold', 'd-block', 'd-md-none','mt-4', 'mb-1'].join(' ')} style={{color: '#575757'}}>با ما در شبکه‌های اجتماعی همراه باشید</p>
                             <div className={['d-flex', 'flex-row', 'justify-content-start'].join(' ')}>
                                 <div className={['pointer', 'd-flex', 'flex-row', 'py-2', 'align-items-center', 'justify-content-center', 'px-3', styles.social].join(' ')}>
-                                    <img src='/assets/images/main_images/telegram_small.png' style={{width: '26px', height: '26px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/telegram_small.png'} style={{width: '26px', height: '26px'}} />
                                     <p className={['mb-0', 'mr-1'].join(' ')}>تلگرام</p>
                                 </div>
                                 <div className={['pointer', 'd-flex', 'flex-row', 'mr-2', 'py-2', 'align-items-center', 'justify-content-center', 'px-3', styles.social].join(' ')}>
-                                    <img src='/assets/images/main_images/instagram_small.png' style={{width: '26px', height: '26px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/instagram_small.png'} style={{width: '26px', height: '26px'}} />
                                     <p className={['mb-0', 'mr-1'].join(' ')}>اینستاگرم</p>
                                 </div>
                                 <div className={['pointer', 'd-flex', 'flex-row', 'mr-2', 'py-2', 'align-items-center', 'justify-content-center', 'px-3', styles.social].join(' ')}>
-                                    <img src='/assets/images/main_images/aparat_small.png' style={{width: '26px', height: '26px'}} />
+                                    <img src={Constants.baseUrl + '../assets/images/main_images/aparat_small.png'} style={{width: '26px', height: '26px'}} />
                                     <p className={['mb-0', 'mr-1'].join(' ')}>آپارات</p>
                                 </div>
                             </div>
@@ -57,19 +58,19 @@ const Footer = () => {
                             <div className={['w-100', 'd-flex', 'flex-column', 'flex-md-row', 'py-2'].join(' ')}>
                                 <div style={{flex: '1'}}>
                                     <div className={['w-100', 'd-flex', 'flex-column', 'flex-md-row', 'align-items-center'].join(' ')}>
-                                        <img src='/assets/images/main_images/honari.png' style={{width: '50px', height: '50px'}} />
+                                        <img src={Constants.baseUrl + '/assets/images/main_images/honari.png'} style={{width: '50px', height: '50px'}} />
                                         <div className={['d-flex', 'flex-column', 'mr-2'].join(' ')}>
                                             <h2 className={['mb-0', 'mt-1', 'align-self-right', styles.floatAlignedText].join(' ')} style={{fontSize: '18px', color: '#00bac6'}}>هنری</h2>
                                             <h5 className={['align-md-self-end', 'mb-0', 'mt-2', 'text-secondary'].join(' ')} style={{fontSize: '14px'}}>آموزش، الگو، مواد اولیه</h5>
                                         </div>
                                     </div>
-                                    <p className={['mb-0', 'mt-2', styles.floatAlignedText].join(' ')} style={{fontSize: '15px'}}>تهران، بلوار مرزداران، خیابان اطاعتی ،خیابان پاس فرهنگیان (فروش حضوری نداریم)</p>
+                                    <p className={['mb-0', 'mt-2', styles.floatAlignedText].join(' ')} style={{fontSize: '15px'}}>تهران، بلوار مرزداران، جنب پل یادگار امام، خیابان ابراهیمی، برج الوند، واحد 303 (فروش حضوری نداریم)</p>
                                     <Link href=''><p className={['mt-3', 'text-center', 'link', 'pointer', 'font-weight-bold', 'w-100', 'mb-0', 'd-md-none'].join(' ')}>راهنمای ثبت‌نام و خرید از وب‌سایت</p></Link>
                                     <Link href=''><p className={['mt-1', 'text-center', 'link', 'pointer', 'font-weight-bold', 'w-100', 'mb-0', 'd-md-none'].join(' ')}>خدمات مشتریان هنری</p></Link>
                                 </div>
                                 <div className={['w-100', 'd-flex', 'flex-row', 'ltr', 'align-items-center', 'justify-content-center', 'justify-content-md-start', 'mt-3', 'mt-md-0'].join(' ')} style={{flex: '1'}}>
-                                    <img src='/assets/images/main_images/enamad.png' style={{width: '70px', height: '70px'}} />
-                                    <img src='/assets/images/main_images/reza.png' style={{width: '70px', height: '70px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/enamad.png'} style={{width: '70px', height: '70px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/reza.png'} style={{width: '70px', height: '70px'}} />
                                 </div>
                             </div>
                             <div className={['d-none', 'd-md-flex', 'flex-row', 'rtl', 'mt-3'].join(' ')} style={{fontSize: '14px'}}>
