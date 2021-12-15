@@ -120,14 +120,14 @@ const Checkbox = (props) => {
                         if(props.deletedFilter.en_name == props.information.enName && props.deletedFilter.value == option){
                             foundDeletedItem(index);
                             return(
-                                <div>
+                                <div key={index}>
                                     <input type='checkbox' className={[''].join(' ')} value={option} onChange={removedCheckboxChanged} checked={false}/>
                                     <label className={['mr-1', 'mb-1'].join(' ')} style={{fontSize: '14px'}} >{option}</label>
                                 </div>
                             );
                         }else{
                             return(
-                                <div>
+                                <div key={index}>
                                     <input type='checkbox' className={[''].join(' ')} value={option} onChange={checkboxChanged} />
                                     <label className={['mr-1', 'mb-1'].join(' ')} style={{fontSize: '14px'}} >{option}</label>
                                 </div>

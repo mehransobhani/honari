@@ -302,7 +302,7 @@ const CategoryInsight = (props) => {
                     if(filter.type === 'radio'){
                         //return <CheckboxGroup information={filter} filterUpdated={filterItemUpdated} key={key} deletedFilter={recentlyDeletedFilter} />;
                         return(
-                            <div className={['rtl', 'text-right', 'py-3', 'px-1'].join(' ')} style={{borderBottom: '1px solid #D8D8D8'}}>
+                            <div key={key} className={['rtl', 'text-right', 'py-3', 'px-1'].join(' ')} style={{borderBottom: '1px solid #D8D8D8'}}>
                                 <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer'].join(' ')} onClick={() => {key === visibleFilterGroupId ?  setVisibleFilterGroupId(-1) : setVisibleFilterGroupId(key)}}>
                                     <h6 className={['mb-0']} style={{fontSize: '13px', color: '#444444'}}>{filter.name}</h6>
                                     <img src={key === visibleFilterGroupId ? Constants.baseUrl + '/assets/images/main_images/minus_black.png' : Constants.baseUrl + '/assets/images/main_images/plus_black.png'} style={{width: '14px', heigth: '14px'}} />
@@ -397,7 +397,7 @@ const CategoryInsight = (props) => {
                                         if(filter.type === 'radio'){
                                             //return <CheckboxGroup information={filter} filterUpdated={filterItemUpdated} key={key} deletedFilter={recentlyDeletedFilter} />;
                                             return(
-                                                <div className={['rtl', 'text-right', 'p-3'].join(' ')} style={{borderBottom: '1px solid #dedede'}}>
+                                                <div key={key} className={['rtl', 'text-right', 'p-3'].join(' ')} style={{borderBottom: '1px solid #dedede'}}>
                                                     <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer'].join(' ')} onClick={() => {key === visibleFilterGroupId ?  setVisibleFilterGroupId(-1) : setVisibleFilterGroupId(key)}}>
                                                         <h6 className={['mb-0']} style={{fontSize: '13px', color: '#444444'}}>{filter.name}</h6>
                                                         <img src={key === visibleFilterGroupId ? '/assets/images/main_images/minus_black.png' : '/assets/images/main_images/plus_black.png'} style={{width: '14px', heigth: '14px'}} />

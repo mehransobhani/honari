@@ -1030,7 +1030,7 @@ function BigHeader(props){
                             if(item.fields === null){
                                 if(index <= 2){
                                     return(
-                                        <Link href={'/search/SearchWithCategory/?query=' + item.category}>
+                                        <Link key={index} href={'/search/SearchWithCategory/?query=' + item.category}>
                                             <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', ].join(' ')}>
                                                 <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/link_arrow_gray_small.png'} style={{width: '10px', height: '10px'}} />
@@ -1039,7 +1039,7 @@ function BigHeader(props){
                                     );
                                 }else{
                                     return(
-                                        <Link href={'/search/SearchWithCategory/?query=' + item.category}>
+                                        <Link key={index} href={'/search/SearchWithCategory/?query=' + item.category}>
                                             <a onClick={props.reduxStartLoading} className={['flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', moreSearchCategoriesClass].join(' ')}>
                                                 <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/link_arrow_gray_small.png'} style={{width: '10px', height: '10px'}} />
@@ -1057,7 +1057,7 @@ function BigHeader(props){
                         searchResults.map((item, index) => {
                             if(item.fields !== null){
                                 return(
-                                    <Link href={item.fields.product_url}>
+                                    <Link key={index} href={item.fields.product_url}>
                                         <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-1'].join(' ')}>
                                             <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
@@ -1100,7 +1100,7 @@ function BigHeader(props){
                             if(item.fields === null){
                                 if(index <= 2){
                                     return(
-                                        <Link href={'/search/SearchWithCategory/?query=' + item.category}>
+                                        <Link key={index} href={'/search/SearchWithCategory/?query=' + item.category}>
                                             <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', ].join(' ')}>
                                                 <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/link_arrow_gray_small.png'} style={{width: '10px', height: '10px'}} />
@@ -1109,7 +1109,7 @@ function BigHeader(props){
                                     );
                                 }else{
                                     return(
-                                        <Link href={'/search/SearchWithCategory/?query=' + item.category}>
+                                        <Link key={index} href={'/search/SearchWithCategory/?query=' + item.category}>
                                             <a className={['flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', moreSearchCategoriesClass].join(' ')}>
                                                 <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/link_arrow_gray_small.png'} style={{width: '10px', height: '10px'}} />
@@ -1127,7 +1127,7 @@ function BigHeader(props){
                         searchResults.map((item, index) => {
                             if(item.fields !== null){
                                 return(
-                                    <Link href={item.fields.product_url}>
+                                    <Link key={index} href={item.fields.product_url}>
                                         <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-1'].join(' ')}>
                                             <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>

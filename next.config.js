@@ -1,5 +1,6 @@
 module.exports = {
   reactStrictMode: true,
   ignoreDuringBuilds: true,
-  basePath: '/newtest'
+  basePath: '/newtest',
+  ignoreDuringBuilds: true,
 }
