@@ -223,30 +223,34 @@ const ProductCard = (props) => {
     return(
         <div className={['col-6', 'col-md-3', 'p-2'].join(' ')} onClick={warn}>
             <div className={['d-flex', 'flex-column'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede', height: '100%'}} >
-                <div style={{position: 'relative'}}>
-                    <img src={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + props.information.prodID + '.jpg'} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
-                </div>
-                <div className={['p-3', 'text-right', 'rtl'].join(' ')}>
-                    <Link href={'/' + props.information.productUrl}><a><h6 className={['font-weight-bold', 'text-right', 'rtl', 'mb-3'].join(' ')}>{props.information.productName}</h6></a></Link>
-                    {
-                        props.information.productPrice != -1 ?
-                        props.information.productPrice != props.information.discountedPrice ?
-                        props.information.discountedPrice == 0 ?
-                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'align-self-end'].join(' ')}>
-                            <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0', 'p-1', 'text-muted'].join(' ')} style={{borderRadius: '4px', backgroundColor: '#f2f2f2', fontSize: '14px'}}><del>{props.information.productPrice.toLocaleString()}</del></h6>
-                            <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0', 'mr-1'].join(' ')}>رایگان</h6>
-                        </div>
-                        :
-                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'align-self-end'].join(' ')}>
-                            <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0', 'p-1', 'text-muted'].join(' ')} style={{borderRadius: '4px', backgroundColor: '#f2f2f2', fontSize: '14px'}}><del>{props.information.productPrice.toLocaleString()}</del></h6>
-                            <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0', 'mr-1'].join(' ')}>{props.information.discountedPrice.toLocaleString() + ' تومان '}</h6>
-                        </div>
-                        :
-                        <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0', 'align-self-end'].join(' ')}>{props.information.productPrice.toLocaleString() + ' تومان '}</h6>        
-                        :
-                        <span className={['text-right', 'rtl', 'mb-0', 'px-2', 'align-self-end'].join(' ')} style={{backgroundColor: 'white', color: 'white', borderRadius: '4px'}}>ناموجود</span>
-                    }
-                </div>
+                <Link href={'/' + props.information.productUrl}>
+                    <a style={{position: 'relative'}}>
+                        <img src={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + props.information.prodID + '.jpg'} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
+                    </a>
+                </Link>
+                <Link href={'/' + props.information.productUrl}>
+                    <a className={['p-3', 'text-right', 'rtl'].join(' ')}>
+                        <h6 className={['font-weight-bold', 'text-right', 'rtl', 'mb-3'].join(' ')}>{props.information.productName}</h6>
+                        {
+                            props.information.productPrice != -1 ?
+                            props.information.productPrice != props.information.discountedPrice ?
+                            props.information.discountedPrice == 0 ?
+                            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'align-self-end'].join(' ')}>
+                                <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0', 'p-1', 'text-muted'].join(' ')} style={{borderRadius: '4px', backgroundColor: '#f2f2f2', fontSize: '14px'}}><del>{props.information.productPrice.toLocaleString()}</del></h6>
+                                <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0', 'mr-1'].join(' ')}>رایگان</h6>
+                            </div>
+                            :
+                            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'align-self-end'].join(' ')}>
+                                <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0', 'p-1', 'text-muted'].join(' ')} style={{borderRadius: '4px', backgroundColor: '#f2f2f2', fontSize: '14px'}}><del>{props.information.productPrice.toLocaleString()}</del></h6>
+                                <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0', 'mr-1'].join(' ')}>{props.information.discountedPrice.toLocaleString() + ' تومان '}</h6>
+                            </div>
+                            :
+                            <h6 className={['text-danger', 'text-right', 'rtl', 'mb-0', 'align-self-end'].join(' ')}>{props.information.productPrice.toLocaleString() + ' تومان '}</h6>        
+                            :
+                            <span className={['text-right', 'rtl', 'mb-0', 'px-2', 'align-self-end'].join(' ')} style={{backgroundColor: 'white', color: 'white', borderRadius: '4px'}}>ناموجود</span>
+                        }
+                    </a>
+                </Link>
                 {
                     axiosProcessing
                     ?

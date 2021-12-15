@@ -71,10 +71,12 @@ const TopSixProducts = (props) => {
                 }
             </div>
         </div>
-        <div className={['pointer', 'd-none', 'd-md-flex', 'w-100', 'align-items-center', 'justify-content-center', 'text-center', 'mt-2'].join(' ')} style={{borderRadius: '8px'}}>
+        <Link href={props.moreUrl}>
+            <a className={['pointer', 'd-none', 'd-md-flex', 'w-100', 'align-items-center', 'justify-content-center', 'text-center', 'mt-2'].join(' ')} style={{borderRadius: '8px'}}>
                 <img src={Constants.baseUrl + '/assets/images/main_images/left_black_small.png'} style={{width: '18px', height: '18px'}} />
                 <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>
-        </div>
+            </a>
+        </Link>
         </React.Fragment>
     );
 }

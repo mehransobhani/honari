@@ -51,14 +51,14 @@ const SpecialOffer = () => {
                         {
                             offers[page*2] !== undefined 
                             ?
-                            <SpecialOfferCard imageUrl={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + offers[page*2].prodID + '.jpg'} title={offers[page*2].productName} price={offers[page*2].productPrice} discountedPrice={offers[page*2].productDiscountedPrice} timeLeft={offers[page*2].timeLeft} bgColor='#dff1f5' />
+                            <SpecialOfferCard url={offers[page*2].productUrl} imageUrl={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + offers[page*2].prodID + '.jpg'} title={offers[page*2].productName} price={offers[page*2].productPrice} discountedPrice={offers[page*2].productDiscountedPrice} timeLeft={offers[page*2].timeLeft} bgColor='#dff1f5' />
                             :
                             null
                         }
                         {
                             offers[(page*2) + 1] !== undefined 
                             ?
-                            <SpecialOfferCard imageUrl={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + offers[(page*2) + 1].prodID + '.jpg'} title={offers[(page*2)+1].productName} price={offers[(page*2)+1].productPrice} discountedPrice={offers[(page*2)+1].productDiscountedPrice} timeLeft={offers[(page*2)+1].timeLeft} bgColor='#f0efd8'/>
+                            <SpecialOfferCard url={offers[(page*2) + 1 ].productUrl} imageUrl={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + offers[(page*2) + 1].prodID + '.jpg'} title={offers[(page*2)+1].productName} price={offers[(page*2)+1].productPrice} discountedPrice={offers[(page*2)+1].productDiscountedPrice} timeLeft={offers[(page*2)+1].timeLeft} bgColor='#f0efd8'/>
                             :
                             null
                         }

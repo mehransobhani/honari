@@ -297,7 +297,7 @@ const CategoryLandingPage = (props) => {
                         </div>
                     </div>
                     <div className={['container'].join(' ')}>
-                        <TopSixProducts entries={artInformation.topSixProducts} title='جدیدترین کالاها' />
+                        <TopSixProducts moreUrl={'/shop/product/category/' + artInformation.categoryUrl} entries={artInformation.topSixProducts} title='جدیدترین کالاها' />
                     </div>
                         
                 </React.Fragment>
