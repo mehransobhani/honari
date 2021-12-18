@@ -17,7 +17,7 @@ import {connect} from 'react-redux';
 const Category = (props) => {
     const router = useRouter();
     const {route} = router.query;
-    const [urlString, setUrlString] = useState('');
+    const [urlString, setUrlString] = useState(''); 
     const [component, setComponent] = useState(null);
     const [pageTitle, setPageTitle] = useState('');
     let ran = 0;
@@ -107,7 +107,7 @@ const Category = (props) => {
     }, [props.reduxUser.status, 'NI']);
 
     useEffect(()=>{
-        if(route !== undefined){
+        /*if(route !== undefined){
             let url = '';
             for(let i=0; i<route.length; i++){
                 if(i == route.length - 1){
@@ -141,14 +141,33 @@ const Category = (props) => {
             }).catch((error)=>{
             console.log(error);
             });
+        }*/
+        if(props.ssrUrlInfo.status !== 'failed'){
+            if(props.ssrUrlInfo.found === true && props.ssrUrlInfo.type === 'product'){
+                setPageTitle('خرید ' + props.ssrUrlInfo.name + ' | هنری');
+                setComponent(null);
+                setComponent(<ProductInsight id={props.ssrUrlInfo.id}/>);
+            }else if(props.ssrUrlInfo.found === true && props.ssrUrlInfo.type === 'category'){
+                setPageTitle('خرید ' + props.ssrUrlInfo.name + ' | هنری');
+                //setComponent(null);
+                //if(response.level === 1){
+                //    setComponent(null);
+                //    setComponent(<RootCategory id={response.id} name={response.name} route={route[0]} />);
+                //}else{
+                    setComponent(null);
+                    setComponent(<CategoryInsight id={props.ssrUrlInfo.id} />);
+                //}
+            }
         }
-    },[route, undefined]);
+        console.warn(props.ssrUrlInfo);
+    }, []);
 
     return (
         <React.Fragment>
             <Head>
                 <title>{pageTitle}</title>
             </Head>
+            <Header menu={props.ssrMenu} />
             {
                 component
             }
@@ -179,7 +198,32 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Category);
 
 export async function getServerSideProps(context){
-    
+    let url = context.req.url.substr(1);
+    let newUrl = '';
+    if(url.charAt(0) === '_'){
+        ///_next/data/development/shop/product/category/painting/ghalammo-abzar-rang/polet/pallet-guash-21-28cm.json?route=painting&route=ghalammo-abzar-rang&route=polet&route=pallet-guash-21-28cm
+        for(let i=23; i<url.length; i++){
+            if(url.charAt(i) == '.' && url.charAt(i+1) == 'j' && url.charAt(i+2) == 's'){
+                break;
+            }else{
+                newUrl += url.charAt(i);
+            }
+        }
+        console.log("new url: " + newUrl);
+        if(newUrl.length !== 0){
+            url = newUrl;
+        }
+    }
+    const urlInfo = await fetch(Constants.apiUrl + '/api/route-info', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({route: url})
+    });
+    let urlResponse = await urlInfo.json();
+    const m = await fetch(Constants.apiUrl + '/api/menu', {
+        method: 'GET'
+    });
+    let menu = await m.json();
     if(context.req.cookies.user_server_token !== undefined){
         const res = await fetch(Constants.apiUrl + '/api/user-information',{
             method: 'POST',
@@ -194,14 +238,18 @@ export async function getServerSideProps(context){
             return {
                 props: {
                     ssrUser: {status: 'LOGIN', information: await response.information},
-                    ssrCookies: context.req.cookies
+                    ssrCookies: context.req.cookies,
+                    ssrUrlInfo: await urlResponse,
+                    ssrMenu: await menu
                 }
             }
         }else{
             return {
                 props: {
                     ssrUser: {status: 'GUEST', information: {}},
-                    ssrCookies: context.req.cookies
+                    ssrCookies: context.req.cookies,
+                    ssrUrlInfo: await urlResponse,
+                    ssrMenu: await menu
                 }
             }
         }
@@ -211,7 +259,9 @@ export async function getServerSideProps(context){
         return{
             props: {
                 ssrUser: {status: 'GUEST', information: {}},
-                ssrCookies: context.req.cookies
+                ssrCookies: context.req.cookies,
+                ssrUrlInfo: await urlResponse,
+                ssrMenu: await menu
             }
         };
     }

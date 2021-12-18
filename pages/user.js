@@ -62,7 +62,7 @@ const User = () => {
     const phoneInputChanged = (event) => {
         setPhoneNumber(event.target.value);
     }
-
+    
     const submitButtonClicked = () => {
         createToken();
         //removeToken();

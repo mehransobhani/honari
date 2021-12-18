@@ -158,7 +158,7 @@ function BigHeader(props){
         </div>;
 
     useEffect(() => {
-        axios.get(Constants.apiUrl + '/api/menu').then((res) => {
+        /*axios.get(Constants.apiUrl + '/api/menu').then((res) => {
             let response = res.data;
             if(response.status == 'done'){
                 if(response.found == true){
@@ -169,8 +169,11 @@ function BigHeader(props){
             }
         }).catch((error) => {
             console.log(error);
-        });
-    }, []);
+        });*/
+        if(props.menu.status === 'done' && props.menu.found == true){
+            setMenu(props.menu.menu);
+        }
+    }, [props.menu, undefined]);
 
     //##### HARDCODED ACADEMY LINKS #####//
     useEffect(() => {
@@ -934,10 +937,12 @@ function BigHeader(props){
                                 ?
                                     academyClasses.map((academyClass, counter) => {
                                         return (
-                                            <div key={counter} className={['px-2', 'py-3', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                                                <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>{academyClass.name}</h5>
-                                                <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} />
-                                            </div>
+                                            <Link href={academyClass.url}>
+                                                <a key={counter} className={['px-2', 'py-3', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                                                    <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>{academyClass.name}</h5>
+                                                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} />
+                                                </a>
+                                            </Link>
                                         );
                                     })
                                 :
@@ -972,9 +977,13 @@ function BigHeader(props){
                     {
                         subMenus.map((sm, counter) => {
                             return(
-                                <Link key={counter} href={sm.url.substr(18)}><li className={['col-3', 'd-flex', 'flex-row', 'align-items-center', 'pointer', 'mt-2', styles.dropdownItem].join(' ')}>
-                                    {sm.name}
-                                </li></Link>
+                                <li className={['col-3', 'd-flex', 'flex-row', 'align-items-center', 'pointer', 'mt-2', styles.dropdownItem].join(' ')}>
+                                    <Link key={counter} href={sm.url.substr(18)}>
+                                        <a onClick={() => {props.reduxStartLoading()}}>
+                                            {sm.name}
+                                        </a>
+                                    </Link>
+                                </li>
                             );
                         })
                     }
@@ -1322,10 +1331,12 @@ function BigHeader(props){
                             (
                                 props.reduxUser.status === 'LOGIN'
                                 ?
-                                <div className={['ltr', 'align-items-center', 'ml-1', 'p-2', 'pointer', 'd-none', 'd-md-flex'].join(' ')}>
-                                    <small className={['m-0'].join(' ')}>{props.reduxUser.information.name}</small>
-                                    <img src={Constants.baseUrl + '/assets/images/header_user.png'} className={['ml-1'].join(' ')} style={{width: '20px'}} />    
-                                </div>
+                                <Link href={'/users/view'}>
+                                    <a className={['ltr', 'align-items-center', 'ml-1', 'p-2', 'pointer', 'd-none', 'd-md-flex'].join(' ')}>
+                                        <small className={['m-0'].join(' ')}>{props.reduxUser.information.name}</small>
+                                        <img src={Constants.baseUrl + '/assets/images/header_user.png'} className={['ml-1'].join(' ')} style={{width: '20px'}} />    
+                                    </a>
+                                </Link>
                                 :
                                 null
                             )

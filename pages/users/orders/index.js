@@ -251,7 +251,7 @@ const UserOrders = (props) => {
                 <title>سفارش های من | هنری</title>
                 <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
             </Head>
-            <Header />
+            <Header menu={props.ssrMenu} />
         {
             userAllowd ?
                 <React.Fragment>
@@ -332,7 +332,10 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(UserOrders);
 
 export async function getServerSideProps(context){
-    
+    const m = await fetch(Constants.apiUrl + '/api/menu', {
+        method: 'GET'
+    });
+    let menu = await m.json();
     if(context.req.cookies.user_server_token !== undefined){
         const res = await fetch(Constants.apiUrl + '/api/user-information',{
             method: 'POST',
@@ -347,14 +350,16 @@ export async function getServerSideProps(context){
             return {
                 props: {
                     ssrUser: {status: 'LOGIN', information: await response.information},
-                    ssrCookies: context.req.cookies
+                    ssrCookies: context.req.cookies,
+                    ssrMenu: await menu
                 }
             }
         }else{
             return {
                 props: {
                     ssrUser: {status: 'GUEST', information: {}},
-                    ssrCookies: context.req.cookies
+                    ssrCookies: context.req.cookies,
+                    ssrMenu: await menu
                 },
                 redirect: {
                     destination: '/'
@@ -367,7 +372,8 @@ export async function getServerSideProps(context){
         return{
             props: {
                 ssrUser: {status: 'GUEST', information: {}},
-                ssrCookies: context.req.cookies
+                ssrCookies: context.req.cookies,
+                ssrMenu: await menu
             },
             redirect: {
                 destination: '/'

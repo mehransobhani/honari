@@ -341,7 +341,6 @@ const CategoryInsight = (props) => {
             <Drawer anchor="bottom" open={state['bottom']} onClose={filterDrawer('bottom', false)}>
                 {phoneFilter}
             </Drawer>
-            <Header />
             <div className={['d-none', 'd-md-block'].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
                 <div className={['container', 'd-flex', 'flex-row', 'align-items-center', 'rtl', 'py-2', 'px-2'].join(' ')}>
                     <Breadcrumbs>

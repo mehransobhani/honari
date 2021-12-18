@@ -14,7 +14,7 @@ const NewProductCard = (props) => {
               pathname: '/' + props.information.productUrl
             }}>
                 <a className={['d-flex', 'pointer', 'flex-column', 'shadow-sm', styles.banner].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', height: '100%'}}>
-                    <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + props.information.prodID + '.jpg'} className={['rounded-top'].join(' ')} style={{width: '100%', height: 'auto'}} />
+                    <img src={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + props.information.prodID + '.jpg'} className={['rounded-top'].join(' ')} style={{width: '100%', height: 'auto'}} />
                     <div className={['w-100'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
                     <p className={['text-muted', 'rtl', 'w-100', 'pt-2', 'px-2', 'text-right', 'm-0'].join(' ')} style={{fontSize: '14px'}}>{props.information.categoryName}</p>
                     <p className={['w-100', 'rtl', 'text-right', 'm-0', 'pb-2', 'px-2'].join(' ')}>{props.information.productName}</p>

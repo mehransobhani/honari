@@ -3,8 +3,18 @@ import {connect} from 'react-redux';
 import * as actionTypes from '../../store/actions';
 import Link from 'next/link';
 import Image from 'next/image';
+import * as Constants from '../constants';
+import {useCookies} from 'react-cookie';
 
 const UserInformation = (props) => {
+
+    const [cookies , setCookie , removeCookie] = useCookies();
+
+    const logOut = () => {
+        removeCookie('user_server_token');
+        window.location.href = '/';
+    }
+
     return (
         <div>
             <div className={['d-flex', 'felx-row', 'align-items-center', 'justify-content-right', 'rtl', 'py-2', 'pr-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
@@ -14,23 +24,25 @@ const UserInformation = (props) => {
                     <h6 className={['text-right', 'mb-0'].join(' ')} style={{fontSize: '10px', color: '#444444'}}>{props.reduxUser.information.username}</h6>
                 </div>
             </div>
-            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>شارژ حساب کاربری</h5>
-                <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} />        
-            </div>
-            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>سفارشات من</h5>
-                <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} />        
-            </div>
-            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>کلاس‌های من</h5>
-                <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} />        
-            </div>
-            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>مدیریت محصولات</h5>
-                <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} />        
-            </div>
-            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+            <Link href={'/users/charge_account'}>
+                <a className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                    <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>شارژ حساب کاربری</h5>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} />        
+                </a>
+            </Link>
+            <Link href={'/users/orders'}>
+                <a className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                    <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>سفارشات من</h5>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} />        
+                </a>
+            </Link>
+            <Link href={'https://honari.com/academy/user/courses'}>
+                <a className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                    <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>کلاس‌های من</h5>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} />        
+                </a>
+            </Link>
+            <div onClick={logOut} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2', 'pointer'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
                 <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>خروج از حساب کاربری</h5>
                 <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} />        
             </div>

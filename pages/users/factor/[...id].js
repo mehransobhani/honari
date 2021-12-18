@@ -15,7 +15,7 @@ const UsersOrderInfo = (props) => {
     const [cookies , setCookie , removeCookie] = useCookies();
     const router = useRouter();
     const {id} = router.query;
-    const [userOrderInformation, setUserOrderInformation] = useState([]);
+    const [userOrderInformation, setUserOrderInformation] = useState(null);
 
     useEffect(() => {
         props.reduxUpdateUserTotally(props.ssrUser);
@@ -76,7 +76,7 @@ const UsersOrderInfo = (props) => {
             }).then((res) => {
                 let response = res.data;
                 if(response.status === 'done'){
-                    setUserOrderInformation(response.orderItems);
+                    setUserOrderInformation(response);
                 }else{
                     props.reduxUpdateSnackbar('warning', true, response.umessage);
                 }
@@ -106,15 +106,17 @@ const UsersOrderInfo = (props) => {
 
     return(
         <React.Fragment>
-            <Header />
+            <Header menu={props.ssrMenu} />
                 <div className={['container', 'px-4'].join(' ')}>
                     <div className={['row'].join(' ')}>
                         <p className={['col-12', 'px-2', 'font11md17', 'text-right', 'rtl', 'mb-0', 'mt-3'].join(' ')} style={{color: 'red', fontSize: '14px'}}>* تمامی قیمت‌ها به تومان می‌باشند</p>
                     </div>
                     {informationHeaders}
                     {
+                        userOrderInformation !== null
+                        ?
                         (
-                            userOrderInformation.map((item, counter) => {
+                            userOrderInformation.orderItems.map((item, counter) => {
                                 return(
                                     <div key={counter} onClick={clicked} className={['row', 'rtl', 'py-3', 'mt-2', 'align-items-center'].join(' ')} style={{borderRadius: '3px', background: '#F2F2F2'}}>
                                         <span className={['col-1', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{fontSize: '14px'}}>{counter + 1}</span>
@@ -130,7 +132,50 @@ const UsersOrderInfo = (props) => {
                                 );
                             })
                         )
-                        
+                        :
+                        null
+                    }
+                    {
+                        userOrderInformation !== null 
+                        ?
+                        (
+                            <div className={['row', 'text-left', 'ltr', 'mt-2'].join(' ')}>
+                                <div className={['col-12', 'col-md-6', 'p-2'].join(' ')} style={{background: '#F2F2F2', borderRadius: '2px'}}>
+                                    <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')}>
+                                        <h6 className={['mb-0', 'text-center', 'font11md14', 'rtl'].join(' ')} style={{flex: '1'}}>قیمت کل</h6>
+                                        <h6 className={['mb-0', 'text-center', 'font11md14', 'rtl'].join(' ')} style={{flex: '1'}}>{userOrderInformation.totalPrice.toLocaleString() + ' تومان'}</h6>
+                                    </div>
+                                    <div className={['my-2'].join(' ')} style={{background: '#B2B2B2', height: '1px'}}></div>
+                                    <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'mt-2'].join(' ')}>
+                                        <h6 className={['mb-0', 'text-center', 'font11md14', 'rtl'].join(' ')} style={{flex: '1'}}>تخفیف کل</h6>
+                                        <h6 className={['mb-0', 'text-center', 'font11md14', 'rtl'].join(' ')} style={{flex: '1'}}>
+                                            {
+                                                userOrderInformation.totalDiscount === 0
+                                                ?
+                                                '-----'
+                                                :
+                                                userOrderInformation.totalDiscount.toLocaleString() + ' تومان'
+                                            }
+                                        </h6>
+                                    </div>
+                                    <div className={['my-2'].join(' ')} style={{background: '#B2B2B2', height: '1px'}}></div>
+                                    <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'mt-2'].join(' ')}>
+                                        <h6 className={['mb-0', 'text-center', 'font11md14', 'rtl'].join(' ')} style={{flex: '1'}}>مبلغ پرداخت شده</h6>
+                                        <h6 className={['mb-0', 'text-center', 'font11md14', 'rtl'].join(' ')} style={{flex: '1'}}>
+                                            {
+                                                userOrderInformation.totalPrice - userOrderInformation.totalDiscount === 0
+                                                ?
+                                                'رایگان'
+                                                :
+                                                (userOrderInformation.totalPrice - userOrderInformation.totalDiscount).toLocaleString() + ' تومان'
+                                            }
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                        :
+                        null
                     }
                 </div>
             <Footer />
@@ -161,7 +206,10 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(UsersOrderInfo);
 
 export async function getServerSideProps(context){
-    
+    const m = await fetch(Constants.apiUrl + '/api/menu', {
+        method: 'GET'
+    });
+    let menu = await m.json();
     if(context.req.cookies.user_server_token !== undefined){
         const res = await fetch(Constants.apiUrl + '/api/user-information',{
             method: 'POST',
@@ -176,14 +224,16 @@ export async function getServerSideProps(context){
             return {
                 props: {
                     ssrUser: {status: 'LOGIN', information: await response.information},
-                    ssrCookies: context.req.cookies
+                    ssrCookies: context.req.cookies,
+                    ssrMenu: await menu
                 }
             }
         }else{
             return {
                 props: {
                     ssrUser: {status: 'GUEST', information: {}},
-                    ssrCookies: context.req.cookies
+                    ssrCookies: context.req.cookies,
+                    ssrMenu: await menu
                 },
                 redirect: {
                     destination: '/'
@@ -196,7 +246,8 @@ export async function getServerSideProps(context){
         return{
             props: {
                 ssrUser: {status: 'GUEST', information: {}},
-                ssrCookies: context.req.cookies
+                ssrCookies: context.req.cookies,
+                ssrMenu: await menu
             },
             redirect: {
                 destination: '/'

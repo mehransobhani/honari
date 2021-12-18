@@ -309,7 +309,7 @@ const CategoryLandingPage = (props) => {
 
     return(
         <React.Fragment>
-            <Header />
+            <Header menu={props.ssrMenu} />
             <Head>
                 {
                     artInformation !== null
@@ -353,6 +353,10 @@ const mapStateToProps = (state) => {
   export default connect(mapStateToProps, mapDispatchToProps)(CategoryLandingPage);
   
   export async function getServerSideProps(context){
+        const m = await fetch(Constants.apiUrl + '/api/menu', {
+          method: 'GET'
+      });
+      let menu = await m.json();
     if(context.req.cookies.user_server_token !== undefined){
       const res = await fetch(Constants.apiUrl + '/api/user-information',{
         method: 'POST',
@@ -367,14 +371,16 @@ const mapStateToProps = (state) => {
           return {
               props: {
                   ssrUser: {status: 'LOGIN', information: await response.information},
-                  ssrCookies: context.req.cookies
+                  ssrCookies: context.req.cookies,
+                  ssrMenu: await menu
               }
           }
       }else{
           return {
               props: {
                   ssrUser: {status: 'GUEST', information: {}},
-                  ssrCookies: context.req.cookies
+                  ssrCookies: context.req.cookies,
+                  ssrMenu: await menu
               }
           }
       }
@@ -384,8 +390,9 @@ const mapStateToProps = (state) => {
       return{
           props: {
               ssrUser: {status: 'GUEST', information: {}},
-              ssrCookies: context.req.cookies
+              ssrCookies: context.req.cookies,
+              ssrMenu: await menu
           }
       };
     }
-  }
+}

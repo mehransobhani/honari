@@ -78,7 +78,7 @@ const UserPanel  = (props) => {
                 <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
             </Head>
                 <React.Fragment>
-                    <Header />
+                    <Header menu={props.ssrMenu} />
                         <div className={['container'].join(' ')}>
                             <div className={['row', 'rtl', 'mt-3'].join(' ')}>
                                 <div className={['col-2', 'd-none', 'd-md-flex', 'flex-column', 'align-items-center'].join(' ')}>
@@ -287,7 +287,10 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(UserPanel);
 
 export async function getServerSideProps(context){
-    
+    const m = await fetch(Constants.apiUrl + '/api/menu', {
+        method: 'GET'
+    });
+    let menu = await m.json();
     if(context.req.cookies.user_server_token !== undefined){
         const res = await fetch(Constants.apiUrl + '/api/user-information',{
             method: 'POST',
@@ -302,14 +305,16 @@ export async function getServerSideProps(context){
             return {
                 props: {
                     ssrUser: {status: 'LOGIN', information: await response.information},
-                    ssrCookies: context.req.cookies
+                    ssrCookies: context.req.cookies,
+                    ssrMenu: await menu
                 }
             }
         }else{
             return {
                 props: {
                     ssrUser: {status: 'GUEST', information: {}},
-                    ssrCookies: context.req.cookies
+                    ssrCookies: context.req.cookies,
+                    ssrMenu: await menu
                 },
                 redirect: {
                     destination: '/'
@@ -322,7 +327,8 @@ export async function getServerSideProps(context){
         return{
             props: {
                 ssrUser: {status: 'GUEST', information: {}},
-                ssrCookies: context.req.cookies
+                ssrCookies: context.req.cookies,
+                ssrMenu: await menu
             },
             redirect: {
                 destination: '/'

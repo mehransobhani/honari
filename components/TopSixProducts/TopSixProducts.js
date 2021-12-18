@@ -4,6 +4,8 @@ import * as Constants from '../constants';
 import Link from 'next/link';
 import styles from './style.module.css';
 import Image from 'next/image';
+import {connect} from 'react-redux';
+import * as actionTypes from '../../store/actions';
 
 
 const TopSixProducts = (props) => {
@@ -41,7 +43,7 @@ const TopSixProducts = (props) => {
                         return (
                             <div className={['col-5', 'col-md-2', 'px-2', 'py-0', 'my-0', 'mb-2'].join(' ')} key={counter}>
                                 <Link href={'/' + item.productUrl}>
-                                    <a className={['d-flex', 'pointer', 'flex-column', 'shadow-sm', styles.banner].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', height: '100%'}}>
+                                    <a onClick={() => {props.reduxStartLoading()}} className={['d-flex', 'pointer', 'flex-column', 'shadow-sm', styles.banner].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', height: '100%'}}>
                                         <img src={imageUrl} className={['rounded-top'].join(' ')} style={{width: '100%', height: 'auto'}} />
                                         <div className={['w-100'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
                                         <p className={['text-muted', 'rtl', 'w-100', 'pt-2', 'px-2', 'text-right', 'm-0'].join(' ')} style={{fontSize: '11px'}}>{item.categoryName}</p>
@@ -71,14 +73,35 @@ const TopSixProducts = (props) => {
                 }
             </div>
         </div>
-        <Link href={props.moreUrl}>
-            <a className={['pointer', 'd-none', 'd-md-flex', 'w-100', 'align-items-center', 'justify-content-center', 'text-center', 'mt-2'].join(' ')} style={{borderRadius: '8px'}}>
-                <img src={Constants.baseUrl + '/assets/images/main_images/left_black_small.png'} style={{width: '18px', height: '18px'}} />
-                <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>
-            </a>
-        </Link>
+        {
+            props.moreUrl !== undefined
+            ?
+            <Link href={props.moreUrl}>
+                <a onClick={() => {props.reduxStartLoading()}} className={['pointer', 'd-none', 'd-md-flex', 'w-100', 'align-items-center', 'justify-content-center', 'text-center', 'mt-2'].join(' ')} style={{borderRadius: '8px'}}>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_black_small.png'} style={{width: '18px', height: '18px'}} />
+                    <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>
+                </a>
+            </Link>
+            :
+            null
+        }
         </React.Fragment>
     );
 }
 
-export default TopSixProducts;
+const mapStateToProps = (state) => {
+    return {
+        
+        reduxLoad: state.loading
+    };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        reduxStartLoading: () => dispatch({type: actionTypes.START_LOADING}),
+        reduxStopLoading: () => dispatch({type: actionTypes.STOP_LOADING}),
+        reduxUpdateSnackbar: (k,s,t) => dispatch({type: actionTypes.UPDATE_SNACKBAR, kind: k, show: s, title: t})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopSixProducts);

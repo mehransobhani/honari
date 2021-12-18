@@ -192,7 +192,7 @@ const Home = (props) => {
       <Head>
         <title>هنری | تحقق رویای هنرمندانه‌ی تو</title>
       </Head>
-      <Header home={true} />
+      <Header home={true} menu={props.ssrMenu} />
       <div className={['container'].join(' ')}>
         <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pb-2', 'px-2', 'd-md-none'].join(' ')}>
             <button className={['px-3', 'pointer'].join(' ')} style={{height: '36px', borderRadius: '16px', background: '#EAEAEA', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دسته‌بندی محصولات</button>
@@ -328,7 +328,11 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
-export async function getServerSideProps(context){
+  export async function getServerSideProps(context){
+    const m = await fetch(Constants.apiUrl + '/api/menu', {
+      method: 'GET'
+  });
+  let menu = await m.json();
   if(context.req.cookies.user_server_token !== undefined){
     const res = await fetch(Constants.apiUrl + '/api/user-information',{
       method: 'POST',
@@ -343,14 +347,16 @@ export async function getServerSideProps(context){
         return {
             props: {
                 ssrUser: {status: 'LOGIN', information: await response.information},
-                ssrCookies: context.req.cookies
+                ssrCookies: context.req.cookies,
+                ssrMenu: await menu
             }
         }
     }else{
         return {
             props: {
                 ssrUser: {status: 'GUEST', information: {}},
-                ssrCookies: context.req.cookies
+                ssrCookies: context.req.cookies,
+                ssrMenu: await menu
             }
         }
     }
@@ -360,7 +366,8 @@ export async function getServerSideProps(context){
     return{
         props: {
             ssrUser: {status: 'GUEST', information: {}},
-            ssrCookies: context.req.cookies
+            ssrCookies: context.req.cookies,
+            ssrMenu: await menu
         }
     };
   }

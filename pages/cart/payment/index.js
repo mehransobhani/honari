@@ -88,7 +88,7 @@ const Payment = (props) => {
 
     const getActiveDeliveryWorkTimes = () => {
         axios.post(Constants.apiUrl + '/api/user-delivery-service-work-times',{
-            deliveryServiceId: 1,
+            deliveryServiceId: 11,
         }, {
             headers: {
                 'Authorization': 'Bearer ' + props.ssrCookies.user_server_token, 
@@ -150,10 +150,10 @@ const Payment = (props) => {
 
     const deliveryServiceSelected =  (serviceId) => {
         setSelectedDeliveryId(serviceId);
-        if(serviceId == 3){
+        if(serviceId == 14){
             setAvailableWorkTimes([]);
             setTemporaryInformation(serviceId, 0, 0);
-        }else if (serviceId == 1 || serviceId == 2){
+        }else if (serviceId == 11 || serviceId == 12){
             setTemporaryInformation(serviceId, 0, 0);
             getActiveDeliveryWorkTimes(serviceId);
         }
@@ -365,26 +365,27 @@ const Payment = (props) => {
             }
             <div className={['row', 'pl-3'].join(' ')}>
                 {
-                    (selectedDeliveryId == 3 && selectedWorkTimeDate == 0) || ((selectedDeliveryId == 1 || selectedDeliveryId == 2) && selectedWorkTimeDate != 0)
+                    (selectedDeliveryId == 14 && selectedWorkTimeDate == 0) || ((selectedDeliveryId == 11 || selectedDeliveryId == 12) && selectedWorkTimeDate != 0)
                     ?
-                    <Link href={'/cart/payment/deliveryReview'}><div onClick={() => {props.reduxStartLoading()}} className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3', 'pointer', 'ml-1'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
-                        <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>تایید و نهایی کردن خرید</h6>
-                        <img className={['mr-2'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '10px', height: '10px'}} />
-                    </div></Link>
+                    <Link href={'/cart/payment/deliveryReview'}>
+                        <div onClick={() => {props.reduxStartLoading()}} className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3', 'pointer', 'ml-1'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
+                            <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>تایید و نهایی کردن خرید</h6>
+                            <img className={['mr-2'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '10px', height: '10px'}} />
+                        </div>
+                    </Link>
                     :
                     <div onClick={() => {props.reduxUpdateSnackbar('warning', true, 'لطفا اطلاعات روش و زمان ارسال را به درستی وارد کنید')}} className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3', 'pointer', 'ml-1'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                         <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>تایید و نهایی کردن خرید</h6>
                         <img className={['mr-2'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '10px', height: '10px'}} />
                     </div>
                 }
-                
             </div>
         </div>
     );
 
     return(
         <React.Fragment>
-            <Header />
+            <Header menu={props.ssrMenu} />
                 <img src={Constants.baseUrl + '/assets/images/main_images/secondStep.png'} style={{width: '100%'}} />
                 {
                     props.reduxUser.status !== 'NI'
@@ -435,7 +436,10 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Payment);
 
 export async function getServerSideProps(context){
-    
+    const m = await fetch(Constants.apiUrl + '/api/menu', {
+        method: 'GET'
+    });
+    let menu = await m.json();
     if(context.req.cookies.user_server_token !== undefined){
         const res = await fetch(Constants.apiUrl + '/api/user-information',{
             method: 'POST',
@@ -450,14 +454,16 @@ export async function getServerSideProps(context){
             return {
                 props: {
                     ssrUser: {status: 'LOGIN', information: await response.information},
-                    ssrCookies: context.req.cookies
+                    ssrCookies: context.req.cookies,
+                    ssrMenu: await menu
                 }
             }
         }else{
             return {
                 props: {
                     ssrUser: {status: 'GUEST', information: {}},
-                    ssrCookies: context.req.cookies
+                    ssrCookies: context.req.cookies,
+                    ssrMenu: await menu
                 },
                 redirect: {
                     destination: 'https://honari.com/user?site=shop&callBack=%2F'
@@ -470,7 +476,8 @@ export async function getServerSideProps(context){
         return{
             props: {
                 ssrUser: {status: 'GUEST', information: {}},
-                ssrCookies: context.req.cookies
+                ssrCookies: context.req.cookies,
+                ssrMenu: await menu
             },
             redirect: {
                 destination: 'https://honari.com/user?site=shop&callBack=%2F'

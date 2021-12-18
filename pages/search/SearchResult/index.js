@@ -192,7 +192,7 @@ const SearchResult = (props) => {
 
     return (
         <React.Fragment>
-            <Header />  
+            <Header menu={props.ssrMenu} />  
                 <div className={['container'].join(' ')} style={{overflowX: 'hidden '}}>
                     <div className={['row'].join(' ')}>
                         
@@ -296,7 +296,10 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResult);
 
 export async function getServerSideProps(context){
-    
+    const m = await fetch(Constants.apiUrl + '/api/menu', {
+        method: 'GET'
+    });
+    let menu = await m.json();
     if(context.req.cookies.user_server_token !== undefined){
         const res = await fetch(Constants.apiUrl + '/api/user-information',{
             method: 'POST',
@@ -311,14 +314,16 @@ export async function getServerSideProps(context){
             return {
                 props: {
                     ssrUser: {status: 'LOGIN', information: await response.information},
-                    ssrCookies: context.req.cookies
+                    ssrCookies: context.req.cookies,
+                    ssrMenu: await menu
                 }
             }
         }else{
             return {
                 props: {
                     ssrUser: {status: 'GUEST', information: {}},
-                    ssrCookies: context.req.cookies
+                    ssrCookies: context.req.cookies,
+                    ssrMenu: await menu
                 }
             }
         }
@@ -328,7 +333,8 @@ export async function getServerSideProps(context){
         return{
             props: {
                 ssrUser: {status: 'GUEST', information: {}},
-                ssrCookies: context.req.cookies
+                ssrCookies: context.req.cookies,
+                ssrMenu: await menu
             }
         };
     }

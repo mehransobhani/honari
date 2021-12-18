@@ -49,7 +49,7 @@ const Footer = () => {
                                     <p className={['mb-0', 'mr-1'].join(' ')}>اینستاگرم</p>
                                 </div>
                                 <div className={['pointer', 'd-flex', 'flex-row', 'mr-2', 'py-2', 'align-items-center', 'justify-content-center', 'px-3', styles.social].join(' ')}>
-                                    <img src={Constants.baseUrl + '../assets/images/main_images/aparat_small.png'} style={{width: '26px', height: '26px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/aparat_small.png'} style={{width: '26px', height: '26px'}} />
                                     <p className={['mb-0', 'mr-1'].join(' ')}>آپارات</p>
                                 </div>
                             </div>

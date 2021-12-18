@@ -249,7 +249,6 @@ const ProductInsight = (props) =>{
 
     return(
         <React.Fragment>
-            <Header newCartCount={productCartCount} />
             <div className={['d-none', 'd-md-block'].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
                 <div className={['container', 'd-flex', 'flex-row', 'align-items-center', 'rtl', 'py-2', 'px-2'].join(' ')}>
                     <Breadcrumbs>
@@ -442,7 +441,13 @@ const ProductInsight = (props) =>{
                 </div>
             </div>
             <div className={['container'].join(' ')}>
-                <TopSixProducts title='محصولات مشابه' entries={similarProducts} />
+                {
+                    similarProducts.length !== 0
+                    ?
+                    <TopSixProducts title='محصولات مشابه' entries={similarProducts} />
+                    :
+                    null
+                }
             </div>
         </React.Fragment>
         
