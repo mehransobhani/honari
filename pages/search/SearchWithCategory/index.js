@@ -397,6 +397,10 @@ const SearchWithCategory = (props) => {
 
     return(
         <React.Fragment>
+            <Head>
+                <title>نتایج جستجو در دسته‌بندی‌ها</title>
+                <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
+            </Head>
             <Drawer anchor="bottom" open={state['bottom']} onClose={filterDrawer('bottom', false)}>
                 {phoneFilter}
             </Drawer>

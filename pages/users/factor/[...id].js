@@ -9,6 +9,7 @@ import Link from 'next/link';
 import * as actionTypes from '../../../store/actions';
 import {connect} from 'react-redux';
 import Image from 'next/image';
+import Head from 'next/head';
 
 const UsersOrderInfo = (props) => {
 
@@ -106,6 +107,16 @@ const UsersOrderInfo = (props) => {
 
     return(
         <React.Fragment>
+            <Head>
+                {
+                    id !== undefined
+                    ?
+                    <title>{'مشخصات فاکتور شماره ' + id}</title>
+                    :
+                    null
+                }
+                <link rel="icon" href={Constants.baseUrl + "/newtest/favicon.ico"} type="image/x-icon"/>
+            </Head>
             <Header menu={props.ssrMenu} />
                 <div className={['container', 'px-4'].join(' ')}>
                     <div className={['row'].join(' ')}>

@@ -75,7 +75,7 @@ const UserPanel  = (props) => {
         <React.Fragment>
             <Head>
                 <title>نمایه کاربری | هنری</title>
-                <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+                <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
             </Head>
                 <React.Fragment>
                     <Header menu={props.ssrMenu} />

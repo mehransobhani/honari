@@ -496,6 +496,10 @@ const ShoppingCart = (props) => {
 
     return(
         <React.Fragment>
+            <Head>
+                <title>سبد خرید کاربر | هنری</title>
+                <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
+            </Head>
             <Header menu={props.ssrMenu} />
             {
                 props.reduxCart.status === 'HI' && props.reduxCart.information.length !== 0

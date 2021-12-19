@@ -166,6 +166,7 @@ const Category = (props) => {
         <React.Fragment>
             <Head>
                 <title>{pageTitle}</title>
+                <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
             </Head>
             <Header menu={props.ssrMenu} />
             {

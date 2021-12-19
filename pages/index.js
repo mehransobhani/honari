@@ -190,7 +190,8 @@ const Home = (props) => {
   return (
     <React.Fragment>
       <Head>
-        <title>هنری | تحقق رویای هنرمندانه‌ی تو</title>
+          <title>هنری | تحقق رویای هنرمندانه تو</title>
+          <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
       </Head>
       <Header home={true} menu={props.ssrMenu} />
       <div className={['container'].join(' ')}>
@@ -204,12 +205,16 @@ const Home = (props) => {
           ?
           (
             <div className={['row', 'rtl', 'mt-0', 'mt-md-4', 'px-md-2', 'align-items-stretch'].join(' ')} style={{}}>
-              <div className={['col-12', 'col-md-7', 'pr-0', 'pl-0', 'pl-md-2', ].join(' ')}>
-                <Link href={mainBanners[0].anchor}><img src={mainBanners[0].img} className={['pointer', 'shadow-sm', styles.topThreeBanners].join(' ')} style={{width: '100%', height: '100%', borderRadius: '4px'}} /></Link>
+              <div className={['col-12', 'col-md-6', 'pr-0', 'pl-0', 'pl-md-2', ].join(' ')}>
+                <Link href={mainBanners[0].anchor}><img src={'https://s4.uupload.ir/files/b1_gbk5.jpg' /*mainBanners[0].img*/} className={['pointer', 'shadow-sm'].join(' ')} style={{width: '100%', height: '100%', borderRadius: '4px'}} /></Link>
               </div>
-              <div className={['col-12', 'col-md-5', 'pl-3', 'pr-3', 'pr-md-3', 'pl-md-0', 'd-flex', 'flex-row', 'flex-md-column'].join(' ')}>
-                <Link href={mainBanners[1].anchor}><img src={mainBanners[1].img} className={['pointer', 'mt-3', 'mt-md-0', 'shadow-sm', styles.topThreeBanners].join(' ')} style={{height: 'auto', width: '100%', flex: '1', borderRadius: '4px'}} /></Link>
-                <Link href={mainBanners[2].anchor}><img src={mainBanners[2].img} className={['pointer', 'mt-3', 'mt-md-4', 'mr-3', 'mr-md-0', 'shadow-sm', styles.topThreeBanners].join(' ')} style={{height: 'auto', width: '100%', flex: '1', borderRadius: '4px'}} /></Link>
+              <div className={['col-12', 'col-md-6', 'pr-3', 'pl-md-0', 'd-flex', 'flex-row', 'flex-md-column'].join(' ')}>
+                <div style={{flex: '1'}}>
+                <Link href={mainBanners[1].anchor}><img src={'https://s4.uupload.ir/files/b2_efw.jpg' /*mainBanners[1].img*/} className={['pointer', 'mt-3', 'mt-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></Link>
+                </div>
+                <div className={['ml-3', 'ml-md-0', 'mt-0', 'mt-md-2'].join(' ')} style={{flex: '1'}}>
+                <Link href={mainBanners[2].anchor}><img src={'https://s4.uupload.ir/files/b2_efw.jpg'/*mainBanners[2].img*/} className={['pointer', 'mt-3', 'mt-md-4', 'mr-3', 'mr-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></Link>
+                </div>
               </div>
             </div>
           )

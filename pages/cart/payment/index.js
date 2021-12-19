@@ -385,6 +385,10 @@ const Payment = (props) => {
 
     return(
         <React.Fragment>
+            <Head>
+                <title>اطلاعات ارسال | هنری</title>
+                <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
+            </Head>
             <Header menu={props.ssrMenu} />
                 <img src={Constants.baseUrl + '/assets/images/main_images/secondStep.png'} style={{width: '100%'}} />
                 {

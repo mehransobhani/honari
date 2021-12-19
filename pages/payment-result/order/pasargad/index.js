@@ -56,7 +56,7 @@ const PasargadOrderPaymentResult = (props) => {
                     }
                 }else if(response.status === 'failed'){
                     console.warn(response.message);
-                    console.warn(response.umessage);
+                    props.reduxUpdateSnackbar('warning', true, response.umessage);
                 }
             }).catch((error)=>{
                 console.error(error);
@@ -81,7 +81,6 @@ const PasargadOrderPaymentResult = (props) => {
             let response = res.data;
             if(response.status === 'done'){
                 if(response.successfulPayment === true){
-                    props.reduxWipeCart();
                     setPaymentResult(true);
                 }else{
                     setPaymentResult(false);
@@ -126,15 +125,29 @@ const PasargadOrderPaymentResult = (props) => {
                 <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center', 'mt-3', 'py-4', 'px-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8', background: '#F7F7F7'}}>
                     <p className={['text-center', 'mb-0'].join(' ')}>به علت ناموفق بودن پرداخت، سفارش شما نهایی نشده است</p>
                     <p className={['text-center', 'mb-0'].join(' ')}>برای تایید سفارش خود مجددا از سبد خرید اقدام کنید</p>
-                    <h6 className={['mb-0', 'mt-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#00BAC6'}}><b>{"کد سفارش شما : " + ""}</b></h6>
                     <Link href='/cart/shoppingCart' ><a onClick={() => {props.reduxStartLoading()}} className={['mb-0', 'px-3', 'py-2', 'text-center', 'mt-3'].join(" ")} style={{background: '#00BAC6', color: 'white', borderRadius: '2px'}}>بازگشت به سبد خرید</a></Link>
                 </div>
             </div>
         </div>
     );
 
+    const pleaseWaitMessage = (
+        <div className={['container'].join(' ')}>
+            <div className={['row', 'px-2', 'mt-3'].join(' ')}>
+                <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-center'].join(' ')}>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/hourglass_main.png'} style={{width: '60px', height: '60px'}} />
+                </div>
+                <h5 className={['font14md17', 'text-center', 'col-12', 'mt-3'].join(' ')} style={{color: '#2B2B2B'}}>لطفا کمی صبر کنید</h5>
+            </div>
+        </div>
+    );
+
     return (    
         <React.Fragment>
+            <Head>
+                <title>نتیجه شارژ حساب کاربری | هنری</title>
+                <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
+            </Head>
             <Header menu={props.ssrMenu} /> 
             {
                 paymentResult !== null
@@ -147,7 +160,7 @@ const PasargadOrderPaymentResult = (props) => {
                     failedPaymentMessage    
                 )
                 :
-                null
+                pleaseWaitMessage
             }
             <Footer />
         </React.Fragment>

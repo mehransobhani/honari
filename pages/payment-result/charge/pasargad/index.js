@@ -108,8 +108,7 @@ const PasargadChargePaymentResult = (props) => {
                 </div>
                 <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center', 'mt-3', 'py-4', 'px-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8', background: '#F7F7F7'}}>
                     <p className={['text-center', 'mb-0'].join(' ')}>برای کسب اطلاعات بیشتر و آگاهی از وضعیت کیف پول خود میتوانید به حساب کاربری خود مراجعه کنید</p>
-                    <h6 className={['mb-0', 'mt-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#00BAC6'}}><b>{"کد سفارش شما : " + ""}</b></h6>
-                    <Link href='/' ><a onClick={() => {props.reduxStartLoading()}} className={['mb-0', 'px-3', 'py-2', 'text-center', 'mt-3'].join(" ")} style={{background: '#00BAC6', color: 'white', borderRadius: '2px'}}>بازگشت به صفحه‌ی اصلی</a></Link>
+                    <Link href='/' ><a onClick={() => {props.reduxStartLoading()}} className={['mb-0', 'px-3', 'py-2', 'text-center', 'mt-3'].join(" ")} style={{background: '#00BAC6', color: 'white', borderRadius: '2px'}}>بازگشت به صفحه اصلی</a></Link>
                 </div>
             </div>
         </div>
@@ -127,15 +126,29 @@ const PasargadChargePaymentResult = (props) => {
                 <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center', 'mt-3', 'py-4', 'px-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8', background: '#F7F7F7'}}>
                     <p className={['text-center', 'mb-0'].join(' ')}>به علت ناموفق بودن پرداخت، کیف پول شما شارژ نشده است</p>
                     <p className={['text-center', 'mb-0'].join(' ')}>برای افزایش اعتبار حساب کابری خود مجددا درخواست دهید</p>
-                    <h6 className={['mb-0', 'mt-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#00BAC6'}}><b>{"کد سفارش شما : " + ""}</b></h6>
-                    <Link href='/cart/shoppingCart' ><a onClick={() => {props.reduxStartLoading()}} className={['mb-0', 'px-3', 'py-2', 'text-center', 'mt-3'].join(" ")} style={{background: '#00BAC6', color: 'white', borderRadius: '2px'}}>بازگشت به سبد خرید</a></Link>
+                    <Link href='/' ><a onClick={() => {props.reduxStartLoading()}} className={['mb-0', 'px-3', 'py-2', 'text-center', 'mt-3'].join(" ")} style={{background: '#00BAC6', color: 'white', borderRadius: '2px'}}>بازگشت به صفحه اصلی</a></Link>
                 </div>
+            </div>
+        </div>
+    );
+
+    const pleaseWaitMessage = (
+        <div className={['container'].join(' ')}>
+            <div className={['row', 'px-2', 'mt-3'].join(' ')}>
+                <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-center'].join(' ')}>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/hourglass_main.png'} style={{width: '60px', height: '60px'}} />
+                </div>
+                <h5 className={['font14md17', 'text-center', 'col-12', 'mt-3'].join(' ')} style={{color: '#2B2B2B'}}>لطفا کمی صبر کنید</h5>
             </div>
         </div>
     );
 
     return (    
         <React.Fragment>
+            <Head>
+                <title>نتیجه پرداخت هزینه سفارش | هنری</title>
+                <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
+            </Head>
             <Header menu={props.ssrMenu} /> 
             {
                 paymentResult !== null
@@ -148,7 +161,7 @@ const PasargadChargePaymentResult = (props) => {
                     failedPaymentMessage    
                 )
                 :
-                null
+                pleaseWaitMessage
             }
             <Footer />
         </React.Fragment>

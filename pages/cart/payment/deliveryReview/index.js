@@ -22,6 +22,8 @@ const DeliveryReview = (props) => {
     const [userStock, setUserStock] = useState(0);
     const [orderId, setOrderId] = useState(0);
     const [orderStage, setOrderStage] = useState('');
+    const [paymentButtonText, setPaymentButtonText] = useState('تایید و پرداخت سفارش');
+    const [requestWaiting, setRequstWaiting] = useState('کمی صبر کنید');
 
     /*useEffect(() => {
         props.reduxUpdateUserTotally(props.ssrUser);
@@ -282,6 +284,11 @@ const DeliveryReview = (props) => {
     );
 
     const confirmOrder = () => {
+        if(requestWaiting){
+            return;
+        }
+        setRequstWaiting(true);
+        setPaymentButtonText('کمی صبر کنید');
         let giftCodes = [];
         let wallet = 0;
         if(walletCheckboxSelected){
@@ -298,6 +305,8 @@ const DeliveryReview = (props) => {
                 'Authorization': 'Bearer ' + props.ssrCookies.user_server_token, 
             }
         }).then((res) => {
+            setRequstWaiting(false);
+            setPaymentButtonText('تایید و پرداخت سفارش');
             let response = res.data;
             if(response.status === 'done'){
                 if(response.stage === 'payment'){
@@ -314,6 +323,8 @@ const DeliveryReview = (props) => {
         }).catch((error) => {
             console.error(error);
             props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+            setRequstWaiting(false);
+            setPaymentButtonText('تایید و پرداخت سفارش');
         });
     }
 
@@ -338,6 +349,10 @@ const DeliveryReview = (props) => {
 
     return(
         <React.Fragment>
+            <Head>
+                <title>بازبینی نهایی و پرداخت | هنری</title>
+                <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
+            </Head>
             <Header menu={props.ssrMenu} />  
                 {orderStage === ''
                 ?
@@ -562,7 +577,7 @@ const DeliveryReview = (props) => {
                                         }
                                     </div>
                                     <div onClick={confirmOrder} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-2', 'py-2', 'pointer'].join(' ')} style={{background: '#00bac6'}}>
-                                        <h6 className={['pl-2', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: 'white'}}>تایید و پرداخت سفارش</h6>
+                                        <h6 className={['pl-2', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: 'white'}}>{paymentButtonText}</h6>
                                         <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '8px', height: '8px'}} />
                                     </div>
                                 </div>
@@ -586,7 +601,7 @@ const DeliveryReview = (props) => {
                                     )
                                 }
                             </div>
-                            <button className={['col-12', 'py-3', 'mt-3'].join(' ')} style={{color: 'white', fontSize: '17px', borderRadius: '2px', background: '#00BAC6', outline: 'none', border: 'none'}}>تایید و پرداخت سفارش</button>
+                            <button onClick={confirmOrder} className={['col-12', 'py-3', 'mt-3'].join(' ')} style={{color: 'white', fontSize: '17px', borderRadius: '2px', background: '#00BAC6', outline: 'none', border: 'none'}}>{paymentButtonText}</button>
                         </div>
                     </div>
                 </React.Fragment>

@@ -192,10 +192,13 @@ const SearchResult = (props) => {
 
     return (
         <React.Fragment>
+            <Head>
+                <title>نتایج جستجو</title>
+                <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
+            </Head>
             <Header menu={props.ssrMenu} />  
                 <div className={['container'].join(' ')} style={{overflowX: 'hidden '}}>
                     <div className={['row'].join(' ')}>
-                        
                         <div className={['col-12', 'px-2', 'text-right', 'rtl', 'd-none', 'flex-row', 'align-items-center'].join(' ')}>
                             <span className={['rtl', 'text-right', 'px-1'].join(' ')}>فیلترهای اعمال شده :</span>
                             <span className={['d-flex', 'flex-row'].join(' ')}>

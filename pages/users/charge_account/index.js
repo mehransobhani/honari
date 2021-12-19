@@ -102,6 +102,7 @@ const ChargeAccount = (props) => {
         if(requestedPrice < 100){
             return;
         }
+        setConfirmButtonText('کمی صبر کنید');
         setAjaxProcessing(true);
         axios.post(Constants.apiUrl + '/api/user-charge-wallet', {
             price: requestedPrice
@@ -129,8 +130,8 @@ const ChargeAccount = (props) => {
     return(
         <React.Fragment>
             <Head>
-                <title>موجودی حساب کاربری | هنری</title>
-                <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+                <title>موجودی حساب کاربری ‌| هنری</title>
+                <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
             </Head>
             <Header />
                 <React.Fragment>

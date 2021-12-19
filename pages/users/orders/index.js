@@ -248,8 +248,8 @@ const UserOrders = (props) => {
     return(
         <React.Fragment>
             <Head>
-                <title>سفارش های من | هنری</title>
-                <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+                <title>سفارش‌های من | هنری</title>
+                <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
             </Head>
             <Header menu={props.ssrMenu} />
         {
