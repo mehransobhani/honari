@@ -33,3 +33,9 @@ yarn-error.log*
 # vercel
 .vercel
 /nbproject/private/
+
+# some configs
+/styles/globals.css
+/next.config.js
+/components/constants.js
+

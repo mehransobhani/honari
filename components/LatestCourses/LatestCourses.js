@@ -10,7 +10,7 @@ const LatestCoures = (props) => {
     const coursesInformation = [
         {
             title: 'دوره پیشرفته آموزش کالیگرافی', 
-            image: 'https://academy.honari.com/warehouse/images/classes/_600_300/YsLuM7UoA40UnrzXsUnmqxwu90Okzu0N8uJK3z8c.jpg', 
+            image: 'https://academy.honari.com/warehouse/images/classes/_600_300/r7V6o5aHKDQb2jJZr7mzPjOVkwS3h48L3DDXFg8q.jpg', 
             url: 'https://honari.com/academy/courses/%D8%AF%D9%88%D8%B1%D9%87-%D9%BE%DB%8C%D8%B4%D8%B1%D9%81%D8%AA%D9%87-%D8%A2%D9%85%D9%88%D8%B2%D8%B4-%DA%A9%D8%A7%D9%84%DB%8C%DA%AF%D8%B1%D8%A7%D9%81%DB%8C', 
             price: 330000
         }, {

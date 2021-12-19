@@ -20,6 +20,7 @@ const Category = (props) => {
     const [urlString, setUrlString] = useState(''); 
     const [component, setComponent] = useState(null);
     const [pageTitle, setPageTitle] = useState('');
+    const [id, setId] = useState(props.ssrUrlInfo.id);
     let ran = 0;
 
     useEffect(() => {
@@ -104,10 +105,21 @@ const Category = (props) => {
                 })
             }
         }
+        if(props.ssrUrlInfo.status !== 'failed'){
+            if(props.ssrUrlInfo.found === true && props.ssrUrlInfo.type === 'product'){
+                setPageTitle('خرید ' + props.ssrUrlInfo.name + ' | هنری');
+                setComponent(null);
+                setComponent(<ProductInsight id={props.ssrUrlInfo.id}/>);
+            }else if(props.ssrUrlInfo.found === true && props.ssrUrlInfo.type === 'category'){
+                setPageTitle('خرید ' + props.ssrUrlInfo.name + ' | هنری');
+                setComponent(null);
+                setComponent(<CategoryInsight id={props.ssrUrlInfo.id} />);
+            }
+        }
     }, [props.reduxUser.status, 'NI']);
 
-    useEffect(()=>{
-        /*if(route !== undefined){
+    /*useEffect(()=>{
+        if(route !== undefined){
             let url = '';
             for(let i=0; i<route.length; i++){
                 if(i == route.length - 1){
@@ -141,7 +153,7 @@ const Category = (props) => {
             }).catch((error)=>{
             console.log(error);
             });
-        }*/
+        }
         if(props.ssrUrlInfo.status !== 'failed'){
             if(props.ssrUrlInfo.found === true && props.ssrUrlInfo.type === 'product'){
                 setPageTitle('خرید ' + props.ssrUrlInfo.name + ' | هنری');
@@ -159,8 +171,7 @@ const Category = (props) => {
                 //}
             }
         }
-        console.warn(props.ssrUrlInfo);
-    }, []);
+    }, [route, undefined]);*/
 
     return (
         <React.Fragment>
