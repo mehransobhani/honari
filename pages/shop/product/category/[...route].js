@@ -109,11 +109,11 @@ const Category = (props) => {
             if(props.ssrUrlInfo.found === true && props.ssrUrlInfo.type === 'product'){
                 setPageTitle('خرید ' + props.ssrUrlInfo.name + ' | هنری');
                 setComponent(null);
-                setComponent(<ProductInsight id={props.ssrUrlInfo.id}/>);
+                setComponent(<ProductInsight id={props.ssrUrlInfo.id} name={props.ssrUrlInfo.name} description={props.ssrUrlInfo.description} />);
             }else if(props.ssrUrlInfo.found === true && props.ssrUrlInfo.type === 'category'){
                 setPageTitle('خرید ' + props.ssrUrlInfo.name + ' | هنری');
                 setComponent(null);
-                setComponent(<CategoryInsight id={props.ssrUrlInfo.id} />);
+                setComponent(<CategoryInsight id={props.ssrUrlInfo.id} name={props.ssrUrlInfo.name} />);
             }
         }
     }, [props.reduxUser.status, 'NI']);
@@ -173,11 +173,34 @@ const Category = (props) => {
         }
     }, [route, undefined]);*/
 
+    const getProductDescription = () => {
+        let textArray = props.ssrUrlInfo.description.split("");
+        let sizeOfArray = textArray.length;
+        let descriptionString = '';
+        let lastAdded = ' ';
+        for(let i=0; i<sizeOfArray; i++){
+            if((textArray[i] >= 'ا' && textArray[i] <= 'ی') || textArray[i] == ' ' || textArray[i] == '.'){
+                if(textArray[i] !== ' ' || (textArray[i] == ' ' && lastAdded !== ' ')){
+                    lastAdded = textArray[i];
+                    descriptionString += textArray[i];
+                }
+            }
+        }
+        return descriptionString;
+    }
+
     return (
         <React.Fragment>
             <Head>
                 <title>{pageTitle}</title>
                 <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
+                {
+                    props.ssrUrlInfo.type === 'product'
+                    ?
+                    <meta name='description' content={getProductDescription()} />
+                    :
+                    null
+                }
             </Head>
             <Header menu={props.ssrMenu} />
             {

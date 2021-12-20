@@ -13,6 +13,7 @@ import {useCookies} from 'react-cookie';
 import * as actionTypes from '../../store/actions';
 import {connect} from 'react-redux';
 import Image from 'next/image';
+import Skeleton from '@mui/material/Skeleton';
 
 const ProductInsight = (props) =>{
     const [loading, setLoading] = useState(false);
@@ -24,7 +25,6 @@ const ProductInsight = (props) =>{
     const [statusState, setStatusState] = useState(-1);
     const [basePriceState, setBasePriceState] = useState(0);
     const [cartButtonOpacity, setCartButtonOpacity] = useState('0.3');
-    const [productDescriptionState, setProductDescriptionState] = useState(undefined);
     const [productFeaturesState, setProductFeaturesState] = useState([]);
     const [breadcrumbState, setBreadcrumbState] = useState([]);
     const [id, setId] = useState(props.id);
@@ -33,16 +33,19 @@ const ProductInsight = (props) =>{
     const [orderCount, setOrderCount] = useState(1);
     const [productCartStatus, setProductCartStatus] = useState('');
     const [productCartCount, setProductCartCount] = useState(null);
-    const [productExistsInCart, setProductExistsInCart] = useState(null);
     const [axiosProcessing, setAxiosProcessing] = useState(false);
+    const [mainImageLoaded, setMainImageLoaded] = useState(false);
+    const [productInformationReceived, setProductInformationReceived] = useState(false);
+    const [mainImageClass, setMainImageClass] = useState('d-none');
 
 
     const [cookies , setCookie , removeCookie] = useCookies();
 
-    useEffect(()=>{
+    /*useEffect(()=>{
         axios.post(Constants.apiUrl + '/api/product-basic-information', {
             productId: id,
         }).then((res)=>{
+            alert('getting product basic information');
             if(res.data.status === 'done'){
                 let response = res.data;
                 setProductInformation(response.information);
@@ -53,22 +56,42 @@ const ProductInsight = (props) =>{
         }).catch((error)=>{
             console.log(error);
         });
-    }, []);
+    }, []);*/
 
     useEffect(()=>{
+        setProductInformationReceived(false);
+        setMainImageClass('d-none');
+        setMainImageLoaded(false);
+        axios.post(Constants.apiUrl + '/api/product-basic-information', {
+            productId: props.id,
+        }).then((res)=>{
+            if(res.data.status === 'done'){
+                let response = res.data;
+                setProductInformation(response.information);
+                setProductInformationReceived(true);
+            }else{
+                console.log(res.data.umessage);
+                props.reduxUpdateSnackbar('warning', true, res.data.umessage);
+            }
+        }).catch((error)=>{
+            console.log(error);
+        });
+    }, [id, props.id]);
+
+    /*useEffect(()=>{
         axios.post(Constants.apiUrl + '/api/product-description', {
-            id: id,
+            id: props.id,
         }).then((res)=>{
             let response = res.data;
             setProductDescriptionState(parse(response));
         }).catch((error)=>{
             console.log(error);
         });
-    }, []);
+    }, [id, props.id]);*/
 
     useEffect(()=>{
         axios.post(Constants.apiUrl + '/api/product-features', {
-            id: id,
+            id: props.id,
         }).then((res)=>{
             if(res.data.status === 'done'){
                 let response = res.data;
@@ -81,11 +104,11 @@ const ProductInsight = (props) =>{
         }).catch((error)=>{
             console.log(error);
         });
-    }, []);
+    }, [id, props.id]);
 
     useEffect(()=>{
         axios.post(Constants.apiUrl + '/api/product-breadcrumb', {
-            id: id,
+            id: props.id,
         }).then((res)=>{
             if(res.data.status === 'done'){
                 let response = res.data;
@@ -96,11 +119,11 @@ const ProductInsight = (props) =>{
         }).catch((error)=>{
             console.log(error);
         });
-    }, []);
+    }, [id, props.id]);
 
     useEffect(()=>{
         axios.post(Constants.apiUrl + '/api/similar-products', {
-            id: id,
+            id: props.id,
         }).then((res)=>{
             if(res.data.status === 'done' && res.data.found === true){
                 let response = res.data;
@@ -112,9 +135,9 @@ const ProductInsight = (props) =>{
             console.log(error);
         });
         console.log(cookies.user_cart);
-    }, []);
+    }, [id, props.id]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         if(props.reduxCart.status !== 'NI'){
             let found = false;
             props.reduxCart.information.map((cartItem, counter) => {
@@ -128,7 +151,7 @@ const ProductInsight = (props) =>{
                 setProductExistsInCart(false);
             }
         }
-    }, [props.reduxCart.status, 'NI']);
+    }, [props.reduxCart.status, 'NI']);*/
 
     const productCounterChanged = (event) => {
         if(event.target.value < 1){
@@ -138,12 +161,12 @@ const ProductInsight = (props) =>{
             event.target.value = productInformation.maxCount;
             setOrderCount(productInformation.maxCount);
         }else{
-            setOrderCount(event.target.value);
+            setOrderCount(parseInt(event.target.value));
         }
     }
 
     const addToCartButtonClicked = () => {
-        if(!productExistsInCart && !axiosProcessing){
+        if(!axiosProcessing){
             if(props.reduxUser.status === 'LOGIN'){
                 setAxiosProcessing(true);
                 axios.post(Constants.apiUrl + '/api/user-add-to-cart', {
@@ -172,7 +195,6 @@ const ProductInsight = (props) =>{
                             discountedPrice: productInformation.discountedPrice,
                             discountPercent: productInformation.discountPercent
                         });
-                        setProductExistsInCart(true);
                     }else if(response.status === 'failed'){
                         alert(response.umessage);
                     }
@@ -202,13 +224,12 @@ const ProductInsight = (props) =>{
                 });
                 cart.push({id: productInformation.productPackId, count: orderCount});
                 localStorage.setItem('user_cart', JSON.stringify(cart));
-                setProductExistsInCart(true);
             }
         }
     }
 
     const removeFromCartButtonClicked = () => {
-        if(productExistsInCart && !axiosProcessing){
+        if(!axiosProcessing){
             if(props.reduxUser.status === 'LOGIN'){
                 setAxiosProcessing(true);
                 axios.post(Constants.apiUrl + '/api/user-remove-from-cart', {
@@ -221,7 +242,7 @@ const ProductInsight = (props) =>{
                     let response = res.data;
                     if(response.status === 'done'){
                         props.reduxRemoveFromCart(productInformation.productPackId);
-                        setProductExistsInCart(false);
+                        setOrderCount(1);
                     }else if(response.status === 'failed'){
                         alert(response.umessage);
                     }
@@ -234,18 +255,156 @@ const ProductInsight = (props) =>{
                 let cart = JSON.parse(localStorage.getItem('user_cart'));
                 let newCart = [];
                 cart.map((cartItem, counter) => {
-                    if(id !== cartItem.id){
+                    if(productInformation.productPackId !== cartItem.id){
                         newCart.push(cartItem);
                     }
                 });
                 localStorage.setItem('user_cart', JSON.stringify(newCart));
                 props.reduxRemoveFromCart(productInformation.productPackId);
-                setProductExistsInCart(false);
+                setOrderCount(1);
             }
         }
     }
 
-    
+    const increaseButtonClicked = () => {
+        if(axiosProcessing){
+            return;
+        }
+        if(props.reduxUser.status == 'GUEST'){
+            setAxiosProcessing(true);
+            axios.post(Constants.apiUrl + '/api/guest-check-cart-changes', {
+                productPackId: productInformation.productPackId,
+                count: parseInt(orderCount) + 1
+            }).then((res) => {
+                let response = res.data;
+                if(response.status == 'done'){
+                    updateProductInLocalStorage(response.count);
+                    props.reduxIncreaseCountByOne(productInformation.productPackId);
+                    setAxiosProcessing(false);
+                    setOrderCount(parseInt(orderCount) + 1);
+                }else if(response.status == 'failed'){
+                    setAxiosProcessing(false);
+                    console.warn(response.umessage);
+                    props.reduxUpdateSnackbar('warning', true, response.umessage);
+                }
+            }).catch((error) => {
+                setAxiosProcessing(false);
+                console.log(error);
+                props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+            });
+        }else if(props.reduxUser.status === 'LOGIN'){
+            setAxiosProcessing(true);
+            axios.post(Constants.apiUrl + '/api/user-increase-cart-by-one', {
+                productPackId: productInformation.productPackId
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + cookies.user_server_token, 
+                }
+            }).then((res) => {
+                let response = res.data;
+                if(response.status == 'done'){
+                    props.reduxIncreaseCountByOne(productInformation.productPackId);
+                    setAxiosProcessing(false);
+                    //setOrderCount(parseInt(orderCount) + 1);
+                }else if(response.status == 'failed'){
+                    setAxiosProcessing(false);
+                    console.warn(response.message);
+                    props.reduxUpdateSnackbar('warning', true, response.umessage);
+                }
+            }).catch((error) => {
+                setAxiosProcessing(false);
+                console.log(error);
+                props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+            });
+        }
+    }
+
+    const decreaseButtonClicked = () => {
+        if(axiosProcessing){
+            return;
+        }
+        if(props.reduxUser.status == 'GUEST'){
+            setAxiosProcessing(true);
+            axios.post(Constants.apiUrl + '/api/guest-check-cart-changes', {
+                productPackId: productInformation.productPackId,
+                count: parseInt(orderCount) - 1
+            }).then((res) => {
+                setAxiosProcessing(false);
+                let response = res.data;
+                if(response.status == 'done'){
+                    updateProductInLocalStorage(response.count);
+                    props.reduxDecreaseCountByOne(productInformation.productPackId);
+                    setOrderCount(parseInt(orderCount) - 1);
+                }else if(response.status == 'failed'){
+                    setAxiosProcessing(false);
+                    console.warn(response.message);
+                    props.reduxUpdateSnackbar('warning', true, response.umessage);
+                }
+            }).catch((error) => {
+                setAxiosProcessing(false);
+                console.log(error);
+                props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+            });
+        }else if(props.reduxUser.status == 'LOGIN'){
+            setAxiosProcessing(true);
+            axios.post(Constants.apiUrl + '/api/user-decrease-cart-by-one', {
+                productPackId: productInformation.productPackId
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + cookies.user_server_token, 
+                }
+            }).then((res) => {
+                let response = res.data;
+                setAxiosProcessing(false);
+                if(response.status == 'done'){
+                    props.reduxDecreaseCountByOne(productInformation.productPackId);
+                    //setOrderCount(parseInt(orderCount) - 1);
+                }else if(response.status === 'failed'){
+                    console.log(response.message);
+                    props.reduxUpdateSnackbar('warning', true, response.umessage);
+                }
+            }).catch((error) => {
+                setAxiosProcessing(true);
+                console.log(error);
+                props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+            });
+        }
+    }
+
+    const productExistsOrNot = () => {
+        let found = false;
+        props.reduxCart.information.map((product, index)=> {
+            if(product.productPackId == productInformation.productPackId){
+                found = true;
+            }
+        });
+        return found;
+    }
+
+    const getProductOrderCount = () => {
+        let productCount = 0;
+        props.reduxCart.information.map((product, index) => {
+            if(product.productPackId == productInformation.productPackId){
+                productCount = product.count;
+            }
+        });
+        return productCount;
+    }
+
+    const updateProductInLocalStorage = (count) => {
+        let localStorageCart = JSON.parse(localStorage.getItem('user_cart'));
+        for(let item of localStorageCart){
+            if(item.id == productInformation.productPackId){
+                item.count = count;
+            }
+        }
+        localStorage.setItem('user_cart', JSON.stringify(localStorageCart));
+    }
+
+    const mainImageOnLoadListener = () => {
+        setMainImageLoaded(true);
+        setMainImageClass('d-block');
+    }
 
     return(
         <React.Fragment>
@@ -267,11 +426,18 @@ const ProductInsight = (props) =>{
                 {parse('<div id="15444215659775694"><script type="text/JavaScript" src="https://www.aparat.com/embed/eVMWk?data[rnddiv]=15444215659775694&data[responsive]=yes"></script></div>')}
                 <div className={['row', 'rtl', 'mt-0', 'mt-md-3'].join(' ')}>
                     <div className={['col-12', 'col-md-5', 'px-0', 'px-md-2'].join(' ')}>
-                        <img src={'https://honari.com/image/resizeTest/shop/_1000x/thumb_' + productInformation.prodID + '.jpg'} className={[styles.mainImage].join(' ')} style={{width: '100%'}} />
+                        {
+                            mainImageLoaded
+                            ?
+                            null
+                            :
+                            <Skeleton variant="rectangular" style={{width: '100%', height: '440px'}} />
+                        }
+                        <img src={'https://honari.com/image/resizeTest/shop/_1000x/thumb_' + productInformation.prodID + '.jpg'} className={[styles.mainImage, mainImageClass].join(' ')} style={{width: '100%'}} onLoad={mainImageOnLoadListener} />
                     </div>
                     <div className={['col-12', 'col-md-7', 'rtl', 'mt-3', 'mt-md-0'].join(' ')}>
                         <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between'].join(' ')}>
-                            <h2 className={['mb-0'].join(' ')} style={{fontSize: '20px'}}>{productInformation.productName}</h2>
+                            <h2 className={['mb-0'].join(' ')} style={{fontSize: '20px'}}>{props.name}</h2>
                             {
                                 productInformation.productStatus === 1  ?
                                     <div  className={['d-flex', 'flex-row', 'align-items-center', 'bg-success', 'rtl', 'py-1', 'px-2'].join(' ')} style={{color: 'white', borderRadius: '13px'}}>
@@ -296,95 +462,124 @@ const ProductInsight = (props) =>{
                             }
                         </div>
                         {
-                            (productInformation.productStatus === 1) ? 
-                            <React.Fragment>
-                            <div className={['mt-3', 'mt-md-2'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
-                            <h6 className={['w-100', 'mb-1', 'text-right', 'mt-4'].join(' ')} style={{fontSize: '18px'}}>انتخاب نوع بسته</h6>
-                            <div className={['d-flex', 'flex-row', 'align-items-center', 'px-1'].join(' ')} style={{border: '1px solid #C4C4C4', borderRadius: '4px'}}>
-                                <input type='radio' className={['form-control'].join(' ')} checked={true} style={{width: '16px'}} value='سلام' />
-                                <label className={['mb-0', 'mr-1'].join(' ')}>{productInformation.productLabel}</label>
+                            productInformationReceived
+                            ?
+                            (
+                                (productInformation.productStatus === 1) ? 
+                                <React.Fragment>
+                                <div className={['mt-3', 'mt-md-2'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
+                                <h6 className={['w-100', 'mb-1', 'text-right', 'mt-4'].join(' ')} style={{fontSize: '18px'}}>انتخاب نوع بسته</h6>
+                                <div className={['d-flex', 'flex-row', 'align-items-center', 'px-1'].join(' ')} style={{border: '1px solid #C4C4C4', borderRadius: '4px'}}>
+                                    <input type='radio' className={['form-control'].join(' ')} checked={true} style={{width: '16px'}} value='سلام' />
+                                    <label className={['mb-0', 'mr-1'].join(' ')}>{productInformation.productLabel}</label>
+                                    {
+                                        productInformation.productBasePrice !== undefined
+                                        ?
+                                        <label className={['mb-0', 'text-danger', 'mr-1'].join(' ')}>{'( هر واحد ' + productInformation.productBasePrice.toLocaleString() + ' تومان )'}</label>
+                                        :
+                                        null
+                                    }
+                                </div>
                                 {
-                                    productInformation.productBasePrice !== undefined
+                                    productInformation.productPrice !== undefined && productInformation.discountedPrice !== undefined
                                     ?
-                                    <label className={['mb-0', 'text-danger', 'mr-1'].join(' ')}>{'( هر واحد ' + productInformation.productBasePrice.toLocaleString() + ' تومان )'}</label>
+                                    (
+                                        productInformation.productPrice != productInformation.discountedPrice
+                                        ?
+                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'mt-4'].join(' ')}>
+                                                <h6 className={['mb-0']}>قیمت کالا : </h6>
+                                                <h6 className={['text-secondary', 'mb-0', 'mr-2'].join(' ')}><del>{productInformation.productPrice.toLocaleString() + ' تومان '}</del></h6>
+                                                <h6 className={['p-1', 'mb-0', 'bg-danger', 'text-white', 'rounded', 'mr-2', 'rtl'].join(' ')} style={{fontSize: '13px'}}>{'تخفیف ٪' + productInformation.discountPercent}</h6>
+                                            </div>
+                                        :
+                                        null
+                                    )
+                                    : 
+                                    null
+                                }
+                                {
+                                    productInformation.productPrice !== productInformation.discountedPrice ?
+                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'mt-2'].join(' ')}>
+                                            <h5 className={['mb-0']}>قیمت برای شما : </h5>
+                                            <h5 className={['mb-0', 'mr-2'].join(' ')} style={{color: '#00bac6'}}>{productInformation.discountedPrice.toLocaleString() + ' تومان '}</h5>
+                                        </div>
+                                    :
+                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'mt-4'].join(' ')}>
+                                            <h5 className={['mb-0']}>قیمت کالا : </h5>
+                                            <h5 className={['mb-0', 'mr-2'].join(' ')} style={{color: '#00bac6'}}>{productInformation.productPrice.toLocaleString() + ' تومان '}</h5>
+                                        </div>
+                                }
+                                {
+                                    !productExistsOrNot() 
+                                    ?
+                                    (
+                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'mt-4'].join(' ')}>
+                                            <h6 className={['mb-0'].join(' ')}>تعداد : </h6>
+                                            <input type='number' className={['mr-1', 'text-center'].join(' ')} defaultValue='1' style={{width: '50px', outline: 'none', outlineStyle: 'none', borderStyle: 'none', border: '1px solid #C4C4C4', borderRadius: '4px'}} onChange={productCounterChanged} />
+                                        </div>
+                                    )
                                     :
                                     null
                                 }
-                            </div>
-                            {
-                                productInformation.productPrice !== undefined && productInformation.discountedPrice !== undefined
-                                ?
-                                (
-                                    productInformation.productPrice != productInformation.discountedPrice
-                                    ?
-                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'mt-4'].join(' ')}>
-                                            <h6 className={['mb-0']}>قیمت کالا : </h6>
-                                            <h6 className={['text-secondary', 'mb-0', 'mr-2'].join(' ')}><del>{productInformation.productPrice.toLocaleString() + ' تومان '}</del></h6>
-                                            <h6 className={['p-1', 'mb-0', 'bg-danger', 'text-white', 'rounded', 'mr-2', 'rtl'].join(' ')} style={{fontSize: '13px'}}>{'تخفیف ٪' + productInformation.discountPercent}</h6>
-                                        </div>
-                                    :
-                                    null
-                                )
-                                : 
-                                null
-                            }
-                            {
-                                productInformation.productPrice !== productInformation.discountedPrice ?
-                                    <div className={['d-flex', 'flex-row', 'align-items-center', 'mt-2'].join(' ')}>
-                                        <h5 className={['mb-0']}>قیمت برای شما : </h5>
-                                        <h5 className={['mb-0', 'mr-2'].join(' ')} style={{color: '#00bac6'}}>{productInformation.discountedPrice.toLocaleString() + ' تومان '}</h5>
-                                    </div>
-                                :
-                                    <div className={['d-flex', 'flex-row', 'align-items-center', 'mt-4'].join(' ')}>
-                                        <h5 className={['mb-0']}>قیمت کالا : </h5>
-                                        <h5 className={['mb-0', 'mr-2'].join(' ')} style={{color: '#00bac6'}}>{productInformation.productPrice.toLocaleString() + ' تومان '}</h5>
-                                    </div>
-                            }
-                            
-                            <div className={['d-flex', 'flex-row', 'align-items-center', 'mt-4'].join(' ')}>
-                                <h6 className={['mb-0'].join(' ')}>تعداد : </h6>
-                                <input type='number' className={['mr-1', 'text-center'].join(' ')} defaultValue='1' style={{width: '50px', outline: 'none', outlineStyle: 'none', borderStyle: 'none', border: '1px solid #C4C4C4', borderRadius: '4px'}} onChange={productCounterChanged} />
-                            </div>
-                            {
-                                productExistsInCart === false ?
-                                    <button className={['d-flex', 'flex-row', 'align-items-center', 'btn', 'mt-4'].join(' ')} style={{backgroundColor: '#00bac6'}} onClick={addToCartButtonClicked}>
-                                        <img src={Constants.baseUrl + '/assets/images/main_images/cart_white_small.png'} style={{width: '20px', height: '20px'}} />
-                                        <span className={['text-white', 'mr-2'].join(' ')} >افزودن به سبد خرید</span>
-                                    </button>
-                                :
-                                (
-                                    productExistsInCart === true ?
-                                        <button className={['d-flex', 'flex-row', 'align-items-center', 'btn', 'mt-4'].join(' ')} style={{backgroundColor: '#de3c31'}} onClick={removeFromCartButtonClicked}>
+                                {
+                                    !productExistsOrNot() ?
+                                        <button className={['d-flex', 'flex-row', 'align-items-center', 'btn', 'mt-4'].join(' ')} style={{backgroundColor: '#00bac6'}} onClick={addToCartButtonClicked}>
                                             <img src={Constants.baseUrl + '/assets/images/main_images/cart_white_small.png'} style={{width: '20px', height: '20px'}} />
-                                            <span className={['text-white', 'mr-2'].join(' ')} >حذف از سبد خرید</span>
+                                            <span className={['text-white', 'mr-2'].join(' ')} >افزودن به سبد خرید</span>
                                         </button>
                                     :
+                                    (
+                                        productExistsOrNot() ?
+                                        <React.Fragment>
+                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'text-right', 'rtl', 'mt-3'].join(' ')}>
+                                                <img onClick={increaseButtonClicked} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png'} style={{width: '26px', height: '26px'}} />
+                                                <h6 className={['mb-0', 'px-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#2B2B2B'}}>{getProductOrderCount()}</h6>
+                                                {
+                                                    getProductOrderCount() === 1
+                                                    ?
+                                                    <img onClick={removeFromCartButtonClicked} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '26px', height: '26px'}} />
+                                                    :
+                                                    <img onClick={decreaseButtonClicked} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png'} style={{width: '26px', height: '26px'}} />
+                                                }
+                                            </div>
+                                        </React.Fragment>
+                                        :
+                                            null
+                                        
+                                    )
+                                }
+                                
+                                </React.Fragment>
+                                : 
+                                    (productInformation.productStatus === -1 ?
+                                        <div className={['rtl', 'text-right'].join(' ')}>
+                                            <div className={['mt-3', 'mt-md-2'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
+                                            <span className={['py-3', 'px-4', 'mt-2', 'd-inline-block'].join(' ')} style={{backgroundColor: '#8c8c8c', color: 'white', borderRadius: '4px'}}>موجود نیست</span>
+                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'mt-3', 'd-none'].join(' ')}>
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/bell_red.png'} style={{width: '24px', height: '24px'}} />
+                                                <span className={['mr-1', 'pointer'].join(' ')} style={{color: '#00bac6'}}>درصورت موجود شدن به من اطلاع دهید</span>
+                                            </div>
+                                        </div>
+                                    :
+                                    (productInformation.productStatus === 0 ?
+                                        <div className={['rtl', 'text-right'].join(' ')}>
+                                            <div className={['mt-3', 'mt-md-2'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
+                                            <span className={['py-3', 'px-4', 'mt-2', 'd-inline-block', 'bg-warning', 'text-dark'].join(' ')} style={{backgroundColor: '#8c8c8c', color: 'white', borderRadius: '4px'}}>بزودی ارائه میشود</span>
+                                        </div>
+                                    :
                                         null
-                                    
+                                    )
                                 )
-                            }
-                            
-                        </React.Fragment>
-                        : 
-                            (productInformation.productStatus === -1 ?
-                                <div className={['rtl', 'text-right'].join(' ')}>
-                                    <div className={['mt-3', 'mt-md-2'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
-                                    <span className={['py-3', 'px-4', 'mt-2', 'd-inline-block'].join(' ')} style={{backgroundColor: '#8c8c8c', color: 'white', borderRadius: '4px'}}>موجود نیست</span>
-                                    <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'mt-3'].join(' ')}>
-                                        <img src={Constants.baseUrl + '/assets/images/main_images/bell_red.png'} style={{width: '24px', height: '24px'}} />
-                                        <span className={['mr-1', 'pointer'].join(' ')} style={{color: '#00bac6'}}>درصورت موجود شدن به من اطلاع دهید</span>
-                                    </div>
-                                </div>
-                            :
-                            (productInformation.productStatus === 0 ?
-                                <div className={['rtl', 'text-right'].join(' ')}>
-                                    <div className={['mt-3', 'mt-md-2'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
-                                    <span className={['py-3', 'px-4', 'mt-2', 'd-inline-block', 'bg-warning', 'text-dark'].join(' ')} style={{backgroundColor: '#8c8c8c', color: 'white', borderRadius: '4px'}}>بزودی ارائه میشود</span>
-                                </div>
-                            :
-                                null
                             )
-                        )
+                            :
+                            (
+                                <React.Fragment>
+                                    <Skeleton variant="text" style={{fontSize: '22px'}} />
+                                    <Skeleton variant="text" style={{fontSize: '22px'}} />
+                                    <Skeleton variant="text" style={{fontSize: '22px'}} />
+                                    <Skeleton variant="text" style={{fontSize: '22px'}} />
+                                </React.Fragment>
+                            )
                         }
                         
                     </div>
@@ -415,7 +610,7 @@ const ProductInsight = (props) =>{
                                 <img src={Constants.baseUrl + '/assets/images/main_images/paragraph_black.png'} style={{width: '16px', height: '16px'}} />
                                 <h6 className={['mb-0', 'mr-2', 'font-weight-bold'].join(' ')}>توضیحات محصول</h6>
                             </div>
-                            <div className={['mb-0', 'rtl', 'text-right', styles.infoContainer].join(' ')} style={{maxHeight: '250px', overflowY: 'scroll', scrollbarWidth: 'thin'}}>{productDescriptionState}</div>
+                            <div className={['mb-0', 'rtl', 'text-right', styles.infoContainer].join(' ')} style={{maxHeight: '250px', overflowY: 'scroll', scrollbarWidth: 'thin'}}>{parse(props.description)}</div>
                         </div>
                         <div className={['col-12', 'col-md-7', 'px-0', 'px-md-3', 'mt-3', 'mt-md-0'].join(' ')} >
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'mb-2'].join(' ')}>
@@ -457,15 +652,25 @@ const ProductInsight = (props) =>{
 const mapStateToProps = (state) => {
     return {
         reduxUser: state.user,
-        reduxCart: state.cart
+        reduxCart: state.cart,
+        reduxLoad: state.loading,
+        reduxSnackbar: state.snackbars
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        reduxUpdateCart: (d) => dispatch({type: actionTypes.UPDATE_CART, data: d}),
         reduxAddToCart: (d) => dispatch({type: actionTypes.ADD_TO_CART, data: d}),
-        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productPackId: d})
+        reduxUpdateUser: (d) => dispatch({type: actionTypes.UPDATE_USER, data: d}),
+        reduxLogoutUser: () => dispatch({type: actionTypes.LOGOUT_USER}),
+        reduxSetUserGuest: () => dispatch({type: actionTypes.SET_USER_GUEST}),
+        reduxUpdateCart: (d) => dispatch({type: actionTypes.UPDATE_CART, data: d}),
+        reduxStartLoading: () => dispatch({type: actionTypes.START_LOADING}),
+        reduxStopLoading: () => dispatch({type: actionTypes.STOP_LOADING}),
+        reduxUpdateSnackbar: (k,s,t) => dispatch({type: actionTypes.UPDATE_SNACKBAR, kind: k, show: s, title: t}),
+        reduxIncreaseCountByOne: (d) => dispatch({type: actionTypes.INCREASE_COUNT_BY_ONE, productPackId: d}),
+        reduxDecreaseCountByOne: (d) => dispatch({type: actionTypes.DECREASE_COUNT_BY_ONE, productPackId: d}),
+        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productPackId: d}),
     }
 }
 

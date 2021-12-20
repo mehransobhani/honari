@@ -36,6 +36,7 @@ const CategoryInsight = (props) => {
     const [recentlyDeletedFilter, setRecentlyDeletedFilter] = useState({});
     const [phoneFilterOpenStatus, setPhoneFilterOpenStatus] = useState(false);
     const [visibleFilterGroupId, setVisibleFilterGroupId] = useState(-1);
+    const [id, setId] = useState(props.id);
     const [windowHeight, setWindowHeight] = useState(0);
 
     const filterDrawer = (anchor, open) => (event) => {
@@ -91,12 +92,12 @@ const CategoryInsight = (props) => {
         }).catch((error)=>{
             console.log(error);
         });
-    },[]);
+    },[id, props.id]);
 
     useEffect(()=>{
         if(props.reduxCategoryFilter.id !== -1){
             axios.post(Constants.apiUrl + '/api/filtered-paginated-category-products', {
-                id: props.reduxCategoryFilter.id,
+                id: props.id, //props.reduxCategoryFilter.id,
                 page: props.reduxCategoryFilter.page,
                 order: props.reduxCategoryFilter.order,
                 minPrice: props.reduxCategoryFilter.minPrice,
@@ -122,7 +123,39 @@ const CategoryInsight = (props) => {
                 props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
             });
         }
-    },[props.reduxCategoryFilter.id, -1]);
+        //[props.reduxCategoryFilter.id, -1]
+    },[props.reduxCategoryFilter.id, props.id]);
+    useEffect(()=>{
+        if(props.reduxCategoryFilter.id !== -1){
+            axios.post(Constants.apiUrl + '/api/filtered-paginated-category-products', {
+                id: props.id, //props.reduxCategoryFilter.id,
+                page: props.reduxCategoryFilter.page,
+                order: props.reduxCategoryFilter.order,
+                minPrice: props.reduxCategoryFilter.minPrice,
+                maxPrice: props.reduxCategoryFilter.maxPrice,
+                filters: props.reduxCategoryFilter.options,
+            }).then((res)=>{
+                let response = res.data;
+                if(response.status === 'done'){
+                    setCategoryName(response.categoryName);
+                }
+                if(response.status === 'done' && response.found === true){
+                    props.reduxUpdateCategoryFilterResults(response.products);
+                    props.reduxUpdateCategoryFilterMaxPage(Math.ceil(response.count/12));
+                    //setVisibleProducts(response.products);
+                    //setPages(Math.ceil(response.count/12));
+                    //setProductFound(true);
+                }else if(response.status === 'failed'){
+                    console.warn(response.message);
+                    props.reduxUpdateSnackbar('warning', true, response.umessage);
+                }
+            }).catch((error)=>{
+                console.error(error);
+                props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+            });
+        }
+        //[props.reduxCategoryFilter.id, -1]
+    },[id, props.id]);
 
     useEffect(()=>{
         axios.post(Constants.apiUrl + '/api/category-banners', {
@@ -141,7 +174,7 @@ const CategoryInsight = (props) => {
         }).catch((error)=>{
             console.log(error);
         });
-    },[]);
+    },[id, props.id]);
 
     useEffect(()=>{
         axios.post(Constants.apiUrl + '/api/category-breadcrumb',{
@@ -156,7 +189,7 @@ const CategoryInsight = (props) => {
         }).catch((error)=>{
             console.log(error);
         });
-    }, []);
+    }, [id, props.id]);
 
     const getNewProducts = (obj) => {
         let page = obj.page;
@@ -347,9 +380,15 @@ const CategoryInsight = (props) => {
                     <p className={['p-1', 'mb-0', 'd-none', 'd-md-block'].join(' ')} style={{backgroundColor: 'white', border: '1px solid #8bf0f7', borderRadius: '14px 1px 1px 14px'}}>اینجا هستید</p>
                         {
                             categoryBreadcrumbs.map((cb, count)=>{
-                                return(
-                                    <Link key={count} href={cb.url} ><a className={['breadcrumbItem', 'mb-0'].join(' ')} style={{fontSize: '14px'}} >{cb.name}</a></Link>
-                                );
+                                if(count === categoryBreadcrumbs.length - 1){
+                                    return (
+                                        <h6 className={['breadcrumbItem', 'mb-0'].join(' ')} style={{fontSize: '14px'}} >{cb.name}</h6>
+                                    );
+                                }else{
+                                    return(
+                                        <Link key={count} href={cb.url} ><a className={['breadcrumbItem', 'mb-0'].join(' ')} style={{fontSize: '14px'}} >{cb.name}</a></Link>
+                                    );
+                                }
                             })
                         }
                     </Breadcrumbs>
@@ -374,7 +413,7 @@ const CategoryInsight = (props) => {
                     }
                 </div>
                 <div className={['d-flex', 'flex-column', 'd-md-none', 'align-items-center', 'justify-content-center', 'rtl'].join(' ')}>
-                    <h6 className={['mb-0', 'text-right'].join(' ')} style={{width: '100%'}}>{categoryName}</h6>
+                    <h6 className={['mb-0', 'text-right'].join(' ')} style={{width: '100%'}}>{props.name}</h6>
                     <div className={['d-flex', 'flex-row', 'rtl', 'py-2', 'px-3', 'mt-3', 'align-items-center', 'justify-content-center', 'w-100', 'pointer'].join(' ')} onClick={filterDrawer('bottom', true)} style={{color: '#00bac6', borderRadius: '4px', border: '2px solid #00bac6'}}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/filter_main.png'} style={{width: '17px', height: '17px'}} />
                         <span className={['mr-2', 'font-weight-bold'].join(' ')} style={{color: '#00bac6', fontSize: '14px'}}>فیلترها</span> 
@@ -399,7 +438,7 @@ const CategoryInsight = (props) => {
                                                 <div key={key} className={['rtl', 'text-right', 'p-3'].join(' ')} style={{borderBottom: '1px solid #dedede'}}>
                                                     <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer'].join(' ')} onClick={() => {key === visibleFilterGroupId ?  setVisibleFilterGroupId(-1) : setVisibleFilterGroupId(key)}}>
                                                         <h6 className={['mb-0']} style={{fontSize: '13px', color: '#444444'}}>{filter.name}</h6>
-                                                        <img src={key === visibleFilterGroupId ? '/assets/images/main_images/minus_black.png' : '/assets/images/main_images/plus_black.png'} style={{width: '14px', heigth: '14px'}} />
+                                                        <img src={key === visibleFilterGroupId ? Constants.baseUrl+'/assets/images/main_images/minus_black.png' : Constants.baseUrl+'/assets/images/main_images/plus_black.png'} style={{width: '14px', heigth: '14px'}} />
                                                     </div>
                                                     <div hidden={key === visibleFilterGroupId ? false : true} className={['mt-2'].join(' ')} style={{maxHeight: '200px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#dedede, #dedede'}}>
                                                         {
