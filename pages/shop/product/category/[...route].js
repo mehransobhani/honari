@@ -108,13 +108,17 @@ const Category = (props) => {
         if(props.ssrUrlInfo.status !== 'failed'){
             if(props.ssrUrlInfo.found === true && props.ssrUrlInfo.type === 'product'){
                 setPageTitle('خرید ' + props.ssrUrlInfo.name + ' | هنری');
-                setComponent(null);
+                //setComponent(null);
                 setComponent(<ProductInsight id={props.ssrUrlInfo.id} name={props.ssrUrlInfo.name} description={props.ssrUrlInfo.description} />);
             }else if(props.ssrUrlInfo.found === true && props.ssrUrlInfo.type === 'category'){
                 setPageTitle('خرید ' + props.ssrUrlInfo.name + ' | هنری');
-                setComponent(null);
+                //setComponent(null);
                 setComponent(<CategoryInsight id={props.ssrUrlInfo.id} name={props.ssrUrlInfo.name} />);
+            }else{
+                alert('not product nor category');
             }
+        }else{
+            alert('failed and this is its message : ' + props.ssrUrlInfo.message + ' | and url itself : ' + props.ssrUrlInfo.url);
         }
     }, [props.reduxUser.status, 'NI']);
 
@@ -235,16 +239,21 @@ export default connect(mapStateToProps, mapDispatchToProps)(Category);
 export async function getServerSideProps(context){
     let url = context.req.url.substr(1);
     let newUrl = '';
-    if(url.charAt(0) === '_'){
+    //console.log(url);
+    if(url.charAt(0) !== 's' || url.charAt(1) !== 'h' || url.charAt(2) !== 'o' || url.charAt(3) !== 'p'){
         ///_next/data/development/shop/product/category/painting/ghalammo-abzar-rang/polet/pallet-guash-21-28cm.json?route=painting&route=ghalammo-abzar-rang&route=polet&route=pallet-guash-21-28cm
-        for(let i=23; i<url.length; i++){
-            if(url.charAt(i) == '.' && url.charAt(i+1) == 'j' && url.charAt(i+2) == 's'){
-                break;
-            }else{
+        let collect = false;
+        for(let i=0; i<url.length; i++){
+            if(url.charAt(i) === 's' && url.charAt(i+1) === 'h' && url.charAt(i+2) === 'o' && url.charAt(i+3) == 'p'){
+                collect = true;
+            }else if(url.charAt(i) === '.' && url.charAt(i+1) === 'j' && url.charAt(i+2) === 's' && url.charAt(i+3) === 'o' && url.charAt(i+4) === 'n'){
+                collect = false;
+            }
+            if(collect){
                 newUrl += url.charAt(i);
             }
         }
-        console.log("new url: " + newUrl);
+        //console.log("new url : " + newUrl);
         if(newUrl.length !== 0){
             url = newUrl;
         }

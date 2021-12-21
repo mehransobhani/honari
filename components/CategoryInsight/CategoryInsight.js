@@ -507,7 +507,7 @@ const CategoryInsight = (props) => {
                                     <span className={['d-flex', 'flex-row', 'rtl'].join(' ')} style={{backgroundColor: '#f2f2f2', borderRadius: '4px', border: '1px solid #dedede'}}></span>
                                 </div>
 
-                                <div className={['row', 'd-flex', 'align-items-stretch', 'px-3'].join(' ')}>
+                                <div className={['row', 'd-flex', 'align-items-stretch', 'px-3', 'w-100'].join(' ')}>
                                 {
                                     props.reduxCategoryFilter.results.map((r, key)=>{
                                         return(
