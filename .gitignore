@@ -35,5 +35,6 @@ yarn-error.log*
 /nbproject/private/
 
 # some url information and addressings
-/components/constants.js
-next.config.js
+#/components/constants.js
+#next.config.js
+#/styles/globals.css
