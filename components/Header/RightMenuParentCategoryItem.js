@@ -24,7 +24,7 @@ const RightMenuParentCategoryItem = (props) => {
                 showChildrenCategories == true && information.children != [] && information.children != undefined
                 ?
                     information.children.map((child, counter) => {
-                        return <Link key={counter} href={child.url.substr(18)}><a><h6 className={['text-right', 'rtl', 'pr-3', 'mt-3', 'mb-0', 'pointer'].join(' ')} style={{fontSize: '12px'}}>{child.name}</h6></a></Link>
+                        return <Link key={counter} href={child.url.substr(18)}><a><h6 className={['text-right', 'rtl', 'pr-3', 'mt-3', 'mb-0', 'pointer'].join(' ')} style={{fontSize: '12px', color: '#00BAC6'}}>{child.name}</h6></a></Link>
                     })
                 :
                     null

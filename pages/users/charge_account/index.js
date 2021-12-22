@@ -133,7 +133,7 @@ const ChargeAccount = (props) => {
                 <title>موجودی حساب کاربری ‌| هنری</title>
                 <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
             </Head>
-            <Header />
+            <Header menu={props.ssrMenu} />
                 <React.Fragment>
                     <div className={['container'].join(' ')}>
                             <div className={['row', 'rtl', 'mt-3'].join(' ')}>

@@ -940,7 +940,6 @@ function BigHeader(props){
                                             <Link href={academyClass.url}>
                                                 <a key={counter} className={['px-2', 'py-3', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
                                                     <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>{academyClass.name}</h5>
-                                                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} />
                                                 </a>
                                             </Link>
                                         );
@@ -1067,7 +1066,7 @@ function BigHeader(props){
                             if(item.fields !== null){
                                 return(
                                     <Link key={index} href={item.fields.product_url}>
-                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-1'].join(' ')}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-2'].join(' ')} style={{borderRadius: '2px', border: 'border: 1px solid rgba(216, 216, 216, 0.15)', borderRadius: '3px', fill: 'filter: drop-shadow(0px 0px 7px rgba(156, 156, 156, 0.56))'}}>
                                             <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
@@ -1252,7 +1251,7 @@ function BigHeader(props){
                         </div>
                         <form action='/search/SearchResult' method='GET' ref={desktopSearchBar} className={['rounded-sm', 'd-none', 'd-lg-flex', 'flex-row', 'rtl'].join(' ')}>
                             <button type='submin' className={['p-2', 'pointer'].join(' ')} style={{borderRadius: '0 4px 4px 0', border: 'none', backgroundColor: '#00bac6', width: '40px'}}><img src={Constants.baseUrl + '/assets/images/main_images/search_white.png'} style={{width: '100%', padding: '2px'}}/></button>
-                            <input name='query' type='text' onChange={getSearchResults} placeholder='عبارت مورد نظر را جستجو کنید' className={['pr-2'].join(' ')} style={{fontSize: '14px', height: '42px', width: '340px', outline: 'none', outlineOffset: 'none', border: '1px solid #C4C4C4', borderRadius: '4px 0 0 4px'}} />
+                            <input name='query' type='text' onChange={getSearchResults} placeholder='عبارت مورد نظر را جستجو کنید' className={['pr-2'].join(' ')} style={{fontSize: '14px', height: '42px', width: '400px', outline: 'none', outlineOffset: 'none', border: '1px solid #C4C4C4', borderRadius: '4px 0 0 4px'}} />
                             {desktopSearchResults()}
                         </form>
                         {

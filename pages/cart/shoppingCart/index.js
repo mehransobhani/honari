@@ -540,7 +540,7 @@ const ShoppingCart = (props) => {
                                     return (
                                         <div key={counter} className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'ltr', 'p-0'].join(' ')} style={{background: 'white', borderRight: '1px solid #DEDEDE', borderBottom: '1px solid #DEDEDE', borderLeft: '1px solid #DEDEDE'}}>
                                             <div className={['d-flex', 'felx-row', 'align-items-center', 'justify-content-center'].join(' ')} style={{width: '40px', height: '100%', borderRight: '1px solid #DEDEDE', background: '#F7F7F7'}}>
-                                                <img className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '20px', height: '20px'}} onClick={() => {removeProductFromCart(counter)}} />
+                                                <img className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '22px', height: '22px'}} onClick={() => {removeProductFromCart(counter)}} />
                                             </div>
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'py-2', 'pr-2'].join(' ')} style={{flex: '1'}}>
                                                 {
@@ -650,7 +650,7 @@ const ShoppingCart = (props) => {
                                     return(
                                         <div key={counter} className={['col-12', 'p-0', 'mt-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8'}}>
                                             <div className={['d-flex', 'flex-row', 'ltr', 'pb-0', 'pl-1', 'pt-1'].join(' ')}>
-                                                <img src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} onClick={() => {removeProductFromCart(counter)}} />
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} className={['pointer'].join(' ')} style={{width: '22px', height: '22px'}} onClick={() => {removeProductFromCart(counter)}} />
                                             </div>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'px-3'].join(' ')}>
                                                 <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + product.prodID + '.jpg'} style={{width: '70px', height: '70px'}} />

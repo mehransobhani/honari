@@ -103,9 +103,14 @@ const CategoryLandingPage = (props) => {
                 })
             }
         }
+        if(props.ssrArtInfo.status === 'done'){
+            setArtInformation(props.ssrArtInfo.result);
+        }else{
+            alert('آدرس وارد شده اشتباه است');;
+        }
     }, [props.reduxUser.status, 'NI']);
 
-    useEffect(()=>{
+    /*useEffect(()=>{
         
         if(categoryName !== undefined){
             axios.post(Constants.apiUrl + '/api/art-information', {
@@ -124,63 +129,8 @@ const CategoryLandingPage = (props) => {
                 props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
             });
             setComponent(null);
-            /*alert(categoryName);
-            switch(categoryName){
-                case 'چرم-دوزی':
-                    setPageTitle('حرفه‌ای چرم دوزی کنید | هنری');
-                    setComponent(<RootCategory id={1} name='چرم دوزی' route={'charm'} />);
-                    break;
-                case 'نمد-دوزی':
-                    setPageTitle('نمد دوزی | کاردستی نمدی با الگو کیف نمدی، عروسک و... | هنری');
-                    setComponent(<RootCategory id={10} name='نمد دوزی' route={'namad'} />);
-                    break;
-                case 'نقاشی-دکوراتیو-پتینه':
-                    setPageTitle('پتینه کاری | آموزش پتینه روی چوب ،سفال ،شیشه و ... | هنری');
-                    setComponent(<RootCategory id={94} name='نقاشی دکوراتیو' route={'painting'} />);
-                    break;
-                case 'نقاشی-روی-شیشه-ویترای' :
-                    setPageTitle('نقاشی روی شیشه یا ویترای | هنری');
-                    setComponent(<RootCategory id={95} name='نقاشی روی شیشه' route={'vitray'} />);
-                    break;
-                case 'نقاشی-روی-پارچه' :
-                    setPageTitle('نقاشی روی پارچه | لوازم و ابزار ، تکنیک ها وطرح های نقاشی روی پارچه | هنری');
-                    setComponent(<RootCategory id={117} name='نقاشی روی پارچه' route={'naghashi-parch'} />);
-                    break;
-                case 'معرق-کاشی' :
-                    setPageTitle('آموزش معرق کاشی ، آموزش کاشی شکسته ، مواد و ابزار معرق کاشی | هنری');
-                    setComponent(<RootCategory id={149} name='معرق کاشی' route={'kashi-taziini-kochak'} />);
-                    break;
-                case 'روبان-دوزی' :
-                    setPageTitle('روبان دوزی | روبان دوزی به سبک جدید | هنری');
-                    setComponent(<RootCategory id={156} name='روبان دوزی' route={'ribbon'} />);
-                    break;
-                case 'مکرومه-بافی' :
-                    setPageTitle('مکرومه بافی | هنری');
-                    setComponent(<RootCategory id={203} name='مکرومه بافی' route={'baftani'} />);
-                    break;
-                case 'زیورآلات' :
-                    setPageTitle('زیورآلات دست ساز دلخواهت رو بساز | هنری');
-                    setComponent(<RootCategory id={310} name='زیورآلات' route={'zivar_alat'} />);
-                    break;
-                case 'شماره-دوزی' :
-                    setPageTitle('آموزش شماره دوزی الگو و پترن و خرید نخ و پارچه دمسه گلدوزی | هنری');
-                    setComponent(<RootCategory id={321} name='شماره دوزی' route={'shomaredozi'} />);
-                    break;
-                case 'کچه-دوزی' :
-                    setPageTitle('کچه دوزی | هنری');
-                    setComponent(<RootCategory id={290} name='کچه دوزی' route={'namad/namad_dozi_kache_dozi'} />);
-                    break;
-                case 'جواهردوزی' :
-                    setPageTitle('جواهر دوزی | هنری');
-                    setComponent(<RootCategory id={835} name='جواهردوزی' route={'zivar_alat/bead-embroidery'} />);
-                    break;
-                case '' :
-                    setPageTitle('');
-                    setComponent(<RootCategory id={94} name='نقاشی دکوراتیو' route={'painting'} />);
-                    break;
-            }*/
         }
-    }, [categoryName, undefined]);
+    }, [categoryName, undefined]);*/
 
     const ArtComponent = () => {
         if(artInformation !== null){
@@ -194,7 +144,7 @@ const CategoryLandingPage = (props) => {
                                         <h1 className={['my-0', 'pr-2', 'rtl', 'text-right'].join(' ')} style={{fontSize: '32px'}} >{artInformation.name}</h1>
                                     </div>
                                     <p className={['my-0', 'text-right', 'pt-3'].join(' ')}>{''}</p>
-                                    <div className={['rtl', 'text-right'].join(' ')} style={{maxHeight: '200px', overflowY: 'scroll'}}>
+                                    <div className={['rtl', 'text-right', 'artpage-description-div'].join(' ')} style={{maxHeight: '200px', overflowY: 'scroll'}}>
                                         {parse(artInformation.description)}
                                     </div>
                                     <div className={['d-flex', 'flex-row', 'rtl', 'mt-4', 'align-items-center', 'w-100', 'mr-0'].join(' ')}>
@@ -353,10 +303,41 @@ const mapStateToProps = (state) => {
   export default connect(mapStateToProps, mapDispatchToProps)(CategoryLandingPage);
   
   export async function getServerSideProps(context){
-        const m = await fetch(Constants.apiUrl + '/api/menu', {
-          method: 'GET'
-      });
-      let menu = await m.json();
+    let url = context.req.url.substr(1);
+    console.log("RAW URL : " + url);
+    let newUrl = '';
+    console.log("DECODED URL : " + decodeURI(url));
+    url = decodeURI(url);
+    let slashCount = 0;
+    if(url.charAt(0) === '_' && url.charAt(1) === 'n' && url.charAt(2) === 'e' && url.charAt(3) === 'x' && url.charAt(4) === 't'){
+        console.log('EDIT STARTED');
+        let collect = true;
+        for(let i=0; i<url.length; i++){
+            if(url.charAt(i) === '.' && url.charAt(i+1) === 'j' && url.charAt(i+2) === 's' && url.charAt(i+3) === 'o' && url.charAt(i+4) === 'n'){
+                collect = false;
+            }
+            if(slashCount < 3 && url.charAt(i) === '/' && collect){
+                slashCount++;
+            }else if(slashCount >= 3 && collect){
+                newUrl += url.charAt(i);
+            }
+        }
+        if(newUrl.length !== 0){
+            url = newUrl;
+        }
+    }
+    console.log('EDIT FINISHED');
+    console.log("NEW URL : " + newUrl);
+    const artInfo = await fetch(Constants.apiUrl + '/api/art-information', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({url: url})
+    });
+    let result = await artInfo.json();
+    const m = await fetch(Constants.apiUrl + '/api/menu', {
+        method: 'GET'
+    });
+    let menu = await m.json();
     if(context.req.cookies.user_server_token !== undefined){
       const res = await fetch(Constants.apiUrl + '/api/user-information',{
         method: 'POST',
@@ -372,7 +353,8 @@ const mapStateToProps = (state) => {
               props: {
                   ssrUser: {status: 'LOGIN', information: await response.information},
                   ssrCookies: context.req.cookies,
-                  ssrMenu: await menu
+                  ssrMenu: await menu,
+                  ssrArtInfo: await result
               }
           }
       }else{
@@ -380,7 +362,8 @@ const mapStateToProps = (state) => {
               props: {
                   ssrUser: {status: 'GUEST', information: {}},
                   ssrCookies: context.req.cookies,
-                  ssrMenu: await menu
+                  ssrMenu: await menu,
+                  ssrArtInfo: await result
               }
           }
       }
@@ -391,7 +374,8 @@ const mapStateToProps = (state) => {
           props: {
               ssrUser: {status: 'GUEST', information: {}},
               ssrCookies: context.req.cookies,
-              ssrMenu: await menu
+              ssrMenu: await menu,
+              ssrArtInfo: await result
           }
       };
     }

@@ -9,6 +9,7 @@ import * as actionTypes from '../../../store/actions';
 import {connect} from 'react-redux';
 import Image from 'next/image';
 import { SkipPreviousOutlined } from '@material-ui/icons';
+import Head from 'next/head';
 
 const Payment = (props) => {
 

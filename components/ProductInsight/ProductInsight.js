@@ -165,6 +165,18 @@ const ProductInsight = (props) =>{
         }
     }
 
+    const increaseOrderCountByOne = () => {
+        if(orderCount < productInformation.maxCount){
+            setOrderCount(orderCount + 1);
+        }
+    }
+
+    const decreaseOrderCountByOne = () => {
+        if(orderCount > 1){
+            setOrderCount(orderCount -1);
+        }
+    }
+
     const addToCartButtonClicked = () => {
         if(!axiosProcessing){
             if(props.reduxUser.status === 'LOGIN'){
@@ -437,8 +449,8 @@ const ProductInsight = (props) =>{
                     </div>
                     <div className={['col-12', 'col-md-7', 'rtl', 'mt-3', 'mt-md-0'].join(' ')}>
                         <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between'].join(' ')}>
-                            <h2 className={['mb-0'].join(' ')} style={{fontSize: '20px'}}>{props.name}</h2>
-                            {
+                            <h2 className={['mb-0', 'text-right', 'rtl'].join(' ')} style={{fontSize: '20px'}}>{props.name}</h2>
+                            {   
                                 productInformation.productStatus === 1  ?
                                     <div  className={['d-flex', 'flex-row', 'align-items-center', 'bg-success', 'rtl', 'py-1', 'px-2'].join(' ')} style={{color: 'white', borderRadius: '13px'}}>
                                         <img src={Constants.baseUrl + '/assets/images/main_images/tick_white_small.png'} style={{width: '12px', height: '12px'}} />
@@ -513,9 +525,14 @@ const ProductInsight = (props) =>{
                                     !productExistsOrNot() 
                                     ?
                                     (
-                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'mt-4'].join(' ')}>
+                                        /*<div className={['d-flex', 'flex-row', 'align-items-center', 'mt-4'].join(' ')}>
                                             <h6 className={['mb-0'].join(' ')}>تعداد : </h6>
                                             <input type='number' className={['mr-1', 'text-center'].join(' ')} defaultValue='1' style={{width: '50px', outline: 'none', outlineStyle: 'none', borderStyle: 'none', border: '1px solid #C4C4C4', borderRadius: '4px'}} onChange={productCounterChanged} />
+                                        </div>*/
+                                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'mt-4'].join(' ')}>
+                                            <img onClick={increaseOrderCountByOne} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png'} style={{width: '26px', height: '26px'}} />
+                                            <h6 className={['mb-0', 'px-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#2B2B2B'}}>{orderCount}</h6>
+                                            <img onClick={decreaseOrderCountByOne} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png'} style={{width: '26px', height: '26px'}} />
                                         </div>
                                     )
                                     :

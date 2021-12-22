@@ -104,3 +104,12 @@ p{
 span{
   font-family: IranSansWebFaNum !important;
 }
+.artpage-description-div a{
+  color: #00BAC6;
+}
+.artpage-description-div a:hover{
+  color: #00BAC6;
+}
+.artpage-description-div h1, .artpage-description-div h2, .artpage-description-div h3, p{
+  font-size: 14px !important;
+}

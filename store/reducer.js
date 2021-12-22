@@ -14,6 +14,7 @@ const initialState = {
         id: -1,
         maxPrice: 0,
         minPrice: 0,
+        onlyAvailableProducts: 0,
         page: 1,
         maxPage: 1,
         order: "new",
@@ -355,18 +356,29 @@ const reducer = (state = initialState, action) => {
                 }
             };
         case actionTypes.WIPE_CATEGORY_FILTER:
+            let categoryId = state.categoryFilter.id;
+            let categoryOrder = state.categoryFilter.order;
             return {
                 ...state,
                 categoryFilter: {
-                    id: -1,
+                    id: categoryId,
                     maxPrice: 0,
                     minPrice: 0,
+                    onlyAvailableProducts: 0,
                     page: 1,
                     maxPage: 1,
-                    order: "new",
+                    order: categoryOrder,
                     key: "",
                     options: [],
                     results: []
+                }
+            };
+        case actionTypes.UPDATE_CATEGORY_FILTER_ONLY_AVAILABLE_PRODUCTS:
+            return {
+                ...state,
+                categoryFilter: {
+                    ...categoryFilter,
+                    onlyAvailableProducts: action.onlyAvailableProducts
                 }
             };
         case actionTypes.ADD_SEARCH_FILTER_FACET:

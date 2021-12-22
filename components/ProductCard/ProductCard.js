@@ -14,11 +14,13 @@ import {connect} from 'react-redux';
 import * as actionTypes from '../../store/actions';
 import {useCookies} from 'react-cookie';
 import Image from 'next/image';
+import Skeleton from '@mui/material/Skeleton';
 
 const ProductCard = (props) => {
 
     const [productExistsInCart, setProductExistInCart] = useState(false);
     const [axiosProcessing, setAxiosProcessing] = useState(false);
+    const [isImageLoaded , setIsImageLoaded] = useState(false);
 
     const [cookies , setCookie , removeCookie] = useCookies();
 
@@ -216,16 +218,27 @@ const ProductCard = (props) => {
         }
     }
 
-    const warn = () => {
-        console.info(props.information);
+    const imageLoaded = () => {
+        setIsImageLoaded(false);
+    }
+
+    const imageLoadingCompleted = () => {
+        setIsImageLoaded(true);
     }
 
     return(
-        <div className={['col-6', 'col-md-3', 'p-2'].join(' ')} onClick={warn}>
+        <div className={['col-6', 'col-md-3', 'p-2'].join(' ')}>
             <div className={['d-flex', 'flex-column'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede', height: '100%'}} >
                 <Link href={'/' + props.information.productUrl}>
                     <a style={{position: 'relative'}}>
-                        <img src={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + props.information.prodID + '.jpg'} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
+                        {
+                            !isImageLoaded
+                            ?
+                                <Skeleton variant="rectangular" style={{width: '100%', height: '100'}} />
+                            :
+                            null
+                        }
+                        <img src={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + props.information.prodID + '.jpg'} className={[isImageLoaded ? '' : 'd-none'].join(' ')} onLoad={() => {imageLoadingCompleted()}} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
                     </a>
                 </Link>
                 <Link href={'/' + props.information.productUrl}>

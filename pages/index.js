@@ -54,10 +54,6 @@ const Home = (props) => {
   }, []);
 
   useEffect(() => {
-    console.warn(props.context);
-  });
-
-  useEffect(() => {
     props.reduxUpdateUserTotally(props.ssrUser);
     if(props.ssrUser.status === 'LOGIN'){
       if(localStorage.getItem('user_cart') !== '[]' && localStorage.getItem('user_cart') !== undefined && localStorage.getItem('user_cart') !== null){

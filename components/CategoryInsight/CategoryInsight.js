@@ -103,6 +103,7 @@ const CategoryInsight = (props) => {
                 minPrice: props.reduxCategoryFilter.minPrice,
                 maxPrice: props.reduxCategoryFilter.maxPrice,
                 filters: props.reduxCategoryFilter.options,
+                onlyAvailableProducts: props.reduxCategoryFilter.onlyAvailableProducts,
             }).then((res)=>{
                 let response = res.data;
                 if(response.status === 'done'){
@@ -198,6 +199,7 @@ const CategoryInsight = (props) => {
         let key = obj.key;
         let min = obj.minPrice;
         let max = obj.maxPrice;
+        let onlyAvailableProducts = obj.onlyAvailableProducts;
         if(page === undefined){
             page = props.reduxCategoryFilter.page;
         }
@@ -216,6 +218,9 @@ const CategoryInsight = (props) => {
         if(max === undefined){
             max = props.reduxCategoryFilter.maxPrice;
         }
+        if(onlyAvailableProducts === undefined){
+            onlyAvailableProducts = props.reduxCategoryFilter.onlyAvailableProducts;
+        }
         axios.post(Constants.apiUrl + '/api/filtered-paginated-category-products', {
             id: props.reduxCategoryFilter.id,
             page: page,//props.reduxCategoryFilter.page,
@@ -223,7 +228,8 @@ const CategoryInsight = (props) => {
             searchInput: key,
             minPrice: min,
             maxPrice: max,
-            filters: filters
+            filters: filters,
+            onlyAvailableProducts: onlyAvailableProducts,
         }).then((res)=>{
             let response = res.data;
             if(response.status === 'done'){
@@ -322,12 +328,38 @@ const CategoryInsight = (props) => {
         return found;
     }
 
+    const removeAllFilters = () => {
+        if(props.reduxCategoryFilter.key !== "" || props.reduxCategoryFilter.options.length !== 0 || props.reduxCategoryFilter.onlyAvailableProducts === 1){
+            props.reduxWipeCategoryFilterTotally();
+            props.reduxUpdateCategoryFilterPage(1);
+            getNewProducts({page: 1, filters: [], key: '', onlyAvailableProducts: 0});
+        }
+    }
+
+    const showOnlyAvailableProductsCheckboxChanged = (event) => {
+        let newOap = 1;
+        if(props.reduxCategoryFilter.onlyAvailableProducts === 1){
+            newOap = 0;
+        }
+        props.reduxUpdateCategoryFilterOnlyAvailableProducts(newOap);
+        props.reduxUpdateCategoryFilterPage(1);
+        getNewProducts({page: 1, onlyAvailableProducts: newOap});
+    }
+
+    const isShowOnlyAvailableProductsCheckboxChecked = () => {
+        if(props.reduxCategoryFilter.onlyAvailableProducts === 1){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     const phoneFilter = (
         <div className={['container'].join(' ')} style={{height: windowHeight}}>
             <div className={['row'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'pt-3', 'pb-0', 'px-3'].join(' ')}>
                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>فیلترها</h6>
-                    <img src={Constants.baseUrl + '/public/assets/images/main_images/cross_black.png'} onClick={filterDrawer('bottom', false)} style={{width: '17px', height: '17px'}}/>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/cross_black.png'} onClick={filterDrawer('bottom', false)} style={{width: '17px', height: '17px'}}/>
                 </div>
             </div>
             {
@@ -362,8 +394,8 @@ const CategoryInsight = (props) => {
                 <button className={['py-3', 'text-center', 'pointer'].join(' ')} style={{fontSize: '14px', color: 'white', background: 'white', border: 'none', outline: 'none'}}>-</button>
             </div>
             <div className={['d-flex', 'flex-column', 'w-100', 'px-3'].join(' ')} style={{position: 'fixed', bottom: '0', right: '0'}}>
-                <button className={['py-2', 'text-center', 'pointer'].join(' ')} style={{fontSize: '14px', color: '#00BAC6', background: 'white', borderRadius: '2px', border: '1px solid #00BAC6'}}>اعمال فیلترها</button>
-                <button className={['py-3', 'text-center', 'pointer'].join(' ')} style={{fontSize: '14px', color: '#02959F', background: 'white', border: 'none', outline: 'none'}}>پاک‌کردن همه فیلترها</button>
+                <button className={['py-2', 'text-center', 'pointer'].join(' ')} style={{fontSize: '14px', color: '#00BAC6', background: 'white', borderRadius: '2px', border: '1px solid #00BAC6'}} onClick={filterDrawer('bottom', false)}>اعمال فیلترها</button>
+                <button className={['py-3', 'text-center', 'pointer'].join(' ')} style={{fontSize: '14px', color: '#02959F', background: 'white', border: 'none', outline: 'none'}} onClick={removeAllFilters}>پاک‌کردن همه فیلترها</button>
             </div>
         </div>
     );
@@ -428,7 +460,11 @@ const CategoryInsight = (props) => {
                                 <span className={['font-weight-bold','mr-2'].join(' ')} style={{fontSize: '14px'}} >فیلتر کردن محصولات</span>
                             </div>
                                 <div className={['w-100', 'px-3', 'mt-3'].join(' ')}>
-                                    <input type="text" className={['form-control', 'text-right', 'rtl'].join(' ')} placeholder="نام محصول را جستجو کنید" onChange={searchInputChanged}/>
+                                    <input type="text" value={props.reduxCategoryFilter.key} className={['form-control', 'text-right', 'rtl'].join(' ')} placeholder="نام محصول را جستجو کنید" onChange={searchInputChanged}/>
+                                </div>
+                                <div className={['d-flex', 'flex-row', 'align-items-center', 'rtl', 'px-3', 'mt-3'].join(' ')}>
+                                    <input type='checkbox' checked={isShowOnlyAvailableProductsCheckboxChecked()} onChange={showOnlyAvailableProductsCheckboxChanged} />
+                                    <h6 className={['text-right', 'rtl', 'mb-0', 'mr-2'].join(' ')} style={{fontSize: '13px'}}>عدم نمایش محصولات ناموجود</h6>
                                 </div>
                                 {
                                     filters.map((filter, key)=>{
@@ -457,9 +493,9 @@ const CategoryInsight = (props) => {
                                         }
                                     })
                                 }
-                                  <div className={['rtl', 'text-right', 'p-3'].join(' ')} style={{borderBottom: '1px solid #dedede'}}>
-                                <h6 className={['font-weight-bold', 'text-right'].join(' ')}>قیمت</h6>
-                                <div className={['row', 'w-100','px-0', 'mx-0', ].join(' ')}>
+                                <div className={['rtl', 'text-right', 'p-3', 'd-none'].join(' ')} style={{borderBottom: '1px solid #dedede'}}>
+                                <h6 className={['font-weight-bold', 'text-right', 'd-none'].join(' ')}>قیمت</h6>
+                                <div className={['row', 'w-100','px-0', 'mx-0', 'd-none'].join(' ')}>
                                     <div className={['col-6', 'pr-0', 'pl-2'].join(' ')}>
                                         <small>از (تومان)</small>
                                         <input type='number' className={['form-control', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}} onChange={minPriceChanged} />
@@ -469,8 +505,9 @@ const CategoryInsight = (props) => {
                                         <input type='number' className={['form-control', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}} onChange={maxPriceChanged} />
                                     </div>
                                 </div>
-                                <button className={['btn', 'mt-3'].join(' ')} style={{borderRadius: '4px', color: 'white', backgroundColor: '#00bac6', fontSize: '14px'}} onClick={priceFilterButtonClicked}>اعمال فیلتر قیمت</button>
+                                <button className={['btn', 'mt-3', 'd-none'].join(' ')} style={{borderRadius: '4px', color: 'white', backgroundColor: '#00bac6', fontSize: '14px'}} onClick={priceFilterButtonClicked}>اعمال فیلتر قیمت</button>
                             </div>
+                            <button className={['text-center', 'mb-0', 'rtl', 'w-100', 'mt-3', 'pointer'].join(' ')} style={{border: 'none', outlineStyle: 'none', fontSize: '12px', color: '#00BAC6', background: 'white'}} onClick={removeAllFilters}>پاک کردن تمام فیلترها</button>
                         </div>
                     </div>
                     <div className={[''].join(' ')} style={{flex: '4'}}>
@@ -506,15 +543,16 @@ const CategoryInsight = (props) => {
                                     </span>
                                     <span className={['d-flex', 'flex-row', 'rtl'].join(' ')} style={{backgroundColor: '#f2f2f2', borderRadius: '4px', border: '1px solid #dedede'}}></span>
                                 </div>
-
-                                <div className={['row', 'd-flex', 'align-items-stretch', 'px-3', 'w-100'].join(' ')}>
-                                {
-                                    props.reduxCategoryFilter.results.map((r, key)=>{
-                                        return(
-                                            <ProductCard information={r} key={key} />
-                                        );
-                                    })
-                                }
+                                <div className={['container'].join(' ')}>
+                                    <div className={['row', 'd-flex', 'align-items-stretch', 'px-2'].join(' ')}>
+                                    {
+                                        props.reduxCategoryFilter.results.map((r, key)=>{
+                                            return(
+                                                <ProductCard information={r} key={key} />
+                                            );
+                                        })
+                                    }
+                                    </div>
                                 </div>
                                 {
                                     props.reduxCategoryFilter.results.length !== 0 
@@ -572,7 +610,8 @@ const mapDispatchToProps = (dispatch) => {
         reduxRemoveFromCategoryFilterOptions: (en, v) => dispatch({type: actionTypes.REMOVE_CATEGORY_FILTER_OPTION, en_name: en, value: v}) ,
         reduxUpdateCategoryFilterResults: (r) => dispatch({type: actionTypes.UPDATE_CATEGORY_FILTER_RESULTS, results: r}),
         reduxUpdateCategoryFilterKey: (k) => dispatch({type: actionTypes.UPDATE_CATEGORY_FILTER_KEY, key: k}),
-        reduxWipeCategoryFilterTotally: () => dispatch({type: actionTypes.WIPE_CATEGORY_FILTER}) 
+        reduxWipeCategoryFilterTotally: () => dispatch({type: actionTypes.WIPE_CATEGORY_FILTER}) ,
+        reduxUpdateCategoryFilterOnlyAvailableProducts: (oap) => dispatch({type: actionTypes.UPDATE_CATEGORY_FILTER_ONLY_AVAILABLE_PRODUCTS, onlyAvailableProducts: oap}),
     }
 }
 
