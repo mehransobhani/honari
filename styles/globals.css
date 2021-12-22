@@ -37,11 +37,11 @@ a {
 
 @font-face {
   font-family: IranSansWeb;
-  src: url("/newtest/assets/fonts/IRANSansWeb.woff2") format('woff2');
+  src: url("/assets/fonts/IRANSansWeb.woff2") format('woff2');
 }
 @font-face {
   font-family: IranSansWebFaNum;
-  src: url("/newtest/assets/fonts/IRANSansWeb(FaNum).woff2") format('woff2');
+  src: url("/assets/fonts/IRANSansWeb(FaNum).woff2") format('woff2');
 }
 *{
   font-family: IranSansWebFaNum;

@@ -529,7 +529,7 @@ const ProductInsight = (props) =>{
                                             <h6 className={['mb-0'].join(' ')}>تعداد : </h6>
                                             <input type='number' className={['mr-1', 'text-center'].join(' ')} defaultValue='1' style={{width: '50px', outline: 'none', outlineStyle: 'none', borderStyle: 'none', border: '1px solid #C4C4C4', borderRadius: '4px'}} onChange={productCounterChanged} />
                                         </div>*/
-                                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'mt-4'].join(' ')}>
+                                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'mt-3'].join(' ')}>
                                             <img onClick={increaseOrderCountByOne} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png'} style={{width: '26px', height: '26px'}} />
                                             <h6 className={['mb-0', 'px-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#2B2B2B'}}>{orderCount}</h6>
                                             <img onClick={decreaseOrderCountByOne} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png'} style={{width: '26px', height: '26px'}} />

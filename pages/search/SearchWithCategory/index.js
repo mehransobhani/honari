@@ -13,6 +13,7 @@ import Select from '@material-ui/core/Select';
 import Pagination from '@material-ui/lab/Pagination';
 import Drawer from '@material-ui/core/Drawer';
 import SearchProductcard from '../../../components/SearchProductCard/SearchProductCard';
+import Head from 'next/head';
 
 const SearchWithCategory = (props) => {
 
