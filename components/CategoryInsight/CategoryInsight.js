@@ -354,6 +354,46 @@ const CategoryInsight = (props) => {
         }
     }
 
+    const removeThisSelectedFilterItem = (item) => {
+        let newFilters = [];
+        props.reduxCategoryFilter.options.map((option, index) => {
+            if(option.en_name != item.en_name){
+                newFilters.push(option);
+            }else{
+                if(option.value != item.value){
+                    newFilters.push(option);
+                }
+            }
+        });
+        console.warn(newFilters);
+        props.reduxRemoveFromCategoryFilterOptions(item.en_name, item.value);
+        props.reduxUpdateCategoryFilterPage(1);
+        getNewProducts({filters: newFilters, page: 1});
+    }
+
+    const getFilterSelectedItems = (enName) => {
+        let selectedOptions = [];
+        props.reduxCategoryFilter.options.map((selectedOption, index) => {
+            if(selectedOption.en_name === enName){
+                selectedOptions.push(selectedOption.value);
+            }
+        });
+        return (
+            <div className={['row', 'text-right', 'rtl', 'px-3'].join(' ')}>
+                {
+                    selectedOptions.map((item, index) => {
+                        return (
+                            <div className={['d-flex', 'flex-row', 'rtl', 'text-right', 'px-1', 'ml-1', 'align-items-center', 'mt-2', 'pointer'].join(' ')} onClick={() =>{removeThisSelectedFilterItem({en_name: enName, value: item})}} style={{borderRadius: '3px', background: '#00BAC6'}}>
+                                <img src={Constants.baseUrl + '/assets/images/main_images/close_white_small.png'} style={{width: '11px', height: '11px'}} />
+                                <span className={['pr-1', 'mb-0'].join(' ')} style={{color: 'white', fontSize: '12px'}} >{item}</span>
+                            </div>
+                        );
+                    })
+                }
+            </div>
+        );
+    }
+
     const phoneFilter = (
         <div className={['container'].join(' ')} style={{height: windowHeight}}>
             <div className={['row'].join(' ')}>
@@ -372,6 +412,7 @@ const CategoryInsight = (props) => {
                                     <h6 className={['mb-0']} style={{fontSize: '13px', color: '#444444'}}>{filter.name}</h6>
                                     <img src={key === visibleFilterGroupId ? Constants.baseUrl + '/assets/images/main_images/minus_black.png' : Constants.baseUrl + '/assets/images/main_images/plus_black.png'} style={{width: '14px', heigth: '14px'}} />
                                 </div>
+                                {getFilterSelectedItems(filter.enName)}
                                 <div hidden={key === visibleFilterGroupId ? false : true} className={['mt-2', 'pr-3'].join(' ')} style={{overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#dedede, #dedede'}}>
                                     {
                                         JSON.parse(filter.options).map((option, index)=>{
@@ -476,6 +517,7 @@ const CategoryInsight = (props) => {
                                                         <h6 className={['mb-0']} style={{fontSize: '13px', color: '#444444'}}>{filter.name}</h6>
                                                         <img src={key === visibleFilterGroupId ? Constants.baseUrl+'/assets/images/main_images/minus_black.png' : Constants.baseUrl+'/assets/images/main_images/plus_black.png'} style={{width: '14px', heigth: '14px'}} />
                                                     </div>
+                                                    {getFilterSelectedItems(filter.enName)}
                                                     <div hidden={key === visibleFilterGroupId ? false : true} className={['mt-2'].join(' ')} style={{maxHeight: '200px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#dedede, #dedede'}}>
                                                         {
                                                             JSON.parse(filter.options).map((option, index)=>{

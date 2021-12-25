@@ -21,6 +21,12 @@ a {
   .font11md14{
     font-size: 11px !important  ;
   }
+  .font14md22{
+    font-size: 14px !important;
+  }
+  .font17md22{
+    font-size: 17px !important;
+  }
 }
 
 .font11md17{
@@ -35,13 +41,21 @@ a {
   font-size: 14px;
 }
 
+.font14md22{
+  font-size: 22px;
+}
+
+.font17md22{
+  font-size: 22px;
+}
+
 @font-face {
   font-family: IranSansWeb;
-  src: url("/assets/fonts/IRANSansWeb.woff2") format('woff2');
+  src: url("/newtest/assets/fonts/IRANSansWeb.woff2") format('woff2');
 }
 @font-face {
   font-family: IranSansWebFaNum;
-  src: url("/assets/fonts/IRANSansWeb(FaNum).woff2") format('woff2');
+  src: url("/newtest/assets/fonts/IRANSansWeb(FaNum).woff2") format('woff2');
 }
 *{
   font-family: IranSansWebFaNum;

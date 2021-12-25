@@ -297,6 +297,54 @@ const SearchWithCategory = (props) => {
         filterDrawer('bottom', false);
     }
 
+    const removeThisSelectedFilterItem = (item) => {
+        let newFilters = [];
+        props.reduxSearchFilter.facets.map((option, index) => {
+            if(option.name != item.name){
+                newFilters.push(option);
+            }else{
+                let newValues = [];
+                option.values.map((value, i) => {
+                    if(value !== item.value){
+                        newValues.push(value);
+                    }
+                });
+                if(newValues.length !== 0){
+                    newFilters.push({name: option.name, min: option.max, max: option.max, values: newValues});
+                }
+            }
+        });
+        console.warn(newFilters);
+        props.reduxUpdateSearchFilterFacets(newFilters);
+        props.reduxUpdateSearchFilterPage(1);
+        getNewProducts({facets: newFilters, page: 1});
+    }
+
+    const getFilterSelectedItems = (name) => {
+        let selectedOptions = [];
+        props.reduxSearchFilter.facets.map((selectedOption, index) => {
+            if(selectedOption.name === name){
+                selectedOption.values.map((value, c) => {
+                    selectedOptions.push(value);
+                });
+            }
+        });
+        return (
+            <div className={['row', 'text-right', 'rtl', 'px-3'].join(' ')}>
+                {
+                    selectedOptions.map((item, index) => {
+                        return (
+                            <div key={index} className={['d-flex', 'flex-row', 'rtl', 'text-right', 'px-1', 'ml-1', 'align-items-center', 'mt-2', 'pointer'].join(' ')} onClick={() =>{removeThisSelectedFilterItem({name: name, value: item})}} style={{borderRadius: '3px', background: '#00BAC6'}}>
+                                <img src={Constants.baseUrl + '/assets/images/main_images/close_white_small.png'} style={{width: '11px', height: '11px'}} />
+                                <span className={['pr-1', 'mb-0'].join(' ')} style={{color: 'white', fontSize: '12px'}} >{item}</span>
+                            </div>
+                        );
+                    })
+                }
+            </div>
+        );
+    }
+
     const phoneFilter = (
         <div className={['container'].join(' ')} style={{height: windowHeight}}>
             <div className={['row'].join(' ')}>
@@ -453,6 +501,9 @@ const SearchWithCategory = (props) => {
                                                         <h6 className={['mb-0']} style={{fontSize: '13px', color: '#444444'}}>{filter.name}</h6>
                                                         <img src={key === visibleFilterGroupId ? Constants.baseUrl+'/assets/images/main_images/minus_black.png' : Constants.baseUrl+'/assets/images/main_images/plus_black.png'} style={{width: '14px', heigth: '14px'}} />
                                                     </div>
+                                                    {
+                                                        getFilterSelectedItems(filter.name)
+                                                    }
                                                     <div hidden={key === visibleFilterGroupId ? false : true} className={['mt-2'].join(' ')} style={{maxHeight: '200px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#dedede, #dedede'}}>
                                                         {
                                                             filter.values.map((option, index)=>{
@@ -470,9 +521,9 @@ const SearchWithCategory = (props) => {
                                         }
                                     })
                                 }
-                                  <div className={['rtl', 'text-right', 'p-3'].join(' ')} style={{borderBottom: '1px solid #dedede'}}>
+                                  <div className={['rtl', 'text-right', 'p-3', 'd-none'].join(' ')} style={{borderBottom: '1px solid #dedede'}}>
                                 <h6 className={['font-weight-bold', 'text-right'].join(' ')}>قیمت</h6>
-                                <div className={['row', 'w-100','px-0', 'mx-0', ].join(' ')}>
+                                <div className={['row', 'w-100','px-0', 'mx-0'].join(' ')}>
                                     <div className={['col-6', 'pr-0', 'pl-2'].join(' ')}>
                                         <small>از (تومان)</small>
                                         <input type='number' className={['form-control', 'font-weight-bold'].join(' ')} value={filterMinPrice} style={{fontSize: '13px'}} onChange={minPriceChanged} />

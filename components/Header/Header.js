@@ -53,6 +53,7 @@ function BigHeader(props){
     const [desktopSearchBarWidth, setDesktopSearchBarWidth] = useState(0);
     const [moreSearchCategoriesClass, setMoreSearchCategoriesClass] = useState('d-none');
     const [showSearchResults, setShowSearchResults] = useState(false);
+    const [showUserPofileSummary, setShowUserProfileSummery] = useState(false);
     
 
     useEffect(() => {
@@ -667,7 +668,7 @@ function BigHeader(props){
     }
 
     const DesktopCart = (
-        <div className={['container-fluid', 'shadow-sm', 'rounded-sm', 'pr-2', 'pl-3'].join(' ')} style={{width: '500px', backgroundColor: 'white', position: 'absolute', left: '0.7rem', top: '32px', zIndex: '600'}}>
+        <div className={['container-fluid', 'shadow-sm', 'rounded-sm', 'pr-2', 'pl-3'].join(' ')} style={{width: '500px', backgroundColor: 'white', position: 'absolute', left: '0.3rem', top: '2.2rem', zIndex: '600'}}>
             {
                 props.reduxCart.information.length !== 0 ? (
                     <React.Fragment>
@@ -994,7 +995,7 @@ function BigHeader(props){
     const desktopMenu = (
         <div className={['container-fluid', 'mx-0', 'px-0', 'd-flex', 'flex-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{position: 'fixed', zIndex: '500'}}>
             <div className={['container', 'px-2'].join(' ')} >
-                <div style={{borderRadius: '0 0 6px 6px', backgroundColor: '#F7F7F7', width: '100%'}} onMouseEnter={()=>{setHover({status: true, number: hover.number, title: hover.title})}} onMouseLeave={()=>{setHover({status: false, number: hover.number, title: hover.title})}}>
+                <div style={{borderRadius: '0 0 6px 6px', backgroundColor: '#F7F7F7', width: '100%'}} onMouseEnter={()=>{setHover({status: true, number: hover.number, title: hover.title})}} onMouseLeave={()=>{setHover({status: false, number: hover.number, title: ''})}}>
                 {
                     getSubMenus(hover.number)
                 }
@@ -1020,6 +1021,27 @@ function BigHeader(props){
             console.error(err);
             props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
         });
+    }
+
+    const userMouseEntered = () => {
+        setShowUserProfileSummery(true);
+    }
+
+    const userMouseLeft = () => {
+        setShowUserProfileSummery(false);
+    }
+
+    const logoutUserButtonClicked = () => {
+        removeCookie('user_server_token');
+        window.location.href = '/';
+    }
+
+    const getHoveredItemColor = (item) => {
+        if(hover.title === item){
+            return "#00BAC6";
+        }else{
+            return "#2B2B2B";
+        }
     }
 
     const desktopSearchResults = () => {
@@ -1319,6 +1341,7 @@ function BigHeader(props){
                             */}
                             <img src={Constants.baseUrl + '/assets/images/header_cart.png'} className={['ml-1'].join(' ')} style={{width: '20px'}} onClick={toggleCartDrawer('left', true)} />    
                         </div>
+                        <div>
                         {
                             props.reduxUser.status === 'GUEST'
                             ?
@@ -1331,7 +1354,7 @@ function BigHeader(props){
                                 props.reduxUser.status === 'LOGIN'
                                 ?
                                 <Link href={'/users/view'}>
-                                    <a className={['ltr', 'align-items-center', 'ml-1', 'p-2', 'pointer', 'd-none', 'd-md-flex'].join(' ')}>
+                                    <a className={['ltr', 'align-items-center', 'ml-1', 'p-2', 'pointer', 'd-none', 'd-md-flex'].join(' ')} onMouseEnter={userMouseEntered} onMouseLeave={userMouseLeft}>
                                         <small className={['m-0'].join(' ')}>{props.reduxUser.information.name}</small>
                                         <img src={Constants.baseUrl + '/assets/images/header_user.png'} className={['ml-1'].join(' ')} style={{width: '20px'}} />    
                                     </a>
@@ -1340,6 +1363,38 @@ function BigHeader(props){
                                 null
                             )
                         }
+                        <div onMouseEnter={userMouseEntered} onMouseLeave={userMouseLeft} className={['flex-column', showUserPofileSummary ? 'd-flex' : 'd-none', 'shadow-sm'].join(' ')} style={{position: 'absolute', left: '0.3rem', top: '3rem', width: '16rem', zIndex: '888888888888888888', background: 'white', borderRadius: '2px'}}>
+                            <Link href='/users/view'>
+                                <a className={['d-flex', 'flex-row', 'align-items-center', 'rtl', 'justify-content-right', 'p-2'].join(' ')}>
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/user_main_circle.png'} style={{width: '30px', height: '30px'}} />
+                                    <div className={['d-flex', 'flex-column', 'pr-2'].join(' ')}>
+                                        <h6 className={['mb-0', 'text-right', 'rtl'].join(' ')} style={{fontSize: '12px', color: '#00BAC6'}}>{props.reduxUser.information.name}</h6>
+                                        <h6 className={['mb-0', 'text-right', 'rtl', 'mt-1'].join(' ')} style={{fontSize: '12px', color: '#00BAC6'}}>{props.reduxUser.information.username}</h6>
+                                    </div>
+                                </a>
+                            </Link>
+                            <Link href='/users/charge_account'>
+                                <a className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl', 'text-right', 'pr-2', 'mt-1'].join(' ')}>
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} style={{width: '14px', height: '14px'}} />
+                                    <h6 className={['mb-0', 'pr-2', 'rtl', 'text-right'].join(' ')} style={{fontSize: '14px'}}>شارژ حساب کاربری</h6> 
+                                </a>
+                            </Link>
+                            <Link href='/users/orders'>
+                                <a className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl', 'text-right', 'mt-3', 'pr-2'].join(' ')}>
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} style={{width: '14px', height: '14px'}} />
+                                    <h6 className={['mb-0', 'pr-2', 'rtl', 'text-right'].join(' ')} style={{fontSize: '14px'}}>سفارشات من</h6> 
+                                </a>
+                            </Link>
+                            <a href='https://honari.com/academy/user/courses' className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl', 'text-right', 'mt-3', 'pr-2'].join(' ')}>
+                                <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} style={{width: '14px', height: '14px'}} />
+                                <h6 className={['mb-0', 'pr-2', 'rtl', 'text-right'].join(' ')} style={{fontSize: '14px'}}>کلاس‌های من</h6> 
+                            </a>
+                            <div onClick={logoutUserButtonClicked} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl', 'text-right', 'mt-3', 'pr-2', 'pointer', 'mb-3'].join(' ')}>
+                                <img src={Constants.baseUrl + '/assets/images/main_images/logout_red.png'} style={{width: '14px', height: '14px'}} />
+                                <h6 className={['mb-0', 'pr-2', 'rtl', 'text-right'].join(' ')} style={{fontSize: '14px', color: 'red'}}>خروج از حساب کاربری</h6> 
+                            </div>
+                        </div>
+                        </div>
                         <div className={['ltr', 'align-items-center', 'ml-1', 'p-2', 'pointer', 'd-md-none'].join(' ')}>
                             {
                                 props.reduxUser.status !== 'LOGIN' ?
@@ -1366,7 +1421,7 @@ function BigHeader(props){
                                 {
                                     menu.map((item, counter)=>{
                                         if(counter < 10){
-                                            return <Link href={item.parentUrl.substr(18)}><a><li className={[styles.desktopHeaderParentMenu, 'list-group-item', 'pointer', 'm-0', 'text-center', 'rounded-0','pr-2', 'pl-2', 'mt-0', setActived(selectedMenu)].join(' ')} style={{height: '100%'}}  onMouseEnter={()=>{setHover({status: true, number: counter, title: 'tile'})}} onMouseLeave={()=>{setHover({status: false, number: counter, title: hover.title})}}>{item.parentName}</li></a></Link>
+                                            return <Link href={item.parentUrl.substr(18)}><a><li className={[styles.desktopHeaderParentMenu, 'list-group-item', 'pointer', 'm-0', 'text-center', 'rounded-0','pr-2', 'pl-2', 'mt-0', setActived(selectedMenu)].join(' ')} style={{height: '100%', color: getHoveredItemColor(item.parentName)}}  onMouseEnter={()=>{setHover({status: true, number: counter, title: item.parentName})}} onMouseLeave={()=>{setHover({status: false, number: counter, title: ''})}}>{item.parentName}</li></a></Link>
                                         }
                                     })
                                 }

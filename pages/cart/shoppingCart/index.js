@@ -493,6 +493,10 @@ const ShoppingCart = (props) => {
         }
     }
 
+    const continueShoppingButtonClicked = () => {
+        window.history.go(-1);
+    }
+
 
     return(
         <React.Fragment>
@@ -601,13 +605,17 @@ const ShoppingCart = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={['col-12', 'px-0', 'mt-2', 'd-flex', 'flex-row', 'ltr'].join(' ')}>
+                            <div className={['col-12', 'px-0', 'mt-2', 'd-flex', 'flex-row', 'ltr', 'align-items-center', 'justify-content-between'].join(' ')}>
                                 <Link href={'/cart/payment'}>
                                 <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'pointer'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>ادامه ثبت سفارش</h6>
                                     <img className={['mr-2'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '10px', height: '10px'}} />
                                 </div>
                                 </Link>
+                                <div onClick={continueShoppingButtonClicked} className={['d-flex', 'flex-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'pointer'].join(' ')}>
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/right_arrow_black.png'} className={['ml-2'].join(' ')} style={{width: '10px', height: '10px'}} />
+                                    <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px'}}>بازگشت به ادامه خرید</h6>
+                                </div>
                             </div>
                         </div>
                     </div>
