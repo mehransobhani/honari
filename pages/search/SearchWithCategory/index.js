@@ -570,15 +570,16 @@ const SearchWithCategory = (props) => {
                                     </span>
                                     <span className={['d-flex', 'flex-row', 'rtl'].join(' ')} style={{backgroundColor: '#f2f2f2', borderRadius: '4px', border: '1px solid #dedede'}}></span>
                                 </div>
-
-                                <div className={['row', 'd-flex', 'align-items-stretch', 'px-3'].join(' ')}>
-                                {
-                                    props.reduxSearchFilter.results.map((r, key)=>{
-                                        return(
-                                            <SearchProductcard information={r} key={key} />
-                                        );
-                                    })
-                                }
+                                <div className={['container'].join(' ')}>
+                                    <div className={['row', 'd-flex', 'align-items-stretch', 'px-3'].join(' ')}>
+                                    {
+                                        props.reduxSearchFilter.results.map((r, key)=>{
+                                            return(
+                                                <SearchProductcard information={r} key={key} />
+                                            );
+                                        })
+                                    }
+                                    </div>
                                 </div>
                                 {
                                     props.reduxSearchFilter.results.length !== 0 

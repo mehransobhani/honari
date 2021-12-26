@@ -1365,7 +1365,7 @@ function BigHeader(props){
                         }
                         <div onMouseEnter={userMouseEntered} onMouseLeave={userMouseLeft} className={['flex-column', showUserPofileSummary ? 'd-flex' : 'd-none', 'shadow-sm'].join(' ')} style={{position: 'absolute', left: '0.3rem', top: '3rem', width: '16rem', zIndex: '888888888888888888', background: 'white', borderRadius: '2px'}}>
                             <Link href='/users/view'>
-                                <a className={['d-flex', 'flex-row', 'align-items-center', 'rtl', 'justify-content-right', 'p-2'].join(' ')}>
+                                <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'align-items-center', 'rtl', 'justify-content-right', 'p-2'].join(' ')}>
                                     <img src={Constants.baseUrl + '/assets/images/main_images/user_main_circle.png'} style={{width: '30px', height: '30px'}} />
                                     <div className={['d-flex', 'flex-column', 'pr-2'].join(' ')}>
                                         <h6 className={['mb-0', 'text-right', 'rtl'].join(' ')} style={{fontSize: '12px', color: '#00BAC6'}}>{props.reduxUser.information.name}</h6>
@@ -1374,13 +1374,13 @@ function BigHeader(props){
                                 </a>
                             </Link>
                             <Link href='/users/charge_account'>
-                                <a className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl', 'text-right', 'pr-2', 'mt-1'].join(' ')}>
+                                <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl', 'text-right', 'pr-2', 'mt-1'].join(' ')}>
                                     <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} style={{width: '14px', height: '14px'}} />
                                     <h6 className={['mb-0', 'pr-2', 'rtl', 'text-right'].join(' ')} style={{fontSize: '14px'}}>شارژ حساب کاربری</h6> 
                                 </a>
                             </Link>
                             <Link href='/users/orders'>
-                                <a className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl', 'text-right', 'mt-3', 'pr-2'].join(' ')}>
+                                <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl', 'text-right', 'mt-3', 'pr-2'].join(' ')}>
                                     <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} style={{width: '14px', height: '14px'}} />
                                     <h6 className={['mb-0', 'pr-2', 'rtl', 'text-right'].join(' ')} style={{fontSize: '14px'}}>سفارشات من</h6> 
                                 </a>
@@ -1400,7 +1400,7 @@ function BigHeader(props){
                                 props.reduxUser.status !== 'LOGIN' ?
                                     <a href='https://honari.com/user' className={['px-3', 'py-1', 'pointer'].join(' ')} style={{borderRadius: '6px', fontSize: '11px', backgroundColor: '#00BAC6', color: 'white'}}>ورود</a>
                                 :
-                                    <Link href='/users/view'><a className={['px-2', 'py-1', 'mb-0'].join(' ')} style={{borderStyle: 'none', borderRadius: '6px', fontSize: '11px', backgroundColor: '#00BAC6', color: 'white', height: '30px'}}>حساب کاربری</a></Link>
+                                    <Link href='/users/view'><a className={['px-2', 'py-1', 'mb-0', 'd-none'].join(' ')} style={{borderStyle: 'none', borderRadius: '6px', fontSize: '11px', backgroundColor: '#00BAC6', color: 'white', height: '30px'}}>حساب کاربری</a></Link>
                             }
                         </div>
                         <form onSubmit={searchFormSubmited} onSubmitCapture={null} className={['col-12', 'm-0', 'p-2', 'align-items-center', 'ml-2', 'ml-md-0', menuSearchBar].join(' ')} style={{border: '1px solid #00bac6', borderRadius: '18px'}}>

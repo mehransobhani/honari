@@ -23,7 +23,7 @@ const DeliveryReview = (props) => {
     const [orderId, setOrderId] = useState(0);
     const [orderStage, setOrderStage] = useState('');
     const [paymentButtonText, setPaymentButtonText] = useState('تایید و پرداخت سفارش');
-    const [requestWaiting, setRequstWaiting] = useState('کمی صبر کنید');
+    const [requestWaiting, setRequstWaiting] = useState(false);
 
     /*useEffect(() => {
         props.reduxUpdateUserTotally(props.ssrUser);

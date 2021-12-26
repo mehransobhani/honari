@@ -145,7 +145,7 @@ const PasargadOrderPaymentResult = (props) => {
     return (    
         <React.Fragment>
             <Head>
-                <title>نتیجه شارژ حساب کاربری | هنری</title>
+                <title>نتیجه پرداخت سفارش | هنری</title>
                 <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
             </Head>
             <Header menu={props.ssrMenu} /> 

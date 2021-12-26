@@ -14,6 +14,8 @@ import * as actionTypes from '../../store/actions';
 import {connect} from 'react-redux';
 import Image from 'next/image';
 import Skeleton from '@mui/material/Skeleton';
+import {Helmet} from 'react-helmet';
+import { Apartment } from '@material-ui/icons';
 
 const ProductInsight = (props) =>{
     const [loading, setLoading] = useState(false);
@@ -37,7 +39,10 @@ const ProductInsight = (props) =>{
     const [mainImageLoaded, setMainImageLoaded] = useState(false);
     const [productInformationReceived, setProductInformationReceived] = useState(false);
     const [mainImageClass, setMainImageClass] = useState('d-none');
-
+    const [aparatContainerDiv, setAparatContainerDiv] = useState(undefined);
+    const [aparatScript, setAparatScript] = useState(undefined);
+    const [aparatId, setAparatId] = useState(0);
+    const [videoFullscreenDisplay, setVideoFullscreenDisplay] = useState('d-none');
 
     const [cookies , setCookie , removeCookie] = useCookies();
 
@@ -69,6 +74,46 @@ const ProductInsight = (props) =>{
                 let response = res.data;
                 setProductInformation(response.information);
                 setProductInformationReceived(true);
+                if(response.information.aparat !== ''){
+                    let aparat = response.information.aparat;
+                    //<div id="18340515441"><script type="text/JavaScript" src="https://www.aparat.com/embed/Oo3Cw?data[rnddiv]=18340515441&data[responsive]=yes"></script></div>    
+                    let containerIsGotten = false;
+                    let scriptIsGotten = false;
+                    let idPermissionIsGranted = false;
+                    let scriptPermissionIsGranted = false;
+                    let aparatIdString = '';
+                    let aparatScriptString = '';
+                    let sizeOfString = response.information.aparat.length;
+                    for(let i=0; i<sizeOfString ; i++){
+                        if(!idPermissionIsGranted && !containerIsGotten && !scriptPermissionIsGranted && aparat.charAt(i) === 'i' && aparat.charAt(i+1) === 'd' && aparat.charAt(i+2) === '=' && aparat.charAt(i+3) === '"'){
+                            i=i+3;
+                            idPermissionIsGranted = true;
+                        }else if(idPermissionIsGranted && !containerIsGotten){
+                            if(aparat.charAt(i) !== '"'){
+                                aparatIdString += aparat.charAt(i);
+                            }else{
+                                idPermissionIsGranted = false;
+                                containerIsGotten = true;
+                            }
+                        }
+                        if(containerIsGotten && !scriptPermissionIsGranted && aparat.charAt(i) === '<' && aparat.charAt(i+1) === 's' && aparat.charAt(i+2) === 'c' && aparat.charAt(i+3) === 'r'){
+                            scriptPermissionIsGranted = true;
+                        }
+                        if(scriptPermissionIsGranted && !scriptIsGotten){
+                            aparatScriptString += aparat.charAt(i);
+                        }
+                        if(scriptPermissionIsGranted){
+                            if(aparat.charAt(i) === '>' && aparat.charAt(i-1) === 't' && aparat.charAt(i-8) === '<' && aparat.charAt(i-7) === '/' && aparat.charAt(i-6) === 's'){
+                                scriptPermissionIsGranted = false;
+                                scriptIsGotten = true;
+                            }
+                        }
+                    }
+                    console.warn("APARAT ID : " + aparatIdString + " AND SCRIPT STRING : " + aparatScriptString);
+                    setAparatScript(aparatScriptString);
+                    setAparatId(parseInt(aparatIdString));
+                    setAparatContainerDiv(<div id={parseInt(aparatIdString)}></div>);
+                }
             }else{
                 console.log(res.data.umessage);
                 props.reduxUpdateSnackbar('warning', true, res.data.umessage);
@@ -418,8 +463,22 @@ const ProductInsight = (props) =>{
         setMainImageClass('d-block');
     }
 
+    const videoImageClicked = () => {
+        setVideoFullscreenDisplay('d-flex');
+    }
+
     return(
         <React.Fragment>
+            <div className={[videoFullscreenDisplay, 'flex-row', 'align-items-center', 'justify-content-center'].join(' ')} style={{width: '100%', height: '100%', position: 'fixed', top: '0px', left: '0px', background: 'black', zIndex: '99999'}}>
+                <div className={['d-flex', 'flex-row', 'align-items-center'].join(' ')} style={{position: 'absolute', top: '10px', right: '10px'}}>
+                    <img onClick={() => {setVideoFullscreenDisplay('d-none')}} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/close_white_small.png'} style={{width: '30px', height: '30px'}} />
+                </div>
+                <button className={['px-3', 'py-1', 'd-none'].join(' ')} style={{fontSize: '17px', color: 'white', background: 'red', position: 'absolute', top: '0px', right: '0px'}}>بستن</button>
+                <div id={aparatId} className={[''].join(' ')} style={{width: '90%'}}></div>
+                <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'w-100'].join(' ')} style={{position: 'absolute', bottom: '20px', left: '0px'}}>
+                    <button onClick={() => {setVideoFullscreenDisplay('d-none')}} className={['pointer', 'px-3'].join(' ')} style={{fontSize: '17px', color: 'white', background: 'black', borderRadius: '5px', border: '1px solid white'}}>بستن</button>
+                </div>
+            </div>
             <div className={['d-none', 'd-md-block'].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
                 <div className={['container', 'd-flex', 'flex-row', 'align-items-center', 'rtl', 'py-2', 'px-2'].join(' ')}>
                     <Breadcrumbs>
@@ -435,7 +494,6 @@ const ProductInsight = (props) =>{
                 </div>
             </div>
             <div className={['container'].join(' ')} >
-                {parse('<div id="15444215659775694"><script type="text/JavaScript" src="https://www.aparat.com/embed/eVMWk?data[rnddiv]=15444215659775694&data[responsive]=yes"></script></div>')}
                 <div className={['row', 'rtl', 'mt-0', 'mt-md-3'].join(' ')}>
                     <div className={['col-12', 'col-md-5', 'px-0', 'px-md-2'].join(' ')}>
                         {
@@ -446,6 +504,25 @@ const ProductInsight = (props) =>{
                             <Skeleton variant="rectangular" style={{width: '100%', height: '440px'}} />
                         }
                         <img src={'https://honari.com/image/resizeTest/shop/_1000x/thumb_' + productInformation.prodID + '.jpg'} className={[styles.mainImage, mainImageClass].join(' ')} style={{width: '100%'}} onLoad={mainImageOnLoadListener} />
+                        {
+                            aparatScript !== undefined
+                            ?
+                            <Helmet>
+                                {parse(aparatScript)}
+                            </Helmet>
+                            :
+                            null
+                        }
+                        {
+                            aparatScript !== undefined
+                            ?
+                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'w-100', 'pb-2'].join(' ')} style={{position: 'relative', bottom: '40px'}}>
+                                <img src={Constants.baseUrl + '/assets/images/academy.png'} className={['pointer'].join(' ')} onClick={videoImageClicked} style={{width: '40px', height: '40px'}} />
+                            </div>
+                            :
+                            null
+                        }
+                        
                     </div>
                     <div className={['col-12', 'col-md-7', 'rtl', 'mt-3', 'mt-md-0'].join(' ')}>
                         <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between'].join(' ')}>
