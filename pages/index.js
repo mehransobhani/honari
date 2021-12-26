@@ -54,6 +54,22 @@ const Home = (props) => {
   }, []);
 
   useEffect(() => {
+    axios.post(Constants.apiUrl + '/api/filtered-paginated-new-products', {
+      page: 1
+    }).then((res) => {
+      let response = res.data;
+      if(response.status === 'done'){
+        console.warn(response);
+      }else if(response.status === 'failed'){
+        console.warn("an error occured while getting information from server by the way");
+      }
+    }).catch((error) => {
+      console.error(error);
+      alert('مشکلی در برقراری ارتباط رخ داده است');
+    });
+  }, []);
+
+  useEffect(() => {
     props.reduxUpdateUserTotally(props.ssrUser);
     if(props.ssrUser.status === 'LOGIN'){
       if(localStorage.getItem('user_cart') !== '[]' && localStorage.getItem('user_cart') !== undefined && localStorage.getItem('user_cart') !== null){

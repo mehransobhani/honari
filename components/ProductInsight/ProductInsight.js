@@ -473,20 +473,19 @@ const ProductInsight = (props) =>{
                 <div className={['d-flex', 'flex-row', 'align-items-center'].join(' ')} style={{position: 'absolute', top: '10px', right: '10px'}}>
                     <img onClick={() => {setVideoFullscreenDisplay('d-none')}} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/close_white_small.png'} style={{width: '30px', height: '30px'}} />
                 </div>
-                <button className={['px-3', 'py-1', 'd-none'].join(' ')} style={{fontSize: '17px', color: 'white', background: 'red', position: 'absolute', top: '0px', right: '0px'}}>بستن</button>
                 <div id={aparatId} className={[''].join(' ')} style={{width: '90%'}}></div>
-                <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'w-100'].join(' ')} style={{position: 'absolute', bottom: '20px', left: '0px'}}>
+                <div className={['d-flex', 'd-md-none', 'flex-row', 'align-items-center', 'justify-content-center', 'w-100'].join(' ')} style={{position: 'absolute', bottom: '20px', left: '0px'}}>
                     <button onClick={() => {setVideoFullscreenDisplay('d-none')}} className={['pointer', 'px-3'].join(' ')} style={{fontSize: '17px', color: 'white', background: 'black', borderRadius: '5px', border: '1px solid white'}}>بستن</button>
                 </div>
             </div>
-            <div className={['d-none', 'd-md-block'].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
-                <div className={['container', 'd-flex', 'flex-row', 'align-items-center', 'rtl', 'py-2', 'px-2'].join(' ')}>
+            <div className={[''].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
+                <div className={['container', 'd-flex', 'flex-row', 'align-items-center', 'rtl', 'py-1', 'py-md-2', 'px-2'].join(' ')}>
                     <Breadcrumbs>
-                    <p className={['p-1', 'mb-0', 'd-none', 'd-md-block'].join(' ')} style={{backgroundColor: 'white', border: '1px solid #8bf0f7', borderRadius: '14px 1px 1px 14px'}}>اینجا هستید</p>
+                    <p className={['p-1', 'mb-0', 'font11md14'].join(' ')} style={{backgroundColor: 'white', border: '1px solid #8bf0f7', borderRadius: '14px 1px 1px 14px'}}>اینجا هستید</p>
                         {
                             breadcrumbState.map((bread, count)=>{
                                 return(
-                                    <Link key={count} href={'/shop/product/category/' + bread.url} ><a className={['breadcrumbItem', 'mb-0'].join(' ')} style={{fontSize: '14px'}} >{bread.name}</a></Link>
+                                    <Link key={count} href={'/shop/product/category/' + bread.url} ><a className={['breadcrumbItem', 'mb-0', 'font11md14'].join(' ')} style={{}} >{bread.name}</a></Link>
                                 );
                             })
                         }
@@ -505,7 +504,7 @@ const ProductInsight = (props) =>{
                         }
                         <img src={'https://honari.com/image/resizeTest/shop/_1000x/thumb_' + productInformation.prodID + '.jpg'} className={[styles.mainImage, mainImageClass].join(' ')} style={{width: '100%'}} onLoad={mainImageOnLoadListener} />
                         {
-                            aparatScript !== undefined
+                            aparatScript !== undefined && productInformation.aparat !== ''
                             ?
                             <Helmet>
                                 {parse(aparatScript)}
@@ -514,7 +513,7 @@ const ProductInsight = (props) =>{
                             null
                         }
                         {
-                            aparatScript !== undefined
+                            aparatScript !== undefined && productInformation.aparat !== ''
                             ?
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'w-100', 'pb-2'].join(' ')} style={{position: 'relative', bottom: '40px'}}>
                                 <img src={Constants.baseUrl + '/assets/images/academy.png'} className={['pointer'].join(' ')} onClick={videoImageClicked} style={{width: '40px', height: '40px'}} />

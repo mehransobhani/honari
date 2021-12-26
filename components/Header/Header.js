@@ -50,14 +50,17 @@ function BigHeader(props){
     const [removeProcessings, setRemoveProcessings] = useState([]);
     const [windowWidth, setWindowWidth] = useState(0);
     const [searchResults, setSearchResults] = useState([]);
+    const [classSearchResults, setClassSearchResults] = useState([]);
     const [desktopSearchBarWidth, setDesktopSearchBarWidth] = useState(0);
     const [moreSearchCategoriesClass, setMoreSearchCategoriesClass] = useState('d-none');
     const [showSearchResults, setShowSearchResults] = useState(false);
     const [showUserPofileSummary, setShowUserProfileSummery] = useState(false);
+    const [windowHeight, setWindowHeight] = useState(undefined);
     
 
     useEffect(() => {
         setWindowWidth(window.outerWidth);
+        setWindowHeight(window.outerHeight);
         setShowSearchResults(false);
         setDesktopSearchBarWidth(desktopSearchBar.current.offsetWidth);
     }, []);
@@ -1005,14 +1008,21 @@ function BigHeader(props){
     );
 
     const getSearchResults = (event) => {
-        //?apiToken=21bb3b6e-0f96-4718-8d6c-8f03a538927e&query=' + encodeURIComponent('منجوق')
         let input= event.target.value;
         axios.post(Constants.apiUrl + '/api/search-autocomplete', {
             input: input,
         }).then((res) => {
             let response = res.data;
             if(response.status === 'done'){
-                setSearchResults(response.result[0].autoComplete);
+                response.result.map((r, i) => {
+                    if(r.indexName === 'products'){
+                        setSearchResults(r.autoComplete);
+                    }else if(r.indexName === 'courses'){
+                        setClassSearchResults(r.autoComplete);
+                    }
+                });
+                //setSearchResults(response.result[0].autoComplete);
+                //setClassSearchResults(response.result[1].autoComplete);
                 setShowSearchResults(true);
                 setMoreSearchCategoriesClass('d-none');
             }
@@ -1107,6 +1117,33 @@ function BigHeader(props){
                         })
                     }
                     </div>
+                    <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#949494', height: '1px'}}></div>
+                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-0', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>آموزش‌ها و کلاس‌ها</b></h6>
+                    <div className={['d-flex', 'flex-column', 'pb-2'].join(' ')} style={{maxHeight: '100px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8'}}>
+                    {
+                        classSearchResults.map((item, index) => {
+                            if(item.fields !== null){
+                                return(
+                                    <Link key={index} href={item.fields.url}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-2'].join(' ')} style={{borderRadius: '2px', border: 'border: 1px solid rgba(216, 216, 216, 0.15)', borderRadius: '3px', fill: 'filter: drop-shadow(0px 0px 7px rgba(156, 156, 156, 0.56))'}}>
+                                            <img src={item.fields.image_url} style={{width: '36px', height: '36px'}} />
+                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
+                                                <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.name}</h6>
+                                                {/*
+                                                    item.fields.has_stock === 'true'
+                                                    ?
+                                                        <h6 className={['mb-0', 'rtl'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{parseInt(item.fields.product_price).toLocaleString() + " تومان"}</h6>
+                                                    :
+                                                        <h6 className={['mb-0', 'px-2', 'py-1'].join(' ')} style={{fontSize: '13px', color: '#00BAC6', background: '#F7F7F7', borderRadius: '2px'}}>ناموجود</h6>
+                                                */}
+                                            </div>
+                                        </a>
+                                    </Link>
+                                );
+                            }
+                        })
+                    }
+                    </div>
                 </div>
             );
         }else{
@@ -1117,7 +1154,7 @@ function BigHeader(props){
     const phoneSearchResults = () => {
         if(searchResults.length !== 0 && showSearchResults){
             return (
-                <div className={['d-md-none', 'w-100'].join(' ')} style={{background: 'white', width: '100%', position: 'relative', top: '0.5rem', left: '0', zIndex: '1000'}}>
+                <div className={['d-md-none', 'w-100'].join(' ')} style={{background: 'white', width: '100%', height: windowHeight + 'px', position: 'relative', top: '0.5rem', left: '0', zIndex: '1000'}}>
                     <div className={['d-flex', 'flex-row', 'ltr', 'text-left', 'justify-content-left', 'pt-2', 'px-2'].join(' ')}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/close_gray_small.png'} className={['pointer'].join(' ')} style={{width: '17px', heigth: '17px'}} onClick={() => {setShowSearchResults(false)}} />
                     </div>
@@ -1161,7 +1198,7 @@ function BigHeader(props){
                                         <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-1'].join(' ')}>
                                             <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
-                                                <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
+                                                <h6 className={['mb-0', 'rtl', 'pr-2', 'text-right'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
                                                 {
                                                     item.fields.has_stock === 'true'
                                                     ?
@@ -1169,6 +1206,33 @@ function BigHeader(props){
                                                     :
                                                         <h6 className={['mb-0', 'px-2', 'py-1'].join(' ')} style={{fontSize: '13px', color: '#00BAC6', background: '#F7F7F7', borderRadius: '2px'}}>ناموجود</h6>
                                                 }
+                                            </div>
+                                        </a>
+                                    </Link>
+                                );
+                            }
+                        })
+                    }
+                    </div>
+                    <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#949494', height: '1px'}}></div>
+                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-0', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>آموزش‌ها و کلاس‌ها</b></h6>
+                    <div className={['d-flex', 'flex-column', 'pb-2'].join(' ')} style={{maxHeight: '100px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8'}}>
+                    {
+                        classSearchResults.map((item, index) => {
+                            if(item.fields !== null){
+                                return(
+                                    <Link key={index} href={item.fields.url}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-1'].join(' ')}>
+                                            <img src={item.fields.image_url} style={{width: '36px', height: '36px'}} />
+                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
+                                                <h6 className={['mb-0', 'rtl', 'pr-2', 'text-right'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.name}</h6>
+                                                {/*
+                                                    item.fields.has_stock === 'true'
+                                                    ?
+                                                        <h6 className={['mb-0', 'rtl'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{parseInt(item.fields.product_price).toLocaleString() + " تومان"}</h6>
+                                                    :
+                                                        <h6 className={['mb-0', 'px-2', 'py-1'].join(' ')} style={{fontSize: '13px', color: '#00BAC6', background: '#F7F7F7', borderRadius: '2px'}}>ناموجود</h6>
+                                                */}
                                             </div>
                                         </a>
                                     </Link>
@@ -1312,7 +1376,7 @@ function BigHeader(props){
                                 :
                                     <span className={['bg-danger', 'px-2', 'mr-1', 'rounded'].join(' ')} style={{color: 'white', fontSize: '14px'}}>{newCartProductsNumber}</span>
                             */}
-                            <small className={['m-0', 'd-none', 'd-md-block'].join(' ')}>سبد خرید</small>
+                            <Link href='/cart/shoppingCart'><a className={['m-0', 'd-none', 'd-md-block'].join(' ')} style={{fontSize: '11px'}}>سبد خرید</a></Link>
                             <img src={Constants.baseUrl + '/assets/images/header_cart.png'} className={['ml-1'].join(' ')} style={{width: '20px'}} />    
                             {
                                 cartOpenState === true 

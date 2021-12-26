@@ -4,6 +4,7 @@ import styles from './style.module.css';
 import axios from 'axios';
 import * as Constants from '../constants';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const NewProduct = (props) => {
 
@@ -37,12 +38,14 @@ const NewProduct = (props) => {
             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3'].join(' ')}>
                 <h5 className={['mb-0', 'font-weight-bold'].join(' ')}>{mainTitle}</h5>
             </div>
-            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3', 'pointer'].join(' ')}>
-                <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>
-                <img src={Constants.baseUrl + '/assets/images/main_images/left_black_small.png'} style={{width: '18px', height: '18px'}} />
-            </div>
+            <Link href='/products'>
+                <a className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3', 'pointer'].join(' ')}>
+                    <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_black_small.png'} style={{width: '18px', height: '18px'}} />
+                </a>
+            </Link>
         </div>
-        <div className={['row','mt-2', 'mt-md-3'].join(' ')}>
+        <div className={['row','mt-2', 'mt-md-3', 'rtl'].join(' ')}>
             <div className={['w-100', 'd-flex', 'flex-row', 'rtl', 'px-2', 'p-md-0', 'align-items-stretch', styles.newProductContainer].join(' ')} style={{overflowX: 'scroll'}}>
                 {
                     products.map((product, counter) => {
@@ -53,10 +56,12 @@ const NewProduct = (props) => {
                 }
             </div>
         </div>
-        <div className={['pointer', 'd-none', 'w-100', 'align-items-center', 'justify-content-center', 'text-center', 'mt-2'].join(' ')} style={{borderRadius: '8px'}}>
-                <img src={Constants.baseUrl + '/assets/images/main_images/left_black_small.png'} style={{width: '18px', height: '18px'}} />
-                <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>
-        </div>
+        <Link href='/products'>
+            <a className={['pointer', 'w-100', 'd-none', 'd-md-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'text-center', 'mt-2'].join(' ')} style={{borderRadius: '8px'}}>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_black_small.png'} style={{width: '18px', height: '18px'}} />
+                    <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>
+            </a>
+        </Link>
         </React.Fragment>
     );
 }
