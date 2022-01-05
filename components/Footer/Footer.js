@@ -65,8 +65,8 @@ const Footer = () => {
                                         </div>
                                     </div>
                                     <p className={['mb-0', 'mt-2', styles.floatAlignedText].join(' ')} style={{fontSize: '15px'}}>تهران، بلوار مرزداران، جنب پل یادگار امام، خیابان ابراهیمی، برج الوند، واحد 303 (فروش حضوری نداریم)</p>
-                                    <Link href=''><p className={['mt-3', 'text-center', 'link', 'pointer', 'font-weight-bold', 'w-100', 'mb-0', 'd-md-none'].join(' ')}>راهنمای ثبت‌نام و خرید از وب‌سایت</p></Link>
-                                    <Link href=''><p className={['mt-1', 'text-center', 'link', 'pointer', 'font-weight-bold', 'w-100', 'mb-0', 'd-md-none'].join(' ')}>خدمات مشتریان هنری</p></Link>
+                                    <Link href='/buy_training'><a className={['mt-3', 'text-center', 'link', 'pointer', 'font-weight-bold', 'w-100', 'mb-0', 'd-block', 'd-md-none'].join(' ')} style={{fontSize: '14px'}}>راهنمای ثبت‌نام و خرید از وب‌سایت</a></Link>
+                                    <Link href='/shop'><a className={['mt-1', 'text-center', 'link', 'pointer', 'font-weight-bold', 'w-100', 'mb-0', 'd-block', 'd-md-none'].join(' ')} style={{fontSize: '14px'}}>محصولات جدید</a></Link>
                                 </div>
                                 <div className={['w-100', 'd-flex', 'flex-row', 'ltr', 'align-items-center', 'justify-content-center', 'justify-content-md-start', 'mt-3', 'mt-md-0'].join(' ')} style={{flex: '1'}}>
                                     <img src={Constants.baseUrl + '/assets/images/main_images/enamad.png'} style={{width: '70px', height: '70px'}} />
@@ -74,11 +74,11 @@ const Footer = () => {
                                 </div>
                             </div>
                             <div className={['d-none', 'd-md-flex', 'flex-row', 'rtl', 'mt-3'].join(' ')} style={{fontSize: '14px'}}>
-                                <a className={['link', 'px-1', 'font-weight-bold'].join(' ')} href=''>راهنمای ثبت‌نام و خرید از وبسایت</a>
+                                <Link href='/buy_training'><a className={['link', 'px-1', 'font-weight-bold'].join(' ')}>راهنمای ثبت‌نام و خرید از وبسایت</a></Link>
                                 |
-                                <a className={['link', 'px-1', 'font-weight-bold'].join(' ')} href=''>خدمات مشتریان هنری</a>
+                                <a href='https://docs.google.com/forms/d/e/1FAIpQLSeQlMv9Ou6VEhBsBuW8Da2TQD4osto8i_UxhCu-Xmsxl3vMTA/viewform' className={['link', 'px-1', 'font-weight-bold'].join(' ')} >همکاری در فروش</a>
                                 |
-                                <a className={['link', 'px-1', 'font-weight-bold'].join(' ')} href=''>درخواست کالای جدید</a>
+                                <Link href='/shop'><a className={['link', 'px-1', 'font-weight-bold'].join(' ')}>محصولات جدید</a></Link>
                             </div>
                         </div>
                     </div>

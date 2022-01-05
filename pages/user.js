@@ -77,28 +77,8 @@ const User = () => {
     }
     
     return(
-        <div className={['container', 'd-flex', 'align-items-center', 'justify-content-center'].join(' ')} style={{height: '100vh'}}>
-            <div className={['p-3', 'justify-content-center', 'd-flex', 'flex-column'].join(' ')} style={{width: '360px', borderRadius: '8px', border: '1px solid #dedede'}}>
-                <div className={['rtl', 'mt-3', 'd-flex', 'flex-row', 'justify-content-center'].join(' ')}>
-                    <img src="/assets/images/main_images/honari.png" className={['d-inline']} style={{width: '62px', height: '62px'}} />
-                    <div className={['d-flex', 'flex-column', 'text-right'].join(' ')}>
-                        <span className={['rtl', 'font-weight-bold', 'mb-0', 'mr-2', 'mt-1', 'text-right', 'h5'].join(' ')}>هنری</span>
-                        <span className={['text-right','mr-2', 'mb-1', 'mt-auto'].join(' ')} style={{fontSize: '14px'}}>تحقق رویای هنرمندانه تو</span>
-                    </div>
-                </div>
-                <div className={['d-flex', 'flex-column'].join(' ')}>
-                    <h5 className={['rtl', 'font-weight-bold', 'mb-2', 'mr-2', 'mt-5', 'text-right'].join(' ')}>ورود / ثبت‌نام</h5>
-                    <p className={['rtl', 'text-right', 'text-muted', 'mr-2', 'mt-2', 'text-right'].join(' ')} style={{fontSize: '13px'}}>شماره موبایل خود را وارد کنید</p>
-                    <input type="number" className={['form-control', 'text-right', 'rtl'].join(' ')} onChange={phoneInputChanged} />
-                    {
-                        invalidInput === true ?
-                            <p className={['text-danger', 'text-right', 'rtl', 'mt-3', 'mb-0', 'font-weight-bold'].join(' ')}>{errorMessage}</p>
-                        :
-                            null
-                    }
-                    <button className={['mt-3', 'text-center', 'text-white', 'py-2', 'font-weight-bold', 'mb-3', 'pointer', 'rtl'].join(' ')} style={{backgroundColor: '#00bac6', outline: 'none', outlineStyle: 'none', outlineOffset: 'none', border: 'none', borderRadius: '4px'}} onClick={submitButtonClicked}>{confirmButtonText}</button>
-                </div>
-            </div>
+        <div>
+            
         </div>
     );
 

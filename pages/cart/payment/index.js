@@ -392,6 +392,19 @@ const Payment = (props) => {
             </Head>
             <Header menu={props.ssrMenu} />
                 <img src={Constants.baseUrl + '/assets/images/main_images/secondStep.png'} style={{width: '100%'}} />
+                <div className={['container'].join(' ')}>
+                    <div className={['row'].join(' ')}>
+                        <div className={['col-12'].join(' ')}>
+                            <div className={['w-100'].join(' ')} style={{height: '1px', background: '#00BAC6'}}></div>
+                            <div className={['d-flex', 'flex-row', 'align-items-center'].join(' ')}>
+                                <div className={['d-flex', 'flex-column'].join(' ')}>
+
+                                </div>
+                                <img src={Constants.baseUrl + '/assets/images/main_images/circle_main.png'} style={{width: '20px', height: '20px'}} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {
                     props.reduxUser.status !== 'NI'
                     ?

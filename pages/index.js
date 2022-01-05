@@ -34,6 +34,100 @@ const Home = (props) => {
 
   const [sixNewProductsState, setSixNewProductsState] = useState([]);
 
+  /*useEffect(() => {
+    window.erxesSettings = {
+      messenger: {
+          brand_id: "2a4ghQ",
+          css: `
+          .welcome-info{
+              text-align: left;
+          }
+          .erxes-home-container .integration-box h4{
+              text-align: center;
+          }
+          .faq-item .erxes-right-side,.erxes-content .erxes-article-content h2 {
+              text-align: right;
+          }
+          .erxes-message-sender{
+              direction: rtl !important;
+          }
+          .erxes-message-sender textarea{
+              padding-left: 80px;
+              padding-right: 25px;
+          }
+          .erxes-message-sender .ctrl{
+              right: unset;
+              left: 15px;
+          }
+          .erxes-messenger {
+            left: 8px;
+            transform-origin: 0% 100%;
+          }
+        .erxes-launcher {
+            left: 8px;
+            right: auto;
+          }
+          @media screen and (max-width: 420px){
+              .erxes-messenger {
+                  left: 0;
+                  transform-origin: 0% 100%;
+              }
+          }
+        `,
+          email: props.ssrUser.status === 'LOGIN' ? props.ssrUser.information.email : '',
+          phone: props.ssrUser.status === 'LOGIN' ? props.ssrUser.information.username : '',
+          data: {
+              // avatar: 'https://cdn1.iconfinder.com/data/icons/female-avatars-vol-1/256/female-portrait-avatar-profile-woman-sexy-afro-2-512.png',
+              firstName: props.ssrUser.status === 'LOGIN' ? props.ssrUser.information.name : '',
+              // lastName: 'lastName1111',
+              // birthDate: new Date('2020-01-01'),
+              // sex: 1,
+              // emailValidationStatus: 'valid',
+              // phoneValidationStatus: 'valid',
+              state: "customer",
+              // position: 'position',
+              // department: 'department',
+              // leadStatus: 'working',
+              // hasAuthority: 'Yes',
+              // description: 'bio',
+              // doNotDisturb: 'Yes',
+              code: props.ssrUser.status === 'LOGIN' ? props.ssrUser.information.eui : '',
+              customFieldsData: [
+                  {field: "cDsQAxPHM7CZgM2Cy", value: ''},
+                  {field: "cP8WbyyZRmQRe7jx6", value: 0},
+                  {field: "KfGJQxfWrofDofXcX", value: 0},
+                  {field: "9qcL4ePyZG6bQe6tf", value: "1970-01-01"},
+                  {field: "eizk6dNh2qCnoXBsD", value: ''},
+                  {field: "bCM9yutCCD4Korrzs", value: 0},
+                  {field: "eygKaxWL7BvDBLYod", value: ''},
+                  {field: "85zuZbbJ7ZnNHxBdT", value: 0},
+                  {field: "5WTbRJ57qLKPitPsz", value: "1970-01-01"},
+                  {field: "8WDwWS8Ao6tgCkpCw", value: ''}
+              ]
+              //   'links.linkedIn': 'http://linkedin.com/test',
+              //   'links.twitter': 'http://twitter.com/test',
+              //   'links.facebook': 'http://facebook.com/test',
+              //   'links.github': 'http://github.com/test',
+              //   'links.youtube': 'http://youtube.com/test',
+              //   'links.website': 'http://website.com/test',
+  
+              //custom fields ===========
+  
+  
+              //  // createdAt is reserved field
+              //   updatePlan: new Date('2020-04-25'),
+              //   plan: 'paid',   
+          },
+      },
+    };
+    const script = document.createElement('script');
+    script.src = "https://crm.honari.com/widgets/build/messengerWidget.bundle.js";
+    script.async = true;
+  
+    const entry = document.getElementsByTagName('script')[0];
+    entry.parentNode.insertBefore(script, entry);
+  }, [props.ssrUser.status , 'NI']);*/
+
   useEffect(()=>{
     axios.get(Constants.apiUrl + '/api/top-three-home-banners').then((res)=>{
       let response = res.data;
@@ -199,6 +293,7 @@ const Home = (props) => {
     }
 }, []);
 
+
   return (
     <React.Fragment>
       <Head>
@@ -206,7 +301,7 @@ const Home = (props) => {
           <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
       </Head>
       <Header home={true} menu={props.ssrMenu} />
-      <div className={['container'].join(' ')}>
+      <div className={['container', 'ltr'].join(' ')}>
         <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pb-2', 'px-2', 'd-md-none'].join(' ')}>
             <button className={['px-3', 'pointer'].join(' ')} style={{height: '36px', borderRadius: '16px', background: '#EAEAEA', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دسته‌بندی محصولات</button>
             <button className={['px-3', 'pointer'].join(' ')} style={{height: '36px', borderRadius: '16px', background: '#EAEAEA', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دوره‌های آنلاین</button>
@@ -360,6 +455,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Home);
       )
     });
     let response = await res.json();
+    console.log(await response.information);
     if(await response.status === 'done' && await response.found === true){
         return {
             props: {
@@ -389,4 +485,3 @@ export default connect(mapStateToProps, mapDispatchToProps)(Home);
     };
   }
 }
-

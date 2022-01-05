@@ -676,10 +676,14 @@ function BigHeader(props){
                 props.reduxCart.information.length !== 0 ? (
                     <React.Fragment>
                         <div className={['row', 'mt-2', 'pr-3', 'pl-1'].join(' ')}>
-                            <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')} style={{background: '#B3FFFE', borderRadius: '4px'}}>
+                            <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'pr-0'].join(' ')} style={{background: '#B3FFFE', borderRadius: '4px', marginTop: '0.9rem', paddingLeft: '2.85rem'}}>
                                 <div style={{flex: getFreeDeliveryFlexNumber(), background: '#00BAC6', height: '14px', borderRadius: '4px'}}></div>
                             </div>
                             {getDeliveryPriceText()}
+                            <div className={['d-flex', 'flex-column', 'justify-content-center', 'p-2'].join(' ')} style={{background: '#00BAC6', borderRadius: '2.6rem', position: 'absolute', top: '0.3rem', left: '0.3rem'}}>
+                                <h6 className={['text-center', 'mb-1'].join(' ')} style={{color: 'white', fontSize: '0.6rem'}}>ارسال</h6>
+                                <h6 className={['text-center', 'mb-0'].join(' ')} style={{color: 'white', fontSize: '0.8rem'}}>رایگان</h6>
+                            </div>
                         </div>
                         <div className={['row'].join(' ')} style={{overflow: 'scroll', maxHeight: '250px'}}>
                             <div className={['col-12', 'mx-0', 'px-1'].join(' ')}>
@@ -767,10 +771,14 @@ function BigHeader(props){
                     <React.Fragment>
                         <div className={['container'].join(' ')}>
                             <div className={['row', 'mt-2', 'px-3'].join(' ')}>
-                                <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')} style={{background: '#B3FFFE', borderRadius: '4px'}}>
+                                <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'pr-0'].join(' ')} style={{background: '#B3FFFE', borderRadius: '4px', paddingLeft: '2.1rem'}}>
                                     <div style={{flex: getFreeDeliveryFlexNumber(), background: '#00BAC6', height: '14px', borderRadius: '4px'}}></div>
                                 </div>
                                 {getDeliveryPriceText()}
+                                <div className={['d-flex', 'flex-column', 'justify-content-center', 'p-2'].join(' ')} style={{background: '#00BAC6', borderRadius: '2.6rem', position: 'absolute', top: '1.6rem', left: '0.3rem'}}>
+                                    <h6 className={['text-center', 'mb-1'].join(' ')} style={{color: 'white', fontSize: '0.6rem'}}>ارسال</h6>
+                                    <h6 className={['text-center', 'mb-0'].join(' ')} style={{color: 'white', fontSize: '0.8rem'}}>رایگان</h6>
+                                </div>
                             </div>
                         </div>
                         <div className={['row'].join(' ')} style={{overflow: 'scroll', maxHeight: '250px'}}>
@@ -831,8 +839,10 @@ function BigHeader(props){
                                 <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString()}</p>
                             )
                             }
-                            <Link href='/cart/shoppingCart' ><a onClick={() => {props.reduxStartLoading()}} className={['col-12', 'py-1', 'text-center', 'mb-1', 'mt-2'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: '#00BAC6', border: 'none', borderRadius: '2px', outline: 'none'}}>تکمیل فرآیند خرید</a></Link>
-                            <button onClick={toggleCartDrawer('left', false)} className={['col-12', 'py-1', 'text-center', 'mb-1', 'mt-2', 'pointer'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: 'white', border: 'none', borderRadius: '2px', outline: 'none', color: 'red', borderRadius: '2px', border: '1px solid red'}}>بستن</button>
+                            <div className={['col-12', 'd-flex', 'flex-column', 'px-2'].join(' ')} style={{position: 'absolute', bottom: '0', left: '0'}}>
+                                <Link href='/cart/shoppingCart' ><a onClick={() => {props.reduxStartLoading()}} className={['col-12', 'py-1', 'text-center', 'mb-1', 'mt-2'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: '#00BAC6', border: 'none', borderRadius: '2px', outline: 'none'}}>تکمیل فرآیند خرید</a></Link>
+                                <button onClick={toggleCartDrawer('left', false)} className={['col-12', 'py-1', 'text-center', 'mb-1', 'mt-2', 'pointer'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: 'white', border: 'none', borderRadius: '2px', outline: 'none', color: 'red', borderRadius: '2px', border: '1px solid red'}}>بستن</button>
+                            </div>
                         </div> 
                     </React.Fragment>
                 )
@@ -997,7 +1007,7 @@ function BigHeader(props){
 
     const desktopMenu = (
         <div className={['container-fluid', 'mx-0', 'px-0', 'd-flex', 'flex-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{position: 'fixed', zIndex: '500'}}>
-            <div className={['container', 'px-2'].join(' ')} >
+            <div className={['container', 'px-2'].join(' ')} style={{filter: 'drop-shadow(0px 0px 7px rgba(156, 156, 156, 0.56))'}} >
                 <div style={{borderRadius: '0 0 6px 6px', backgroundColor: '#F7F7F7', width: '100%'}} onMouseEnter={()=>{setHover({status: true, number: hover.number, title: hover.title})}} onMouseLeave={()=>{setHover({status: false, number: hover.number, title: ''})}}>
                 {
                     getSubMenus(hover.number)
@@ -1098,7 +1108,7 @@ function BigHeader(props){
                             if(item.fields !== null){
                                 return(
                                     <Link key={index} href={item.fields.product_url}>
-                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-2'].join(' ')} style={{borderRadius: '2px', border: 'border: 1px solid rgba(216, 216, 216, 0.15)', borderRadius: '3px', fill: 'filter: drop-shadow(0px 0px 7px rgba(156, 156, 156, 0.56))'}}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-2'].join(' ')} style={{borderRadius: '2px', border: 'border: 1px solid rgba(216, 216, 216, 0.15)', borderRadius: '3px', filter: 'drop-shadow(0px 0px 7px rgba(156, 156, 156, 0.56))'}}>
                                             <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
@@ -1319,7 +1329,7 @@ function BigHeader(props){
                     <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'd-md-none', 'p-2', 'mt-1'].join(' ')}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/menu_black_small.png'} style={{width: '27px', height: '27px'}} onClick={toggleDrawer('right', true)} />
                         <img src={Constants.baseUrl + '/assets/images/main_images/honari.png'} style={{width: '40px', height: '40px'}} />
-                        <img src={Constants.baseUrl + '/assets/images/main_images/headphone.png'} style={{width: '27px', height: '27px'}}/>
+                        <img className={['erxes-launcher'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/headphone.png'} style={{width: '27px', height: '27px'}}/>
                     </div>
                     <div className={['row', 'mt-2', 'd-md-none'].join(' ')} style={{height: '1px', background: '#C4C4C4'}}></div>
                     </React.Fragment>

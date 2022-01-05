@@ -467,6 +467,33 @@ const ProductInsight = (props) =>{
         setVideoFullscreenDisplay('d-flex');
     }
 
+    const setReminderButtonClicked = () => {
+        if(props.reduxUser.status === 'GUEST' || props.reduxUser.status === 'NI'){
+            alert('برای ایجاد یادآور، ابتدا باید وارد حساب کاربری خود شوید');
+            return;
+        }
+        if(props.reduxUser.status === 'LOGIN'){
+            axios.post(Constants.apiUrl + "/api/user-set-product-reminder", {
+                productId: props.id,
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + cookies.user_server_token, 
+                }
+            }).then((r) => {
+                let response = r.data;
+                if(response.status === 'done'){
+                    props.reduxUpdateSnackbar('success', true, response.umessage);
+                }else if(response.status === 'failed'){
+                    console.warn(response.message);
+                    props.reduxUpdateSnackbar('warning', true, response.umessage);
+                }
+            }).catch((e) => {
+                console.error(e);
+                props.reduxUpdateSnackbar('error', true, 'خطا در اتصال به اینترنت');
+            });
+        }
+    }
+
     return(
         <React.Fragment>
             <div className={[videoFullscreenDisplay, 'flex-row', 'align-items-center', 'justify-content-center'].join(' ')} style={{width: '100%', height: '100%', position: 'fixed', top: '0px', left: '0px', background: 'black', zIndex: '99999'}}>
@@ -557,13 +584,13 @@ const ProductInsight = (props) =>{
                                 <React.Fragment>
                                 <div className={['mt-3', 'mt-md-2'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
                                 <h6 className={['w-100', 'mb-1', 'text-right', 'mt-4'].join(' ')} style={{fontSize: '18px'}}>انتخاب نوع بسته</h6>
-                                <div className={['d-flex', 'flex-row', 'align-items-center', 'px-1'].join(' ')} style={{border: '1px solid #C4C4C4', borderRadius: '4px'}}>
+                                <div className={['d-flex', 'flex-row', 'row', 'align-items-center', 'px-1'].join(' ')} style={{border: '1px solid #C4C4C4', borderRadius: '4px'}}>
                                     <input type='radio' className={['form-control'].join(' ')} checked={true} style={{width: '16px'}} value='سلام' />
-                                    <label className={['mb-0', 'mr-1'].join(' ')}>{productInformation.productLabel}</label>
+                                    <label className={['mb-0', 'mr-1', 'text-right', 'rtl'].join(' ')}>{productInformation.productLabel}</label>
                                     {
                                         productInformation.productBasePrice !== undefined
                                         ?
-                                        <label className={['mb-0', 'text-danger', 'mr-1'].join(' ')}>{'( هر واحد ' + productInformation.productBasePrice.toLocaleString() + ' تومان )'}</label>
+                                        <label className={['mb-0', 'text-danger', 'mr-1', 'text-right', 'rtl'].join(' ')}>{'( هر واحد ' + productInformation.productBasePrice.toLocaleString() + ' تومان )'}</label>
                                         :
                                         null
                                     }
@@ -648,7 +675,7 @@ const ProductInsight = (props) =>{
                                         <div className={['rtl', 'text-right'].join(' ')}>
                                             <div className={['mt-3', 'mt-md-2'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
                                             <span className={['py-3', 'px-4', 'mt-2', 'd-inline-block'].join(' ')} style={{backgroundColor: '#8c8c8c', color: 'white', borderRadius: '4px'}}>موجود نیست</span>
-                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'mt-3', 'd-none'].join(' ')}>
+                                            <div onClick={setReminderButtonClicked} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'mt-3', 'd-none', 'pointer'].join(' ')}>
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/bell_red.png'} style={{width: '24px', height: '24px'}} />
                                                 <span className={['mr-1', 'pointer'].join(' ')} style={{color: '#00bac6'}}>درصورت موجود شدن به من اطلاع دهید</span>
                                             </div>
@@ -697,15 +724,15 @@ const ProductInsight = (props) =>{
             </div>
             <div className={['container-fluid', 'mt-0', 'mt-md-4'].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
                 <div className={['container', 'rtl'].join(' ')}>
-                    <div className={['row', 'py-4', 'py-md-5'].join(' ')}>
-                        <div className={['col-12', 'col-md-5', 'pl-1', 'px-0', 'px-md-3'].join(' ')}>
+                    <div className={['row', 'py-4', 'py-md-5', 'ltr'].join(' ')}>
+                        <div className={['col-12', 'col-md-5', 'pl-1', 'px-0', 'px-md-3', 'rtl'].join(' ')}>
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'mb-2'].join(' ')}>
                                 <img src={Constants.baseUrl + '/assets/images/main_images/paragraph_black.png'} style={{width: '16px', height: '16px'}} />
                                 <h6 className={['mb-0', 'mr-2', 'font-weight-bold'].join(' ')}>توضیحات محصول</h6>
                             </div>
                             <div className={['mb-0', 'rtl', 'text-right', styles.infoContainer].join(' ')} style={{maxHeight: '250px', overflowY: 'scroll', scrollbarWidth: 'thin'}}>{parse(props.description)}</div>
                         </div>
-                        <div className={['col-12', 'col-md-7', 'px-0', 'px-md-3', 'mt-3', 'mt-md-0'].join(' ')} >
+                        <div className={['col-12', 'col-md-7', 'px-0', 'px-md-3', 'mt-3', 'mt-md-0', 'rtl'].join(' ')} >
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'mb-2'].join(' ')}>
                                 <img src={Constants.baseUrl + '/assets/images/main_images/clipboard_black.png'} style={{width: '16px', height: '16px'}} />
                                 <h6 className={['mb-0', 'mr-2', 'font-weight-bold'].join(' ')}>مشخصات محصول</h6>
