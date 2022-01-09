@@ -44,6 +44,7 @@ const CategoryInsight = (props) => {
             return;
         }
         setState({ bottom: open });
+        setVisibleFilterGroupId(-1);
     };
 
     useEffect(() => {
@@ -239,10 +240,13 @@ const CategoryInsight = (props) => {
                     props.reduxUpdateCategoryFilterResults([]);
                     props.reduxUpdateCategoryFilterPage(1);
                 }*/
+                if(response.products.length === 0){
+                    props.reduxUpdateSnackbar('warning', true, 'موردی یافت نشد');
+                }
                 
             }else if(response.status === 'failed'){
                 console.warn(response.message);
-                props.reduxUpdateSnackbar('warning', true, response.umessage);
+                props.reduxUpdateSnackbar('warning', true, 'موردی یافت نشد');
             }
         }).catch((error)=>{
             console.error(error);
@@ -485,16 +489,32 @@ const CategoryInsight = (props) => {
                         })
                     }
                 </div>
-                <div className={['d-flex', 'flex-column', 'd-md-none', 'align-items-center', 'justify-content-center', 'rtl'].join(' ')}>
+                <div className={['d-flex', 'flex-column', 'd-md-none', 'align-items-center', 'justify-content-center', 'rtl', 'text-right'].join(' ')}>
                     <h6 className={['mb-0', 'text-right'].join(' ')} style={{width: '100%'}}>{props.name}</h6>
                     <div className={['d-flex', 'flex-row', 'rtl', 'py-2', 'px-3', 'mt-3', 'align-items-center', 'justify-content-center', 'w-100', 'pointer'].join(' ')} onClick={filterDrawer('bottom', true)} style={{color: '#00bac6', borderRadius: '4px', border: '2px solid #00bac6'}}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/filter_main.png'} style={{width: '17px', height: '17px'}} />
                         <span className={['mr-2', 'font-weight-bold'].join(' ')} style={{color: '#00bac6', fontSize: '14px'}}>فیلترها</span> 
+                        {
+                            props.reduxCategoryFilter.options.length !== 0
+                            ?
+                            <span className={['bg-danger', 'px-2', 'mr-1'].join(' ')} style={{color: 'white', borderRadius: '9px', fontSize: '11px'}}>{props.reduxCategoryFilter.options.length}</span>
+                            :
+                            null
+                        }
                     </div>
                 </div>
                 <div className={['row', 'rtl', 'mt-2'].join(' ')}>
                     <div className={['d-none', 'd-md-block', 'mr-2', 'ml-2'].join(' ')} style={{flex: '1'}}>
-                        <h1 className={['text-right', 'mb-3'].join(' ')} style={{fontSize: '26px', fontWeight: 'bold'}}>{categoryName}</h1>
+                        <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right'].join(' ')}>
+                        <h2 className={['text-right', 'mb-3'].join(' ')} style={{fontSize: '26px', fontWeight: 'bold'}}>{props.name}</h2>
+                        {
+                            props.reduxCategoryFilter.options.length !== 0
+                            ?
+                            <h6 className={['py-1', 'px-2', 'mr-2', 'mb-3', 'bg-danger'].join(' ')} style={{borderRadius: '9px', color: 'white', fontSize: '12px'}}>{props.reduxCategoryFilter.options.length}</h6>
+                            :
+                            null
+                        }
+                        </div>
                         <div className={['rtl'].join(' ')} style={{borderRadius: '4px'}}>
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'p-3'].join(' ')}>
                                 <img src={Constants.baseUrl + '/assets/images/main_images/filter_black.png'} style={{width: '13px'}} />
@@ -573,7 +593,6 @@ const CategoryInsight = (props) => {
                                     <span className={['d-flex', 'flex-row'].join(' ')}>
                                     {
                                         addedFilters.map((f, index)=>{
-                                                console.log(addedFilters);
                                                 return(
                                                     <div key={index} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'ml-2', 'p-1'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede', backgroundColor: '#f2f2f2'}}>
                                                         <img src="/assets/images/main_images/cross_gray_small.png" style={{width: '14px'}} onClick={()=>{deleteFilter(index)}} />

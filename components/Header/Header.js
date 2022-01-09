@@ -56,6 +56,9 @@ function BigHeader(props){
     const [showSearchResults, setShowSearchResults] = useState(false);
     const [showUserPofileSummary, setShowUserProfileSummery] = useState(false);
     const [windowHeight, setWindowHeight] = useState(undefined);
+    const [dsw, setDsw] = useState("300px");
+    const [shouldDesktopSearchBarBeOpen, setShouldDesktopSearchBarBeOpen] = useState(false);
+    const [phoneSearchInput, setPhoneSearchInput] = useState('');
     
 
     useEffect(() => {
@@ -665,7 +668,7 @@ function BigHeader(props){
             return(
                 <p className={['col-12', 'mb-0', 'text-right', 'mt-1', 'px-0'].join(' ')} style={{fontSize: '12px'}}>تنها{
                     <span style={{color: '#00BAC6', paddingRight: '3px', paddingLeft: '3px'}}>{(200000 - sumOfCartPrices()).toLocaleString()}</span>
-                }تومان تا ارسال رایگان</p>
+                }تومان تا ارسال <span style={{color: '#00BAC6'}}>رایگان</span></p>
             );
         }
     }
@@ -680,18 +683,19 @@ function BigHeader(props){
                                 <div style={{flex: getFreeDeliveryFlexNumber(), background: '#00BAC6', height: '14px', borderRadius: '4px'}}></div>
                             </div>
                             {getDeliveryPriceText()}
-                            <div className={['d-flex', 'flex-column', 'justify-content-center', 'p-2'].join(' ')} style={{background: '#00BAC6', borderRadius: '2.6rem', position: 'absolute', top: '0.3rem', left: '0.3rem'}}>
-                                <h6 className={['text-center', 'mb-1'].join(' ')} style={{color: 'white', fontSize: '0.6rem'}}>ارسال</h6>
-                                <h6 className={['text-center', 'mb-0'].join(' ')} style={{color: 'white', fontSize: '0.8rem'}}>رایگان</h6>
+                            <div className={['d-flex', 'flex-column', 'justify-content-center', 'p-2'].join(' ')} style={{background: sumOfCartPrices() >= 200000 ? "#00BAC6" : 'rgb(179,255,254)', borderRadius: '2.6rem', position: 'absolute', top: '0.3rem', left: '0.3rem'}}>
+                                <h6 className={['text-center', 'mb-1'].join(' ')} style={{color: sumOfCartPrices() >= 200000 ? 'white': '#00BAC6', fontSize: '0.6rem'}}>ارسال</h6>
+                                <h6 className={['text-center', 'mb-0'].join(' ')} style={{color: sumOfCartPrices() >= 200000 ? 'white': '#00BAC6', fontSize: '0.8rem'}}>رایگان</h6>
                             </div>
+                            <h6 className={['text-left', 'rtl'].join(' ')} style={{color: '#00BAC6', fontSize: '12px'}}>{props.reduxCart.information.length + " مورد در سبد خرید"}</h6>
                         </div>
-                        <div className={['row'].join(' ')} style={{overflow: 'scroll', maxHeight: '250px'}}>
+                        <div className={['row'].join(' ')} style={{overflowY: 'scroll', overflowX: 'hidden', maxHeight: '250px'}}>
                             <div className={['col-12', 'mx-0', 'px-1'].join(' ')}>
                                 {
                                     props.reduxCart.information.map((item, counter) => {
                                         return(
                                             <div key={counter} className={['rtl', 'd-flex', 'flex-row', 'py-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                                                <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '60px', height: '60px', borderRadius: '2px'}} />
+                                                <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '70px', height: '70px', borderRadius: '2px'}} />
                                                 <div className={['d-flex', 'flex-column'].join(' ')} style={{flex: '1'}}>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
                                                         <img src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '16px', height: '16px'}} onClick={() => {removeProductFromCart(counter)}} />
@@ -700,7 +704,7 @@ function BigHeader(props){
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between', 'align-items-center'].join(' ')} style={{marginTop: 'auto'}}>
                                                         <div className={['d-flex', 'flex-row', 'ltr', 'align-items-center'].join(' ')}>
                                                             <img src={Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png'} style={{width: '18px', height: '18px'}} onClick={() => {decreaseProductCountByOne(counter)}}/>
-                                                            <span className={['px-1', 'mb-0'].join(' ')} style={{fontSize: '16px', color: '#444444'}}>{item.count}</span>
+                                                            <span className={['px-2', 'mb-0', 'mx-1'].join(' ')} style={{fontSize: '16px', color: '#444444'}}>{item.count}</span>
                                                             <img src={Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png'} style={{width: '18px', height: '18px'}} onClick={() => {increaseProductCountByOne(counter)}}/>
                                                         </div>
                                                         <div className={['d-flex', 'flex-row', 'text-right', 'rtl'].join(' ')} style={{flex: '1'}}>
@@ -762,7 +766,7 @@ function BigHeader(props){
     const phoneCartLayout = (
         <div style={{width: windowWidth, overflowX: 'hidden'}}>
             <div className={['d-flex', 'flex-row', 'text-right', 'justify-content-right', 'align-items-center', 'rtl', 'px-3', 'pt-2', 'pb-1'].join(' ')} style={{position: 'sticky'}}>
-                <img src={Constants.baseUrl + '/assets/images/main_images/cross_red.png'} style={{width: '22px', height: '22px'}} onClick={toggleCartDrawer('left', false)} />
+                <img src={Constants.baseUrl + '/assets/images/main_images/close_gray_small.png'} style={{width: '22px', height: '22px'}} onClick={toggleCartDrawer('left', false)} />
             </div>
             {
                 props.reduxCart.information.length !== 0
@@ -775,29 +779,30 @@ function BigHeader(props){
                                     <div style={{flex: getFreeDeliveryFlexNumber(), background: '#00BAC6', height: '14px', borderRadius: '4px'}}></div>
                                 </div>
                                 {getDeliveryPriceText()}
-                                <div className={['d-flex', 'flex-column', 'justify-content-center', 'p-2'].join(' ')} style={{background: '#00BAC6', borderRadius: '2.6rem', position: 'absolute', top: '1.6rem', left: '0.3rem'}}>
-                                    <h6 className={['text-center', 'mb-1'].join(' ')} style={{color: 'white', fontSize: '0.6rem'}}>ارسال</h6>
-                                    <h6 className={['text-center', 'mb-0'].join(' ')} style={{color: 'white', fontSize: '0.8rem'}}>رایگان</h6>
+                                <div className={['d-flex', 'flex-column', 'justify-content-center', 'p-2'].join(' ')} style={{background: sumOfCartPrices() >= 200000 ? "#00BAC6" : 'rgb(179,255,254)', borderRadius: '2.6rem', position: 'relative', top: '-3.3rem', left: '-0.3rem'}}>
+                                    <h6 className={['text-center', 'mb-1'].join(' ')} style={{color: sumOfCartPrices() >= 200000 ? 'white': '#00BAC6', fontSize: '0.6rem'}}>ارسال</h6>
+                                    <h6 className={['text-center', 'mb-0'].join(' ')} style={{color: sumOfCartPrices() >= 200000 ? 'white': '#00BAC6', fontSize: '0.8rem'}}>رایگان</h6>
                                 </div>
+                                <h6 className={['text-left', 'rtl', 'mb-0', 'pb-0'].join(' ')} style={{color: '#00BAC6', fontSize: '12px', position: 'relative', left: '-3.1rem'}}>{props.reduxCart.information.length + " مورد در سبد خرید"}</h6>
                             </div>
                         </div>
-                        <div className={['row'].join(' ')} style={{overflow: 'scroll', maxHeight: '250px'}}>
+                        <div className={['row'].join(' ')} style={{overflowY: 'scroll', overflowX: 'hidden', marginBottom: '5rem'}}>
                             <div className={['col-12', 'pr-3', 'pl-4'].join(' ')}>
                                 {
                                     props.reduxCart.information.map((item, counter) => {
                                         return(
                                             <div key={counter} className={['rtl', 'd-flex', 'flex-row', 'py-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                                                <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '60px', height: '60px', borderRadius: '2px'}} />
+                                                <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '70px', height: '70px', borderRadius: '2px'}} />
                                                 <div className={['d-flex', 'flex-column', 'pl-1'].join(' ')} style={{flex: '1'}}>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
-                                                        <img src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '16px', height: '16px'}} onClick={() => {removeProductFromCart(counter)}} />
-                                                        <Link href={"/" + item.url}><a className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '14px', color: "#444444", flex: '1'}}>{item.name}</a></Link>
+                                                        <img src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '20px', height: '20px'}} onClick={() => {removeProductFromCart(counter)}} />
+                                                        <Link href={"/" + item.url}><a className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '16px', color: "#444444", flex: '1'}}>{item.name}</a></Link>
                                                     </div>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between', 'align-items-center'].join(' ')} style={{marginTop: 'auto'}}>
                                                         <div className={['d-flex', 'flex-row', 'ltr', 'align-items-center'].join(' ')}>
-                                                            <img src={Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png'} style={{width: '18px', height: '18px'}} onClick={() => {decreaseProductCountByOne(counter)}}/>
-                                                            <span className={['px-1', 'mb-0'].join(' ')} style={{fontSize: '16px', color: '#444444'}}>{item.count}</span>
-                                                            <img src={Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png'} style={{width: '18px', height: '18px'}} onClick={() => {increaseProductCountByOne(counter)}}/>
+                                                            <img src={Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png'} style={{width: '20px', height: '20px'}} onClick={() => {decreaseProductCountByOne(counter)}}/>
+                                                            <span className={['px-2', 'mb-0', 'mx-1'].join(' ')} style={{fontSize: '16px', color: '#444444'}}>{item.count}</span>
+                                                            <img src={Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png'} style={{width: '20px', height: '20px'}} onClick={() => {increaseProductCountByOne(counter)}}/>
                                                         </div>
                                                         <div className={['d-flex', 'flex-row', 'text-right', 'rtl'].join(' ')} style={{flex: '1'}}>
                                                             {
@@ -805,13 +810,13 @@ function BigHeader(props){
                                                                 ?
                                                                 (
                                                                     <React.Fragment>
-                                                                        <p className={['mb-0', 'rtl', 'mr-1', 'rtl'].join(' ')} style={{fontSize: '13px', color: '#444444'}}><del className={['px-1'].join(' ')} style={{color: 'gray'}}>{(item.price * item.count).toLocaleString()}</del></p>
-                                                                        <p className={['mb-0', 'rtl', 'mr-1', 'rtl'].join(' ')} style={{fontSize: '13px', color: '#00BAC6'}}>{(item.discountedPrice * item.count).toLocaleString() + " تومان"}</p>
+                                                                        <p className={['mb-0', 'rtl', 'mr-1', 'rtl'].join(' ')} style={{fontSize: '15px', color: '#444444'}}><del className={['px-1'].join(' ')} style={{color: 'gray'}}>{(item.price * item.count).toLocaleString()}</del></p>
+                                                                        <p className={['mb-0', 'rtl', 'mr-1', 'rtl'].join(' ')} style={{fontSize: '15px', color: '#00BAC6'}}>{(item.discountedPrice * item.count).toLocaleString() + " تومان"}</p>
                                                                     </React.Fragment>
                                                                 )
                                                                 :
                                                                 (
-                                                                    <p className={['mb-0', 'rtl', 'mr-1'].join(' ')} style={{fontSize: '13px', color: '#444444'}}>{(item.price * item.count).toLocaleString() + " تومان"}</p>
+                                                                    <p className={['mb-0', 'rtl', 'mr-1'].join(' ')} style={{fontSize: '15px', color: '#444444'}}>{(item.price * item.count).toLocaleString() + " تومان"}</p>
                                                                 )
                                                             }
                                                         </div>
@@ -839,8 +844,8 @@ function BigHeader(props){
                                 <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString()}</p>
                             )
                             }
-                            <div className={['col-12', 'd-flex', 'flex-column', 'px-2'].join(' ')} style={{position: 'absolute', bottom: '0', left: '0'}}>
-                                <Link href='/cart/shoppingCart' ><a onClick={() => {props.reduxStartLoading()}} className={['col-12', 'py-1', 'text-center', 'mb-1', 'mt-2'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: '#00BAC6', border: 'none', borderRadius: '2px', outline: 'none'}}>تکمیل فرآیند خرید</a></Link>
+                            <div className={['col-12', 'd-flex', 'flex-column', 'px-2'].join(' ')} style={{position: 'absolute', bottom: '0', left: '0', background: 'white'}}>
+                                <Link href='/cart/shoppingCart' ><a onClick={() => {props.reduxStartLoading()}} className={['col-12', 'py-2', 'text-center', 'mb-1', 'mt-2'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: '#00BAC6', border: 'none', borderRadius: '2px', outline: 'none'}}>تکمیل فرآیند خرید</a></Link>
                                 <button onClick={toggleCartDrawer('left', false)} className={['col-12', 'py-1', 'text-center', 'mb-1', 'mt-2', 'pointer'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: 'white', border: 'none', borderRadius: '2px', outline: 'none', color: 'red', borderRadius: '2px', border: '1px solid red'}}>بستن</button>
                             </div>
                         </div> 
@@ -1006,8 +1011,8 @@ function BigHeader(props){
     }
 
     const desktopMenu = (
-        <div className={['container-fluid', 'mx-0', 'px-0', 'd-flex', 'flex-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{position: 'fixed', zIndex: '500'}}>
-            <div className={['container', 'px-2'].join(' ')} style={{filter: 'drop-shadow(0px 0px 7px rgba(156, 156, 156, 0.56))'}} >
+        <div className={['container-fluid', 'mx-0', 'px-0', 'd-flex', 'flex-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{position: 'fixed', zIndex: '400'}}>
+            <div className={['container', 'px-2'].join(' ')} >
                 <div style={{borderRadius: '0 0 6px 6px', backgroundColor: '#F7F7F7', width: '100%'}} onMouseEnter={()=>{setHover({status: true, number: hover.number, title: hover.title})}} onMouseLeave={()=>{setHover({status: false, number: hover.number, title: ''})}}>
                 {
                     getSubMenus(hover.number)
@@ -1019,6 +1024,7 @@ function BigHeader(props){
 
     const getSearchResults = (event) => {
         let input= event.target.value;
+        setPhoneSearchInput(input);
         axios.post(Constants.apiUrl + '/api/search-autocomplete', {
             input: input,
         }).then((res) => {
@@ -1031,6 +1037,9 @@ function BigHeader(props){
                         setClassSearchResults(r.autoComplete);
                     }
                 });
+                if(response.result[0].autoComplete.length === 0 && response.result[1].autoComplete.length === 0){
+                    props.reduxUpdateSnackbar('warning', true, 'موردی یافت نشد');
+                }
                 //setSearchResults(response.result[0].autoComplete);
                 //setClassSearchResults(response.result[1].autoComplete);
                 setShowSearchResults(true);
@@ -1069,10 +1078,10 @@ function BigHeader(props){
             return (
                 <div className={['d-flex', 'flex-column'].join(' ')} style={{background: 'white', display: 'flex', position: 'absolute', top: '3.3rem', minWidth: '330px', width: desktopSearchBarWidth, zIndex: '999999999', borderRadius: '2px'}}>
                     <div className={['d-flex', 'flex-row', 'ltr', 'text-left', 'justify-content-left', 'pt-2', 'px-2'].join(' ')}>
-                        <img src={Constants.baseUrl + '/assets/images/main_images/close_gray_small.png'} className={['pointer'].join(' ')} style={{width: '17px', heigth: '17px'}} onClick={() => {setShowSearchResults(false)}} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/close_gray_small.png'} className={['pointer'].join(' ')} style={{width: '17px', heigth: '17px'}} onClick={() => {setShowSearchResults(false); setShouldDesktopSearchBarBeOpen(false); setDsw('300px');}} />
                     </div>
                     <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'px-2', 'pt-2'].join(' ')}>
-                        <h5 className={['mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در دسته‌ها</b></h5>
+                        <h5 className={['mb-0', 'pb-2'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در دسته‌ها</b></h5>
                         <h6 className={['mb-0', 'pointer'].join(' ')} style={{fontSize: '12px', color: '#00BAC6'}} onClick={()=>{setMoreSearchCategoriesClass('d-flex')}}>{moreSearchCategoriesClass === 'd-none' ? "مشاهده همه" : ''}</h6>
                     </div>
                     {
@@ -1100,16 +1109,16 @@ function BigHeader(props){
                             }
                         })
                     }
-                    <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#949494', height: '1px'}}></div>
-                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-0', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در محصولات</b></h6>
-                    <div className={['d-flex', 'flex-column'].join(' ')} style={{maxHeight: '100px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8'}}>
+                    <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#DEDEDE', height: '1px'}}></div>
+                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-2', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در محصولات</b></h6>
+                    <div className={['d-flex', 'flex-column'].join(' ')} style={{maxHeight: '200px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8'}}>
                     {
                         searchResults.map((item, index) => {
                             if(item.fields !== null){
                                 return(
                                     <Link key={index} href={item.fields.product_url}>
-                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-2'].join(' ')} style={{borderRadius: '2px', border: 'border: 1px solid rgba(216, 216, 216, 0.15)', borderRadius: '3px', filter: 'drop-shadow(0px 0px 7px rgba(156, 156, 156, 0.56))'}}>
-                                            <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.1), 0 1px 10px 0 rgba(0, 0, 0, 0.19)'}}>
+                                            <img src={item.fields.product_image} style={{width: '46px', height: '46px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
                                                 {
@@ -1127,16 +1136,16 @@ function BigHeader(props){
                         })
                     }
                     </div>
-                    <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#949494', height: '1px'}}></div>
-                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-0', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>آموزش‌ها و کلاس‌ها</b></h6>
-                    <div className={['d-flex', 'flex-column', 'pb-2'].join(' ')} style={{maxHeight: '100px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8'}}>
+                    <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#DEDEDE', height: '1px'}}></div>
+                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-2', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>آموزش‌ها و کلاس‌ها</b></h6>
+                    <div className={['d-flex', 'flex-column', 'pb-2'].join(' ')} style={{maxHeight: '200px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8'}}>
                     {
                         classSearchResults.map((item, index) => {
                             if(item.fields !== null){
                                 return(
                                     <Link key={index} href={item.fields.url}>
-                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-2'].join(' ')} style={{borderRadius: '2px', border: 'border: 1px solid rgba(216, 216, 216, 0.15)', borderRadius: '3px', fill: 'filter: drop-shadow(0px 0px 7px rgba(156, 156, 156, 0.56))'}}>
-                                            <img src={item.fields.image_url} style={{width: '36px', height: '36px'}} />
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.1), 0 1px 10px 0 rgba(0, 0, 0, 0.19)'}}>
+                                            <img src={item.fields.image_url} style={{width: '46px', height: '46px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.name}</h6>
                                                 {/*
@@ -1164,7 +1173,7 @@ function BigHeader(props){
     const phoneSearchResults = () => {
         if(searchResults.length !== 0 && showSearchResults){
             return (
-                <div className={['d-md-none', 'w-100'].join(' ')} style={{background: 'white', width: '100%', height: windowHeight + 'px', position: 'relative', top: '0.5rem', left: '0', zIndex: '1000'}}>
+                <div className={['d-md-none', 'w-100'].join(' ')} style={{background: 'white', width: '100%', height: windowHeight + 'px', position: 'relative', top: '0.5rem', left: '0', zIndex: '1000', overflowY: 'scroll', overflowX: 'hidden'}}>
                     <div className={['d-flex', 'flex-row', 'ltr', 'text-left', 'justify-content-left', 'pt-2', 'px-2'].join(' ')}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/close_gray_small.png'} className={['pointer'].join(' ')} style={{width: '17px', heigth: '17px'}} onClick={() => {setShowSearchResults(false)}} />
                     </div>
@@ -1197,15 +1206,15 @@ function BigHeader(props){
                             }
                         })
                     }
-                    <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#949494', height: '1px'}}></div>
-                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-0', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در محصولات</b></h6>
-                    <div className={['d-flex', 'flex-column'].join(' ')} style={{maxHeight: '100px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8'}}>
+                    <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#DEDEDE', height: '1px'}}></div>
+                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-0', 'mb-2'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در محصولات</b></h6>
+                    <div className={['d-flex', 'flex-column'].join(' ')} style={{ maxHeight: '200px', overflowY: 'scroll', overflowX: 'hidden', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8' }}>
                     {
                         searchResults.map((item, index) => {
                             if(item.fields !== null){
                                 return(
                                     <Link key={index} href={item.fields.product_url}>
-                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-1'].join(' ')}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.1), 0 1px 10px 0 rgba(0, 0, 0, 0.19)'}}>
                                             <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2', 'text-right'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
@@ -1224,15 +1233,15 @@ function BigHeader(props){
                         })
                     }
                     </div>
-                    <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#949494', height: '1px'}}></div>
-                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-0', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>آموزش‌ها و کلاس‌ها</b></h6>
-                    <div className={['d-flex', 'flex-column', 'pb-2'].join(' ')} style={{maxHeight: '100px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8'}}>
+                    <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#DEDEDE', height: '1px'}}></div>
+                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-0', 'mb-2'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>آموزش‌ها و کلاس‌ها</b></h6>
+                    <div className={['d-flex', 'flex-column', 'pb-2'].join(' ')} style={{maxHeight: '200px', overflowY: 'scroll', overflowX: 'hidden', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8'}}>
                     {
                         classSearchResults.map((item, index) => {
                             if(item.fields !== null){
                                 return(
                                     <Link key={index} href={item.fields.url}>
-                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-2', 'mt-1'].join(' ')}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.1), 0 1px 10px 0 rgba(0, 0, 0, 0.19)'}}>
                                             <img src={item.fields.image_url} style={{width: '36px', height: '36px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2', 'text-right'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.name}</h6>
@@ -1337,19 +1346,19 @@ function BigHeader(props){
                     null
                 }
                 <div className={['row', 'pt-2', 'mb-0', 'pb-2', 'px-1'].join(' ')} style={{direction: 'rtl'}}>
-                    <div className={['col-3', 'col-lg-7', 'rtl', 'text-right', 'd-flex', 'flex-row', 'pr-0', 'pr-lg-1', 'align-items-center', 'justify-content-lg-between'].join(' ')}>
-                        <div className={['d-flex', 'flex-row', 'rtl'].join(' ')}>
+                    <div className={['col-7', 'col-lg-9', 'rtl', 'text-right', 'd-flex', 'flex-row', 'pr-0', 'pr-lg-1', 'align-items-center', 'justify-content-lg-between'].join(' ')}>
+                        <div className={['d-flex', 'flex-row', 'rtl'].join(' ')} style={{width: '380px'}}>
                             <Link href={'/'}><img src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['pointer', 'd-none', 'd-lg-block'].join(' ')} style={{width: '60px'}} /></Link>
                             <div className={['pr-1', 'flex-column', 'align-items-center', 'd-none', 'd-lg-flex'].join(' ')}>
                                 <Link href={'/'}><h1 className={['pr-1', 'align-self-start', 'm-0', 'pointer'].join(' ')} style={{fontSize: '24px', color: '#00bac6'}}>هنری</h1></Link>
                                 <p className={['pr-1', 'align-self-end', 'mb-0', 'mt-2'].join(' ')}>آموزش، الگو، مواداولیه</p>
                             </div>
                         </div>
-                        <form action='/search/SearchResult' method='GET' ref={desktopSearchBar} className={['rounded-sm', 'd-none', 'd-lg-flex', 'flex-row', 'rtl'].join(' ')}>
+                        <form action='/search/SearchResult' method='GET' ref={desktopSearchBar} className={['rounded-sm', 'd-none', 'd-lg-flex', 'flex-row', 'rtl', 'w-100'].join(' ')}>
                             <button type='submin' className={['p-2', 'pointer'].join(' ')} style={{borderRadius: '0 4px 4px 0', border: 'none', backgroundColor: '#00bac6', width: '40px'}}><img src={Constants.baseUrl + '/assets/images/main_images/search_white.png'} style={{width: '100%', padding: '2px'}}/></button>
-                            <input name='query' type='text' onChange={getSearchResults} placeholder='عبارت مورد نظر را جستجو کنید' className={['pr-2'].join(' ')} style={{fontSize: '14px', height: '42px', width: '400px', outline: 'none', outlineOffset: 'none', border: '1px solid #C4C4C4', borderRadius: '4px 0 0 4px'}} />
+                            <input onMouseEnter={() => {setDsw('100%');}} onMouseLeave={()=>{if(!shouldDesktopSearchBarBeOpen){setDsw('300px')}}} onClick={()=>{setDsw('100%'); setShouldDesktopSearchBarBeOpen(true)}} name='query' type='text' onChange={getSearchResults} placeholder='عبارت مورد نظر را جستجو کنید' className={['pr-2', styles.desktopSearchBar].join(' ')} style={{fontSize: '14px', width: dsw, height: '42px', outline: 'none', outlineOffset: 'none', border: '1px solid #C4C4C4', borderRadius: '4px 0 0 4px'}} />
                             {desktopSearchResults()}
-                        </form>
+                        </form> 
                         {
                                 props.home != true 
                             ?
@@ -1358,8 +1367,8 @@ function BigHeader(props){
                                 null
                         }
                         {/*##### searchbox for mobile view #####*/}
-                        <form method='GET' action='/search/SearchResult' className={['d-flex', 'flex-row', 'ltr', 'd-md-none', 'pr-1'].join(' ')} style={{height: '30px'}} >
-                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'p-0', 'pointer'].join(' ')} style={{width: '30px', height: '30px', background: '#F7F7F7', borderTop: '1px solid #D8D8D8', borderBottom: '1px solid #D8D8D8', borderLeft: '1px solid #D8D8D8', borderRadius: '3px 0px 0px 3px'}}>
+                        <form onClick={() => {setShowSearchResults(true)}} method='GET' action='/search/SearchResult' className={['d-flex', 'flex-row', 'ltr', 'd-md-none', 'pr-1'].join(' ')} style={{height: '30px'}} >
+                            <div onClick={() => {if(phoneSearchInput.length !== 0){window.location.href = '/search/SearchResult?query=' + phoneSearchInput}}} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'p-0', 'pointer'].join(' ')} style={{width: '30px', height: '30px', background: '#F7F7F7', borderTop: '1px solid #D8D8D8', borderBottom: '1px solid #D8D8D8', borderLeft: '1px solid #D8D8D8', borderRadius: '3px 0px 0px 3px'}}>
                                 <img src={Constants.baseUrl + '/assets/images/main_images/search_main.png'} className={['pointer'].join(' ')} style={{width: '15px', height: '15px'}}/>
                             </div>
                             <div style={{height: '30px', background: '#F7F7F7'}}>
@@ -1368,7 +1377,7 @@ function BigHeader(props){
                         </form>
                         {/*<h1 className={['pr-1', 'm-0', 'd-block', 'd-lg-none'].join(' ')} style={{fontSize: '22px', color: '#00bac6'}}>هنری</h1>*/}
                     </div>
-                    <div className={['col-9', 'col-lg-5', 'text-left', 'd-flex', 'align-items-center', 'ltr', 'p-0'].join(' ')}>
+                    <div className={['col-5', 'col-lg-3', 'text-left', 'd-flex', 'align-items-center', 'ltr', 'p-0'].join(' ')}>
                         <div className={['ltr', 'align-items-center', 'p-2', 'pointer', 'd-none', 'd-md-flex', 'flex-row'].join(' ')} style={{position: 'relative'}} onMouseEnter={()=>{setCartOpenState(true)}} onMouseLeave={()=>{setCartOpenState(false)}}>
                             {
                                 props.reduxCart.status === 'HI'
@@ -1467,7 +1476,10 @@ function BigHeader(props){
                                 <img src={Constants.baseUrl + '/assets/images/main_images/logout_red.png'} style={{width: '14px', height: '14px'}} />
                                 <h6 className={['mb-0', 'pr-2', 'rtl', 'text-right'].join(' ')} style={{fontSize: '14px', color: 'red'}}>خروج از حساب کاربری</h6> 
                             </div>
-                        </div>
+                            <Link href='/users/view'>
+                                <a className={['text-center', 'py-2', 'mx-2', 'mb-2'].join(' ')} style={{background: '#00BAC6', color: 'white', fontSize: '16px', borderRadius: '3px'}}>اطلاعات حساب من</a>
+                            </Link>
+                        </div>  
                         </div>
                         <div className={['ltr', 'align-items-center', 'ml-1', 'p-2', 'pointer', 'd-md-none'].join(' ')}>
                             {

@@ -154,7 +154,6 @@ const SearchWithCategory = (props) => {
                 props.reduxUpdateSearchFilterResults(response.result.properties);
                 props.reduxUpdateSearchFilterMaxPages(response.result.totalPage);
             }
-            console.log(response);
         }).catch((err) => {
             console.log(err);
 
@@ -281,6 +280,9 @@ const SearchWithCategory = (props) => {
             if(response.status === 'done'){
                 props.reduxUpdateSearchFilterMaxPages(response.result.totalPage);
                 props.reduxUpdateSearchFilterResults(response.result.properties);
+                if(response.result.properties.length == 0){
+                    props.reduxUpdateSnackbar('warning', true, 'موردی یافت نشد');
+                }
             }else if(response.status === 'failed'){
                 props.reduxUpdateSnackbar('warning', true, response.umessage);
             }

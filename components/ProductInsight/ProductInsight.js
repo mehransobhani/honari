@@ -744,7 +744,7 @@ const ProductInsight = (props) =>{
                                             return(
                                                 <tr key={index}>
                                                     <td className={['text-right', 'ltr'].join(' ')}>{feature.title}</td>
-                                                    <td className={['text-right', 'ltr'].join(' ')}>{feature.value}</td>
+                                                    <td className={['text-right', 'ltr'].join(' ')} style={{borderRight: '1px dashed #DEDEDE'}}>{feature.value}</td>
                                                 </tr> 
                                             );
                                         })

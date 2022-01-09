@@ -45,3 +45,8 @@
 .desktopHeaderParentMenu:hover{
     color: #00bac6;
 }
+
+.desktopSearchBar {
+    width: 300px;
+    transition: width 1.4s ease;
+}
