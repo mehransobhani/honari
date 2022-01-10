@@ -512,7 +512,7 @@ const ProductInsight = (props) =>{
                         {
                             breadcrumbState.map((bread, count)=>{
                                 return(
-                                    <Link key={count} href={'/shop/product/category/' + bread.url} ><a className={['breadcrumbItem', 'mb-0', 'font11md14'].join(' ')} style={{}} >{bread.name}</a></Link>
+                                    <Link key={count} href={'/shop/product/category/' + bread.url} ><a onClick={props.reduxStartLoading} className={['breadcrumbItem', 'mb-0', 'font11md14'].join(' ')} style={{}} >{bread.name}</a></Link>
                                 );
                             })
                         }
@@ -724,14 +724,7 @@ const ProductInsight = (props) =>{
             </div>
             <div className={['container-fluid', 'mt-0', 'mt-md-4'].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
                 <div className={['container', 'rtl'].join(' ')}>
-                    <div className={['row', 'py-4', 'py-md-5', 'ltr'].join(' ')}>
-                        <div className={['col-12', 'col-md-5', 'pl-1', 'px-0', 'px-md-3', 'rtl'].join(' ')}>
-                            <div className={['d-flex', 'flex-row', 'align-items-center', 'mb-2'].join(' ')}>
-                                <img src={Constants.baseUrl + '/assets/images/main_images/paragraph_black.png'} style={{width: '16px', height: '16px'}} />
-                                <h6 className={['mb-0', 'mr-2', 'font-weight-bold'].join(' ')}>توضیحات محصول</h6>
-                            </div>
-                            <div className={['mb-0', 'rtl', 'text-right', styles.infoContainer].join(' ')} style={{maxHeight: '250px', overflowY: 'scroll', scrollbarWidth: 'thin'}}>{parse(props.description)}</div>
-                        </div>
+                    <div className={['row', 'py-4', 'py-md-5', 'rtl'].join(' ')}>
                         <div className={['col-12', 'col-md-7', 'px-0', 'px-md-3', 'mt-3', 'mt-md-0', 'rtl'].join(' ')} >
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'mb-2'].join(' ')}>
                                 <img src={Constants.baseUrl + '/assets/images/main_images/clipboard_black.png'} style={{width: '16px', height: '16px'}} />
@@ -751,6 +744,13 @@ const ProductInsight = (props) =>{
                                     }
                                 </tbody>
                             </table>
+                        </div>
+                        <div className={['col-12', 'col-md-5', 'pl-1', 'px-0', 'px-md-3', 'rtl'].join(' ')}>
+                            <div className={['d-flex', 'flex-row', 'align-items-center', 'mb-2'].join(' ')}>
+                                <img src={Constants.baseUrl + '/assets/images/main_images/paragraph_black.png'} style={{width: '16px', height: '16px'}} />
+                                <h6 className={['mb-0', 'mr-2', 'font-weight-bold'].join(' ')}>توضیحات محصول</h6>
+                            </div>
+                            <div className={['mb-0', 'rtl', 'text-right', styles.infoContainer].join(' ')} style={{maxHeight: '250px', overflowY: 'scroll', scrollbarWidth: 'thin'}}>{parse(props.description)}</div>
                         </div>
                     </div>
                 </div>

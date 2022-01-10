@@ -226,24 +226,28 @@ const ProductCard = (props) => {
         setIsImageLoaded(true);
     }
 
+    const imageChagned = () => {
+        alert('changed');
+    }
+
     return(
         <div className={['col-6', 'col-md-3', 'p-2'].join(' ')}>
             <div className={['d-flex', 'flex-column'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede', height: '100%'}} >
                 <Link href={'/' + props.information.productUrl}>
-                    <a style={{position: 'relative'}}>
+                    <a style={{position: 'relative'}} onClick={props.reduxStartLoading}>
                         {
                             !isImageLoaded
                             ?
-                                <Skeleton variant="rectangular" style={{width: '100%', height: '100'}} />
+                                <Skeleton variant="rectangular" style={{width: '100%', height: '300px'}} />
                             :
                             null
                         }
-                        <img src={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + props.information.prodID + '.jpg'} className={[isImageLoaded ? '' : 'd-none'].join(' ')} onLoad={() => {imageLoadingCompleted()}} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
+                        <img onChange={imageChagned} src={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + props.information.prodID + '.jpg'} className={[isImageLoaded ? '' : 'd-none'].join(' ')} onLoad={() => {imageLoadingCompleted()}} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
                     </a>
                 </Link>
                 <Link href={'/' + props.information.productUrl}>
-                    <a className={['p-3', 'text-right', 'rtl'].join(' ')}>
-                        <h6 className={['font-weight-bold', 'text-right', 'rtl', 'mb-3'].join(' ')}>{props.information.productName}</h6>
+                    <a className={['p-3', 'text-right', 'rtl'].join(' ')} onClick={props.reduxStartLoading}>
+                        <h6 className={['font-weight-bold', 'text-right', 'rtl', 'mb-3'].join(' ')} style={{lineHeight: '1.6rem'}}>{props.information.productName}</h6>
                         {
                             props.information.productPrice != -1 ?
                             props.information.productPrice != props.information.discountedPrice ?
@@ -298,7 +302,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         reduxAddToCart: (d) => dispatch({type: actionTypes.ADD_TO_CART, data: d}),
-        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productPackId: d})
+        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productPackId: d}),
+        reduxStartLoading: () => dispatch({type: actionTypes.START_LOADING}),
+        reduxStopLoading: () => dispatch({type: actionTypes.STOP_LOADING}),
     }
 }
 

@@ -391,16 +391,26 @@ const Payment = (props) => {
                 <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
             </Head>
             <Header menu={props.ssrMenu} />
-                <img src={Constants.baseUrl + '/assets/images/main_images/secondStep.png'} style={{width: '100%'}} />
                 <div className={['container'].join(' ')}>
-                    <div className={['row'].join(' ')}>
+                    <div className={['row', 'mt-3', 'mt-md-5'].join(' ')}>
                         <div className={['col-12'].join(' ')}>
-                            <div className={['w-100'].join(' ')} style={{height: '1px', background: '#00BAC6'}}></div>
-                            <div className={['d-flex', 'flex-row', 'align-items-center'].join(' ')}>
-                                <div className={['d-flex', 'flex-column'].join(' ')}>
-
+                            <div className={['w-100', 'd-flex', 'flex-row', 'align-items-center', 'rtl'].join(' ')}>
+                                <div class={[''].join(' ')} style={{flex: '1', height: '2px', background: '#00BAC6'}}></div>
+                                <div class={[''].join(' ')} style={{flex: '1', height: '2px', background: '#BFBFBF'}}></div>
+                            </div>
+                            <div className={['d-flex', 'flex-row', 'align-items-center', 'rtl'].join(' ')} style={{position: 'relative', top: '-10px'}}>
+                                <div className={['d-flex', 'flex-column', 'text-center', 'justify-content-center'].join(' ')} style={{flex: '1'}}>
+                                    <div className={['text-center'].join(' ')}><img src={Constants.baseUrl + '/assets/images/main_images/circle_main.png'} style={{width: '20px', height: '20px'}} /></div>
+                                    <h6 className={['text-center', 'mt-2', 'font11md17'].join(' ')} style={{color: '#00BAC6'}}><b>ورود به هنری</b></h6>
                                 </div>
-                                <img src={Constants.baseUrl + '/assets/images/main_images/circle_main.png'} style={{width: '20px', height: '20px'}} />
+                                <div className={['d-flex', 'flex-column', 'text-center', 'justify-content-center'].join(' ')} style={{flex: '1'}}>
+                                    <div className={['text-center'].join(' ')}><img src={Constants.baseUrl + '/assets/images/main_images/circle_main.png'} style={{width: '20px', height: '20px'}} /></div>
+                                    <h6 className={['text-center', 'mt-2', 'font11md17'].join(' ')} style={{color: '#00BAC6'}}><b>اطلاعات ارسال</b></h6>
+                                </div>
+                                <div className={['d-flex', 'flex-column', 'text-center', 'justify-content-center'].join(' ')} style={{flex: '1'}}>
+                                    <div className={['text-center'].join(' ')}><img src={Constants.baseUrl + '/assets/images/main_images/circle_gray_small.png'} style={{width: '20px', height: '20px'}} /></div>
+                                    <h6 className={['text-center', 'mt-2', 'font11md17'].join(' ')} style={{color: 'gray'}}><b>بازبینی نهایی و ارسال</b></h6>
+                                </div>
                             </div>
                         </div>
                     </div>

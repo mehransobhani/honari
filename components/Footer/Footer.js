@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './style.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
 import * as Constants from '../constants';
 
 const Footer = () => {
+
+    const [loaded, setLoaded] = useState(false);
+
+    const delay = (time) => {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+    
+    useEffect(() => {
+        delay(1000).then(() => {setLoaded(true)});
+    }, []);
     return(
-        <div className={['container-fluid'].join(' ')}>
+        <div className={['container-fluid'].join(' ')} style={{position: 'relative', left: '0', bottom: loaded ? '0' : '-50rem'}}>
             <div className={['row', 'mt-5'].join(' ')} style={{backgroundColor: '#78dde3'}}>
                 <div className={['container', 'py-2'].join(' ')}>
                     <div className={['row', 'rtl'].join(' ')}>

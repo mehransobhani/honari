@@ -14,6 +14,7 @@ import * as actionTypes from '../../store/actions';
 import {connect} from 'react-redux';
 import Drawer from '@material-ui/core/Drawer';
 import Image from 'next/image';
+import Skeleton from '@mui/material/Skeleton';
 
 const CategoryInsight = (props) => {
 
@@ -38,6 +39,7 @@ const CategoryInsight = (props) => {
     const [visibleFilterGroupId, setVisibleFilterGroupId] = useState(-1);
     const [id, setId] = useState(props.id);
     const [windowHeight, setWindowHeight] = useState(0);
+    const [waitingForData, setWaitingForData] = useState(true);
 
     const filterDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -120,14 +122,16 @@ const CategoryInsight = (props) => {
                     console.warn(response.message);
                     props.reduxUpdateSnackbar('warning', true, response.umessage);
                 }
+                setWaitingForData(false);
             }).catch((error)=>{
                 console.error(error);
                 props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+                setWaitingForData(false);
             });
         }
         //[props.reduxCategoryFilter.id, -1]
     },[props.reduxCategoryFilter.id, props.id]);
-    useEffect(()=>{
+    /*useEffect(()=>{
         if(props.reduxCategoryFilter.id !== -1){
             axios.post(Constants.apiUrl + '/api/filtered-paginated-category-products', {
                 id: props.id, //props.reduxCategoryFilter.id,
@@ -157,7 +161,7 @@ const CategoryInsight = (props) => {
             });
         }
         //[props.reduxCategoryFilter.id, -1]
-    },[id, props.id]);
+    },[id, props.id]);*/
 
     useEffect(()=>{
         axios.post(Constants.apiUrl + '/api/category-banners', {
@@ -222,6 +226,7 @@ const CategoryInsight = (props) => {
         if(onlyAvailableProducts === undefined){
             onlyAvailableProducts = props.reduxCategoryFilter.onlyAvailableProducts;
         }
+        setWaitingForData(true);
         axios.post(Constants.apiUrl + '/api/filtered-paginated-category-products', {
             id: props.reduxCategoryFilter.id,
             page: page,//props.reduxCategoryFilter.page,
@@ -243,14 +248,16 @@ const CategoryInsight = (props) => {
                 if(response.products.length === 0){
                     props.reduxUpdateSnackbar('warning', true, 'موردی یافت نشد');
                 }
-                
             }else if(response.status === 'failed'){
                 console.warn(response.message);
                 props.reduxUpdateSnackbar('warning', true, 'موردی یافت نشد');
             }
+            window.scrollTo(0,0);
+            setWaitingForData(false);
         }).catch((error)=>{
             console.error(error);
             props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+            setWaitingForData(false);
         });
     }
 
@@ -405,6 +412,9 @@ const CategoryInsight = (props) => {
                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>فیلترها</h6>
                     <img src={Constants.baseUrl + '/assets/images/main_images/cross_black.png'} onClick={filterDrawer('bottom', false)} style={{width: '17px', height: '17px'}}/>
                 </div>
+                <div className={['col-12', 'px-3', 'mt-3'].join(' ')}>
+                    <input type="text" value={props.reduxCategoryFilter.key} className={['form-control', 'text-right', 'rtl'].join(' ')} placeholder="نام محصول را جستجو کنید" onChange={searchInputChanged}/>
+                </div>
             </div>
             {
                 filters.map((filter, key)=>{
@@ -445,6 +455,25 @@ const CategoryInsight = (props) => {
         </div>
     );
 
+    const showSkeletonGrid = () => {
+        const skeletonArray = [1,1,1,1,1,1,1,1,1,1,1,1];
+        return (
+            <div className={['row', 'd-flex', 'align-items-stretch', 'px-2'].join(' ')}>
+                {
+                    skeletonArray.map((sa, i) => {
+                        return (
+                            <div className={['col-6', 'col-md-3', 'p-2', 'd-flex', 'flex-column', 'text-right', 'rtl'].join(' ')}>
+                                <Skeleton variant='rectangular' style={{width: '100%', height: '200px'}} />
+                                <Skeleton variant='text' className={['mt-2'].join(' ')} style={{fontSize: '15px', width: '100%'}} />
+                                <Skeleton variant='text' className={['mt-2'].join(' ')} style={{fontSize: '15px', width: '40%'}} />
+                            </div>
+                        );
+                    })
+                }
+            </div>
+        );
+    }
+
 
     return(
         <React.Fragment>
@@ -463,7 +492,7 @@ const CategoryInsight = (props) => {
                                     );
                                 }else{
                                     return(
-                                        <Link key={count} href={cb.url} ><a className={['breadcrumbItem', 'mb-0'].join(' ')} style={{fontSize: '14px'}} >{cb.name}</a></Link>
+                                        <Link key={count} href={cb.url} ><a onClick={props.reduxStartLoading} className={['breadcrumbItem', 'mb-0'].join(' ')} style={{fontSize: '14px'}} >{cb.name}</a></Link>
                                     );
                                 }
                             })
@@ -479,7 +508,7 @@ const CategoryInsight = (props) => {
                             return(
                                 <div className={['col-4', 'p-2'].join(' ')} key={key}>
                                     <Link href={categoryUrl.substring(18)}>
-                                        <a className={['w-100', 'd-flex', 'flex-column', 'shadow-sm', 'pointer'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede'}}>
+                                        <a onClick={props.reduxStartLoading} className={['w-100', 'd-flex', 'flex-column', 'shadow-sm', 'pointer'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede'}}>
                                             <img src={cb.image} className={['w-100'].join(' ')} />
                                             <h6 className={['py-3', 'text-center', 'mb-0'].join(' ')}>{cb.title}</h6>
                                         </a>
@@ -605,15 +634,34 @@ const CategoryInsight = (props) => {
                                     <span className={['d-flex', 'flex-row', 'rtl'].join(' ')} style={{backgroundColor: '#f2f2f2', borderRadius: '4px', border: '1px solid #dedede'}}></span>
                                 </div>
                                 <div className={['container'].join(' ')}>
-                                    <div className={['row', 'd-flex', 'align-items-stretch', 'px-2'].join(' ')}>
                                     {
-                                        props.reduxCategoryFilter.results.map((r, key)=>{
-                                            return(
-                                                <ProductCard information={r} key={key} />
-                                            );
-                                        })
+                                        props.reduxCategoryFilter.results.length !== 0 && !waitingForData
+                                        ?
+                                        (
+                                            <div className={['row', 'd-flex', 'align-items-stretch', 'px-2'].join(' ')}>
+                                            {
+                                                props.reduxCategoryFilter.results.map((r, key)=>{
+                                                    return(
+                                                        <ProductCard information={r} key={key} />
+                                                    );
+                                                })
+                                            }
+                                            </div>
+                                        )
+                                        :
+                                        (
+                                            props.reduxCategoryFilter.results.length === 0 && !waitingForData
+                                            ?
+                                            (
+                                                <div className={['row', 'd-flex', 'align-items-stretch', 'px-2'].join(' ')}>
+                                                    <h6 className={['col-12', 'text-center', 'py-3'].join(' ')} style={{borderRadius: '3px', border: '2px solid #b8cf5f', color: '#b8cf5f'}}>موردی یافت نشد</h6>
+                                                </div>
+                                            )
+                                            :
+                                            showSkeletonGrid()
+                                        )
                                     }
-                                    </div>
+
                                 </div>
                                 {
                                     props.reduxCategoryFilter.results.length !== 0 
@@ -660,6 +708,7 @@ const mapDispatchToProps = (dispatch) => {
         reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productPackId: d}),
         reduxWipeCart: () => dispatch({type: actionTypes.WIPE_CART}),
         reduxUpdateUserTotally: (d) => dispatch({type: actionTypes.UPDATE_USER_TOTALLY, data: d}),
+        reduxStartLoading: () => dispatch({type: actionTypes.START_LOADING}),
         reduxStopLoading: () => dispatch({type: actionTypes.STOP_LOADING}),
         reduxUpdateSnackbar: (k,s,t) => dispatch({type: actionTypes.UPDATE_SNACKBAR, kind: k, show: s, title: t}),
         reduxUpdateCategoryFilterId: (id) => dispatch({type: actionTypes.UPDATE_CATEGORY_FILTER_ID, id: id}),

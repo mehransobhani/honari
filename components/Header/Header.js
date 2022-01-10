@@ -59,6 +59,7 @@ function BigHeader(props){
     const [dsw, setDsw] = useState("300px");
     const [shouldDesktopSearchBarBeOpen, setShouldDesktopSearchBarBeOpen] = useState(false);
     const [phoneSearchInput, setPhoneSearchInput] = useState('');
+    const [axiosProcessInformation, setAxiosProcessInformation] = useState({type: 'nothing', index: -1});
     
 
     useEffect(() => {
@@ -165,18 +166,6 @@ function BigHeader(props){
         </div>;
 
     useEffect(() => {
-        /*axios.get(Constants.apiUrl + '/api/menu').then((res) => {
-            let response = res.data;
-            if(response.status == 'done'){
-                if(response.found == true){
-                    setMenu(response.menu);
-                }else{
-                    alert('موردی یافت نشد');
-                }
-            }
-        }).catch((error) => {
-            console.log(error);
-        });*/
         if(props.menu.status === 'done' && props.menu.found == true){
             setMenu(props.menu.menu);
         }
@@ -213,18 +202,9 @@ function BigHeader(props){
     }, []);
 
     const increaseProductCountByOne = (key) => {
-        if(increaseProcessings[key] === false){
+        if(axiosProcessInformation.index !== key){
             if(props.reduxUser.status == 'GUEST'){
-                let newIncreaseProcessings = [];
-                let i = 0;
-                for(i; i < increaseProcessings.length; i++){
-                    if(key === i){
-                        newIncreaseProcessings.push(true);
-                    }else{
-                        newIncreaseProcessings.push(increaseProcessings[i]);
-                    }
-                }
-                setIncreaseProcessings(newIncreaseProcessings);
+                setAxiosProcessInformation({type: 'increase', index: key});
                 axios.post(Constants.apiUrl + '/api/guest-check-cart-changes', {
                     productPackId: props.reduxCart.information[key].productPackId,
                     count: props.reduxCart.information[key].count + 1
@@ -233,55 +213,18 @@ function BigHeader(props){
                     if(response.status == 'done'){
                         updateProductInLocalStorage(key, response.count);
                         props.reduxIncreaseCountByOne(props.reduxCart.information[key].productPackId);
-                        let newIncreaseProcessings = [];
-                        let i =0;
-                        for(i=0; i < increaseProcessings.length; i++){
-                            if(key === i){
-                                newIncreaseProcessings.push(false);
-                            }else{
-                                newIncreaseProcessings.push(increaseProcessings[i]);
-                            }
-                        }
-                        setIncreaseProcessings(newIncreaseProcessings);
                         
                     }else if(response.status == 'failed'){
-                        newIncreaseProcessings = [];
-                        let i = 0;
-                        for(i=0; i < increaseProcessings.length; i++){
-                            if(key === i){
-                                newIncreaseProcessings.push(false);
-                            }else{
-                                newIncreaseProcessings.push(increaseProcessings[i]);
-                            }
-                        }
-                        setIncreaseProcessings(newIncreaseProcessings);
                         props.reduxUpdateSnackbar('warning', true, response.umessage);
                     }
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 }).catch((error) => {
-                    newIncreaseProcessings = [];
-                    let i = 0;
-                    for(i=0; i < increaseProcessings.length; i++){
-                        if(key === i){
-                            newIncreaseProcessings.push(false);
-                        }else{
-                            newIncreaseProcessings.push(increaseProcessings[i]);
-                        }
-                    }
-                    setIncreaseProcessings(newIncreaseProcessings);
                     console.log(error);
                     props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 });
             }else if(props.reduxUser.status === 'LOGIN'){
-                let newIncreaseProcessings = [];
-                let i = 0;
-                for(i; i < increaseProcessings.length; i++){
-                    if(key === i){
-                        newIncreaseProcessings.push(true);
-                    }else{
-                        newIncreaseProcessings.push(increaseProcessings[i]);
-                    }
-                }
-                setIncreaseProcessings(newIncreaseProcessings);
+                setAxiosProcessInformation({type: 'increase', index: key});
                 axios.post(Constants.apiUrl + '/api/user-increase-cart-by-one', {
                     productPackId: props.reduxCart.information[key].productPackId
                 }, {
@@ -292,42 +235,14 @@ function BigHeader(props){
                     let response = res.data;
                     if(response.status == 'done'){
                         props.reduxIncreaseCountByOne(props.reduxCart.information[key].productPackId);
-                        let newIncreaseProcessings = [];
-                        let i = 0;
-                        for(i; i < increaseProcessings.length; i++){
-                            if(key === i){
-                                newIncreaseProcessings.push(false);
-                            }else{
-                                newIncreaseProcessings.push(increaseProcessings[i]);
-                            }
-                        }
-                        setIncreaseProcessings(newIncreaseProcessings);
                     }else if(response.status == 'failed'){
-                        let newIncreaseProcessings = [];
-                        let i = 0;
-                        for(i; i < increaseProcessings.length; i++){
-                            if(key === i){
-                                newIncreaseProcessings.push(false);
-                            }else{
-                                newIncreaseProcessings.push(increaseProcessings[i]);
-                            }
-                        }
-                        setIncreaseProcessings(newIncreaseProcessings);
                         props.reduxUpdateSnackbar('warning', true, response.umessage);
                     }
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 }).catch((error) => {
-                    let newIncreaseProcessings = [];
-                    let i = 0;
-                    for(i; i < increaseProcessings.length; i++){
-                        if(key === i){
-                            newIncreaseProcessings.push(false);
-                        }else{
-                            newIncreaseProcessings.push(increaseProcessings[i]);
-                        }
-                    }
-                    setIncreaseProcessings(newIncreaseProcessings);
                     console.log(error);
                     props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 });
             }
         }
@@ -337,38 +252,19 @@ function BigHeader(props){
         if(props.reduxCart.information[key].count == 1){
             return;
         }
-        if(decreaseProcessings[key]=== false){
+        if(axiosProcessInformation.index !== key){
             if(props.reduxUser.status == 'GUEST'){
-                let newDecreaseProcessings = [];
-                let i = 0;
-                for(i; i < decreaseProcessings.length; i++){
-                    if(key === i){
-                        newDecreaseProcessings.push(true);
-                    }else{
-                        newDecreaseProcessings.push(decreaseProcessings[i]);
-                    }
-                }
-                setDecreaseProcessings(newDecreaseProcessings);
+                setAxiosProcessInformation({type: 'decrease', index: key});
                 axios.post(Constants.apiUrl + '/api/guest-check-cart-changes', {
                     productPackId: props.reduxCart.information[key].productPackId,
                     count: props.reduxCart.information[key].count - 1
                 }).then((res) => {
-                    let newDecreaseProcessings = [];
-                    let i = 0;
-                    for(i; i < decreaseProcessings.length; i++){
-                        if(key === i){
-                            newDecreaseProcessings.push(false);
-                        }else{
-                            newDecreaseProcessings.push(decreaseProcessings[i]);
-                        }
-                    }
-                    setDecreaseProcessings(newDecreaseProcessings);
                     let response = res.data;
                     if(response.status == 'done'){
                         updateProductInLocalStorage(key, response.count);
                         props.reduxDecreaseCountByOne(props.reduxCart.information[key].productPackId);
                     }else if(response.status == 'failed'){
-                        newCart = [];
+                        /*newCart = [];
                         i = 0;
                         for(let item of cart){
                             if(i === key){
@@ -377,34 +273,17 @@ function BigHeader(props){
                             newCart.push(item);
                             i++;
                         }
-                        setCart(newCart);
+                        setCart(newCart);*/
                         props.reduxUpdateSnackbar('warning', true, response.umessage);
                     }
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 }).catch((error) => {
-                    let newDecreaseProcessings = [];
-                    let i = 0;
-                    for(i; i < decreaseProcessings.length; i++){
-                        if(key === i){
-                            newDecreaseProcessings.push(false);
-                        }else{
-                            newDecreaseProcessings.push(decreaseProcessings[i]);
-                        }
-                    }
-                    setDecreaseProcessings(newDecreaseProcessings);
                     console.log(error);
                     props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 });
             }else if(props.reduxUser.status == 'LOGIN'){
-                let newDecreaseProcessings = [];
-                let i = 0;
-                for(i; i < decreaseProcessings.length; i++){
-                    if(key === i){
-                        newDecreaseProcessings.push(true);
-                    }else{
-                        newDecreaseProcessings.push(decreaseProcessings[i]);
-                    }
-                }
-                setDecreaseProcessings(newDecreaseProcessings);
+                setAxiosProcessInformation({type: 'decrease', index: key});
                 axios.post(Constants.apiUrl + '/api/user-decrease-cart-by-one', {
                     productPackId: props.reduxCart.information[key].productPackId
                 }, {
@@ -414,44 +293,16 @@ function BigHeader(props){
                 }).then((res) => {
                     let response = res.data;
                     if(response.status == 'done'){
-                        let newDecreaseProcessings = [];
-                        let i = 0;
-                        for(i; i < decreaseProcessings.length; i++){
-                            if(key === i){
-                                newDecreaseProcessings.push(false);
-                            }else{
-                                newDecreaseProcessings.push(decreaseProcessings[i]);
-                            }
-                        }
-                        setDecreaseProcessings(newDecreaseProcessings);
                         props.reduxDecreaseCountByOne(props.reduxCart.information[key].productPackId);
                     }else if(response.status === 'failed'){
-                        let newDecreaseProcessings = [];
-                        let i = 0;
-                        for(i; i < decreaseProcessings.length; i++){
-                            if(key === i){
-                                newDecreaseProcessings.push(false);
-                            }else{
-                                newDecreaseProcessings.push(decreaseProcessings[i]);
-                            }
-                        }
-                        setDecreaseProcessings(newDecreaseProcessings);
                         console.log(response.message);
                         props.reduxUpdateSnackbar('warning', true, response.umessage);
                     }
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 }).catch((error) => {
-                    let newDecreaseProcessings = [];
-                    let i = 0;
-                    for(i; i < decreaseProcessings.length; i++){
-                        if(key === i){
-                            newDecreaseProcessings.push(false);
-                        }else{
-                            newDecreaseProcessings.push(decreaseProcessings[i]);
-                        }
-                    }
-                    setDecreaseProcessings(newDecreaseProcessings);
                     console.log(error);
                     props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 });
             }
         }
@@ -470,16 +321,7 @@ function BigHeader(props){
                 localStorage.setItem('user_cart', JSON.stringify(newLocalStorageCart));
                 props.reduxRemoveFromCart(props.reduxCart.information[key].productPackId);
             }else if(props.reduxUser.status === 'LOGIN'){
-                let newRemoveProcessings = [];
-                let i = 0;
-                for(i; i < removeProcessings.length; i++){
-                    if(key === i){
-                        newRemoveProcessings.push(true);
-                    }else{
-                        newRemoveProcessings.push(removeProcessings[i]);
-                    }
-                }
-                setRemoveProcessings(newRemoveProcessings);
+                setAxiosProcessInformation({type: 'remove', index: key});
                 axios.post(Constants.apiUrl + '/api/user-remove-from-cart', {
                     productPackId: props.reduxCart.information[key].productPackId
                 }, {
@@ -487,16 +329,6 @@ function BigHeader(props){
                         'Authorization': 'Bearer ' + cookies.user_server_token, 
                     }
                 }).then((res) => {
-                    let newRemoveProcessings = [];
-                    let i = 0;
-                    for(i; i < removeProcessings.length; i++){
-                        if(key === i){
-                            newRemoveProcessings.push(false);
-                        }else{
-                            newRemoveProcessings.push(removeProcessings[i]);
-                        }
-                    }
-                    setRemoveProcessings(newRemoveProcessings);
                     let response = res.data;
                     if(response.status == 'done'){
                         props.reduxRemoveFromCart(props.reduxCart.information[key].productPackId);
@@ -504,19 +336,11 @@ function BigHeader(props){
                         console.error(response.message);
                         props.reduxUpdateSnackbar('warning', true, response.umessage);
                     }
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 }).catch((error) => {
-                    let newRemoveProcessings = [];
-                    let i = 0;
-                    for(i; i < removeProcessings.length; i++){
-                        if(key === i){
-                            newRemoveProcessings.push(false);
-                        }else{
-                            newRemoveProcessings.push(removeProcessings[i]);
-                        }
-                    }
-                    setRemoveProcessings(newRemoveProcessings);
                     console.log(error);
                     props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 });
             }
         }
@@ -674,7 +498,7 @@ function BigHeader(props){
     }
 
     const DesktopCart = (
-        <div className={['container-fluid', 'shadow-sm', 'rounded-sm', 'pr-2', 'pl-3'].join(' ')} style={{width: '500px', backgroundColor: 'white', position: 'absolute', left: '0.3rem', top: '2.2rem', zIndex: '600'}}>
+        <div className={['container-fluid', 'shadow-sm', 'rounded-sm', 'pr-2', 'pl-3'].join(' ')} style={{width: '500px', backgroundColor: 'white', position: 'absolute', left: '0.3rem', top: '2.2rem', zIndex: '600', cursor: 'auto'}}>
             {
                 props.reduxCart.information.length !== 0 ? (
                     <React.Fragment>
@@ -688,6 +512,7 @@ function BigHeader(props){
                                 <h6 className={['text-center', 'mb-0'].join(' ')} style={{color: sumOfCartPrices() >= 200000 ? 'white': '#00BAC6', fontSize: '0.8rem'}}>رایگان</h6>
                             </div>
                             <h6 className={['text-left', 'rtl'].join(' ')} style={{color: '#00BAC6', fontSize: '12px'}}>{props.reduxCart.information.length + " مورد در سبد خرید"}</h6>
+                            <div className={['col-12'].join(' ')} style={{background: '#DEDEDE', height: '1px'}}></div>
                         </div>
                         <div className={['row'].join(' ')} style={{overflowY: 'scroll', overflowX: 'hidden', maxHeight: '250px'}}>
                             <div className={['col-12', 'mx-0', 'px-1'].join(' ')}>
@@ -695,17 +520,17 @@ function BigHeader(props){
                                     props.reduxCart.information.map((item, counter) => {
                                         return(
                                             <div key={counter} className={['rtl', 'd-flex', 'flex-row', 'py-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                                                <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '70px', height: '70px', borderRadius: '2px'}} />
+                                                <Link href={'/' + item.url}><img className={['pointer'].join(' ')} onClick={props.reduxStartLoading}  src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '70px', height: '70px', borderRadius: '2px'}} /></Link>
                                                 <div className={['d-flex', 'flex-column'].join(' ')} style={{flex: '1'}}>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
                                                         <img src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '16px', height: '16px'}} onClick={() => {removeProductFromCart(counter)}} />
-                                                        <Link href={"/" + item.url}><a className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '14px', color: "#444444", flex: '1'}}>{item.name}</a></Link>
+                                                        <Link href={"/" + item.url}><a onClick={props.reduxStartLoading} className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '14px', color: "#444444", flex: '1'}}>{item.name}</a></Link>
                                                     </div>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between', 'align-items-center'].join(' ')} style={{marginTop: 'auto'}}>
                                                         <div className={['d-flex', 'flex-row', 'ltr', 'align-items-center'].join(' ')}>
-                                                            <img src={Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png'} style={{width: '18px', height: '18px'}} onClick={() => {decreaseProductCountByOne(counter)}}/>
+                                                            <img src={Constants.baseUrl + (axiosProcessInformation.type === 'decrease' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/minus_gray_circle.png')} style={{width: '18px', height: '18px'}} onClick={() => {decreaseProductCountByOne(counter)}}/>
                                                             <span className={['px-2', 'mb-0', 'mx-1'].join(' ')} style={{fontSize: '16px', color: '#444444'}}>{item.count}</span>
-                                                            <img src={Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png'} style={{width: '18px', height: '18px'}} onClick={() => {increaseProductCountByOne(counter)}}/>
+                                                            <img src={Constants.baseUrl + (axiosProcessInformation.type === 'increase' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/plus_gray_circle.png')} style={{width: '18px', height: '18px'}} onClick={() => {increaseProductCountByOne(counter)}}/>
                                                         </div>
                                                         <div className={['d-flex', 'flex-row', 'text-right', 'rtl'].join(' ')} style={{flex: '1'}}>
                                                             {
@@ -731,7 +556,7 @@ function BigHeader(props){
                                 } 
                             </div>
                         </div>
-                        <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'text-right', 'mt-1', 'pr-3', 'pl-2'].join(' ')}>
+                        <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'text-right', 'py-3', 'mb-1', 'pr-3', 'pl-2'].join(' ')}>
                             <p className={['mb-0'].join(' ')} style={{fontSize: '13px', color: '#444444'}}> مبلغ قابل پرداخت : </p>
                             {
                             sumOfCartDiscountedPrices() !== sumOfCartPrices()
@@ -783,10 +608,11 @@ function BigHeader(props){
                                     <h6 className={['text-center', 'mb-1'].join(' ')} style={{color: sumOfCartPrices() >= 200000 ? 'white': '#00BAC6', fontSize: '0.6rem'}}>ارسال</h6>
                                     <h6 className={['text-center', 'mb-0'].join(' ')} style={{color: sumOfCartPrices() >= 200000 ? 'white': '#00BAC6', fontSize: '0.8rem'}}>رایگان</h6>
                                 </div>
-                                <h6 className={['text-left', 'rtl', 'mb-0', 'pb-0'].join(' ')} style={{color: '#00BAC6', fontSize: '12px', position: 'relative', left: '-3.1rem'}}>{props.reduxCart.information.length + " مورد در سبد خرید"}</h6>
+                                <h6 className={['text-left', 'rtl', 'mb-0', 'pb-0'].join(' ')} style={{color: '#00BAC6', height: '1rem', fontSize: '12px', position: 'relative', left: '-3.1rem'}}>{props.reduxCart.information.length + " مورد در سبد خرید"}</h6>
+                                <div className={['col-12'].join(' ')} style={{height: '1px', background: '#DEDEDE', position: 'relative', top: '-0.6rem'}}></div>
                             </div>
                         </div>
-                        <div className={['row'].join(' ')} style={{overflowY: 'scroll', overflowX: 'hidden', marginBottom: '5rem'}}>
+                        <div className={['row'].join(' ')} style={{overflowY: 'scroll', overflowX: 'hidden', marginBottom: '2rem'}}>
                             <div className={['col-12', 'pr-3', 'pl-4'].join(' ')}>
                                 {
                                     props.reduxCart.information.map((item, counter) => {
@@ -796,13 +622,13 @@ function BigHeader(props){
                                                 <div className={['d-flex', 'flex-column', 'pl-1'].join(' ')} style={{flex: '1'}}>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
                                                         <img src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '20px', height: '20px'}} onClick={() => {removeProductFromCart(counter)}} />
-                                                        <Link href={"/" + item.url}><a className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '16px', color: "#444444", flex: '1'}}>{item.name}</a></Link>
+                                                        <Link href={"/" + item.url}><a onClick={toggleCartDrawer('left', false)} className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '16px', color: "#444444", flex: '1'}}>{item.name}</a></Link>
                                                     </div>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between', 'align-items-center'].join(' ')} style={{marginTop: 'auto'}}>
                                                         <div className={['d-flex', 'flex-row', 'ltr', 'align-items-center'].join(' ')}>
-                                                            <img src={Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png'} style={{width: '20px', height: '20px'}} onClick={() => {decreaseProductCountByOne(counter)}}/>
+                                                            <img src={Constants.baseUrl + (axiosProcessInformation.type === 'decrease' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/minus_gray_circle.png')} style={{width: '20px', height: '20px'}} onClick={() => {decreaseProductCountByOne(counter)}}/>
                                                             <span className={['px-2', 'mb-0', 'mx-1'].join(' ')} style={{fontSize: '16px', color: '#444444'}}>{item.count}</span>
-                                                            <img src={Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png'} style={{width: '20px', height: '20px'}} onClick={() => {increaseProductCountByOne(counter)}}/>
+                                                            <img src={Constants.baseUrl + (axiosProcessInformation.type === 'increase' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/plus_gray_circle.png')} style={{width: '20px', height: '20px'}} onClick={() => {increaseProductCountByOne(counter)}}/>
                                                         </div>
                                                         <div className={['d-flex', 'flex-row', 'text-right', 'rtl'].join(' ')} style={{flex: '1'}}>
                                                             {
@@ -828,20 +654,20 @@ function BigHeader(props){
                                 } 
                             </div>
                         </div>
-                        <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'text-right', 'mt-1', 'mr-3', 'ml-3'].join(' ')}>
-                            <p className={['mb-0'].join(' ')} style={{fontSize: '13px', color: '#444444'}}> مبلغ قابل پرداخت : </p>
+                        <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'text-right', 'mt-1', 'mr-3', 'ml-3'].join(' ')} style={{marginBottom: '8rem'}}>
+                            <p className={['mb-0'].join(' ')} style={{fontSize: '1px', color: '#444444'}}> مبلغ قابل پرداخت : </p>
                             {
                             sumOfCartDiscountedPrices() !== sumOfCartPrices()
                             ?
                             (
                                 <React.Fragment>
-                                    <p className={['mb-0', 'rtl'].join(' ')}><del style={{color: 'gray'}}>{sumOfCartPrices().toLocaleString()}</del></p>
-                                    <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString() + " تومان "}</p>
+                                    <p className={['mb-0', 'rtl'].join(' ')} style={{fontSize: '14px'}}><del style={{color: 'gray'}}>{sumOfCartPrices().toLocaleString()}</del></p>
+                                    <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{fontSize: '14px', color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString() + " تومان "}</p>
                                 </React.Fragment>
                             )  
                             :
                             (
-                                <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString()}</p>
+                                <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{fontSize: '14px', color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString()}</p>
                             )
                             }
                             <div className={['col-12', 'd-flex', 'flex-column', 'px-2'].join(' ')} style={{position: 'absolute', bottom: '0', left: '0', background: 'white'}}>
@@ -997,7 +823,7 @@ function BigHeader(props){
                             return(
                                 <li className={['col-3', 'd-flex', 'flex-row', 'align-items-center', 'pointer', 'mt-2', styles.dropdownItem].join(' ')}>
                                     <Link key={counter} href={sm.url.substr(18)}>
-                                        <a onClick={() => {props.reduxStartLoading()}}>
+                                        <a onClick={props.reduxStartLoading}>
                                             {sm.name}
                                         </a>
                                     </Link>
@@ -1110,14 +936,14 @@ function BigHeader(props){
                         })
                     }
                     <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#DEDEDE', height: '1px'}}></div>
-                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-2', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در محصولات</b></h6>
+                    <h6 className={['text-right', 'px-2', 'py-3', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در محصولات</b></h6>
                     <div className={['d-flex', 'flex-column'].join(' ')} style={{maxHeight: '200px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8'}}>
                     {
                         searchResults.map((item, index) => {
                             if(item.fields !== null){
                                 return(
                                     <Link key={index} href={item.fields.product_url}>
-                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.1), 0 1px 10px 0 rgba(0, 0, 0, 0.19)'}}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.4), 0 1px 10px 0 rgba(222, 222, 222, 0.4)'}}>
                                             <img src={item.fields.product_image} style={{width: '46px', height: '46px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
@@ -1137,14 +963,14 @@ function BigHeader(props){
                     }
                     </div>
                     <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#DEDEDE', height: '1px'}}></div>
-                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-2', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>آموزش‌ها و کلاس‌ها</b></h6>
+                    <h6 className={['text-right', 'px-2', 'py-3', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>آموزش‌ها و کلاس‌ها</b></h6>
                     <div className={['d-flex', 'flex-column', 'pb-2'].join(' ')} style={{maxHeight: '200px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8'}}>
                     {
                         classSearchResults.map((item, index) => {
                             if(item.fields !== null){
                                 return(
                                     <Link key={index} href={item.fields.url}>
-                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.1), 0 1px 10px 0 rgba(0, 0, 0, 0.19)'}}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.4), 0 1px 10px 0 rgba(222, 222, 222, 0.4)'}}>
                                             <img src={item.fields.image_url} style={{width: '46px', height: '46px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.name}</h6>
@@ -1171,16 +997,22 @@ function BigHeader(props){
     }
 
     const phoneSearchResults = () => {
-        if(searchResults.length !== 0 && showSearchResults){
+        if(showSearchResults){
             return (
                 <div className={['d-md-none', 'w-100'].join(' ')} style={{background: 'white', width: '100%', height: windowHeight + 'px', position: 'relative', top: '0.5rem', left: '0', zIndex: '1000', overflowY: 'scroll', overflowX: 'hidden'}}>
                     <div className={['d-flex', 'flex-row', 'ltr', 'text-left', 'justify-content-left', 'pt-2', 'px-2'].join(' ')}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/close_gray_small.png'} className={['pointer'].join(' ')} style={{width: '17px', heigth: '17px'}} onClick={() => {setShowSearchResults(false)}} />
                     </div>
-                    <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'px-2', 'pt-2'].join(' ')}>
-                        <h5 className={['mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در دسته‌ها</b></h5>
-                        <h6 className={['mb-0', 'pointer'].join(' ')} style={{fontSize: '12px', color: '#00BAC6'}} onClick={()=>{setMoreSearchCategoriesClass('d-flex')}}>{moreSearchCategoriesClass === 'd-none' ? "مشاهده همه" : ''}</h6>
-                    </div>
+                    {
+                        searchResults.length !== 0
+                        ?
+                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'px-2', 'pt-2'].join(' ')}>
+                            <h5 className={['mb-0'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در دسته‌ها</b></h5>
+                            <h6 className={['mb-0', 'pointer'].join(' ')} style={{fontSize: '12px', color: '#00BAC6'}} onClick={()=>{setMoreSearchCategoriesClass('d-flex')}}>{moreSearchCategoriesClass === 'd-none' ? "مشاهده همه" : ''}</h6>
+                        </div>
+                        :
+                        null
+                    }
                     {
                         searchResults.map((item, index) => {
                             if(item.fields === null){
@@ -1206,15 +1038,23 @@ function BigHeader(props){
                             }
                         })
                     }
-                    <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#DEDEDE', height: '1px'}}></div>
-                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-0', 'mb-2'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در محصولات</b></h6>
+                    {
+                        searchResults.length !== 0 
+                        ?
+                        <React.Fragment>
+                            <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#DEDEDE', height: '1px'}}></div>
+                            <h6 className={['text-right', 'px-2', 'pt-2', 'pb-0', 'mb-2'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>پیشنهاد در محصولات</b></h6>
+                        </React.Fragment>
+                        :
+                        null
+                    }
                     <div className={['d-flex', 'flex-column'].join(' ')} style={{ maxHeight: '200px', overflowY: 'scroll', overflowX: 'hidden', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8' }}>
                     {
                         searchResults.map((item, index) => {
                             if(item.fields !== null){
                                 return(
                                     <Link key={index} href={item.fields.product_url}>
-                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.1), 0 1px 10px 0 rgba(0, 0, 0, 0.19)'}}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.4), 0 1px 10px 0 rgba(222, 222, 222, 0.4)'}}>
                                             <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2', 'text-right'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
@@ -1233,15 +1073,23 @@ function BigHeader(props){
                         })
                     }
                     </div>
-                    <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#DEDEDE', height: '1px'}}></div>
-                    <h6 className={['text-right', 'px-2', 'pt-2', 'pb-0', 'mb-2'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>آموزش‌ها و کلاس‌ها</b></h6>
+                    {
+                        searchResults.length !== 0
+                        ?
+                        <React.Fragment>
+                            <div className={['w-100', 'mt-2'].join(' ')} style={{background: '#DEDEDE', height: '1px'}}></div>
+                            <h6 className={['text-right', 'px-2', 'pt-2', 'pb-0', 'mb-2'].join(' ')} style={{fontSize: '14px', color: '#949494'}}><b>آموزش‌ها و کلاس‌ها</b></h6>
+                        </React.Fragment>
+                        :
+                        null
+                    }
                     <div className={['d-flex', 'flex-column', 'pb-2'].join(' ')} style={{maxHeight: '200px', overflowY: 'scroll', overflowX: 'hidden', scrollbarWidth: 'thin', scrollbarColor: '#D8D8D8'}}>
                     {
                         classSearchResults.map((item, index) => {
                             if(item.fields !== null){
                                 return(
                                     <Link key={index} href={item.fields.url}>
-                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.1), 0 1px 10px 0 rgba(0, 0, 0, 0.19)'}}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.4), 0 1px 10px 0 rgba(222, 222, 222, 0.4)'}}>
                                             <img src={item.fields.image_url} style={{width: '36px', height: '36px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2', 'text-right'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.name}</h6>
@@ -1362,12 +1210,15 @@ function BigHeader(props){
                         {
                                 props.home != true 
                             ?
-                                <img src={Constants.baseUrl + '/assets/images/main_images/menu_black_small.png'} className={['pointer', 'd-block', 'd-lg-none'].join(' ')} style={{width: '30px'}} onClick={toggleDrawer('right', true)} />
+                                <React.Fragment>
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/menu_black_small.png'} className={['pointer', 'd-block', 'd-lg-none'].join(' ')} style={{width: '30px'}} onClick={toggleDrawer('right', true)} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['d-lg-none', 'mr-2', 'ml-1'].join(' ')} style={{width: '30px', height: '30px'}} />
+                                </React.Fragment>
                             :
                                 null
                         }
                         {/*##### searchbox for mobile view #####*/}
-                        <form onClick={() => {setShowSearchResults(true)}} method='GET' action='/search/SearchResult' className={['d-flex', 'flex-row', 'ltr', 'd-md-none', 'pr-1'].join(' ')} style={{height: '30px'}} >
+                        <form onClick={() => {setShowSearchResults(true);}} method='GET' action='/search/SearchResult' className={['d-flex', 'flex-row', 'ltr', 'd-md-none', 'pr-1'].join(' ')} style={{height: '30px'}} >
                             <div onClick={() => {if(phoneSearchInput.length !== 0){window.location.href = '/search/SearchResult?query=' + phoneSearchInput}}} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'p-0', 'pointer'].join(' ')} style={{width: '30px', height: '30px', background: '#F7F7F7', borderTop: '1px solid #D8D8D8', borderBottom: '1px solid #D8D8D8', borderLeft: '1px solid #D8D8D8', borderRadius: '3px 0px 0px 3px'}}>
                                 <img src={Constants.baseUrl + '/assets/images/main_images/search_main.png'} className={['pointer'].join(' ')} style={{width: '15px', height: '15px'}}/>
                             </div>
@@ -1395,7 +1246,7 @@ function BigHeader(props){
                                 :
                                     <span className={['bg-danger', 'px-2', 'mr-1', 'rounded'].join(' ')} style={{color: 'white', fontSize: '14px'}}>{newCartProductsNumber}</span>
                             */}
-                            <Link href='/cart/shoppingCart'><a className={['m-0', 'd-none', 'd-md-block'].join(' ')} style={{fontSize: '11px'}}>سبد خرید</a></Link>
+                            <Link href='/cart/shoppingCart'><a onClick={props.reduxStartLoading} className={['m-0', 'd-none', 'd-md-block'].join(' ')} style={{fontSize: '11px'}}>سبد خرید</a></Link>
                             <img src={Constants.baseUrl + '/assets/images/header_cart.png'} className={['ml-1'].join(' ')} style={{width: '20px'}} />    
                             {
                                 cartOpenState === true 
@@ -1437,7 +1288,7 @@ function BigHeader(props){
                                 props.reduxUser.status === 'LOGIN'
                                 ?
                                 <Link href={'/users/view'}>
-                                    <a className={['ltr', 'align-items-center', 'ml-1', 'p-2', 'pointer', 'd-none', 'd-md-flex'].join(' ')} onMouseEnter={userMouseEntered} onMouseLeave={userMouseLeft}>
+                                    <a onClick={props.reduxStartLoading} className={['ltr', 'align-items-center', 'ml-1', 'p-2', 'pointer', 'd-none', 'd-md-flex'].join(' ')} onMouseEnter={userMouseEntered} onMouseLeave={userMouseLeft}>
                                         <small className={['m-0'].join(' ')}>{props.reduxUser.information.name}</small>
                                         <img src={Constants.baseUrl + '/assets/images/header_user.png'} className={['ml-1'].join(' ')} style={{width: '20px'}} />    
                                     </a>
@@ -1507,7 +1358,7 @@ function BigHeader(props){
                                 {
                                     menu.map((item, counter)=>{
                                         if(counter < 10){
-                                            return <Link href={item.parentUrl.substr(18)}><a><li className={[styles.desktopHeaderParentMenu, 'list-group-item', 'pointer', 'm-0', 'text-center', 'rounded-0','pr-2', 'pl-2', 'mt-0', setActived(selectedMenu)].join(' ')} style={{height: '100%', color: getHoveredItemColor(item.parentName)}}  onMouseEnter={()=>{setHover({status: true, number: counter, title: item.parentName})}} onMouseLeave={()=>{setHover({status: false, number: counter, title: ''})}}>{item.parentName}</li></a></Link>
+                                            return <Link href={item.parentUrl.substr(18)}><a onClick={props.reduxStartLoading}><li className={[styles.desktopHeaderParentMenu, 'list-group-item', 'pointer', 'm-0', 'text-center', 'rounded-0','pr-2', 'pl-2', 'mt-0', setActived(selectedMenu)].join(' ')} style={{height: '100%', color: getHoveredItemColor(item.parentName)}}  onMouseEnter={()=>{setHover({status: true, number: counter, title: item.parentName})}} onMouseLeave={()=>{setHover({status: false, number: counter, title: ''})}}>{item.parentName}</li></a></Link>
                                         }
                                     })
                                 }

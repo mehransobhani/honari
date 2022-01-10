@@ -15,6 +15,7 @@ const ShoppingCart = (props) => {
     const [decreaseProcessings, setDecreaseProcessings] = useState([]);
     const [removeProcessings, setRemoveProcessings] = useState([]);
     const [wipeProcessign, setWipeProcessing] = useState(false);
+    const [axiosProcessInformation, setAxiosProcessInformation] = useState({type: 'nothing', index: -1});
 
     useEffect(() => {
         let newIncreaseProcessings = [];
@@ -157,18 +158,9 @@ const ShoppingCart = (props) => {
     }
 
     const increaseProductCountByOne = (key) => {
-        if(increaseProcessings[key] === false){
+        if(axiosProcessInformation.index !== key){
             if(props.reduxUser.status == 'GUEST'){
-                let newIncreaseProcessings = [];
-                let i = 0;
-                for(i; i < increaseProcessings.length; i++){
-                    if(key === i){
-                        newIncreaseProcessings.push(true);
-                    }else{
-                        newIncreaseProcessings.push(increaseProcessings[i]);
-                    }
-                }
-                setIncreaseProcessings(newIncreaseProcessings);
+                setAxiosProcessInformation({type: 'increase', index: key});
                 axios.post(Constants.apiUrl + '/api/guest-check-cart-changes', {
                     productPackId: props.reduxCart.information[key].productPackId,
                     count: props.reduxCart.information[key].count + 1
@@ -177,55 +169,17 @@ const ShoppingCart = (props) => {
                     if(response.status == 'done'){
                         updateProductInLocalStorage(key, response.count);
                         props.reduxIncreaseCountByOne(props.reduxCart.information[key].productPackId);
-                        let newIncreaseProcessings = [];
-                        let i =0;
-                        for(i=0; i < increaseProcessings.length; i++){
-                            if(key === i){
-                                newIncreaseProcessings.push(false);
-                            }else{
-                                newIncreaseProcessings.push(increaseProcessings[i]);
-                            }
-                        }
-                        setIncreaseProcessings(newIncreaseProcessings);
-                        
                     }else if(response.status == 'failed'){
-                        newIncreaseProcessings = [];
-                        let i = 0;
-                        for(i=0; i < increaseProcessings.length; i++){
-                            if(key === i){
-                                newIncreaseProcessings.push(false);
-                            }else{
-                                newIncreaseProcessings.push(increaseProcessings[i]);
-                            }
-                        }
-                        setIncreaseProcessings(newIncreaseProcessings);
                         props.reduxUpdateSnackbar('warning', true, response.umessage);
                     }
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 }).catch((error) => {
-                    newIncreaseProcessings = [];
-                    let i = 0;
-                    for(i=0; i < increaseProcessings.length; i++){
-                        if(key === i){
-                            newIncreaseProcessings.push(false);
-                        }else{
-                            newIncreaseProcessings.push(increaseProcessings[i]);
-                        }
-                    }
-                    setIncreaseProcessings(newIncreaseProcessings);
                     console.log(error);
                     props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 });
             }else if(props.reduxUser.status === 'LOGIN'){
-                let newIncreaseProcessings = [];
-                let i = 0;
-                for(i; i < increaseProcessings.length; i++){
-                    if(key === i){
-                        newIncreaseProcessings.push(true);
-                    }else{
-                        newIncreaseProcessings.push(increaseProcessings[i]);
-                    }
-                }
-                setIncreaseProcessings(newIncreaseProcessings);
+                setAxiosProcessInformation({type: 'increase', index: key});
                 axios.post(Constants.apiUrl + '/api/user-increase-cart-by-one', {
                     productPackId: props.reduxCart.information[key].productPackId
                 }, {
@@ -236,42 +190,14 @@ const ShoppingCart = (props) => {
                     let response = res.data;
                     if(response.status == 'done'){
                         props.reduxIncreaseCountByOne(props.reduxCart.information[key].productPackId);
-                        let newIncreaseProcessings = [];
-                        let i = 0;
-                        for(i; i < increaseProcessings.length; i++){
-                            if(key === i){
-                                newIncreaseProcessings.push(false);
-                            }else{
-                                newIncreaseProcessings.push(increaseProcessings[i]);
-                            }
-                        }
-                        setIncreaseProcessings(newIncreaseProcessings);
                     }else if(response.status == 'failed'){
-                        let newIncreaseProcessings = [];
-                        let i = 0;
-                        for(i; i < increaseProcessings.length; i++){
-                            if(key === i){
-                                newIncreaseProcessings.push(false);
-                            }else{
-                                newIncreaseProcessings.push(increaseProcessings[i]);
-                            }
-                        }
-                        setIncreaseProcessings(newIncreaseProcessings);
                         props.reduxUpdateSnackbar('warning', true, response.umessage);
                     }
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 }).catch((error) => {
-                    let newIncreaseProcessings = [];
-                    let i = 0;
-                    for(i; i < increaseProcessings.length; i++){
-                        if(key === i){
-                            newIncreaseProcessings.push(false);
-                        }else{
-                            newIncreaseProcessings.push(increaseProcessings[i]);
-                        }
-                    }
-                    setIncreaseProcessings(newIncreaseProcessings);
                     console.log(error);
                     props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 });
             }
         }
@@ -281,74 +207,28 @@ const ShoppingCart = (props) => {
         if(props.reduxCart.information[key].count == 1){
             return;
         }
-        if(decreaseProcessings[key]=== false){
+        if(axiosProcessInformation.index !== key){
             if(props.reduxUser.status == 'GUEST'){
-                let newDecreaseProcessings = [];
-                let i = 0;
-                for(i; i < decreaseProcessings.length; i++){
-                    if(key === i){
-                        newDecreaseProcessings.push(true);
-                    }else{
-                        newDecreaseProcessings.push(decreaseProcessings[i]);
-                    }
-                }
-                setDecreaseProcessings(newDecreaseProcessings);
+                setAxiosProcessInformation({type: 'decrease', index: key});
                 axios.post(Constants.apiUrl + '/api/guest-check-cart-changes', {
                     productPackId: props.reduxCart.information[key].productPackId,
                     count: props.reduxCart.information[key].count - 1
                 }).then((res) => {
-                    let newDecreaseProcessings = [];
-                    let i = 0;
-                    for(i; i < decreaseProcessings.length; i++){
-                        if(key === i){
-                            newDecreaseProcessings.push(false);
-                        }else{
-                            newDecreaseProcessings.push(decreaseProcessings[i]);
-                        }
-                    }
-                    setDecreaseProcessings(newDecreaseProcessings);
                     let response = res.data;
                     if(response.status == 'done'){
                         updateProductInLocalStorage(key, response.count);
                         props.reduxDecreaseCountByOne(props.reduxCart.information[key].productPackId);
                     }else if(response.status == 'failed'){
-                        newCart = [];
-                        i = 0;
-                        for(let item of cart){
-                            if(i === key){
-                                item.decreaseProcessing = false;
-                            }
-                            newCart.push(item);
-                            i++;
-                        }
-                        setCart(newCart);
                         props.reduxUpdateSnackbar('warning', true, response.umessage);
                     }
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 }).catch((error) => {
-                    let newDecreaseProcessings = [];
-                    let i = 0;
-                    for(i; i < decreaseProcessings.length; i++){
-                        if(key === i){
-                            newDecreaseProcessings.push(false);
-                        }else{
-                            newDecreaseProcessings.push(decreaseProcessings[i]);
-                        }
-                    }
-                    setDecreaseProcessings(newDecreaseProcessings);
                     console.log(error);
                     props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 });
             }else if(props.reduxUser.status == 'LOGIN'){
-                let newDecreaseProcessings = [];
-                let i = 0;
-                for(i; i < decreaseProcessings.length; i++){
-                    if(key === i){
-                        newDecreaseProcessings.push(true);
-                    }else{
-                        newDecreaseProcessings.push(decreaseProcessings[i]);
-                    }
-                }
-                setDecreaseProcessings(newDecreaseProcessings);
+                setAxiosProcessInformation({type: 'decrease', index: key});
                 axios.post(Constants.apiUrl + '/api/user-decrease-cart-by-one', {
                     productPackId: props.reduxCart.information[key].productPackId
                 }, {
@@ -358,42 +238,14 @@ const ShoppingCart = (props) => {
                 }).then((res) => {
                     let response = res.data;
                     if(response.status == 'done'){
-                        let newDecreaseProcessings = [];
-                        let i = 0;
-                        for(i; i < decreaseProcessings.length; i++){
-                            if(key === i){
-                                newDecreaseProcessings.push(false);
-                            }else{
-                                newDecreaseProcessings.push(decreaseProcessings[i]);
-                            }
-                        }
-                        setDecreaseProcessings(newDecreaseProcessings);
                         props.reduxDecreaseCountByOne(props.reduxCart.information[key].productPackId);
                     }else if(response.status === 'failed'){
-                        let newDecreaseProcessings = [];
-                        let i = 0;
-                        for(i; i < decreaseProcessings.length; i++){
-                            if(key === i){
-                                newDecreaseProcessings.push(false);
-                            }else{
-                                newDecreaseProcessings.push(decreaseProcessings[i]);
-                            }
-                        }
-                        setDecreaseProcessings(newDecreaseProcessings);
                         console.log(response.message);
                         props.reduxUpdateSnackbar('warning', true, response.umessage);
                     }
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 }).catch((error) => {
-                    let newDecreaseProcessings = [];
-                    let i = 0;
-                    for(i; i < decreaseProcessings.length; i++){
-                        if(key === i){
-                            newDecreaseProcessings.push(false);
-                        }else{
-                            newDecreaseProcessings.push(decreaseProcessings[i]);
-                        }
-                    }
-                    setDecreaseProcessings(newDecreaseProcessings);
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                     console.log(error);
                     props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
                 });
@@ -402,28 +254,11 @@ const ShoppingCart = (props) => {
     }
 
     const removeProductFromCart = (key) => {
-        if(!removeProcessings[key]){
+        if(axiosProcessInformation.index !== key){
             if(props.reduxUser.status === 'GUEST'){              
-                let localStorageCart = JSON.parse(localStorage.getItem('user_cart'));
-                let newLocalStorageCart = [];
-                localStorageCart.map((item, counter) => {
-                    if(item.id !== props.reduxCart.information[key].productPackId){
-                        newLocalStorageCart.push(item);
-                    }
-                });
-                localStorage.setItem('user_cart', JSON.stringify(newLocalStorageCart));
                 props.reduxRemoveFromCart(props.reduxCart.information[key].productPackId);
             }else if(props.reduxUser.status === 'LOGIN'){
-                let newRemoveProcessings = [];
-                let i = 0;
-                for(i; i < removeProcessings.length; i++){
-                    if(key === i){
-                        newRemoveProcessings.push(true);
-                    }else{
-                        newRemoveProcessings.push(removeProcessings[i]);
-                    }
-                }
-                setRemoveProcessings(newRemoveProcessings);
+                setAxiosProcessInformation({type: 'remove', index: key});
                 axios.post(Constants.apiUrl + '/api/user-remove-from-cart', {
                     productPackId: props.reduxCart.information[key].productPackId
                 }, {
@@ -431,16 +266,6 @@ const ShoppingCart = (props) => {
                         'Authorization': 'Bearer ' + props.ssrCookies.user_server_token, 
                     }
                 }).then((res) => {
-                    let newRemoveProcessings = [];
-                    let i = 0;
-                    for(i; i < removeProcessings.length; i++){
-                        if(key === i){
-                            newRemoveProcessings.push(false);
-                        }else{
-                            newRemoveProcessings.push(removeProcessings[i]);
-                        }
-                    }
-                    setRemoveProcessings(newRemoveProcessings);
                     let response = res.data;
                     if(response.status == 'done'){
                         props.reduxRemoveFromCart(props.reduxCart.information[key].productPackId);
@@ -448,19 +273,11 @@ const ShoppingCart = (props) => {
                         console.error(response.message);
                         props.reduxUpdateSnackbar('warning', true, response.umessage);
                     }
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 }).catch((error) => {
-                    let newRemoveProcessings = [];
-                    let i = 0;
-                    for(i; i < removeProcessings.length; i++){
-                        if(key === i){
-                            newRemoveProcessings.push(false);
-                        }else{
-                            newRemoveProcessings.push(removeProcessings[i]);
-                        }
-                    }
-                    setRemoveProcessings(newRemoveProcessings);
                     console.log(error);
                     props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+                    setAxiosProcessInformation({type: 'nothing', index: -1});
                 });
             }
         }
@@ -521,7 +338,7 @@ const ShoppingCart = (props) => {
                                     <p className={['mb-0'].join(' ')} style={{fontSize: '14px', color: '#444444'}}>وجود کالاها در سبدخرید به معنی رزرو آنها نیست و تا زمان موجود بودن در سبد خرید خواهند ماند</p>
                                 </div>
                                 <Link href={'/cart/payment'}>
-                                <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'pointer'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
+                                <div onClick={props.reduxStartLoading} className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'pointer'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>ادامه ثبت سفارش</h6>
                                     <img className={['mr-2'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '10px', height: '10px'}} />
                                 </div>
@@ -544,7 +361,7 @@ const ShoppingCart = (props) => {
                                     return (
                                         <div key={counter} className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'ltr', 'p-0'].join(' ')} style={{background: 'white', borderRight: '1px solid #DEDEDE', borderBottom: '1px solid #DEDEDE', borderLeft: '1px solid #DEDEDE'}}>
                                             <div className={['d-flex', 'felx-row', 'align-items-center', 'justify-content-center'].join(' ')} style={{width: '40px', height: '100%', borderRight: '1px solid #DEDEDE', background: '#F7F7F7'}}>
-                                                <img className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '22px', height: '22px'}} onClick={() => {removeProductFromCart(counter)}} />
+                                                <img className={['pointer'].join(' ')} src={Constants.baseUrl + (axiosProcessInformation.type === 'remove' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/bin_red.png')} style={{width: '22px', height: '22px'}} onClick={() => {removeProductFromCart(counter)}} />
                                             </div>
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'py-2', 'pr-2'].join(' ')} style={{flex: '1'}}>
                                                 {
@@ -560,9 +377,9 @@ const ShoppingCart = (props) => {
                                                     )
                                                 }
                                                 <div className={['mb-0', 'text-center', 'ltr', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-center'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>
-                                                    <img className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png'} style={{width: '20px', height: '20px'}} onClick={() => {decreaseProductCountByOne(counter)}} />
+                                                    <img className={['pointer'].join(' ')} src={Constants.baseUrl + (axiosProcessInformation.type === 'decrease' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/minus_gray_circle.png')} style={{width: '20px', height: '20px'}} onClick={() => {decreaseProductCountByOne(counter)}} />
                                                     <h6 className={['mb-0', 'px-2'].join(' ')} style={{fontSize: '17px'}}>{product.count}</h6>
-                                                    <img className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png'} style={{width: '20px', height: '20px'}} onClick={() => {increaseProductCountByOne(counter)}} />
+                                                    <img className={['pointer'].join(' ')} src={Constants.baseUrl + (axiosProcessInformation.type === 'increase' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/plus_gray_circle.png')} style={{width: '20px', height: '20px'}} onClick={() => {increaseProductCountByOne(counter)}} />
                                                 </div>
                                                 {
                                                     product.price === product.discountedPrice
@@ -607,7 +424,7 @@ const ShoppingCart = (props) => {
                             </div>
                             <div className={['col-12', 'px-0', 'mt-2', 'd-flex', 'flex-row', 'ltr', 'align-items-center', 'justify-content-between'].join(' ')}>
                                 <Link href={'/cart/payment'}>
-                                <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'pointer'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
+                                <div onClick={props.reduxStartLoading} className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'pointer'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>ادامه ثبت سفارش</h6>
                                     <img className={['mr-2'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '10px', height: '10px'}} />
                                 </div>
@@ -645,7 +462,7 @@ const ShoppingCart = (props) => {
                                     }
                                 </div>
                                 <Link href={'/cart/payment'}>
-                                <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'pointer'].join(' ')} style={{borderRadius: '0 0 2px 2px', background: '#00BAC6'}}>
+                                <div onClick={props.reduxStartLoading} className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'pointer'].join(' ')} style={{borderRadius: '0 0 2px 2px', background: '#00BAC6'}}>
                                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>ادامه ثبت سفارش</h6>
                                     <img className={['mr-2'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '10px', height: '10px'}} />
                                 </div>
@@ -658,7 +475,7 @@ const ShoppingCart = (props) => {
                                     return(
                                         <div key={counter} className={['col-12', 'p-0', 'mt-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8'}}>
                                             <div className={['d-flex', 'flex-row', 'ltr', 'pb-0', 'pl-1', 'pt-1'].join(' ')}>
-                                                <img src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} className={['pointer'].join(' ')} style={{width: '22px', height: '22px'}} onClick={() => {removeProductFromCart(counter)}} />
+                                                <img src={Constants.baseUrl + (axiosProcessInformation.type === 'remove' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/bin_red.png')} className={['pointer'].join(' ')} style={{width: '22px', height: '22px'}} onClick={() => {removeProductFromCart(counter)}} />
                                             </div>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'px-3'].join(' ')}>
                                                 <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + product.prodID + '.jpg'} style={{width: '70px', height: '70px'}} />
@@ -686,9 +503,9 @@ const ShoppingCart = (props) => {
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'px-3'].join(' ')}>
                                                 <h6 className={['text-right', 'mb-0'].join(' ')} style={{fontSize: '14px'}}>تعداد</h6>
                                                 <div className={['d-flex', 'flex-row', 'align-items-center', 'ltr'].join(' ')}>
-                                                    <img src={Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png'} className={['pointer'].join(' ')} style={{width: '20px', height: '20px'}} onClick={() => {decreaseProductCountByOne(counter)}} />
+                                                    <img src={Constants.baseUrl + (axiosProcessInformation.type === 'decrease' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/minus_gray_circle.png')} className={['pointer'].join(' ')} style={{width: '20px', height: '20px'}} onClick={() => {decreaseProductCountByOne(counter)}} />
                                                     <h6 className={['px-2', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '14px'}}>{product.count}</h6>
-                                                    <img src={Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png'} className={['pointer'].join(' ')} style={{width: '20px', height: '20px'}} onClick={() => {increaseProductCountByOne(counter)}} />
+                                                    <img src={Constants.baseUrl + (axiosProcessInformation.type === 'increase' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/plus_gray_circle.png')} className={['pointer'].join(' ')} style={{width: '20px', height: '20px'}} onClick={() => {increaseProductCountByOne(counter)}} />
                                                 </div>
                                             </div>
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'px-3', 'mt-2', 'pt-2'].join(' ')} style={{background: '#F7F7F7', borderTop: '1px dashed #DEDEDE'}}>
@@ -727,7 +544,7 @@ const ShoppingCart = (props) => {
                                     }
                                 </div>
                                 <Link href={'/cart/payment'}>
-                                <div className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3', 'pointer'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
+                                <div onClick={props.reduxStartLoading} className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3', 'pointer'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                                     <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>ادامه ثبت سفارش</h6>
                                     <img className={['mr-2'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '10px', height: '10px'}} />
                                 </div>
@@ -769,6 +586,7 @@ const mapDispatchToProps = (dispatch) => {
         reduxWipeCart: () => dispatch({type: actionTypes.WIPE_CART}),
         reduxUpdateUserTotally: (d) => dispatch({type: actionTypes.UPDATE_USER_TOTALLY, data: d}),
         reduxStopLoading: () => dispatch({type: actionTypes.STOP_LOADING}),
+        reduxStartLoading: () => dispatch({type: actionTypes.START_LOADING}),
         reduxUpdateSnackbar: (k,s,t) => dispatch({type: actionTypes.UPDATE_SNACKBAR, kind: k, show: s, title: t})
     }
 }

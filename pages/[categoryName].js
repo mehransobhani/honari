@@ -304,13 +304,10 @@ const mapStateToProps = (state) => {
   
   export async function getServerSideProps(context){
     let url = context.req.url.substr(1);
-    console.log("RAW URL : " + url);
     let newUrl = '';
-    console.log("DECODED URL : " + decodeURI(url));
     url = decodeURI(url);
     let slashCount = 0;
     if(url.charAt(0) === '_' && url.charAt(1) === 'n' && url.charAt(2) === 'e' && url.charAt(3) === 'x' && url.charAt(4) === 't'){
-        console.log('EDIT STARTED');
         let collect = true;
         for(let i=0; i<url.length; i++){
             if(url.charAt(i) === '.' && url.charAt(i+1) === 'j' && url.charAt(i+2) === 's' && url.charAt(i+3) === 'o' && url.charAt(i+4) === 'n'){
@@ -326,8 +323,6 @@ const mapStateToProps = (state) => {
             url = newUrl;
         }
     }
-    console.log('EDIT FINISHED');
-    console.log("NEW URL : " + newUrl);
     const artInfo = await fetch(Constants.apiUrl + '/api/art-information', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
