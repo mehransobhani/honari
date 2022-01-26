@@ -40,6 +40,7 @@ const CategoryInsight = (props) => {
     const [id, setId] = useState(props.id);
     const [windowHeight, setWindowHeight] = useState(0);
     const [waitingForData, setWaitingForData] = useState(true);
+    const [firstTime, setFirstTime] = useState(true);
 
     const filterDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -248,11 +249,11 @@ const CategoryInsight = (props) => {
                 if(response.products.length === 0){
                     props.reduxUpdateSnackbar('warning', true, 'موردی یافت نشد');
                 }
+                setFirstTime(false);
             }else if(response.status === 'failed'){
                 console.warn(response.message);
                 props.reduxUpdateSnackbar('warning', true, 'موردی یافت نشد');
             }
-            window.scrollTo(0,0);
             setWaitingForData(false);
         }).catch((error)=>{
             console.error(error);
@@ -414,6 +415,10 @@ const CategoryInsight = (props) => {
                 </div>
                 <div className={['col-12', 'px-3', 'mt-3'].join(' ')}>
                     <input type="text" value={props.reduxCategoryFilter.key} className={['form-control', 'text-right', 'rtl'].join(' ')} placeholder="نام محصول را جستجو کنید" onChange={searchInputChanged}/>
+                </div>
+                <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'justify-content-right', 'align-items-center', 'mt-3'].join(' ')}>
+                    <input type='checkbox' checked={isShowOnlyAvailableProductsCheckboxChecked()} onChange={showOnlyAvailableProductsCheckboxChanged} />
+                    <h6 className={['mb-0', 'mr-2'].join(' ')} style={{fontSize: '13px', color: 'rgb(68, 68, 68)'}}>عدم نمایش محصولات ناموحود</h6>
                 </div>
             </div>
             {
@@ -650,7 +655,7 @@ const CategoryInsight = (props) => {
                                         )
                                         :
                                         (
-                                            props.reduxCategoryFilter.results.length === 0 && !waitingForData
+                                            props.reduxCategoryFilter.results.length === 0 && !waitingForData && !firstTime
                                             ?
                                             (
                                                 <div className={['row', 'd-flex', 'align-items-stretch', 'px-2'].join(' ')}>

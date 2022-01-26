@@ -31,102 +31,7 @@ const Home = (props) => {
   const [secondBannerImageState, setSecondBannerImageState] = useState(null);
   const [thirdBannerImageState, setThirdBannerImageState] = useState(null);
   const [mainBanners, setMainBanners] = useState([]);
-
-  const [sixNewProductsState, setSixNewProductsState] = useState([]);
-
-  /*useEffect(() => {
-    window.erxesSettings = {
-      messenger: {
-          brand_id: "2a4ghQ",
-          css: `
-          .welcome-info{
-              text-align: left;
-          }
-          .erxes-home-container .integration-box h4{
-              text-align: center;
-          }
-          .faq-item .erxes-right-side,.erxes-content .erxes-article-content h2 {
-              text-align: right;
-          }
-          .erxes-message-sender{
-              direction: rtl !important;
-          }
-          .erxes-message-sender textarea{
-              padding-left: 80px;
-              padding-right: 25px;
-          }
-          .erxes-message-sender .ctrl{
-              right: unset;
-              left: 15px;
-          }
-          .erxes-messenger {
-            left: 8px;
-            transform-origin: 0% 100%;
-          }
-        .erxes-launcher {
-            left: 8px;
-            right: auto;
-          }
-          @media screen and (max-width: 420px){
-              .erxes-messenger {
-                  left: 0;
-                  transform-origin: 0% 100%;
-              }
-          }
-        `,
-          email: props.ssrUser.status === 'LOGIN' ? props.ssrUser.information.email : '',
-          phone: props.ssrUser.status === 'LOGIN' ? props.ssrUser.information.username : '',
-          data: {
-              // avatar: 'https://cdn1.iconfinder.com/data/icons/female-avatars-vol-1/256/female-portrait-avatar-profile-woman-sexy-afro-2-512.png',
-              firstName: props.ssrUser.status === 'LOGIN' ? props.ssrUser.information.name : '',
-              // lastName: 'lastName1111',
-              // birthDate: new Date('2020-01-01'),
-              // sex: 1,
-              // emailValidationStatus: 'valid',
-              // phoneValidationStatus: 'valid',
-              state: "customer",
-              // position: 'position',
-              // department: 'department',
-              // leadStatus: 'working',
-              // hasAuthority: 'Yes',
-              // description: 'bio',
-              // doNotDisturb: 'Yes',
-              code: props.ssrUser.status === 'LOGIN' ? props.ssrUser.information.eui : '',
-              customFieldsData: [
-                  {field: "cDsQAxPHM7CZgM2Cy", value: ''},
-                  {field: "cP8WbyyZRmQRe7jx6", value: 0},
-                  {field: "KfGJQxfWrofDofXcX", value: 0},
-                  {field: "9qcL4ePyZG6bQe6tf", value: "1970-01-01"},
-                  {field: "eizk6dNh2qCnoXBsD", value: ''},
-                  {field: "bCM9yutCCD4Korrzs", value: 0},
-                  {field: "eygKaxWL7BvDBLYod", value: ''},
-                  {field: "85zuZbbJ7ZnNHxBdT", value: 0},
-                  {field: "5WTbRJ57qLKPitPsz", value: "1970-01-01"},
-                  {field: "8WDwWS8Ao6tgCkpCw", value: ''}
-              ]
-              //   'links.linkedIn': 'http://linkedin.com/test',
-              //   'links.twitter': 'http://twitter.com/test',
-              //   'links.facebook': 'http://facebook.com/test',
-              //   'links.github': 'http://github.com/test',
-              //   'links.youtube': 'http://youtube.com/test',
-              //   'links.website': 'http://website.com/test',
-  
-              //custom fields ===========
-  
-  
-              //  // createdAt is reserved field
-              //   updatePlan: new Date('2020-04-25'),
-              //   plan: 'paid',   
-          },
-      },
-    };
-    const script = document.createElement('script');
-    script.src = "https://crm.honari.com/widgets/build/messengerWidget.bundle.js";
-    script.async = true;
-  
-    const entry = document.getElementsByTagName('script')[0];
-    entry.parentNode.insertBefore(script, entry);
-  }, [props.ssrUser.status , 'NI']);*/
+  const [topCategories, setTopCategories] = useState([]);
 
   useEffect(()=>{
     axios.get(Constants.apiUrl + '/api/top-three-home-banners').then((res)=>{
@@ -143,6 +48,21 @@ const Home = (props) => {
       }
     }).catch((error)=>{
       console.log(error);
+      props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+    });
+  }, []);
+
+  useEffect(() => {
+    axios.get(Constants.apiUrl + '/api/top-six-categories').then((r) => { 
+      let response = r.data; 
+      if(response.status === 'done' && response.found === true){  
+        setTopCategories(response.categories); 
+      }else if(response.status === 'failed'){ 
+        console.warn(response.message); 
+        props.reduxUpdateSnackbar('warning', true, response.umessage); 
+      }
+    }).catch((e) => {
+      console.error(e);
       props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
     });
   }, []);
@@ -345,7 +265,7 @@ const Home = (props) => {
               </div>
             </div>
             <div className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-              <img src={Constants.baseUrl + '/assets/images/main_images/free_delivery.png'} className={[styles.tripleBannerImage]} />
+              <img src={Constants.baseUrl + '/assets/images/main_images/return_delivery.png'} className={[styles.tripleBannerImage]} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-md-right', 'pr-2', 'py-0'].join(' ')}>
                 <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>امکان مرجوعی کالا</h6>
                 <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}>بدون محدودیت زمانی</h6>
@@ -358,54 +278,22 @@ const Home = (props) => {
           <div className={['col-12', 'mb-2', 'd-none', 'd-md-block'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
         </div>
         <div className={['row', 'px-2', 'px-md-0'].join(' ')}>
-          <div className={['col-6', 'col-md-2', 'px-2', 'py-0', 'my-0'].join(' ')}>
-            <div className={['d-flex', 'pointer', 'flex-row', 'justify-content-center', 'align-items-center', 'shadow-sm'].join(' ')} style={{height: '200px', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' , border: '1px solid #dedede', borderRadius: '4px', background: 'url(/assets/images/banner_images/banner_thread.jpg)'}}>
-              <div className={['d-flex', 'flex-column', 'align-items-center'].join(' ')}>
-                <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '24px', fontWeight: 'bold', color: 'white'}}>انواع نخ</h6>
-                <div className={['mt-2'].join(' ')} style={{height: '3px', width: '64px', background: 'white'}}></div>
-              </div>
-            </div> 
-          </div>
-          <div className={['col-6', 'col-md-2', 'px-2', 'py-0', 'my-0'].join(' ')}>
-            <div className={['d-flex', 'pointer', 'flex-row', 'justify-content-center', 'align-items-center', 'shadow-sm'].join(' ')} style={{height: '200px', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' , border: '1px solid #dedede', borderRadius: '4px', background: 'url(/assets/images/banner_images/banner_thread.jpg)'}}>
-              <div className={['d-flex', 'flex-column', 'align-items-center'].join(' ')}>
-                <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '24px', fontWeight: 'bold', color: 'white'}}>انواع نخ</h6>
-                <div className={['mt-2'].join(' ')} style={{height: '3px', width: '64px', background: 'white'}}></div>
-              </div>
-            </div> 
-          </div>
-          <div className={['col-6', 'col-md-2', 'px-2', 'py-0', 'my-0', 'mt-3', 'mt-md-0'].join(' ')}>
-            <div className={['d-flex', 'pointer', 'flex-row', 'justify-content-center', 'align-items-center', 'shadow-sm'].join(' ')} style={{height: '200px', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' , border: '1px solid #dedede', borderRadius: '4px', background: 'url(/assets/images/banner_images/banner_thread.jpg)'}}>
-              <div className={['d-flex', 'flex-column', 'align-items-center'].join(' ')}>
-                <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '24px', fontWeight: 'bold', color: 'white'}}>انواع نخ</h6>
-                <div className={['mt-2'].join(' ')} style={{height: '3px', width: '64px', background: 'white'}}></div>
-              </div>
-            </div> 
-          </div>
-          <div className={['col-6', 'col-md-2', 'px-2', 'py-0', 'my-0', 'mt-3', 'mt-md-0'].join(' ')}>
-            <div className={['d-flex', 'pointer', 'flex-row', 'justify-content-center', 'align-items-center', 'shadow-sm'].join(' ')} style={{height: '200px', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' , border: '1px solid #dedede', borderRadius: '4px', background: 'url(/assets/images/banner_images/banner_thread.jpg)'}}>
-              <div className={['d-flex', 'flex-column', 'align-items-center'].join(' ')}>
-                <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '24px', fontWeight: 'bold', color: 'white'}}>انواع نخ</h6>
-                <div className={['mt-2'].join(' ')} style={{height: '3px', width: '64px', background: 'white'}}></div>
-              </div>
-            </div> 
-          </div>
-          <div className={['col-6', 'col-md-2', 'px-2', 'py-0', 'my-0', 'd-none', 'd-md-block'].join(' ')}>
-            <div className={['d-flex', 'pointer', 'flex-row', 'justify-content-center', 'align-items-center', 'shadow-sm'].join(' ')} style={{height: '200px', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' , border: '1px solid #dedede', borderRadius: '4px', background: 'url(/assets/images/banner_images/banner_thread.jpg)'}}>
-              <div className={['d-flex', 'flex-column', 'align-items-center'].join(' ')}>
-                <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '24px', fontWeight: 'bold', color: 'white'}}>انواع نخ</h6>
-                <div className={['mt-2'].join(' ')} style={{height: '3px', width: '64px', background: 'white'}}></div>
-              </div>
-            </div> 
-          </div>
-          <div className={['col-6', 'col-md-2', 'px-2', 'py-0', 'my-0', 'd-none', 'd-md-block'].join(' ')}>
-            <div className={['d-flex', 'pointer', 'flex-row', 'justify-content-center', 'align-items-center', 'shadow-sm'].join(' ')} style={{height: '200px', backgroundPositionX: 'center', backgroundPositionY: 'center', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat, no-repeat' , border: '1px solid #dedede', borderRadius: '4px', background: 'url(assets/images/banner_images/banner_thread.jpg)'}}>
-                <div className={['d-flex', 'flex-column', 'align-items-center'].join(' ')}>
-                  <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '24px', fontWeight: 'bold', color: 'white'}}>انواع نخ</h6>
-                  <div className={['mt-2'].join(' ')} style={{height: '3px', width: '64px', background: 'white'}}></div>
-                </div>
-            </div>
-          </div>            
+          {
+            topCategories.map((category, index) => {
+              return (
+                <Link href={'/shop/product/category/' + category.categoryUrl}>
+                  <a className={['col-6', 'col-md-2', 'px-2', 'py-0', 'my-0'].join(' ')}>
+                    <div className={['d-flex', 'pointer', 'flex-row', 'justify-content-center', 'align-items-center', 'shadow-sm'].join(' ')} style={{height: '200px', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' , border: '1px solid #dedede', borderRadius: '4px', background: 'url(' + category.categoryImage + ')'}}>
+                      <div className={['d-flex', 'flex-column', 'align-items-center'].join(' ')}>
+                        <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '24px', fontWeight: 'bold', color: 'white', textShadow: '2px 2px 3px #00BAC6'}}>{category.categoryName}</h6>
+                        <div className={['mt-2'].join(' ')} style={{height: '3px', width: '64px', background: 'white', boxShadow: '2px 2px 3px #00BAC6'}}></div>
+                      </div>
+                    </div> 
+                  </a>
+                </Link>
+              );
+            })
+          }          
         </div>
         <SpecialOffers />
       </div>

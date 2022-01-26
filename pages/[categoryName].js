@@ -106,7 +106,7 @@ const CategoryLandingPage = (props) => {
         if(props.ssrArtInfo.status === 'done'){
             setArtInformation(props.ssrArtInfo.result);
         }else{
-            alert('آدرس وارد شده اشتباه است');;
+            alert('آدرس وارد شده اشتباه است');
         }
     }, [props.reduxUser.status, 'NI']);
 

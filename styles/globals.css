@@ -49,6 +49,10 @@ a {
   font-size: 22px;
 }
 
+.font14{
+  font-size: 14px;
+}
+
 @font-face {
   font-family: IranSansWeb;
   src: url("/newtest/assets/fonts/IRANSansWeb.woff2") format('woff2');
@@ -127,6 +131,25 @@ span{
 .artpage-description-div h1, .artpage-description-div h2, .artpage-description-div h3, p{
   font-size: 14px !important;
 }
+.comment-reply-button{
+  background: white;
+  color: #00BAC6;
+  border-radius: 3px;
+}
+.comment-reply-button:hover{
+  background: #00BAC6;
+  color: white;
+}
+.comment-cancel-reply-button{
+  background: white;
+  color: #ab0311;
+  border-radius: 3px;
+}
+.comment-cancel-reply-button:hover{
+  background: #ab0311;
+  color: white;
+}
+
 #erxes-messenger-container{
   right: unset !important;
   left: 12px !important;

@@ -106,21 +106,21 @@ const SearchResult = (props) => {
                     if(response.status === 'done'){
                         let cartArray = [];
                         response.cart.map((item, counter) => {
-                            cartArray.push({
-                                productId: item.productId,
-                                productPackId: item.productPackId,
-                                name: item.productName,
-                                categoryId: item.categoryId,
-                                prodID: item.prodID,
-                                url: item.productUrl,
-                                count: item.productCount,
-                                unitCount: item.productUnitCount,
-                                unitName: item.productUnitName,
-                                label: item.productLabel,
-                                basePrice: item.productBasePrice,
-                                price: item.productPrice,
-                                discountedPrice: item.discountedPrice,
-                                discountPercent: item.discountPercent
+                            cartArray.push({ 
+                                productId: item.productId, 
+                                productPackId: item.productPackId, 
+                                name: item.productName, 
+                                categoryId: item.categoryId, 
+                                prodID: item.prodID, 
+                                url: item.productUrl, 
+                                count: item.productCount, 
+                                unitCount: item.productUnitCount, 
+                                unitName: item.productUnitName, 
+                                label: item.productLabel, 
+                                basePrice: item.productBasePrice, 
+                                price: item.productPrice, 
+                                discountedPrice: item.discountedPrice, 
+                                discountPercent: item.discountPercent 
                             });
                         });
                         props.reduxUpdateCart(cartArray);

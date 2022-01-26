@@ -43,8 +43,18 @@ const ProductInsight = (props) =>{
     const [aparatScript, setAparatScript] = useState(undefined);
     const [aparatId, setAparatId] = useState(0);
     const [videoFullscreenDisplay, setVideoFullscreenDisplay] = useState('d-none');
-
+    const [selectedSection, setSelectedSection] = useState(0);
+    const [comments, setComments] = useState([]);
+    const [replyCommentIndex, setReplyCommentIndex] = useState(-1);
     const [cookies , setCookie , removeCookie] = useCookies();
+    const [replyInput, setReplyInput] = useState('');
+    const [commentInput, setCommentInput] = useState('');
+    const [sendingReply, setSendingReply] = useState(false);
+    const [sendingComment, setSendingComment] = useState(false);
+
+    let helpSectionBigPart = 'همه تلاش ما این است که کالای خریداری شده در شرایط مطلوب به دست شما برسد، باوجود این ممکن است پس از خرید به هر دلیل تصمیم به بازگرداندن کالا بگیرید.';
+    helpSectionBigPart += ' ما این امکان را برای شما درنظر گرفته‌ایم که با آسودگی خاطر تا مدت ۱۰ روز بعد از دریافت کالا، برای بازگرداندن با هزینه‌ی خود اقدام نمایید.';
+    helpSectionBigPart += ' کالا باید در شرایط اولیه همراه با بسته بندی و لیبل بدون آسیب دیدگی و پارگی باشد. درصورت بازشدن پلمپ کالا امکان مرجوع کردن آن وجود ندارد.';
 
     /*useEffect(()=>{
         axios.post(Constants.apiUrl + '/api/product-basic-information', {
@@ -181,6 +191,22 @@ const ProductInsight = (props) =>{
         });
         console.log(cookies.user_cart);
     }, [id, props.id]);
+
+    useEffect(() => {
+        axios.post(Constants.apiUrl + '/api/product-comments', {
+            productId: props.id,
+        }).then((r) => {
+            let response = r.data;
+            if(response.status === 'done'){
+                setComments(response.comments);
+            }else if(response.status === 'failed'){
+                props.reduxUpdateSnackbar('warning', true, response.umessage);
+            }
+        }).catch((e) => {
+            console.error(e);
+            props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+        });
+    }, []);
 
     /*useEffect(() => {
         if(props.reduxCart.status !== 'NI'){
@@ -494,6 +520,272 @@ const ProductInsight = (props) =>{
         }
     }
 
+    const getSectionBackground = (secitonId) => {
+        if(selectedSection === secitonId){
+            return "#F2F2F2"
+        }else{
+            return "#DEDEDE";
+        }
+    }
+
+    const getSectionBorderStyles = (sectionId) => {
+        if(selectedSection === sectionId){
+            //
+        }else{
+            //
+        }
+    }
+
+    const replyInputChanged = (event) => {
+        setReplyInput(event.target.value);
+    }
+
+    const submitReply = () => {
+        if(sendingReply){
+            return;
+        }
+        if(replyInput.length < 3){
+            props.reduxUpdateSnackbar('warning', true, 'پاسخ شما حداقل باید شامل ۳ حرف باشد');
+        }else{
+            setSendingReply(true);
+            let commentId = comments[replyCommentIndex].id;
+            let cmi = replyCommentIndex;
+            let reply = replyInput;
+            axios.post(Constants.apiUrl + '/api/reply-to-comment', {
+                productId: props.id,
+                commentId: commentId,
+                reply: replyInput,
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + cookies.user_server_token, 
+                }
+            }).then((r) => {
+                let response = r.data;
+                if(response.status === 'done'){
+                    props.reduxUpdateSnackbar('success', true, 'پاسخ شما با موفقیت ثبت شد');
+                    setReplyCommentIndex(-1);
+                    setReplyInput('');
+                    addTemporaryResponse(cmi, reply, response.senderName);
+                }else if(response.status === 'failed'){
+                    console.warn(response.message);
+                    props.reduxUpdateSnackbar('warning', true, response.umessage);
+                }
+                setSendingReply(false);
+            }).catch((e) => {
+                setSendingReply(false);
+                console.error(e);
+                props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+            });
+        }
+    }
+
+    const submitComment = () => {
+        if(sendingComment){
+            return;
+        }
+        if(commentInput.length < 3){
+            props.reduxUpdateSnackbar('warning', true, 'نظر وارد شده حداقل باید شامل ۳ حرف باشد');
+        }else{
+            setSendingComment(true);
+            let comment = commentInput;
+            axios.post(Constants.apiUrl + '/api/add-comment', {
+                productId: props.id,
+                comment: commentInput,
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + cookies.user_server_token, 
+                }
+            }).then((r) => {
+                let response = r.data;
+                if(response.status === 'done'){
+                    addTemporaryComment(comment, response.senderName, response.commentId);
+                    props.reduxUpdateSnackbar('success', true, 'نظر شما با موفقیت ثبت شد');
+                }else if(response.status === 'failed'){
+                    console.warn(response.message);
+                    props.reduxUpdateSnackbar('warning', true, response.umessage);
+                }
+                setSendingComment(false);
+            }).catch((e) => {
+                setSendingComment(false);
+                console.error(e);
+                props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+            });
+        }
+    }
+
+    const commentInputChanged = (event) => {
+        setCommentInput(event.target.value);
+    }
+
+    const addTemporaryResponse = (index, reply, senderName) => {
+        let newComments = [];
+        comments.map((comment, i) => {
+            if(i !== index){
+                newComments.push(comment);
+            }else{
+                let newCommentResponses = comment.response;
+                newCommentResponses.push({
+                    comment: reply,
+                    senderName: senderName,
+                    date: 'لحظاتی پیش'
+                });
+                comment.response = newCommentResponses;
+                newComments.push(comment);
+            }
+        });
+        setComments(newComments);
+    }
+
+    const addTemporaryComment = (c, senderName, commentId) => {
+        let newComments = [];
+        newComments = comments;
+        newComments.push({
+            id: commentId,
+            comment: c,
+            senderName: senderName, 
+            date: 'لحظاتی پیش', 
+            response: []
+        });
+        setComments(newComments)
+        /*comments.map((comment, i) => {
+            if(i !== index){
+                newComments.push(comment);
+            }else{
+                let newCommentResponses = comment.response;
+                newCommentResponses.push({
+                    comment: reply,
+                    senderName: senderName,
+                    date: 'لحظاتی پیش'
+                });
+                comment.response = newCommentResponses;
+                newComments.push(comment);
+            }
+        });
+        setComments(newComments);*/
+    }
+
+    const descriptionSection = (
+        <div className={['row', 'py-4', 'py-md-5', 'rtl', 'px-md-5'].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
+            <div className={['col-12', 'px-md-5', 'mt-3', 'mt-md-0', 'rtl'].join(' ')} >
+                <div className={['d-flex', 'flex-row', 'align-items-center', 'mb-2'].join(' ')}>
+                    <h6 className={['mb-0', 'mr-2'].join(' ')}>مشخصات محصول</h6>
+                </div>
+                <table className={['table', 'table-striped', 'mt-3'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', backgroundColor: 'white'}}>
+                    <tbody>
+                        {
+                            productFeaturesState.map((feature, index)=>{
+                                return(
+                                    <tr key={index}>
+                                        <td className={['text-right', 'ltr'].join(' ')}>{feature.title}</td>
+                                        <td className={['text-right', 'ltr'].join(' ')} style={{borderRight: '1px dashed #DEDEDE'}}>{feature.value}</td>
+                                    </tr> 
+                                );
+                            })
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div className={['col-12', 'pl-1', 'px-5', 'rtl', 'mt-3'].join(' ')}>
+                <div className={['mb-0', 'rtl', 'text-right', styles.infoContainer].join(' ')} style={{}}>{parse(props.description)}</div>
+            </div>
+        </div>
+    );
+
+    const helpSection = (
+        <div className={['row', 'py-4', 'py-md-5', 'rtl', 'px-md-5'].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
+            <div className={['col-12', 'text-right', 'px-md-5'].join(' ')}>
+                <h6 className={['rtl'].join(' ')} style={{color: '#00BAC6'}}>- امکان مرجوه کردن کالا بدون محدودیت</h6>
+                <h6 className={['rtl'].join(' ')}>{helpSectionBigPart}</h6>
+                <h6 className={['rtl'].join(' ')}>توجه : کالاهایی که به دلیل ماهیت خاص و نوع بسته‌بندی امکان تشخیص در استفاده محصول نیست، امکان مرجوع کردن ندارند.</h6>
+            </div>
+            <div className={['col-12', 'mt-3', 'text-right', 'px-md-5'].join(' ')}>
+                <h6 className={['rtl'].join(' ')} style={{color: '#00BAC6'}}>- ارسال رایگان سفارشات</h6>
+                <h6 className={['rtl'].join(' ')}>کلیه سفارشات پست و پیک که مجموع سبد خرید آنها بیش از ۲۰۰ هزار تومان باشد به صورت رایگان ارسال میشود. پست پیشتاز شامل ارسال رایگان نمیشود.</h6>
+                <h6 className={['rtl'].join(' ')}>ارسال سریع در شهر تهران با پیک انجام میشود و زمان رسیدن سفارش توسط شما انتخاب شده و در بازه انتخابی به دست شما میرسد</h6>
+                <h6 className={['rtl'].join(' ')}>ارسال در سایر شهرهای ایران به انتخاب خود شما توسط پست سفارشی، پیشتاز و ارسال سریع انجام میشود.</h6>
+                <h6 className={['rtl'].join(' ')}>ارسال سریع به بیش از ۲۰ استان کشور و با دریافت طی ۲۴ ساعت کاری میباشد و شامل ارسال رایگان نمیشود</h6>
+            </div>
+        </div>
+    );
+
+    const commentsSection = (
+        <div className={['row', 'py-4', 'py-md-5', 'rtl', 'px-3', 'px-md-5', 'justify-content-left'].join(' ')} style={{background: '#F2F2F2'}}>
+            {
+                comments.map((comment, index) => {
+                    return (
+                        <React.Fragment>
+                            <div className={['col-12', 'mt-3', 'p-3'].join(' ')} style={{background: '#FFFFFF', borderRadius: '2px'}}>
+                                <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')}>
+                                    <h4 className={['mb-2', 'text-right', 'rtl', 'font11md14'].join(' ')} style={{color: '#00BAC6'}}>{comment.senderName}</h4>
+                                    <button onClick={() => {setReplyCommentIndex(index)}} className={['font11md14', 'py-1', 'px-2', 'comment-reply-button', 'pointer'].join(' ')} style={{borderStyle: 'none', outlineStyle: 'none', border: '1px solid #00BAC6'}}>پاسخ</button>
+                                </div>
+                                <h5 className={['font11md14', 'text-right', 'rtl'].join(' ')}>{parse(comment.comment)}</h5>
+                                <div className={['text-left', 'ltr', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-left'].join(' ')}>
+                                    <h6 className={['text-center', 'rtl', 'mb-0'].join(' ')} style={{fontSize: '11px', color: '#00BAC6'}}>{comment.date}</h6>
+                                    <h6 className={['text-center', 'rtl', 'mb-0', 'px-1'].join(' ')} style={{fontSize: '11px'}}>ارسال شده در : </h6>
+                                </div>
+                            </div>
+                            {
+                                replyCommentIndex === index
+                                ?
+                                (
+                                    <React.Fragment>
+                                        <div className={['col-1'].join(' ')}></div>
+                                        <div className={['col-11', 'mt-3', 'p-3'].join(' ')} style={{background: '#FFFFFF', borderRadius: '2px'}}>
+                                            <h4 className={['mb-2', 'text-right', 'rtl', 'font14md17'].join(' ')} style={{color: '#00BAC6'}}>ایجاد پاسخ</h4>
+                                            <textarea onChange={replyInputChanged} placeholder='پاسخ خود را وارد کنید...' className={['w-100', 'font11md14', 'text-right', 'rtl'].join(' ')} rows={2} />
+                                            <div className={['d-flex', 'flex-row', 'justify-content-right', 'align-items-center', 'rtl', 'mt-2'].join(' ')}>
+                                                <button onClick={submitReply} className={['font14', 'pointer', 'px-3', 'comment-reply-button'].join(' ')} style={{borderStyle: 'none', outlineStyle: 'none', border: '1px solid #00BAC6'}}>{sendingReply ? 'درحال ارسال' : 'ارسال'}</button>
+                                                <button onClick={() => {setReplyCommentIndex(-1); setReplyInput('')}} className={['font14', 'pointer', 'mr-2', 'px-3', 'comment-cancel-reply-button'].join(' ')} style={{borderStyle: 'none', outlineStyle: 'none', border: '1px solid #AB0311'}}>لغو</button>
+                                            </div>
+                                        </div>
+                                    </React.Fragment>
+                                )
+                                :
+                                null
+                            }
+                            {
+                                comment.response.map((r, index) => {
+                                    return (
+                                        <React.Fragment>
+                                            <div className={['col-1'].join(' ')}></div>
+                                            <div className={['col-11', 'mt-3', 'p-3'].join(' ')} style={{background: '#FFFFFF', borderRadius: '2px'}}>
+                                                <h4 className={['mb-2', 'text-right', 'rtl', 'font11md14'].join(' ')} style={{color: '#00BAC6'}}>{r.senderName}</h4>
+                                                <h5 className={['font11md14', 'text-right', 'rtl'].join(' ')}>{parse(r.comment)}</h5>
+                                                <div className={['text-left', 'ltr', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-left'].join(' ')}>
+                                                    <h6 className={['text-center', 'rtl', 'mb-0'].join(' ')} style={{fontSize: '11px', color: '#00BAC6'}}>{r.date}</h6>
+                                                    <h6 className={['text-center', 'rtl', 'mb-0', 'px-1'].join(' ')} style={{fontSize: '11px'}}>ارسال شده در : </h6>
+                                                </div>
+                                            </div>
+                                        </React.Fragment>
+                                    );
+                                })
+                            }
+                        </React.Fragment>
+                    );
+                })
+            }
+            {
+                props.reduxUser.status === 'NI' || props.reduxUser.status === 'GUEST' 
+                ?
+                (
+                    <div className={['col-12', 'd-flex', 'flex-column', 'justify-content-center', 'py-3'].join(' ')} style={{background: '#F2F2F2'}}>
+                        <h6 className={['text-right', 'rtl', 'text-center'].join(' ')} style={{flex: '1'}}>برای ثبت نظر ابتدا باید وارد حساب کاربری خود شوید</h6>
+                        <a href='https://honari.com/login' className={['font14md17', 'align-self-center', 'text-center', 'rtl', 'py-2', 'mt-2'].join(' ')} style={{borderRadius: '3px', background: '#00BAC6', color: 'white', width: '9rem'}}>ورود / ثبت نام</a>
+                    </div>
+                )
+                :
+                (
+                    <div className={['col-12', 'text-right', 'rtl', 'mt-3', 'p-3'].join(' ')} style={{background: 'white'}}>
+                        <h5 className={['text-right', 'rtl', 'font14md17'].join(' ')} style={{background: 'white', color: '#00BAC6'}}>ایجاد نظر</h5>
+                        <textarea onChange={commentInputChanged} className={['rtl', 'text-right', 'w-100', 'font11md14'].join(' ')} rows={2} placeholder='نظر خود را وارد کنید...' />
+                        <button onClick={submitComment} className={['font11md14', 'mt-2', 'px-3', 'py-1', 'comment-reply-button', 'pointer'].join(' ')} style={{borderStyle: 'none', outlineStyle: 'none', borderRadius: '3px', border: '1px solid #00BAC6'}}>{sendingComment ? 'درحال ارسال' : 'ثبت نظر'}</button>
+                    </div>
+                )
+            }
+        </div>
+    );
+
     return(
         <React.Fragment>
             <div className={[videoFullscreenDisplay, 'flex-row', 'align-items-center', 'justify-content-center'].join(' ')} style={{width: '100%', height: '100%', position: 'fixed', top: '0px', left: '0px', background: 'black', zIndex: '99999'}}>
@@ -704,7 +996,7 @@ const ProductInsight = (props) =>{
                         
                     </div>
                 </div>
-                <div className={['row', 'rtl', 'py-2', 'mt-4', 'shadow-sm', 'mb-0', 'mx-md-0', styles.banners].join(' ')}>
+                <div className={['row', 'rtl', 'py-2', 'mt-4', 'shadow-sm', 'mb-0', 'mx-md-0', styles.banners, 'd-none'].join(' ')}>
                     <div className={['col-4', 'd-flex', 'flex-column', 'flex-md-row', 'align-items-center', 'justify-content-center'].join(' ')}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/stopwatch_black.png'} className={[styles.infoImage].join(' ')} />
                         <p className={['mb-0', 'mx-md-1', 'font-weight-bold', styles.info].join(' ')}>ارسال سریع سفارش</p>
@@ -721,39 +1013,57 @@ const ProductInsight = (props) =>{
                         <p className={['mb-0', 'text-center', styles.info].join(' ')}>بدون محدودیت زمانی</p>
                     </div>
                 </div>
-            </div>
-            <div className={['container-fluid', 'mt-0', 'mt-md-4'].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
-                <div className={['container', 'rtl'].join(' ')}>
-                    <div className={['row', 'py-4', 'py-md-5', 'rtl'].join(' ')}>
-                        <div className={['col-12', 'col-md-7', 'px-0', 'px-md-3', 'mt-3', 'mt-md-0', 'rtl'].join(' ')} >
-                            <div className={['d-flex', 'flex-row', 'align-items-center', 'mb-2'].join(' ')}>
-                                <img src={Constants.baseUrl + '/assets/images/main_images/clipboard_black.png'} style={{width: '16px', height: '16px'}} />
-                                <h6 className={['mb-0', 'mr-2', 'font-weight-bold'].join(' ')}>مشخصات محصول</h6>
-                            </div>
-                            <table className={['table', 'table-striped'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', backgroundColor: 'white'}}>
-                                <tbody>
-                                    {
-                                        productFeaturesState.map((feature, index)=>{
-                                            return(
-                                                <tr key={index}>
-                                                    <td className={['text-right', 'ltr'].join(' ')}>{feature.title}</td>
-                                                    <td className={['text-right', 'ltr'].join(' ')} style={{borderRight: '1px dashed #DEDEDE'}}>{feature.value}</td>
-                                                </tr> 
-                                            );
-                                        })
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className={['col-12', 'col-md-5', 'pl-1', 'px-0', 'px-md-3', 'rtl'].join(' ')}>
-                            <div className={['d-flex', 'flex-row', 'align-items-center', 'mb-2'].join(' ')}>
-                                <img src={Constants.baseUrl + '/assets/images/main_images/paragraph_black.png'} style={{width: '16px', height: '16px'}} />
-                                <h6 className={['mb-0', 'mr-2', 'font-weight-bold'].join(' ')}>توضیحات محصول</h6>
-                            </div>
-                            <div className={['mb-0', 'rtl', 'text-right', styles.infoContainer].join(' ')} style={{maxHeight: '250px', overflowY: 'scroll', scrollbarWidth: 'thin'}}>{parse(props.description)}</div>
-                        </div>
+                <div className={['row', 'rtl', 'mt-3', 'mt-md-4', 'px-md-2', styles.tripleBanner].join(' ')}>
+                <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-between', 'align-items-center', 'px-0', 'mx-0', 'py-2', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px'}}>
+                    <div className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/fast_delivery.png'} className={[styles.tripleBannerImage]} />
+                    <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
+                        <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال سریع</h6>
+                        <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}>به سراسر کشور</h6>
+                    </div>
+                    </div>
+                    <div className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/free_delivery.png'} className={[styles.tripleBannerImage]} />
+                    <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
+                        <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال رایگان</h6>
+                        <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}> خرید بالای ۱۰۰ هزارتومان</h6>
+                    </div>
+                    </div>
+                    <div className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/return_delivery.png'} className={[styles.tripleBannerImage]} />
+                    <div className={['d-flex', 'flex-column', 'text-center', 'text-md-right', 'pr-2', 'py-0'].join(' ')}>
+                        <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>امکان مرجوعی کالا</h6>
+                        <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}>بدون محدودیت زمانی</h6>
+                    </div>
                     </div>
                 </div>
+                </div>
+            </div>
+            <div className={['container', 'mt-4'].join(' ')}>
+                <div className={['row', 'rtl'].join(' ')}>
+                    <h6 className={['py-3', 'col-4', 'pointer', 'text-center', 'mb-0', 'font14md17'].join(' ')} style={{background: getSectionBackground(0), borderTop: selectedSection !== 0 ? '2px solid #CFCFCF' : '', borderBottom: selectedSection !== 0 ? '2px solid #CFCFCF' : '', borderRight: selectedSection !== 0 ? '1px solid #CFCFCF' : '', borderLeft: selectedSection !== 0 ? '1px solid #CFCFCF' : ''}} onClick={()=>{setSelectedSection(0)}}>توضیحات محصول</h6>
+                    <h6 className={['py-3', 'col-4', 'pointer', 'text-center', 'mb-0', 'font14md17'].join(' ')} style={{background: getSectionBackground(1), borderTop: selectedSection !== 1 ? '2px solid #CFCFCF' : '', borderBottom: selectedSection !== 1 ? '2px solid #CFCFCF' : '', borderRight: selectedSection !== 1 ? '1px solid #CFCFCF' : '', borderLeft: selectedSection !== 1 ? '1px solid #CFCFCF' : ''}} onClick={()=>{setSelectedSection(1)}}>ارسال و مرجوعی</h6>
+                    <h6 className={['py-3', 'col-4', 'pointer', 'text-center', 'mb-0', 'font14md17'].join(' ')} style={{background: getSectionBackground(2), borderTop: selectedSection !== 2 ? '2px solid #CFCFCF' : '', borderBottom: selectedSection !== 2 ? '2px solid #CFCFCF' : '', borderRight: selectedSection !== 2 ? '1px solid #CFCFCF' : '', borderLeft: selectedSection !== 2 ? '1px solid #CFCFCF' : ''}} onClick={()=>{setSelectedSection(2)}}>نظر کاربران</h6>
+                </div>
+                {
+                    selectedSection == 0 
+                    ?
+                    descriptionSection
+                    :
+                    (
+                        selectedSection == 1
+                        ?
+                        helpSection
+                        :
+                        (
+                            selectedSection == 2
+                            ?
+                            commentsSection
+                            :
+                            null
+                        )
+                    )
+                }
             </div>
             <div className={['container'].join(' ')}>
                 {
