@@ -25,16 +25,9 @@ const SpecialOffer = () => {
             }
         }).catch((error) => {
             console.error('error');
-            alert("something wrong happened");
+            alert('خطا در برقراری ارتباط');
         });
     }, []);
-
-    /*const offers = [{title: 'منجوق تلا نوع الف شماره ۱۰', imageUrl: '/assets/images/stuff_images/one.jpg', price: 12000, discountedPrice: 10000, timeLeft: 500},
-    {title: 'منجوق تلا نوع ب شماره ۱۱', imageUrl: '/assets/images/stuff_images/two.jpg', price: 10500, discountedPrice: 9500, timeLeft: 600},
-    {title: 'منجوق تلا نوع پ شماره ۱۲', imageUrl: '/assets/images/stuff_images/three.jpg', price: 8500, discountedPrice: 8000, timeLeft: 700},
-    {title: 'منجوق تلا نوع ت شماره ۱۳', imageUrl: '/assets/images/stuff_images/four.jpg', price: 5000, discountedPrice: 3500, timeLeft: 800},
-    {title: 'منجوق تلا نوع ث شماره ۱۴', imageUrl: '/assets/images/stuff_images/five.jpg', price: 7900, discountedPrice: 7100, timeLeft: 900},
-    {title: 'منجوق تلا نوع ج شماره ۱۵', imageUrl: '/assets/images/stuff_images/three.jpg', price: 5200, discountedPrice: 4800, timeLeft: 1000}];*/
 
     const changePage = (p) => {
         setPage(p);
