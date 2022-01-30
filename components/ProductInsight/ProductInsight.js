@@ -76,6 +76,8 @@ const ProductInsight = (props) =>{
     }, []);*/
 
     useEffect(()=>{
+        setOtherImages([]);
+        setSelectedImage(0);
         setProductInformationReceived(false);
         setMainImageClass('d-none');
         setMainImageLoaded(false);
@@ -121,18 +123,18 @@ const ProductInsight = (props) =>{
                             }
                         }
                     }
-                    console.warn("APARAT ID : " + aparatIdString + " AND SCRIPT STRING : " + aparatScriptString);
                     setAparatScript(aparatScriptString);
                     setAparatId(parseInt(aparatIdString));
                     setAparatContainerDiv(<div id={parseInt(aparatIdString)}></div>);
                 }
+
+                let imgs = [];
+                imgs.push(response.information.prodID);
+
                 if(response.information.productOtherImages.length !== 0){
                     let images = response.information.productOtherImages;
-                    let imgs = [];
                     let image = '';
                     let i = 0;
-                    
-                    imgs.push(response.information.prodID);
                     
                     for(i = 0; i< images.length; i++){
                         if(images[i] != ','){
@@ -144,8 +146,8 @@ const ProductInsight = (props) =>{
                     }
                     imgs.push(image);
                     //checkImagesExistance(imgs);
-                    setOtherImages(imgs);
                 }
+                setOtherImages(imgs);
             }else{
                 console.log(res.data.umessage);
                 props.reduxUpdateSnackbar('warning', true, res.data.umessage);
