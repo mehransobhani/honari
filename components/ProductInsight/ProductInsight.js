@@ -51,6 +51,8 @@ const ProductInsight = (props) =>{
     const [commentInput, setCommentInput] = useState('');
     const [sendingReply, setSendingReply] = useState(false);
     const [sendingComment, setSendingComment] = useState(false);
+    const [otherImages, setOtherImages] = useState([]);
+    const [selectedImage, setSelectedImage] = useState(0);
 
     let helpSectionBigPart = 'همه تلاش ما این است که کالای خریداری شده در شرایط مطلوب به دست شما برسد، باوجود این ممکن است پس از خرید به هر دلیل تصمیم به بازگرداندن کالا بگیرید.';
     helpSectionBigPart += ' ما این امکان را برای شما درنظر گرفته‌ایم که با آسودگی خاطر تا مدت ۱۰ روز بعد از دریافت کالا، برای بازگرداندن با هزینه‌ی خود اقدام نمایید.';
@@ -124,6 +126,26 @@ const ProductInsight = (props) =>{
                     setAparatId(parseInt(aparatIdString));
                     setAparatContainerDiv(<div id={parseInt(aparatIdString)}></div>);
                 }
+                if(response.information.productOtherImages.length !== 0){
+                    let images = response.information.productOtherImages;
+                    let imgs = [];
+                    let image = '';
+                    let i = 0;
+                    
+                    imgs.push(response.information.prodID);
+                    
+                    for(i = 0; i< images.length; i++){
+                        if(images[i] != ','){
+                            image += images[i];
+                        }else{
+                            imgs.push(image);
+                            image = '';
+                        }
+                    }
+                    imgs.push(image);
+                    //checkImagesExistance(imgs);
+                    setOtherImages(imgs);
+                }
             }else{
                 console.log(res.data.umessage);
                 props.reduxUpdateSnackbar('warning', true, res.data.umessage);
@@ -132,6 +154,20 @@ const ProductInsight = (props) =>{
             console.log(error);
         });
     }, [id, props.id]);
+
+    const checkImagesExistance = (names) => {
+        let a = [1,2,3];
+        names.map((name, index) => {
+            let url = 'https://honari.com/image/resizeTest/shop/_85x/thumb_' + name + '.jpg';
+            axios.get(url).then((r) => {
+                let ois = otherImages;
+                ois.push(name);
+                setOtherImages(ois);
+                console.error(a);
+            }).catch((e) => {
+            });
+        });
+    }
 
     /*useEffect(()=>{
         axios.post(Constants.apiUrl + '/api/product-description', {
@@ -786,6 +822,12 @@ const ProductInsight = (props) =>{
         </div>
     );
 
+    const changeSelectedImage = (index) => {
+        if(selectedImage !== index){
+            setSelectedImage(index);
+        }
+    }
+
     return(
         <React.Fragment>
             <div className={[videoFullscreenDisplay, 'flex-row', 'align-items-center', 'justify-content-center'].join(' ')} style={{width: '100%', height: '100%', position: 'fixed', top: '0px', left: '0px', background: 'black', zIndex: '99999'}}>
@@ -821,7 +863,7 @@ const ProductInsight = (props) =>{
                             :
                             <Skeleton variant="rectangular" style={{width: '100%', height: '440px'}} />
                         }
-                        <img src={'https://honari.com/image/resizeTest/shop/_1000x/thumb_' + productInformation.prodID + '.jpg'} className={[styles.mainImage, mainImageClass].join(' ')} style={{width: '100%'}} onLoad={mainImageOnLoadListener} />
+                        <img src={'https://honari.com/image/resizeTest/shop/_1000x/thumb_' + otherImages[selectedImage] + '.jpg'} className={[styles.mainImage, mainImageClass].join(' ')} style={{width: '100%'}} onLoad={mainImageOnLoadListener} />
                         {
                             aparatScript !== undefined && productInformation.aparat !== ''
                             ?
@@ -831,16 +873,22 @@ const ProductInsight = (props) =>{
                             :
                             null
                         }
-                        {
-                            aparatScript !== undefined && productInformation.aparat !== ''
-                            ?
-                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'w-100', 'pb-2'].join(' ')} style={{position: 'relative', bottom: '40px'}}>
-                                <img src={Constants.baseUrl + '/assets/images/academy.png'} className={['pointer'].join(' ')} onClick={videoImageClicked} style={{width: '40px', height: '40px'}} />
-                            </div>
-                            :
-                            null
-                        }
-                        
+                        <div className={['d-flex', 'flex-column', 'justify-content-center'].join(' ')} style={{width: '3rem', height: '100%', borderRadius: '2px', position: 'absolute', top: '0', left: '0.6rem'}}>
+                            {
+                                otherImages.map((oi, index) => {
+                                    return (
+                                        <img src={'https://honari.com/image/resizeTest/shop/_1000x/thumb_' + oi + '.jpg'} onClick={() => {changeSelectedImage(index)}} className={[index !== 0 ? 'mt-2' : '', 'pointer'].join(' ')} key={index} style={{width: '3rem', borderRadius: '2px', border: '1px solid #DEDEDE'}} />
+                                    );
+                                })
+                            }
+                            {
+                                aparatScript !== undefined && productInformation.aparat !== ''
+                                ?
+                                <img src={Constants.baseUrl + '/assets/images/main_images/video.png'} className={['pointer', otherImages.length > 1 ? 'mt-2' : ''].join(' ')} onClick={videoImageClicked} style={{width: '3rem'}} />
+                                :
+                                null
+                            }
+                        </div>
                     </div>
                     <div className={['col-12', 'col-md-7', 'rtl', 'mt-3', 'mt-md-0'].join(' ')}>
                         <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between'].join(' ')}>
@@ -875,9 +923,9 @@ const ProductInsight = (props) =>{
                                 (productInformation.productStatus === 1) ? 
                                 <React.Fragment>
                                 <div className={['mt-3', 'mt-md-2'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
-                                <h6 className={['w-100', 'mb-1', 'text-right', 'mt-4'].join(' ')} style={{fontSize: '18px'}}>انتخاب نوع بسته</h6>
-                                <div className={['d-flex', 'flex-row', 'row', 'align-items-center', 'px-1'].join(' ')} style={{border: '1px solid #C4C4C4', borderRadius: '4px'}}>
-                                    <input type='radio' className={['form-control'].join(' ')} checked={true} style={{width: '16px'}} value='سلام' />
+                                <h6 className={['w-100', 'mb-1', 'text-right', 'mt-4', 'd-none'].join(' ')} style={{fontSize: '18px'}}>انتخاب نوع بسته</h6>
+                                <div className={['d-flex', 'flex-row', 'row', 'align-items-center', 'mx-0', 'px-1', 'mt-4', 'py-1'].join(' ')} style={{border: '1px solid #C4C4C4', borderRadius: '4px'}}>
+                                    <input type='radio' className={['form-control', 'd-none'].join(' ')} checked={true} style={{width: '16px'}} value='سلام' />
                                     <label className={['mb-0', 'mr-1', 'text-right', 'rtl'].join(' ')}>{productInformation.productLabel}</label>
                                     {
                                         productInformation.productBasePrice !== undefined
@@ -996,46 +1044,29 @@ const ProductInsight = (props) =>{
                         
                     </div>
                 </div>
-                <div className={['row', 'rtl', 'py-2', 'mt-4', 'shadow-sm', 'mb-0', 'mx-md-0', styles.banners, 'd-none'].join(' ')}>
-                    <div className={['col-4', 'd-flex', 'flex-column', 'flex-md-row', 'align-items-center', 'justify-content-center'].join(' ')}>
-                        <img src={Constants.baseUrl + '/assets/images/main_images/stopwatch_black.png'} className={[styles.infoImage].join(' ')} />
-                        <p className={['mb-0', 'mx-md-1', 'font-weight-bold', styles.info].join(' ')}>ارسال سریع سفارش</p>
-                        <p className={['mb-0', styles.info].join(' ')}>به سراسر کشور</p>
-                    </div>
-                    <div className={['col-4', 'd-flex', 'flex-column', 'flex-md-row', 'align-items-center', 'justify-content-center'].join(' ')}>
-                        <img src={Constants.baseUrl + '/assets/images/main_images/truck_black.png'} className={[styles.infoImage].join(' ')} />
-                        <p className={['mb-0', 'mx-md-1', 'font-weight-bold', styles.info].join(' ')}>ارسال رایگان</p>
-                        <p className={['mb-0', 'text-center', styles.info].join(' ')}>خرید بالای ۱۰۰ هزار تومان</p>
-                    </div>
-                    <div className={['col-4', 'd-flex', 'flex-column', 'flex-md-row', 'align-items-center', 'justify-content-center'].join(' ')}>
-                        <img src={Constants.baseUrl + '/assets/images/main_images/return_black.png'} className={[styles.infoImage].join(' ')} />
-                        <p className={['mb-0', 'mx-md-1', 'font-weight-bold', styles.info].join(' ')}>امکان مرجوعی کالا</p>
-                        <p className={['mb-0', 'text-center', styles.info].join(' ')}>بدون محدودیت زمانی</p>
-                    </div>
-                </div>
                 <div className={['row', 'rtl', 'mt-3', 'mt-md-4', 'px-md-2', styles.tripleBanner].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-between', 'align-items-center', 'px-0', 'mx-0', 'py-2', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px'}}>
-                    <div className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
+                    <Link href='/site/help#delivery_type'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
                     <img src={Constants.baseUrl + '/assets/images/main_images/fast_delivery.png'} className={[styles.tripleBannerImage]} />
                     <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
                         <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال سریع</h6>
                         <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}>به سراسر کشور</h6>
                     </div>
-                    </div>
-                    <div className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
+                    </a></Link>
+                    <Link href='/site/help#post_free'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
                     <img src={Constants.baseUrl + '/assets/images/main_images/free_delivery.png'} className={[styles.tripleBannerImage]} />
                     <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
                         <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال رایگان</h6>
                         <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}> خرید بالای ۱۰۰ هزارتومان</h6>
                     </div>
-                    </div>
-                    <div className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
+                    </a></Link>
+                    <Link href='/site/help#return_product'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
                     <img src={Constants.baseUrl + '/assets/images/main_images/return_delivery.png'} className={[styles.tripleBannerImage]} />
                     <div className={['d-flex', 'flex-column', 'text-center', 'text-md-right', 'pr-2', 'py-0'].join(' ')}>
                         <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>امکان مرجوعی کالا</h6>
                         <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}>بدون محدودیت زمانی</h6>
                     </div>
-                    </div>
+                    </a></Link>
                 </div>
                 </div>
             </div>

@@ -74,11 +74,19 @@ function BigHeader(props){
     };
 
     const toggleDrawer = (anchor, open) => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')){
             return;
         }
         setState({ right: open });
     };
+
+    const toggleSearchDrawer = (anchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')){
+            return;
+        }
+        setState({ top: open });
+    };
+
 
     const toggleCartDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -103,6 +111,7 @@ function BigHeader(props){
         setIncreaseProcessings(newIncreaseProcessings);
         setDecreaseProcessings(newDecreaseProcessings);
         setRemoveProcessings(newRemoveProcessings);
+        setState({right: false});
     }, [props.reduxCart.information.length, 0]);
 
     const updateProductInLocalStorage = (index, count) => {
@@ -741,7 +750,7 @@ function BigHeader(props){
                 <div className={['d-flex', 'flex-row', 'rtl'].join(' ')} style={{background: '#E0F6F2', padding: '10px'}}>
                     <Link href={'/'}><img onClick={props.reduxStartLoading} src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['poniter'].join(' ')} style={{width: '36px', height: '36px'}} /></Link>
                     <div className={['d-flex', 'flex-column', 'rtl'].join(' ')}>
-                        <Link href={'/'}><h2 className={['mr-2', 'mb-0', 'text-right', 'pointer'].join(' ')} style={{color: '#00BAC6', fontSize: '20px', fontWeight: '500'}}>هنری</h2></Link>
+                        <Link href={'/'}><a onClick={props.reduxStartLoading}><h2 className={['mr-2', 'mb-0', 'text-right', 'pointer'].join(' ')} style={{color: '#00BAC6', fontSize: '20px', fontWeight: '500'}}>هنری</h2></a></Link>
                         <h4 className={['mr-2', 'mb-0', 'text-right'].join(' ')} style={{color: '#949494', fontSize: '10px'}}>آموزش، الگو، مواداولیه</h4>
                     </div>
                 </div>
@@ -842,7 +851,7 @@ function BigHeader(props){
     const desktopMenu = (
         <div className={['container-fluid', 'mx-0', 'px-0', 'd-flex', 'flex-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{position: 'fixed', zIndex: '400'}}>
             <div className={['container', 'px-2'].join(' ')} >
-                <div style={{borderRadius: '0 0 6px 6px', backgroundColor: '#F7F7F7', width: '100%'}} onMouseEnter={()=>{setHover({status: true, number: hover.number, title: hover.title})}} onMouseLeave={()=>{setHover({status: false, number: hover.number, title: ''})}}>
+                <div className={['shadow-sm'].join(' ')} style={{borderRadius: '0 0 6px 6px', backgroundColor: '#F7F7F7', width: '100%'}} onMouseEnter={()=>{setHover({status: true, number: hover.number, title: hover.title})}} onMouseLeave={()=>{setHover({status: false, number: hover.number, title: ''})}}>
                 {
                     getSubMenus(hover.number)
                 }
@@ -853,6 +862,12 @@ function BigHeader(props){
 
     const getSearchResults = (event) => {
         let input= event.target.value;
+        if(input.length === 0){
+            setSearchResults([]);
+            setClassSearchResults([]);
+            setShowSearchResults(false);
+            return;
+        }
         setPhoneSearchInput(input);
         axios.post(Constants.apiUrl + '/api/search-autocomplete', {
             input: input,
@@ -999,13 +1014,13 @@ function BigHeader(props){
         }
     }
 
-    const phoneSearchResults = () => {
-        if(showSearchResults){
-            return (
-                <div className={['d-md-none', 'w-100'].join(' ')} style={{background: 'white', width: '100%', height: windowHeight + 'px', position: 'relative', top: '0.5rem', left: '0', zIndex: '1000', overflowY: 'scroll', overflowX: 'hidden'}}>
-                    <div className={['d-flex', 'flex-row', 'ltr', 'text-left', 'justify-content-left', 'pt-2', 'px-2'].join(' ')}>
-                        <img src={Constants.baseUrl + '/assets/images/main_images/close_gray_small.png'} className={['pointer'].join(' ')} style={{width: '17px', heigth: '17px'}} onClick={() => {setShowSearchResults(false)}} />
-                    </div>
+    const phoneSearchResults = (
+                <div className={['d-md-none', 'w-100'].join(' ')} style={{background: 'white', width: windowWidth, height: windowHeight, overflowY: 'scroll', overflowX: 'hidden'}}>
+                    <form method='GET' action='/search/SearchResult' className={['d-flex', 'flex-row', 'ltr', 'text-left', 'justify-content-between', 'align-items-center', 'pt-2', 'px-2'].join(' ')}>
+                        <img src={Constants.baseUrl + '/assets/images/main_images/close_gray_small.png'} className={['pointer'].join(' ')} style={{width: '17px', heigth: '17px'}} onClick={toggleSearchDrawer('top', false)} />
+                        <input name='query' type='search' placeholder='جست و جو کنید' onChange={getSearchResults} className={['rtl', 'px-2', 'mx-2'].join(' ')} style={{fontSize: '14px', height: '30px', border: 'none', outlineStyle: 'none', outlineOffset: 'none', outlineColor: 'none', background: 'white', flex: '1', borderBottom: '1px solid #DEDEDE'}} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/search_main.png'} onClick={() => {if(phoneSearchInput.length !== 0){window.location.href = '/search/SearchResult?query=' + phoneSearchInput}}} className={['pointer'].join(' ')} style={{width: '17px', height: '17px'}}  />
+                    </form>
                     {
                         searchResults.length !== 0
                         ?
@@ -1022,7 +1037,7 @@ function BigHeader(props){
                                 if(index <= 2){
                                     return(
                                         <Link key={index} href={'/search/SearchWithCategory/?query=' + item.category}>
-                                            <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', ].join(' ')}>
+                                            <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', 'rtl'].join(' ')}>
                                                 <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/link_arrow_gray_small.png'} style={{width: '10px', height: '10px'}} />
                                             </a>
@@ -1031,7 +1046,7 @@ function BigHeader(props){
                                 }else{
                                     return(
                                         <Link key={index} href={'/search/SearchWithCategory/?query=' + item.category}>
-                                            <a className={['flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', moreSearchCategoriesClass].join(' ')}>
+                                            <a className={['flex-row', 'align-items-center', 'justify-content-between', 'pointer', 'px-2', 'mt-1', 'rtl', moreSearchCategoriesClass].join(' ')}>
                                                 <h6 className={['mt-1', 'mb-0'].join(' ')} style={{fontSize: '13px', color: 'black'}} key={index}>{item.category}</h6>
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/link_arrow_gray_small.png'} style={{width: '10px', height: '10px'}} />
                                             </a>
@@ -1057,7 +1072,7 @@ function BigHeader(props){
                             if(item.fields !== null){
                                 return(
                                     <Link key={index} href={item.fields.product_url}>
-                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.4), 0 1px 10px 0 rgba(222, 222, 222, 0.4)'}}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2', 'rtl'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.4), 0 1px 10px 0 rgba(222, 222, 222, 0.4)'}}>
                                             <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2', 'text-right'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
@@ -1092,7 +1107,7 @@ function BigHeader(props){
                             if(item.fields !== null){
                                 return(
                                     <Link key={index} href={item.fields.url}>
-                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.4), 0 1px 10px 0 rgba(222, 222, 222, 0.4)'}}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2', 'rtl'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 8px 0 rgba(222, 222, 222, 0.4), 0 1px 10px 0 rgba(222, 222, 222, 0.4)'}}>
                                             <img src={item.fields.image_url} style={{width: '36px', height: '36px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2', 'text-right'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.name}</h6>
@@ -1112,11 +1127,8 @@ function BigHeader(props){
                     }
                     </div>
                 </div>
-            );
-        }else{
-            return null;
-        }
-    }
+       
+    ); 
 
     return (
         <React.Fragment>
@@ -1125,6 +1137,9 @@ function BigHeader(props){
             </Drawer>
             <Drawer anchor="left" open={state['left']} onClose={toggleCartDrawer('left', false)}>
                 {phoneCartLayout}
+            </Drawer>
+            <Drawer anchor="top" open={state['top']} onClose={toggleSearchDrawer('top', false)}>
+                {phoneSearchResults}
             </Drawer>
             {
                 props.reduxSnackbar.success.show
@@ -1189,7 +1204,20 @@ function BigHeader(props){
                     <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'd-md-none', 'p-2', 'mt-1'].join(' ')}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/menu_black_small.png'} style={{width: '27px', height: '27px'}} onClick={toggleDrawer('right', true)} />
                         <img src={Constants.baseUrl + '/assets/images/main_images/honari.png'} style={{width: '40px', height: '40px'}} />
-                        <img className={['erxes-launcher'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/headphone.png'} style={{width: '27px', height: '27px'}}/>
+                        {
+                            props.reduxUser.status == 'LOGIN'
+                            ?
+                                <Link href='/users/view'><a onClick={props.reduxStartLoading}><img  src={Constants.baseUrl + '/assets/images/main_images/user_black.png'} className={['d-md-none'].join(' ')} style={{width: '27px', height: '27px'}}/></a></Link>
+                            :
+                            (
+                                <Link href='/user'>
+                                    <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-left'].join(' ')}>
+                                        <img src={Constants.baseUrl + '/assets/images/main_images/login_rtl_black.png'} style={{width: '27px', height: '27px'}}/>
+                                        <h5 className={['mr-2', 'mb-0'].join(' ')} style={{fontSize: '14px'}}>ورود</h5>
+                                    </a>
+                                </Link>
+                            )
+                        }
                     </div>
                     <div className={['row', 'mt-2', 'd-md-none'].join(' ')} style={{height: '1px', background: '#C4C4C4'}}></div>
                     </React.Fragment>
@@ -1221,7 +1249,7 @@ function BigHeader(props){
                                 null
                         }
                         {/*##### searchbox for mobile view #####*/}
-                        <form onClick={() => {setShowSearchResults(true);}} method='GET' action='/search/SearchResult' className={['d-flex', 'flex-row', 'ltr', 'd-md-none', 'pr-1'].join(' ')} style={{height: '30px'}} >
+                        <form onClick={toggleSearchDrawer('top', true)} method='GET' action='/search/SearchResult' className={['d-flex', 'flex-row', 'ltr', 'd-md-none', 'pr-1'].join(' ')} style={{height: '30px'}} >
                             <div onClick={() => {if(phoneSearchInput.length !== 0){window.location.href = '/search/SearchResult?query=' + phoneSearchInput}}} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'p-0', 'pointer'].join(' ')} style={{width: '30px', height: '30px', background: '#F7F7F7', borderTop: '1px solid #D8D8D8', borderBottom: '1px solid #D8D8D8', borderLeft: '1px solid #D8D8D8', borderRadius: '3px 0px 0px 3px'}}>
                                 <img src={Constants.baseUrl + '/assets/images/main_images/search_main.png'} className={['pointer'].join(' ')} style={{width: '15px', height: '15px'}}/>
                             </div>
@@ -1337,7 +1365,7 @@ function BigHeader(props){
                         </div>
                         <div className={['ltr', 'align-items-center', 'ml-1', 'p-2', 'pointer', 'd-md-none'].join(' ')}>
                             {
-                                props.reduxUser.status === 'GUEST' ?
+                                props.reduxUser.status === 'GUEST' && props.home !== true ?
                                     <a href='https://honari.com/user' className={['px-3', 'py-1', 'pointer'].join(' ')} style={{borderRadius: '6px', fontSize: '11px', backgroundColor: '#00BAC6', color: 'white'}}>ورود</a>
                                 :
                                 (
@@ -1354,11 +1382,11 @@ function BigHeader(props){
                             <img src={Constants.baseUrl + '/assets/images/main_images/search_main.png'} style={{width: '22px'}} className={['ml-1', 'pointer'].join(' ')} onClick={searchFormSubmited}/>
                         </form>
                     </div>
-                    {phoneSearchResults()}
+                    {/*phoneSearchResults()*/}
                 </div>
             </div>
-            <div className={['container-fluid', 'd-none', 'd-lg-block', 'shadow-sm', 'align-items-center'].join(' ')} style={{backgroundColor: '#F7F7F7', height: '48px'}}>
-                <div className={['row', 'rtl'].join(' ')}>
+            <div className={['container-fluid', 'd-none', 'd-lg-block', 'align-items-center'].join(' ')} style={{backgroundColor: '#F7F7F7', height: '48px'}}>
+                <div className={['row', 'rtl', 'shadow-sm'].join(' ')}>
                     <div className={['row', 'py-0'].join(' ')} style={{height: '1px', backgroundColor: '#C4C4C4'}}></div>
                     <div className={['container', 'rtl', 'px-0', 'd-flex', 'flex-row', 'align-items-center'].join(' ')}>
                         <div className={['row', 'd-flex', 'flex-row', 'align-items-center', 'w-100', 'pr-4'].join(' ')} style={{height: '48px'}}>
