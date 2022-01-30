@@ -25,12 +25,12 @@ const UserInformation = (props) => {
                 </div>
             </div>
             <Link href={'/users/charge_account'}>
-                <a className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
                     <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>شارژ حساب کاربری</h5>
                 </a>
             </Link>
             <Link href={'/users/orders'}>
-                <a className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
                     <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>سفارشات من</h5>
                 </a>
             </Link>
@@ -43,7 +43,7 @@ const UserInformation = (props) => {
                 <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>خروج از حساب کاربری</h5>
             </div>
             <div className={['d-flex', 'flex-row', 'justify-content-center', 'mt-3'].join(' ')}>
-                <Link href='/users/view'><a className={['text-center', 'p-2'].join(' ')} style={{background: '#00BAC6', color: 'white', fontSize: '14px', fontWeight: '500', borderStyle: 'none', outlineStyle: 'none'}}>اطلاعات حساب من</a></Link>
+                <Link href='/users/view'><a onClick={props.reduxStartLoading} className={['text-center', 'p-2'].join(' ')} style={{background: '#00BAC6', color: 'white', fontSize: '14px', fontWeight: '500', borderStyle: 'none', outlineStyle: 'none'}}>اطلاعات حساب من</a></Link>
             </div>
         </div>
     );
@@ -52,8 +52,25 @@ const UserInformation = (props) => {
 const mapStateToProps = (state) => {
     return {
         reduxUser: state.user,
-        reduxCart: state.cart
+        reduxCart: state.cart,
+        reduxLoad: state.loading,
+        reduxSnackbar: state.snackbars
     };
 }
 
-export default connect(mapStateToProps)(UserInformation);
+const mapDispatchToProps = (dispatch) => {
+    return{
+        reduxUpdateUser: (d) => dispatch({type: actionTypes.UPDATE_USER, data: d}),
+        reduxLogoutUser: () => dispatch({type: actionTypes.LOGOUT_USER}),
+        reduxSetUserGuest: () => dispatch({type: actionTypes.SET_USER_GUEST}),
+        reduxUpdateCart: (d) => dispatch({type: actionTypes.UPDATE_CART, data: d}),
+        reduxStartLoading: () => dispatch({type: actionTypes.START_LOADING}),
+        reduxStopLoading: () => dispatch({type: actionTypes.STOP_LOADING}),
+        reduxUpdateSnackbar: (k,s,t) => dispatch({type: actionTypes.UPDATE_SNACKBAR, kind: k, show: s, title: t}),
+        reduxIncreaseCountByOne: (d) => dispatch({type: actionTypes.INCREASE_COUNT_BY_ONE, productPackId: d}),
+        reduxDecreaseCountByOne: (d) => dispatch({type: actionTypes.DECREASE_COUNT_BY_ONE, productPackId: d}),
+        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productPackId: d}),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserInformation);
