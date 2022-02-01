@@ -50,3 +50,6 @@
     width: 300px;
     transition: width 1.4s ease;
 }
+.menuArts:hover{
+    color: #00BAC6;
+}

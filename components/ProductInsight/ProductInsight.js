@@ -78,6 +78,8 @@ const ProductInsight = (props) =>{
     useEffect(()=>{
         setOtherImages([]);
         setSelectedImage(0);
+        setAparatId(0);
+        setAparatScript(undefined);
         setProductInformationReceived(false);
         setMainImageClass('d-none');
         setMainImageLoaded(false);

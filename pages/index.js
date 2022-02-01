@@ -282,7 +282,7 @@ const Home = (props) => {
             topCategories.map((category, index) => {
               return (
                 <Link href={'/shop/product/category/' + category.categoryUrl}>
-                  <a className={['col-6', 'col-md-2', 'px-2', 'py-0', 'my-0'].join(' ')}>
+                  <a onClick={props.reduxStartLoading} className={['col-6', 'col-md-2', 'px-2', 'py-0', 'my-0'].join(' ')}>
                     <div className={['d-flex', 'pointer', 'flex-row', 'justify-content-center', 'align-items-center', 'shadow-sm'].join(' ')} style={{height: '200px', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' , border: '1px solid #dedede', borderRadius: '4px', background: 'url(' + category.categoryImage + ')'}}>
                       <div className={['d-flex', 'flex-column', 'align-items-center'].join(' ')}>
                         <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '24px', fontWeight: 'bold', color: 'white', textShadow: '2px 2px 3px #00BAC6'}}>{category.categoryName}</h6>
@@ -299,9 +299,40 @@ const Home = (props) => {
       </div>
       <LatestCourses />
       <div className={['container'].join(' ')}>
-          <NewProducts title='جدیدترین کالاها' />
-        </div>
-        <Footer />
+        <NewProducts title='جدیدترین کالاها' />
+      </div>
+      <div className={['container', 'mt-5'].join(' ')}>
+          <div className={['row', 'rtl'].join(' ')}>
+            <div className={['col-12', 'col-md-6', 'd-flex', 'flex-row', 'pl-md-2'].join(' ')}>
+              <a href='https://honari.com/academy' className={['d-flex', 'flex-row', 'rtl', 'w-100', 'pointer'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
+                <div className={['d-flex', 'flex-column', 'p-2'].join(' ')} style={{flex: '1', background: '#F2F2F2'}}>
+                  <h5 className={['text-right', 'rtl'].join(' ')}>هنری آکادمی</h5>
+                  <h6 className={['text-right', 'rtl', 'mb-0'].join(' ')}>چی دوست داری یاد بگیری؟</h6>
+                  <h6 className={['text-right', 'rtl'].join(' ')}>دسترسی به بهترین هنرمندان که یادگیری هنرهای جدید را آسان میکنند</h6>
+                  <div className={['d-flex', 'flex-row', 'mt-auto', 'align-items-center', 'text-right', 'justify-content-right'].join(' ')}>
+                    <h6 className={['mb-0', 'pl-2'].join(' ')} style={{color: '#00BAC6'}}>مشاهده کلاس‌ها</h6>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_main_small.png'} style={{width: '14px', height: '14px'}} />
+                  </div>
+                </div>
+                <img src={Constants.baseUrl + '/assets/images/one.png'} style={{flex: '1'}} />
+              </a>
+            </div>
+            <div className={['col-12', 'col-md-6', 'd-flex', 'flex-row', 'pr-md-2', 'mt-3', 'mt-md-0'].join(' ')}>
+              <a href='/site/help' className={['d-flex', 'flex-row', 'rtl', 'w-100', 'pointer'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
+                <div className={['d-flex', 'flex-column', 'p-2'].join(' ')} style={{flex: '1', background: '#F2F2F2'}}>
+                  <h5 className={['text-right', 'rtl'].join(' ')}>برای خرید به مشکل خوردید؟</h5>
+                  <h6 className={['text-right', 'rtl', 'mb-0'].join(' ')}>راهنمای ثبت‌نام و خرید از وبسایت هنری</h6>
+                  <div className={['d-flex', 'flex-row', 'mt-auto', 'align-items-center', 'text-right', 'justify-content-right'].join(' ')}>
+                    <h6 className={['mb-0', 'pl-2'].join(' ')} style={{color: '#00BAC6'}}>مشاهده راهنما</h6>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_main_small.png'} style={{width: '14px', height: '14px'}} />
+                  </div>
+                </div>
+                <img src={Constants.baseUrl + '/assets/images/two.png'} style={{flex: '1'}} />
+              </a>
+            </div>
+          </div>
+      </div>
+      <Footer />
     </React.Fragment>
   );
 }

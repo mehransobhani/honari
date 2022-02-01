@@ -30,10 +30,16 @@ const TopSixProducts = (props) => {
             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3'].join(' ')}>
                 <h5 className={['mb-0', 'font-weight-bold'].join(' ')}>{title}</h5>
             </div>
+            {
+            props.moreUrl !== undefined
+            ?
             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3', 'pointer'].join(' ')}>
                 <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>
                 <img src={Constants.baseUrl + '/assets/images/main_images/left_black_small.png'} style={{width: '18px', height: '18px'}} />
             </div>
+            :
+                null
+            }
         </div>
         <div className={['row','mt-2', 'mt-md-3', 'px-1'].join(' ')}>
             <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'px-2', 'p-md-0', 'align-items-stretch', styles.topSixContainer].join(' ')} style={{overflowX: 'scroll'}}>
