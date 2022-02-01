@@ -51,34 +51,6 @@ const initialState = {
         }
     }
 }
-/*
-    ## user.status is a string and these can be its values :
-    -> NI <-- default (No information || No Idea)
-    -> GUEST
-    -> LOGIN
-
-    ## user.information is an object and these are its properties :
-    -> userId,
-    -> name,
-    -> firstName,
-    -> secondName,
-    -> userName, 
-    -> wallet,
-    -> email
-
-    ## cart.status is a string and these can be its values :
-    -> NI <-- default (No Information || No Idea)
-    -> HI <-- (Have Information) 
-    ## cart.information is an array and it can have objects containing these properties :
-    -> productId,
-    -> categoryId,
-    -> prodId,
-    -> url,
-    -> name,
-    -> count,
-    -> price,
-    -> discount
-*/
 
 const reducer = (state = initialState, action) => {
     let newCartProducts = [];

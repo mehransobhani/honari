@@ -382,7 +382,7 @@ const DeliveryReview = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className={['container', 'px-2', 'px-md-4'].join(' ')}>
+                    <div className={['container', 'px-2', 'px-md-4'].join(' ')} style={{overflowX: 'hidden'}}>
                         <div className={['row'].join(' ')}>
                             <div className={['col-12', 'mt-4', 'px-3'].join(' ')}>
                                 <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl'].join(' ')}>
@@ -391,7 +391,7 @@ const DeliveryReview = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div className={['row', 'rtl', 'py-3', 'mt-2', 'align-items-center', 'mx-1', 'mx-md-0'].join(' ')} style={{background: '#F7F7F7', border: '1px solid #D8D8D8'}}>
+                        <div className={['row', 'rtl', 'py-3', 'mt-2', 'align-items-center', 'mx-1', 'mx-md-0', 'd-none', 'd-md-flex'].join(' ')} style={{background: '#F7F7F7', border: '1px solid #D8D8D8'}}>
                             <h6 className={['col-6', 'text-right', 'mb-0', 'pr-2', 'font11md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>محصول</h6>
                             <h6 className={['col-1', 'text-center', 'mb-0', 'font11md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>تعداد</h6>
                             <h6 className={['col-1', 'text-center', 'mb-0', 'font11md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>واحد</h6>
@@ -402,43 +402,6 @@ const DeliveryReview = (props) => {
                             props.reduxCart.information.map((item, counter) => {
                                 return (
                                     <React.Fragment>
-                                        <div className={['rtl', 'text-right'].join(' ')} style={{width: '100%', overflowX: 'scroll', scrollbarWidth: 'thin', direction: 'rtl'}}>
-                                        <div className={['rtl', 'py-2', 'mt-1', 'd-flex', 'd-flex-row', 'align-items-center', 'd-md-none'].join(' ')} style={{borderBottom: '1px solid #D8D8D8', width: '700px'}}>
-                                            <div className={['text-right', 'mb-0', 'pr-2', 'd-flex', 'flex-row', 'align-items-center'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '4'}}>
-                                                <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '75px', height: '75px', borderRadius: '1px'}} />
-                                                <div className={['d-flex', 'flex-column', 'text-right', 'mr-2'].join(' ')}>
-                                                    <h5 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px'}}>{item.name}</h5>
-                                                    <h5 className={['mb-0', 'font11md17'].join(' ')} style={{fontSize: '14px'}}>{item.label}</h5>
-                                                </div>
-                                            </div>
-                                            <h6 className={['text-center', 'mb-0', 'font14md17', 'd-inline-block'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>{item.count}</h6>
-                                            <h6 className={['text-center', 'mb-0', 'font14md17', 'd-inline-block'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>{item.unitName}</h6>
-                                            {
-                                                item.price === item.discountedPrice
-                                                ?
-                                                <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '2'}}>{item.price.toLocaleString() + " تومان"}</h6>
-                                                : 
-                                                (
-                                                    <div className={['d-flex', 'flex-column', 'font14md17'].join(' ')} style={{flex: '2'}}>
-                                                            <h6 className={['text-center', 'mb-1', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}><del>{item.price.toLocaleString() + " تومان"}</del></h6>
-                                                            <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: 'red'}}>{item.discountedPrice.toLocaleString() + " تومان"}</h6>
-                                                    </div>
-                                                )
-                                            }
-                                            {
-                                                item.price === item.discountedPrice
-                                                ?
-                                                <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '2'}}>{(item.price * item.count).toLocaleString() + " تومان"}</h6>
-                                                : 
-                                                (
-                                                    <div className={['d-flex', 'flex-column', 'font14md17'].join(' ')} style={{flex: '2'}}>
-                                                            <h6 className={['text-center', 'mb-1', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}><del>{(item.price * item.count).toLocaleString() + " تومان"}</del></h6>
-                                                            <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: 'red'}}>{(item.discountedPrice * item.count).toLocaleString() + " تومان"}</h6>
-                                                    </div>
-                                                )
-                                            }
-                                        </div>
-                                        </div>
                                         <div className={['row', 'rtl', 'py-2', 'mt-1', 'align-items-center', 'd-none', 'd-md-flex', 'mx-1'].join(' ')} style={{borderRight: '1px solid #D8D8D8', borderBottom: '1px solid #D8D8D8', borderLeft: '1px solid #D8D8D8'}}>
                                             <div className={['col-6', 'text-right', 'mb-0', 'pr-2', 'd-flex', 'flex-row', 'align-items-center'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>
                                                 <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '75px', height: '75px', borderRadius: '1px'}} />
@@ -478,7 +441,59 @@ const DeliveryReview = (props) => {
                                 );
                             })
                         }
-                        <div className={['row', 'mt-5'].join(' ')}>
+                        <div className={['rtl', 'text-right', 'd-md-none'].join(' ')} style={{width: '100%', overflowX: 'scroll', scrollbarWidth: 'thin', direction: 'rtl'}}>
+                            <div className={['rtl', 'py-2', 'mt-1', 'd-flex', 'd-flex-row', 'align-items-center'].join(' ')} style={{borderBottom: '1px solid #D8D8D8', width: '700px'}}>
+                                <h6 className={['text-right', 'mb-0'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '4'}}>محصول</h6>
+                                <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>تعداد</h6>
+                                <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>واحد</h6>
+                                <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '2'}}>قیمت واحد</h6>
+                                <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '2'}}>قیمت کل</h6>
+                            </div>
+                        {
+                            props.reduxCart.information.map((item, counter) => {
+                                return (
+                                    <React.Fragment>
+                                            <div className={['rtl', 'py-2', 'mt-1', 'd-flex', 'd-flex-row', 'align-items-center', 'd-md-none'].join(' ')} style={{borderBottom: '1px solid #D8D8D8', width: '700px'}}>
+                                                <div className={['text-right', 'mb-0', 'pr-2', 'd-flex', 'flex-row', 'align-items-center'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '4'}}>
+                                                    <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '75px', height: '75px', borderRadius: '1px'}} />
+                                                    <div className={['d-flex', 'flex-column', 'text-right', 'mr-2'].join(' ')}>
+                                                        <h5 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px'}}>{item.name}</h5>
+                                                        <h5 className={['mb-0', 'font11md17'].join(' ')} style={{fontSize: '14px'}}>{item.label}</h5>
+                                                    </div>
+                                                </div>
+                                                <h6 className={['text-center', 'mb-0', 'font14md17', 'd-inline-block'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>{item.count}</h6>
+                                                <h6 className={['text-center', 'mb-0', 'font14md17', 'd-inline-block'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>{item.unitName}</h6>
+                                                {
+                                                    item.price === item.discountedPrice
+                                                    ?
+                                                    <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '2'}}>{item.price.toLocaleString() + " تومان"}</h6>
+                                                    : 
+                                                    (
+                                                        <div className={['d-flex', 'flex-column', 'font14md17'].join(' ')} style={{flex: '2'}}>
+                                                                <h6 className={['text-center', 'mb-1', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}><del>{item.price.toLocaleString() + " تومان"}</del></h6>
+                                                                <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: 'red'}}>{item.discountedPrice.toLocaleString() + " تومان"}</h6>
+                                                        </div>
+                                                    )
+                                                }
+                                                {
+                                                    item.price === item.discountedPrice
+                                                    ?
+                                                    <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '2'}}>{(item.price * item.count).toLocaleString() + " تومان"}</h6>
+                                                    : 
+                                                    (
+                                                        <div className={['d-flex', 'flex-column', 'font14md17'].join(' ')} style={{flex: '2'}}>
+                                                                <h6 className={['text-center', 'mb-1', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}><del>{(item.price * item.count).toLocaleString() + " تومان"}</del></h6>
+                                                                <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: 'red'}}>{(item.discountedPrice * item.count).toLocaleString() + " تومان"}</h6>
+                                                        </div>
+                                                    )
+                                                }
+                                            </div>
+                                    </React.Fragment>
+                                );
+                            })
+                        }
+                        </div>
+                        <div className={['row', 'mt-5', 'mx-2'].join(' ')}>
                             <div className={['col-12', 'd-flex', 'text-right', 'justify-content-right', 'rtl', 'align-items-center', 'px-0'].join(' ')}>
                                 {
                                     giftCodeCheckboxSelected
@@ -496,7 +511,7 @@ const DeliveryReview = (props) => {
                         {
                             giftCodeCheckboxSelected
                             ?
-                            <div className={['row', 'rtl', 'mt-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8'}}>
+                            <div className={['row', 'rtl', 'mt-3', 'mx-2'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8'}}>
                                 <div className={['col-12', 'col-md-6', 'd-flex', 'd-md-none', 'flex-row', 'rtl', 'align-items-center', 'text-right', 'justify-content-between', 'py-2'].join(' ')}>
                                     <h6 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>کد تخفیف</h6>
                                     <input type='text' placeholder='کد خود را وارد کنید' className={['mr-2', 'text-center', 'ltr'].join(' ')} style={{height: '40px', border: '1px solid #D8D8D8', borderRadius: '2px', fontFamily: 'IranSansWeb'}} onChange={giftCodeInputChanged} />
@@ -575,7 +590,7 @@ const DeliveryReview = (props) => {
                             :
                             null
                         }
-                        <div className={['row', 'mt-5'].join(' ')}>
+                        <div className={['row', 'mt-5', 'mx-2'].join(' ')}>
                             <div className={['col-12', 'rtl', 'text-right', 'mb-3', 'px-0'].join(' ')}>
                                 <h5 className={['mb-0'].join(' ')} style={{fontSize: '24px', color: '#2B2B2B'}}><b>شیوه پرداخت</b></h5>
                             </div>
@@ -587,7 +602,7 @@ const DeliveryReview = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div className={['row', 'mt-4'].join(' ')}>
+                        <div className={['row', 'mt-4', 'mx-2'].join(' ')}>
                             <div className={['col-12', 'd-block', 'd-md-flex', 'flex-md-row', 'align-items-center', 'justify-content-between', 'rtl', 'px-0'].join(' ')}>
                                 <div className={['d-block', 'd-md-flex', 'flex-column', 'flex-md-row', 'align-items-center', 'rtl', 'px-0', 'mx-0'].join(' ')}>
                                     <div className={['d-flex', 'flex-row', 'align-items-center', 'text-right'].join(' ')}>
@@ -619,12 +634,14 @@ const DeliveryReview = (props) => {
                             <h6 className={['col-12', 'px-0', 'mt-2', 'text-right', 'rtl', 'font11md14'].join(' ')} style={{fontSize: '14px', color: '#444444'}}>با تیک زدن این گزینه به میزان اعتبار حسابتان از مبلغ دریافتی سفارشتان کاسته خواهد شد</h6>
                             <div className={['col-12', 'mt-4'].join(' ')} style={{height: '2px', background: '#DEDEDE'}}></div>
                         </div>
-                        <div className={['row', 'mt-4', 'd-none', 'd-md-flex'].join(' ')}>
+                        <div className={['row', 'mt-4', 'd-none', 'd-md-flex', 'mx-2'].join(' ')}>
                             <div className={['col-12', 'd-flex', 'd-flex', 'align-items-center', 'justify-content-between', 'rtl', 'px-0'].join(' ')}>
-                                <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')}>
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/right_arrow_black.png'} className={['ml-2'].join(' ')} style={{width: '8px', height: '8px'}} />
-                                    <h6 className={['mb-0', 'font14md17'].join(' ')} style={{color: '##2B2B2B'}}><b>بازگشت به صفحه قبل</b></h6>
-                                </div>
+                                <Link href='/cart/payment'>
+                                    <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')}>
+                                        <img src={Constants.baseUrl + '/assets/images/main_images/right_arrow_black.png'} className={['ml-2'].join(' ')} style={{width: '8px', height: '8px'}} />
+                                        <h6 className={['mb-0', 'font14md17'].join(' ')} style={{color: '##2B2B2B'}}><b>بازگشت به صفحه قبل</b></h6>
+                                    </a>
+                                </Link>
                                 <div className={['d-flex', 'flex-row'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8'}}>
                                     <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-2', 'py-1'].join(' ')} style={{background: '#F7F7F7'}}>
                                         <h6 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#2B2B2B'}}>مبلغ نهایی سفارش : </h6>
@@ -639,7 +656,7 @@ const DeliveryReview = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div className={['row', 'd-flex', 'd-md-none', 'mt-4'].join(' ')}>
+                        <div className={['row', 'd-flex', 'd-md-none', 'mt-4', 'mx-2'].join(' ')}>
                             <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'justify-content-between', 'align-items-center', 'py-2'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8', background: '#F7F7F7'}}>
                                 <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px'}}><b>مبلغ نهایی سفارش</b></h6>
                                 {

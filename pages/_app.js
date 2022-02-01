@@ -126,6 +126,7 @@ function MyApp({ Component, pageProps }) {
   
     const entry = document.getElementsByTagName('script')[0];
     entry.parentNode.insertBefore(script, entry);
+    pageProps.name = 'hadi hosseinpour';
   }, []);
 
   return <Provider store={store}><Component {...pageProps} /></Provider>
@@ -152,6 +153,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default MyApp;
-
-
-

@@ -44,6 +44,7 @@ function BigHeader(props){
     const [selectedMenu, setSelectedMenu] = useState(-1);
     const [rightMenuHeaderNumber, setRightMenuHeaderNumber] = useState(0);
     const [academyClasses, setAcademyClasses] = useState([]);
+    const [academyArts, setAcademyArts] = useState([]);
     const [successNotificationShowing, setSuccessNotificationShowing] = useState(false);
     const [increaseProcessings, setIncreaseProcessings] = useState([]);
     const [decreaseProcessings, setDecreaseProcessings] = useState([]);
@@ -60,6 +61,7 @@ function BigHeader(props){
     const [shouldDesktopSearchBarBeOpen, setShouldDesktopSearchBarBeOpen] = useState(false);
     const [phoneSearchInput, setPhoneSearchInput] = useState('');
     const [axiosProcessInformation, setAxiosProcessInformation] = useState({type: 'nothing', index: -1});
+    const [showDesktopAcademyArts, setShowDesktopAcademyArts] = useState(false);
     
 
     useEffect(() => {
@@ -209,6 +211,16 @@ function BigHeader(props){
         classes.push({name: 'لوازم آرایشی طبیعی',       url: 'https://honari.com/academy/category/%D9%84%D9%88%D8%A7%D8%B2%D9%85-%D8%A2%D8%B1%D8%A7%DB%8C%D8%B4-%D8%B7%D8%A8%DB%8C%D8%B9%DB%8C'});
         classes.push({name: 'اسماج و عود',              url: 'https://honari.com/academy/category/%D8%A7%D8%B3%D9%85%D8%A7%D8%AC-%D9%88-%D8%B9%D9%88%D8%AF'});
         setAcademyClasses(classes);
+
+        axios.get(Constants.academyApiUrl + '/api/shop/arts').then((r) => {
+            let response = r.data;
+            if(response.status === 'done' && response.found === true){
+                setAcademyArts(response.arts);
+            }
+        }).catch((e) => {
+            console.error(e);
+            props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+        });
     }, []);
 
     const increaseProductCountByOne = (key) => {
@@ -904,6 +916,14 @@ function BigHeader(props){
         setShowUserProfileSummery(false);
     }
 
+    const academyMouseEntered = () => {
+        setShowDesktopAcademyArts(true);
+    }
+
+    const academyMouseLeft = () => {
+        setShowDesktopAcademyArts(false);
+    }
+
     const logoutUserButtonClicked = () => {
         removeCookie('user_server_token');
         window.location.href = '/';
@@ -916,6 +936,18 @@ function BigHeader(props){
             return "#2B2B2B";
         }
     }
+
+    const desktopAcademyArts = (
+        <div onMouseEnter={academyMouseEntered} onMouseLeave={academyMouseLeft} className={['row', 'p-2'].join(' ')} style={{width: '44rem', background: '#F7F7F7', borderRadius: '2px', position: 'absolute', left: '-0.42rem', top: '1.7rem'}}>
+            {
+               academyArts.map((art, index) => {
+                    return (
+                        <a className={['col-4', 'mb-2'].join(' ')} href={'https://honari.com/academy/category/' + art.url}><h3 key={index} className={['text-right', 'rtl', styles.menuArts].join(' ')} style={{fontSize: '14px'}}>{art.name}</h3></a>
+                    )
+                })
+            }
+        </div>
+    );
 
     const desktopSearchResults = () => {
         if(searchResults.length !== 0 && showSearchResults){
@@ -1254,7 +1286,7 @@ function BigHeader(props){
                                 <img src={Constants.baseUrl + '/assets/images/main_images/search_main.png'} className={['pointer'].join(' ')} style={{width: '15px', height: '15px'}}/>
                             </div>
                             <div style={{height: '30px', background: '#F7F7F7'}}>
-                                <input name='query' type='search' placeholder='جست و جو کنید' onChange={getSearchResults} className={['rtl', 'px-2'].join(' ')} style={{fontSize: '14px', height: '30px', border: 'none', outlineStyle: 'none', outlineOffset: 'none', outlineColor: 'none', background: '#F7F7F7', border: '1px solid #D8D8D8', borderRadius: '0px 3px 3px 0px'}} /> 
+                                <input name='query' readOnly={'readonly'}  type='search' placeholder='جست و جو کنید' onChange={getSearchResults} className={['rtl', 'px-2'].join(' ')} style={{fontSize: '14px', height: '30px', border: 'none', outlineStyle: 'none', outlineOffset: 'none', outlineColor: 'none', background: '#F7F7F7', border: '1px solid #D8D8D8', borderRadius: '0px 3px 3px 0px'}} /> 
                             </div>
                         </form>
                         {/*<h1 className={['pr-1', 'm-0', 'd-block', 'd-lg-none'].join(' ')} style={{fontSize: '22px', color: '#00bac6'}}>هنری</h1>*/}
@@ -1399,8 +1431,15 @@ function BigHeader(props){
                                     })
                                 }
                             </ul>
-                            <div className={['text-center', 'mr-auto'].join(' ')} style={{}}>
-                                <a href={'https://honari.com/academy'} className={[styles.desktopHeaderAcademyButton, 'px-4', 'py-1'].join(' ')}>هنری آکادمی</a>
+                            <div className={['text-center', 'mr-auto'].join(' ')} style={{position: 'relative'}}>
+                                {
+                                showDesktopAcademyArts
+                                ?
+                                desktopAcademyArts
+                                :
+                                null
+                                }
+                                <a  href={'https://honari.com/academy'} onMouseEnter={academyMouseEntered} onMouseLeave={academyMouseLeft} className={[styles.desktopHeaderAcademyButton, 'px-4', 'py-1'].join(' ')} style={{position: 'relative', left: '-1.3rem'}}>هنری آکادمی</a>
                             </div>
                         </div>
                     </div>
