@@ -37,6 +37,7 @@ const SearchResult = (props) => {
     const [phoneFilterOpenStatus, setPhoneFilterOpenStatus] = useState(false);
     const [visibleFilterGroupId, setVisibleFilterGroupId] = useState(-1);
     const [windowHeight, setWindowHeight] = useState(0);
+    const [dataReceived, setDataReceived] = useState(false);
 
     const [results, setResults] = useState([]);
 
@@ -142,12 +143,14 @@ const SearchResult = (props) => {
             if(response.status === 'done'){
                 setResults(response.result[0].properties);
                 setPages(response.result[0].totalPage);
+                setDataReceived(true);
             }
             console.log(response);
         }).catch((err) => {
             console.log(err);
 
         });
+
     }
 
     const paginationChanged = (event, page) =>{
@@ -182,6 +185,7 @@ const SearchResult = (props) => {
             if(response.status === 'done'){
                 setResults(response.result[0].properties);
                 setPages(response.result[0].totalPage);
+                setDataReceived(true);
             }
             console.log(response);
         }).catch((err) => {
@@ -306,7 +310,13 @@ const SearchResult = (props) => {
                 ?
                 showResults()
                 :
-                noResultFound()
+                (
+                    dataReceived
+                    ?
+                    noResultFound()
+                    :
+                    null
+                )
             }
             <Footer />
         </React.Fragment>

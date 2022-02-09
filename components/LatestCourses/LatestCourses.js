@@ -24,12 +24,12 @@ const LatestCoures = (props) => {
       }, []);
 
     return(
-        <div style={{backgroundColor: '#f0efd8'}}>
+        <div style={{backgroundColor: '#fff2ec'}}>
             <div className={['container', 'pt-4', 'mt-5', 'py-2'].join(' ')} style={{overflowX: 'hidden'}}>
                 <div className={['row', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl'].join(' ')}>
                     <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3', 'px-md-2'].join(' ')}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/college_hat_black.png'} style={{width: '40px', height: '40px'}} />
-                        <h5 className={['mr-1', 'mb-0', 'd-none', 'd-md-block', 'font-weight-bold'].join(' ')}>جدیدترین دوره‌های آنلاین</h5>
+                        <h5 className={['mr-1', 'mb-0', 'd-none', 'd-md-block'].join(' ')}>جدیدترین دوره‌های آنلاین</h5>
                         <h5 className={['mr-1', 'mb-0', 'd-md-none', 'font-weight-bold'].join(' ')}>دوره‌های آنلاین</h5>
                     </div>
                     <Link href='https://honari.com/academy'>

@@ -365,35 +365,55 @@ const ShoppingCart = (props) => {
                                             </div>
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'py-2', 'pr-2'].join(' ')} style={{flex: '1'}}>
                                                 {
-                                                    product.price === product.discountedPrice
+                                                    product.price === 0
                                                     ?
-                                                    <h6 className={['mb-0', 'text-center', 'rtl'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>{(product.price * product.count).toLocaleString() + " تومان"}</h6>
+                                                        <div style={{flex: '1'}}></div>
                                                     :
                                                     (
-                                                        <div className={['d-flex', 'flex-column', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-                                                            <h6 className={['mb-0', 'text-center', 'rtl'].join(' ')} style={{fontSize: '17px', color: 'gray'}}><del>{(product.price * product.count).toLocaleString()}</del></h6>
-                                                            <h6 className={['mb-0', 'text-center', 'mt-1', 'rtl'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>{(product.discountedPrice * product.count).toLocaleString() + " تومان"}</h6>
-                                                        </div>
+                                                        product.price === product.discountedPrice
+                                                        ?
+                                                        <h6 className={['mb-0', 'text-center', 'rtl'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>{(product.price * product.count).toLocaleString() + " تومان"}</h6>
+                                                        :
+                                                        (
+                                                            <div className={['d-flex', 'flex-column', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
+                                                                <h6 className={['mb-0', 'text-center', 'rtl'].join(' ')} style={{fontSize: '17px', color: 'gray'}}><del>{(product.price * product.count).toLocaleString()}</del></h6>
+                                                                <h6 className={['mb-0', 'text-center', 'mt-1', 'rtl'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>{(product.discountedPrice * product.count).toLocaleString() + " تومان"}</h6>
+                                                            </div>
+                                                        )
                                                     )
                                                 }
-                                                <div className={['mb-0', 'text-center', 'ltr', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-center'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>
-                                                    <img className={['pointer'].join(' ')} src={Constants.baseUrl + (axiosProcessInformation.type === 'decrease' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/minus_gray_circle.png')} style={{width: '20px', height: '20px'}} onClick={() => {decreaseProductCountByOne(counter)}} />
-                                                    <h6 className={['mb-0', 'px-2'].join(' ')} style={{fontSize: '17px'}}>{product.count}</h6>
-                                                    <img className={['pointer'].join(' ')} src={Constants.baseUrl + (axiosProcessInformation.type === 'increase' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/plus_gray_circle.png')} style={{width: '20px', height: '20px'}} onClick={() => {increaseProductCountByOne(counter)}} />
-                                                </div>
                                                 {
-                                                    product.price === product.discountedPrice
+                                                    product.price == 0
                                                     ?
-                                                    <h6 className={['mb-0', 'text-center', 'rtl'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>{product.price.toLocaleString() + " تومان"}</h6>
+                                                        <div style={{flex: '1'}}></div>
                                                     :
                                                     (
-                                                        <div className={['d-flex', 'flex-column', 'justify-content-center'].join(' ')} style={{flex: '1'}}>
-                                                                <h6 className={['mb-0', 'text-center'].join(' ')} style={{fontSize: '17px', color: 'gray'}}><del>{product.price.toLocaleString()}</del></h6>
-                                                                <h6 className={['mb-0', 'text-center', 'mt-1', 'rtl'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>{product.discountedPrice.toLocaleString() + " تومان"}</h6>
+                                                        <div className={['mb-0', 'text-center', 'ltr', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-center'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>
+                                                            <img className={['pointer'].join(' ')} src={Constants.baseUrl + (axiosProcessInformation.type === 'decrease' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/minus_gray_circle.png')} style={{width: '20px', height: '20px'}} onClick={() => {decreaseProductCountByOne(counter)}} />
+                                                            <h6 className={['mb-0', 'px-2'].join(' ')} style={{fontSize: '17px'}}>{product.count}</h6>
+                                                            <img className={['pointer'].join(' ')} src={Constants.baseUrl + (axiosProcessInformation.type === 'increase' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/plus_gray_circle.png')} style={{width: '20px', height: '20px'}} onClick={() => {increaseProductCountByOne(counter)}} />
                                                         </div>
                                                     )
                                                 }
-                                                <h6 className={['mb-0', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1.3'}}>{product.label}</h6>
+                                                {
+                                                    product.price === 0
+                                                    ?
+                                                    <div style={{flex: '1'}}></div>
+                                                    :
+                                                    (
+                                                        product.price === product.discountedPrice
+                                                        ?
+                                                        <h6 className={['mb-0', 'text-center', 'rtl'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>{product.price.toLocaleString() + " تومان"}</h6>
+                                                        :
+                                                        (
+                                                            <div className={['d-flex', 'flex-column', 'justify-content-center'].join(' ')} style={{flex: '1'}}>
+                                                                    <h6 className={['mb-0', 'text-center'].join(' ')} style={{fontSize: '17px', color: 'gray'}}><del>{product.price.toLocaleString()}</del></h6>
+                                                                    <h6 className={['mb-0', 'text-center', 'mt-1', 'rtl'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>{product.discountedPrice.toLocaleString() + " تومان"}</h6>
+                                                            </div>
+                                                        )
+                                                    )
+                                                }
+                                                <h6 className={['mb-0', 'text-center', 'rtl'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1.3'}}>{product.price === 0 ? 'موجود نیست !' : product.label}</h6>
                                                 <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right'].join(' ')} style={{flex: '2'}}>
                                                     <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + product.prodID + '.jpg'} style={{width: '100px', height: '100px'}} />
                                                     <h6 className={['mb-0', 'pr-1', 'rtl', 'text-right'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>{product.name}</h6>
@@ -481,11 +501,11 @@ const ShoppingCart = (props) => {
                                                 <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + product.prodID + '.jpg'} style={{width: '70px', height: '70px'}} />
                                                 <div className={['d-flex', 'flex-column', 'pr-2'].join(' ')} style={{flex: '1'}}>
                                                     <h6 className={['text-right', 'rtl', 'mb-0'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>{product.name}</h6>
-                                                    <h6 className={['text-right', 'rtl', 'mb-0', 'mt-auto'].join(' ')} style={{fontSize: '14px', color: '#444444'}}>{product.label}</h6>
+                                                    <h6 className={['text-right', 'rtl', 'mb-0', 'mt-auto'].join(' ')} style={{fontSize: '14px', color: '#444444'}}>{product.price === 0 ? 'موجود نیست !' : product.label}</h6>
                                                 </div>
                                             </div>
-                                            <div className={['mx-3', 'my-2'].join(' ')} style={{height: '1px', background: '#D8D8D8'}}></div>
-                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'px-3'].join(' ')}>
+                                            <div className={['mx-3', 'my-2'].join(' ')} style={{height: '1px', background: product.price == 0 ? '#FFFFFF' :'#D8D8D8'}}></div>
+                                            <div className={[product.price === 0 ? 'd-none' : 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'px-3',].join(' ')}>
                                                 <h6 className={['text-right'].join(' ')} style={{fontSize: '14px'}}>قیمت هر واحد</h6>
                                                 {
                                                     product.price === product.discountedPrice
@@ -500,7 +520,7 @@ const ShoppingCart = (props) => {
                                                     )
                                                 }
                                             </div>
-                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'px-3'].join(' ')}>
+                                            <div className={[product.price === 0 ? 'd-none' : 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'px-3'].join(' ')}>
                                                 <h6 className={['text-right', 'mb-0'].join(' ')} style={{fontSize: '14px'}}>تعداد</h6>
                                                 <div className={['d-flex', 'flex-row', 'align-items-center', 'ltr'].join(' ')}>
                                                     <img src={Constants.baseUrl + (axiosProcessInformation.type === 'decrease' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/minus_gray_circle.png')} className={['pointer'].join(' ')} style={{width: '20px', height: '20px'}} onClick={() => {decreaseProductCountByOne(counter)}} />
@@ -508,7 +528,7 @@ const ShoppingCart = (props) => {
                                                     <img src={Constants.baseUrl + (axiosProcessInformation.type === 'increase' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/plus_gray_circle.png')} className={['pointer'].join(' ')} style={{width: '20px', height: '20px'}} onClick={() => {increaseProductCountByOne(counter)}} />
                                                 </div>
                                             </div>
-                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'px-3', 'mt-2', 'pt-2'].join(' ')} style={{background: '#F7F7F7', borderTop: '1px dashed #DEDEDE'}}>
+                                            <div className={[product.price === 0 ? 'd-none' : 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'px-3', 'mt-2', 'pt-2'].join(' ')} style={{background: '#F7F7F7', borderTop: '1px dashed #DEDEDE'}}>
                                                 <h6 className={['text-right'].join(' ')} style={{fontSize: '17px'}}>قیمت نهایی کالا</h6>
                                                 {
                                                     product.price === product.discountedPrice

@@ -97,6 +97,7 @@ const ProductCard = (props) => {
                             discountPercent: props.information.discountPercent 
                         });
                         setProductExistInCart(true);
+                        getIndexOfProductInCart();
                     }else if(response.status === 'failed'){
                         console.log(response.message);
                         alert(response.umessage);
@@ -138,8 +139,9 @@ const ProductCard = (props) => {
                             discountedPrice: props.information.discountedPrice,
                             discountPercent: props.information.discountPercent
                         });
+                        getIndexOfProductInCart();
                         setProductExistInCart(true);
-                        setProductIndexInCart(props.reduxCart.information.length + 1);
+                        //setProductIndexInCart(props.reduxCart.information.length + 1);
                     }else if(response.status === 'failed'){
                         alert(response.umessage);
                     }
@@ -196,6 +198,7 @@ const ProductCard = (props) => {
     const increaseProductCountByOne = () => {
         if(!increaseAxiosWaiting){
             if(props.reduxUser.status == 'GUEST'){
+                getIndexOfProductInCart();
                 setIncreaseAxiosWaiting(true);
                 axios.post(Constants.apiUrl + '/api/guest-check-cart-changes', {
                     productPackId: props.information.productPackId,
@@ -276,6 +279,9 @@ const ProductCard = (props) => {
                     props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
                     setDecreaseAxiosWaiting(true);
                 });
+                setDecreaseAxiosWaiting(true);
+                updateProductInLocalStorage(props.reduxCart.information[productIndexInCart].count - 1);
+                setDecreaseAxiosWaiting(false);
             }else if(props.reduxUser.status == 'LOGIN'){
                 setDecreaseAxiosWaiting(true);
                 axios.post(Constants.apiUrl + '/api/user-decrease-cart-by-one', {
@@ -303,8 +309,15 @@ const ProductCard = (props) => {
     }
 
 
-    const updateProductInLocalStorage = (packId) => {
-
+    const updateProductInLocalStorage = (count) => {
+        // props.information.productPackId
+        let localStorageProducts = JSON.parse(localStorage.getItem('user_cart'));
+        localStorageProducts.map((item, id) => {
+            if(item.id == props.information.productPackId){
+                item.count = count;
+            }
+        });
+        localStorage.setItem('user_cart', JSON.stringify(localStorageProducts));    
     }
 
     const imageLoadingCompleted = () => {

@@ -17,7 +17,7 @@ const Footer = () => {
     }, []);
     return(
         <div className={['container-fluid'].join(' ')} style={{position: 'relative', left: '0', bottom: loaded ? '0' : '-50rem'}}>
-            <div className={['row', 'mt-5'].join(' ')} style={{backgroundColor: '#78dde3'}}>
+            <div className={['row', 'mt-5'].join(' ')} style={{backgroundColor: '#bedde1'}}>
                 <div className={['container', 'py-2'].join(' ')}>
                     <div className={['row', 'rtl'].join(' ')}>
                         <div className={['col-4', 'd-flex','flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')}>
@@ -44,8 +44,8 @@ const Footer = () => {
                         <div className={['col-12', 'col-md-6', 'd-flex', 'flex-column', 'py-2', 'rtl', styles.dashBoardered].join(' ')}>
                             <p className={['text-danger', 'mb-1', 'font-weight-bold', styles.floatAlignedText].join(' ')}>از آخرین آموزش‌ها، محصولات و تخفیف‌ها باخبر شوید!</p>
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')}>
-                                <input type="text" className={['p-1', 'shadow-sm'].join(' ')} style={{flex: '0.68', outline: 'none', border: '1px solid #dedede', borderRadius: '4px', fontSize: '14px'}} placeholder="آدرس ایمیل خود را وارد کنید"/>
-                                <button className={['btn', 'btn-danger', 'py-1'].join(' ')} style={{flex: '0.3', fontSize: '14px'}}>تایید ایمیل</button>
+                                <input type="text" className={['px-1', 'py-2', 'shadow-sm', styles.emailInput].join(' ')} style={{flex: '0.68', outline: 'none', border: '1px solid #dedede', borderRadius: '4px', fontSize: '14px'}} placeholder="آدرس ایمیل خود را وارد کنید"/>
+                                <button className={['btn', 'btn-danger', 'py-1', 'py-2'].join(' ')} style={{flex: '0.3', fontSize: '14px'}}>تایید ایمیل</button>
                             </div>
                             <p className={['text-info', 'text-right', 'mb-1', 'mt-4', 'font-weight-bold', 'd-none', 'd-md-block'].join(' ')}>هنری در شبکه‌های اجتماعی</p>
                             <p className={['text-center', 'font-weight-bold', 'd-block', 'd-md-none','mt-4', 'mb-1'].join(' ')} style={{color: '#575757'}}>با ما در شبکه‌های اجتماعی همراه باشید</p>
@@ -74,7 +74,7 @@ const Footer = () => {
                                             <h5 className={['align-md-self-end', 'mb-0', 'mt-2', 'text-secondary'].join(' ')} style={{fontSize: '14px'}}>آموزش، الگو، مواد اولیه</h5>
                                         </div>
                                     </div>
-                                    <p className={['mb-0', 'mt-2', styles.floatAlignedText].join(' ')} style={{fontSize: '15px'}}>تهران، بلوار مرزداران، جنب پل یادگار امام، خیابان ابراهیمی، برج الوند، واحد 303 (فروش حضوری نداریم)</p>
+                                    <p className={['mb-0', 'mt-2', styles.floatAlignedText, 'font-weight-bold'].join(' ')} style={{fontSize: '14px'}}>تهران، بلوار مرزداران، جنب پل یادگار امام، خیابان ابراهیمی، برج الوند، واحد 303 (فروش حضوری نداریم)</p>
                                     <Link href='/buy_training'><a className={['mt-3', 'text-center', 'link', 'pointer', 'font-weight-bold', 'w-100', 'mb-0', 'd-block', 'd-md-none'].join(' ')} style={{fontSize: '14px'}}>راهنمای ثبت‌نام و خرید از وب‌سایت</a></Link>
                                     <Link href='/shop'><a className={['mt-1', 'text-center', 'link', 'pointer', 'font-weight-bold', 'w-100', 'mb-0', 'd-block', 'd-md-none'].join(' ')} style={{fontSize: '14px'}}>محصولات جدید</a></Link>
                                 </div>

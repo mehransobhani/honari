@@ -231,6 +231,7 @@ const Home = (props) => {
           mainBanners.length !== 0
           ?
           (
+            <React.Fragment>
             <div className={['row', 'rtl', 'mt-0', 'mt-md-4', 'px-md-2', 'align-items-stretch'].join(' ')} style={{}}>
               <div className={['col-12', 'col-md-6', 'pr-0', 'pl-0', 'pl-md-2', ].join(' ')}>
                 <Link href={mainBanners[0].anchor}><img src={'https://s4.uupload.ir/files/b1_gbk5.jpg' /*mainBanners[0].img*/} className={['pointer', 'shadow-sm'].join(' ')} style={{width: '100%', height: '100%', borderRadius: '4px'}} /></Link>
@@ -244,6 +245,7 @@ const Home = (props) => {
                 </div>
               </div>
             </div>
+          </React.Fragment>
           )
           :
           null
@@ -282,18 +284,27 @@ const Home = (props) => {
             topCategories.map((category, index) => {
               return (
                 <Link href={'/shop/product/category/' + category.categoryUrl}>
-                  <a onClick={props.reduxStartLoading} className={['col-6', 'col-md-2', 'px-2', 'py-0', 'my-0'].join(' ')}>
-                    <div className={['d-flex', 'pointer', 'flex-row', 'justify-content-center', 'align-items-center', 'shadow-sm'].join(' ')} style={{height: '200px', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' , border: '1px solid #dedede', borderRadius: '4px', background: 'url(' + category.categoryImage + ')'}}>
+                  <a onClick={props.reduxStartLoading} className={['col-6', 'col-md-2', 'px-2', 'py-0', 'my-0', index >= 2 ? 'mt-3' : '' , 'mt-md-0'].join(' ')} style={{position: 'relative'}}>
+                    <img src={category.categoryImage} style={{width: '100%'}} />
+                    {/*<div className={['d-flex', 'pointer', 'flex-row', 'justify-content-center', 'align-items-center', 'shadow-sm'].join(' ')} style={{height: '200px', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' , border: '1px solid #dedede', borderRadius: '4px', background: 'url(' + category.categoryImage + ')'}}>
                       <div className={['d-flex', 'flex-column', 'align-items-center'].join(' ')}>
-                        <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '24px', fontWeight: 'bold', color: 'white', textShadow: '2px 2px 3px #00BAC6'}}>{category.categoryName}</h6>
-                        <div className={['mt-2'].join(' ')} style={{height: '3px', width: '64px', background: 'white', boxShadow: '2px 2px 3px #00BAC6'}}></div>
+                        <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '24px', fontWeight: 'bold', color: 'white'}}>{category.categoryName}</h6>
+                        <div className={['mt-2'].join(' ')} style={{height: '3px', width: '64px', background: 'white'}}></div>
                       </div>
                     </div> 
+                    */}
+                    <div className={[''].join(' ')} style={{position: 'absolute', borderRadius: '2px', backgroundColor: 'black', opacity: '0.2', top: '0', left: '0.5rem', right: '0.5rem', height: '100%'}}>
+
+                    </div>
+                    <div className={['d-flex', 'flex-column', 'align-items-center', 'justify-content-center'].join(' ')} style={{position: 'absolute', top: '0', left: '0.5rem', right: '0.5rem', height: '100%'}}>
+                        <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '24px', fontWeight: 'bold', color: 'white'}}>{category.categoryName}</h6>
+                        <div className={['mt-2'].join(' ')} style={{height: '3px', width: '64px', background: 'white'}}></div>
+                    </div>
                   </a>
                 </Link>
               );
             })
-          }          
+          }
         </div>
         <SpecialOffers />
       </div>
