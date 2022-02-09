@@ -8,7 +8,7 @@ const LatestCourseCard = (props) => {
     return(
         <div className={['col-8', 'col-md-3', 'px-2'].join(' ')}>
           <Link href={props.info.url}>
-            <a className={['d-flex', 'pointer', 'flex-column', 'shadow-sm', styles.banner].join(' ')} style={{border: '1px solid #dedede', backgroundColor: 'white', borderRadius: '4px'}}>
+            <a className={['d-flex', 'pointer', 'flex-column', styles.banner].join(' ')} style={{border: '1px solid #dedede', backgroundColor: 'white', borderRadius: '4px'}}>
               <div className={['w-100'].join(' ')} style={{height: '12rem', background: 'url(' + props.info.image + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover'}} >
 
               </div>

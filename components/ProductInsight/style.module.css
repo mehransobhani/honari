@@ -21,9 +21,6 @@
     .tripleBannerTitle{
         font-size: 12px;
     }
-    .tripleBanner{
-        background-color: #F2F2F2;
-    }
 }
 @media only screen and (min-width: 768px) {
     .infoImage{
