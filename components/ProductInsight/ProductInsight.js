@@ -201,6 +201,31 @@ const ProductInsight = (props) =>{
         });
     }, [id, props.id]);
 
+    useEffect(() => {
+        axios.post(Constants.apiUrl + '/api/product-gtm-information', {
+            productId: props.id,
+        }).then((r) => {
+            let response = r.data;
+            if(response.status === 'done'){
+                const dataLayer = document.createElement('script');
+                dataLayer.async = true;
+                document.body.appendChild(dataLayer);
+                dataLayer.onload = () => {
+                        dataLayer.push({
+                        event: 'gtm.load',
+                        productPrice: '',
+                        productUnit: '',
+                        productCategory: ''
+                        });
+                }
+            }else if(response.status === 'failed'){
+                console.warn(response.message);
+            }
+        }).catch((e) => {
+            console.error(e);
+        });
+    }, [id, props.id]);
+
     useEffect(()=>{
         axios.post(Constants.apiUrl + '/api/product-breadcrumb', {
             id: props.id,
@@ -941,7 +966,7 @@ const ProductInsight = (props) =>{
                                 </div>
                                 {
                                     productInformation.productPrice !== undefined && productInformation.discountedPrice !== undefined
-                                    ?
+                                    ?                                                   
                                     (
                                         productInformation.productPrice != productInformation.discountedPrice
                                         ?
