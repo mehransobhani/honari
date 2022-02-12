@@ -276,7 +276,7 @@ const Home = (props) => {
           </div>
         </div>
         <div className={['row', 'mt-5', 'mb-2', 'rtl', 'align-items-stretch', 'px-2', 'd-flex', 'flex-column', 'justify-content-center'].join(' ')}>
-          <h5 className={['pb-1', 'text-center', 'mb-0', 'align-self-center'].join(' ')} style={{borderBottom: '1px solid #00BAC6'}}>دسته محصولات پرطرفدار</h5>
+          <h5 id='gtm-testing-button' className={['pb-1', 'text-center', 'mb-0', 'align-self-center'].join(' ')} style={{borderBottom: '1px solid #00BAC6'}}>دسته محصولات پرطرفدار</h5>
           <div className={['col-12', 'mb-2', 'd-none', 'd-md-block'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
         </div>
         <div className={['row', 'px-2', 'px-md-0'].join(' ')}>

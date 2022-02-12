@@ -148,8 +148,23 @@ function MyApp({ Component, pageProps }) {
           ga('async', 'true');
           ga('create', 'UA-55136021-1', 'auto');
           ga('send', 'pageview');
+      }*/
+
+      const googleTagmanager = document.createElement('script');
+      googleTagmanager.src = '/assets/js/google_tagmanager.js';
+      googleTagmanager.async = true;
+      document.body.appendChild(googleTagmanager);
+      googleTagmanager.onload = () => {
+        let confirmButton = document.getElementById('gtm-testing-button');
+        confirmButton.addEventListener('click', () => {
+            dataLayer.push({
+              event: 'testButtonClicked',
+              v: 'tesing'
+            });
+            alert('data pushed');
+        });
       }
-    */
+
   }, []);
 
   return (
