@@ -108,6 +108,7 @@ td{
   background-color: #00bac6 !important;
   color: white !important;
   font-family: IranSansWebFaNum !important;
+  outline: none;
 }
 .MuiPaginationItem-page:hover{
   background-color: #00bac6 !important;
@@ -192,4 +193,24 @@ span{
   left: -20px!important;
   right: unset!important;
   bottom: -20px!important;
+}
+.MuiButtonBase-root{
+  outline: none !important;
+} 
+.MuiPaginationItem-root{
+  outline: none !important;
+}
+.MuiPaginationItem-page{
+  outline: none !important;
+} 
+.MuiPaginationItem-rounded{
+  outline: none !important;
+}
+.MuiList-root{
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+.MuiMenu-list{
+  text-shadow: none !important;
+  box-shadow: none !important;
 }

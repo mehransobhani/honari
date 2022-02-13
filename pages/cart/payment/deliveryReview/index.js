@@ -407,7 +407,7 @@ const DeliveryReview = (props) => {
                                                 <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '75px', height: '75px', borderRadius: '1px'}} />
                                                 <div className={['d-flex', 'flex-column', 'text-right', 'mr-2'].join(' ')}>
                                                     <h5 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px'}}>{item.name}</h5>
-                                                    <h5 className={['mb-0', 'font11md17'].join(' ')} style={{fontSize: '14px'}}>{item.label}</h5>
+                                                    <h5 className={['mb-0', 'font11md17', 'mt-2'].join(' ')} style={{fontSize: '14px'}}>{item.label}</h5>
                                                 </div>
                                             </div>
                                             <h6 className={['col-1', 'text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>{item.count}</h6>
@@ -441,9 +441,9 @@ const DeliveryReview = (props) => {
                                 );
                             })
                         }
-                        <div className={['rtl', 'text-right', 'd-md-none'].join(' ')} style={{width: '100%', overflowX: 'scroll', scrollbarWidth: 'thin', direction: 'rtl'}}>
-                            <div className={['rtl', 'py-2', 'mt-1', 'd-flex', 'd-flex-row', 'align-items-center'].join(' ')} style={{borderBottom: '1px solid #D8D8D8', width: '700px'}}>
-                                <h6 className={['text-right', 'mb-0'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '4'}}>محصول</h6>
+                        <div className={['rtl', 'text-right', 'd-md-none', 'mt-2'].join(' ')} style={{width: '100%', overflowX: 'scroll', scrollbarWidth: 'thin', direction: 'rtl'}}>
+                            <div className={['rtl', 'py-2', 'mt-1', 'd-flex', 'd-flex-row', 'align-items-center'].join(' ')} style={{border: '1px solid #D8D8D8', width: '700px', background: '#F7F7F7'}}>
+                                <h6 className={['text-right', 'mb-0', 'pr-2'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '4'}}>محصول</h6>
                                 <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>تعداد</h6>
                                 <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>واحد</h6>
                                 <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '2'}}>قیمت واحد</h6>
@@ -458,7 +458,7 @@ const DeliveryReview = (props) => {
                                                     <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '75px', height: '75px', borderRadius: '1px'}} />
                                                     <div className={['d-flex', 'flex-column', 'text-right', 'mr-2'].join(' ')}>
                                                         <h5 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px'}}>{item.name}</h5>
-                                                        <h5 className={['mb-0', 'font11md17'].join(' ')} style={{fontSize: '14px'}}>{item.label}</h5>
+                                                        <h5 className={['mb-0', 'font11md17', 'mt-2'].join(' ')} style={{fontSize: '14px'}}>{item.label}</h5>
                                                     </div>
                                                 </div>
                                                 <h6 className={['text-center', 'mb-0', 'font14md17', 'd-inline-block'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>{item.count}</h6>
@@ -591,8 +591,9 @@ const DeliveryReview = (props) => {
                             null
                         }
                         <div className={['row', 'mt-5', 'mx-2'].join(' ')}>
-                            <div className={['col-12', 'rtl', 'text-right', 'mb-3', 'px-0'].join(' ')}>
-                                <h5 className={['mb-0'].join(' ')} style={{fontSize: '24px', color: '#2B2B2B'}}><b>شیوه پرداخت</b></h5>
+                            <div className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'rtl', 'text-right', 'mb-3', 'px-0'].join(' ')}>
+                                <img src={Constants.baseUrl + '/assets/images/main_images/cash_black_small.png'} style={{width: '18px', height: '18px'}} />
+                                <h5 className={['mb-0', 'mr-2'].join(' ')} style={{fontSize: '24px', color: '#2B2B2B'}}><b>شیوه پرداخت</b></h5>
                             </div>
                             <div className={['col-12', 'd-flex', 'flex-row', 'text-right', 'rtl', 'align-items-center', 'justify-content-right', 'py-2', 'mr-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
                                 <img src={Constants.baseUrl + '/assets/images/main_images/rec_main_full.png'} style={{width: '14px', height: '14px'}} />
@@ -616,7 +617,7 @@ const DeliveryReview = (props) => {
                                         <h5 className={['mb-0', 'px-2', 'text-right'].join(' ')} style={{fontSize: '17px', color: '#2B2B2B', flex: '1'}}><b>استفاده از اعتبار حساب کاربری</b></h5>
                                     </div>
                                     <div className={['d-flex', 'flex-row', 'align-items-center', 'py-1', 'px-0', 'px-md-2', 'justify-content-between','mt-2', 'mt-md-0'].join(' ')} style={{borderRadius: '14px', border: '1px solid #D8D8D8'}}>
-                                        <h6 className={['mb-0', 'pl-0', 'pl-md-2', 'text-center'].join(' ')} style={{fontSize: '14px', color: '#444444', borderLeft: '1px solid #D8D8D8', flex: '1'}}>{'اعتبار فعلی ' + userStock.toLocaleString() + " تومان"}</h6>
+                                        <h6 className={['mb-0', 'pl-0', 'pl-md-2', 'text-center'].join(' ')} style={{fontSize: '14px', color: '#444444', borderLeft: '1px solid #D8D8D8', flex: '1', minWidth: '200px'}}>{'اعتبار فعلی ' + userStock.toLocaleString() + 'تومان'}</h6>
                                         <button className={['pr-0', 'pr-md-2', 'pointer', 'text-center'].join(' ')} style={{fontSize: '14px', background: 'white', color: '#00BAC6', border: 'none', flex: '1'}}>افزایش اعتبار</button>
                                     </div>
                                 </div>

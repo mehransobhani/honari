@@ -21,6 +21,11 @@
     .tripleBannerTitle{
         font-size: 12px;
     }
+    .otherImages{
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 }
 @media only screen and (min-width: 768px) {
     .infoImage{
@@ -34,7 +39,7 @@
     }
     .mainImage{
         border-radius: 4px;
-        border: 2px solid #dedede;
+        border: 1px solid #dedede;
     }
     .infoContainer p{
         font-family: IranSansWebFaNum !important;
@@ -42,6 +47,11 @@
     }
     .tripleBannerImage{
         width: 60px;
+    }
+    .otherImages{
+        position: absolute;
+        top: 0;
+        left: 0.6rem;
     }
 }
 

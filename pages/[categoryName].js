@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import axios from 'axios';
@@ -20,6 +20,7 @@ const CategoryLandingPage = (props) => {
     const [pageTitle, setPageTitle] = useState('');
     const [component, setComponent] = useState(null);
     const [artInformation, setArtInformation] = useState(null);
+    const categories = useRef(null)
 
     useEffect(() => {
         props.reduxUpdateUserTotally(props.ssrUser);
@@ -141,15 +142,15 @@ const CategoryLandingPage = (props) => {
                             <div className={['col-12', 'col-md-4', 'px-2', 'px-md-0', 'pl-md-2'].join(' ')}>
                                 <div className={['d-flex', 'flex-column', 'p-3', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede', height: '100%', borderRadius: '4px'}}>
                                     <div className={['d-flex', 'flex-row'].join(' ')}>
-                                        <h1 className={['my-0', 'pr-2', 'rtl', 'text-right'].join(' ')} style={{fontSize: '32px'}} >{artInformation.name}</h1>
+                                        <h1 className={['my-0', 'pr-2', 'rtl', 'text-right'].join(' ')} style={{fontSize: '42px'}} >{artInformation.name}</h1>
                                     </div>
                                     <p className={['my-0', 'text-right', 'pt-3'].join(' ')}>{''}</p>
                                     <div className={['rtl', 'text-right', 'artpage-description-div'].join(' ')} style={{maxHeight: '200px', overflowY: 'scroll'}}>
                                         {parse(artInformation.description)}
                                     </div>
-                                    <div className={['d-flex', 'flex-row', 'rtl', 'mt-4', 'align-items-center', 'w-100', 'mr-0'].join(' ')}>
+                                    <div className={['d-flex', 'flex-row', 'rtl', 'mt-auto', 'align-items-center', 'justify-content-center', 'w-100', 'mr-0'].join(' ')} onClick={()=>{categories.current.scrollIntoView()}}>
                                         <img src={Constants.baseUrl + '/assets/images/main_images/down_arrow_main.png'} style={{width: '14px', borderRadius: '4px'}} />
-                                        <h6 className={['my-0', 'pr-1', 'pointer', 'font-weight-bold'].join(' ')} style={{color: '#00bac6'}}>دسته‌بندی محصولات</h6>
+                                        <h6 className={['my-0', 'pr-1', 'pointer', 'font-weight-bold'].join(' ')} style={{color: '#00bac6'}} ref={categories}>دسته‌بندی محصولات</h6>
                                     </div>
                                 </div>
                             </div>
@@ -164,8 +165,7 @@ const CategoryLandingPage = (props) => {
                                 <div className={['row', 'rtl', 'mt-5', 'px-1'].join(' ')}>
                                     <div className={['col-12', 'd-flex', 'flex-column', 'px-md-1'].join(' ')}>
                                         <div className={['d-flex', 'flex-row'].join(' ')}>
-                                            <h5 className={['pb-2', 'mb-0', 'font-weight-bold', 'd-none', 'd-md-block'].join(' ')} style={{borderBottom: '1px solid black'}}>{' دسته‌بندی محصولات '}</h5>
-                                            <h5 className={['pb-2', 'mb-0', 'd-block', 'd-md-none', 'font-weight-bold'].join(' ')}>{' دسته محصولات '}</h5>
+                                            <h5 className={['pb-2', 'mb-0', 'font-weight-bold', 'd-none', 'd-md-block'].join(' ')} style={{borderBottom: '1px solid #00BAC6'}}>{' دسته‌بندی محصولات '}</h5>
                                         </div>
                                         <div style={{height: '1px', width: '100%', backgroundColor: '#dedede'}}></div>
                                     </div>
@@ -200,7 +200,7 @@ const CategoryLandingPage = (props) => {
                         }
                         
                     </div>
-                    <div className={['container-fluid', 'mt-5', 'py-5'].join(' ')} style={{backgroundColor: '#f0efd8'}}>
+                    <div className={['container-fluid', 'mt-5', 'py-5', 'd-none'].join(' ')} style={{backgroundColor: '#f0efd8'}}>
                         <div className={['container', 'px-0', 'pb-3'].join(' ')}>
                             <div className={['row', 'rtl'].join(' ')}>
                                 <div className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'mt-3'].join(' ')}>
@@ -249,6 +249,51 @@ const CategoryLandingPage = (props) => {
                     <div className={['container'].join(' ')}>
                         <TopSixProducts moreUrl={'/shop/product/category/' + artInformation.categoryUrl} entries={artInformation.topSixProducts} title='جدیدترین کالاها' />
                     </div>
+
+                    <div className={['container', 'mt-5'].join(' ')}>
+          <div className={['row', 'rtl'].join(' ')}>
+            <div className={['col-12', 'col-md-6', 'd-flex', 'flex-row', 'pl-md-2'].join(' ')}>
+              <a href='https://honari.com/academy' className={['d-flex', 'flex-row', 'rtl', 'w-100', 'pointer'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
+                <div className={['d-flex', 'flex-column', 'p-2'].join(' ')} style={{flex: '1', background: '#F2F2F2'}}>
+                  <h5 className={['text-right', 'rtl'].join(' ')}>هنری آکادمی</h5>
+                  <h6 className={['text-right', 'rtl', 'mb-0'].join(' ')}>چی دوست داری یاد بگیری؟</h6>
+                  <h6 className={['text-right', 'rtl'].join(' ')}>دسترسی به بهترین هنرمندان که یادگیری هنرهای جدید را آسان میکنند</h6>
+                  <div className={['d-flex', 'flex-row', 'mt-auto', 'align-items-center', 'text-right', 'justify-content-right'].join(' ')}>
+                    <h6 className={['mb-0', 'pl-2'].join(' ')} style={{color: '#00BAC6'}}>مشاهده کلاس‌ها</h6>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_main_small.png'} style={{width: '14px', height: '14px'}} />
+                  </div>
+                </div>
+                <img src={Constants.baseUrl + '/assets/images/one.png'} style={{flex: '1'}} />
+              </a>
+            </div>
+            <div className={['col-12', 'col-md-6', 'd-none', 'flex-row', 'pr-md-2', 'mt-3', 'mt-md-0', 'd-none'].join(' ')}>
+              <a href='/site/help' className={['d-flex', 'flex-row', 'rtl', 'w-100', 'pointer'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
+                <div className={['d-flex', 'flex-column', 'p-2'].join(' ')} style={{flex: '1', background: '#F2F2F2'}}>
+                  <h5 className={['text-right', 'rtl'].join(' ')}>برای خرید به مشکل خوردید؟</h5>
+                  <h6 className={['text-right', 'rtl', 'mb-0'].join(' ')}>راهنمای ثبت‌نام و خرید از وبسایت هنری</h6>
+                  <div className={['d-flex', 'flex-row', 'mt-auto', 'align-items-center', 'text-right', 'justify-content-right'].join(' ')}>
+                    <h6 className={['mb-0', 'pl-2'].join(' ')} style={{color: '#00BAC6'}}>مشاهده راهنما</h6>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_main_small.png'} style={{width: '14px', height: '14px'}} />
+                  </div>
+                </div>
+                <img src={Constants.baseUrl + '/assets/images/two.png'} style={{flex: '1'}} />
+              </a>
+            </div>
+            <div className={['col-12', 'col-md-6', 'd-flex', 'flex-row', 'pr-md-2', 'mt-3', 'mt-md-0'].join(' ')}>
+              <a href='/site/help' className={['d-flex', 'flex-row', 'rtl', 'w-100', 'pointer'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
+                <div className={['d-flex', 'flex-column', 'p-2'].join(' ')} style={{flex: '1', background: '#F2F2F2'}}>
+                <h5 className={['text-right', 'rtl'].join(' ')}>برای خرید به مشکل خوردید؟</h5>
+                  <h6 className={['text-right', 'rtl', 'mb-0'].join(' ')}>راهنمای ثبت‌نام و خرید از وبسایت هنری</h6>
+                  <div className={['d-flex', 'flex-row', 'mt-auto', 'align-items-center', 'text-right', 'justify-content-right'].join(' ')}>
+                    <h6 className={['mb-0', 'pl-2'].join(' ')} style={{color: '#00BAC6'}}>مشاهده راهنما</h6>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_main_small.png'} style={{width: '14px', height: '14px'}} />
+                  </div>
+                </div>
+                <img src={Constants.baseUrl + '/assets/images/one.png'} style={{flex: '1'}} />
+              </a>
+            </div>
+          </div>
+      </div>
                         
                 </React.Fragment>
             );

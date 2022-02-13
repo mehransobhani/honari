@@ -506,14 +506,14 @@ const CategoryInsight = (props) => {
                 </div>
             </div>
             <div className={['container'].join(' ')} style={{overflowX: 'hidden'}}>
-                <div className={['row', 'rtl', 'mt-3'].join(' ')}>
+                <div className={['row', 'rtl', 'mt-3', 'd-flex', 'flex-row', 'align-items-stretch'].join(' ')}>
                     {
                         categoryBanners.map((cb, key)=>{
                             let categoryUrl = cb.url;
                             return(
-                                <div className={['col-4', 'p-2'].join(' ')} key={key}>
+                                <div className={['col-4', 'p-2', 'align-self-stretch'].join(' ')} style={{}} key={key}>
                                     <Link href={categoryUrl.substring(18)}>
-                                        <a onClick={props.reduxStartLoading} className={['w-100', 'd-flex', 'flex-column', 'shadow-sm', 'pointer'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede'}}>
+                                        <a onClick={props.reduxStartLoading} className={['w-100', 'd-flex', 'flex-column', 'shadow-sm', 'pointer'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede', height: '100%'}}>
                                             <img src={cb.image} className={['w-100'].join(' ')} />
                                             <h6 className={['py-3', 'text-center', 'mb-0'].join(' ')}>{cb.title}</h6>
                                         </a>

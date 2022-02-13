@@ -277,7 +277,7 @@ const Payment = (props) => {
             <div className={['row', 'mt-4', 'mx-1'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')}>
                     <img src={Constants.baseUrl + '/assets/images/main_images/delivery_time.png'} style={{width: '16px', height: '16px'}}/>
-                    <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', fontWeight: '500', color: '500'}}>شیوه ارسال</h6>
+                    <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', fontWeight: '500', color: '500'}}>شیوه و زمان ارسال</h6>
                 </div>
             </div>
             <div className={['row', 'mt-2', 'rtl', 'mx-1'].join(' ')}>
@@ -330,8 +330,8 @@ const Payment = (props) => {
                     <React.Fragment>
                         <div className={['row', 'mt-4', 'mx-1'].join(' ')}>
                             <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')}>
-                                <img src={Constants.baseUrl + '/assets/images/main_images/delivery_time.png'} style={{width: '16px', height: '16px'}}/>
-                                <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '16px', fontWeight: '500', color: '500'}}>زمان ارسال سفارشتان را از بازه‌های زیر انتخاب کنید</h6>
+                                <img src={Constants.baseUrl + '/assets/images/main_images/delivery_time.png'} className={['d-none'].join(' ')} style={{width: '16px', height: '16px'}}/>
+                                <h6 className={['mb-0'].join(' ')} style={{fontSize: '16px', fontWeight: '500', color: '500'}}>زمان ارسال سفارشتان را از بازه‌های زیر انتخاب کنید</h6>
                             </div>
                         </div>
                         <div className={['row', 'mt-2', 'rtl', 'mx-1'].join(' ')}>
