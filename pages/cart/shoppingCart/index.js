@@ -333,9 +333,9 @@ const ShoppingCart = (props) => {
                                 <div className={['d-flex', 'flex-column', 'align-items-right'].join(' ')}>
                                     <div className={['d-flex', 'felx-row', 'rtl', 'align-items-center', 'justify-content-right'].join(' ')}>
                                         <img src={Constants.baseUrl + '/assets/images/header_cart.png'} style={{width: '20px', heigth: '20px'}} />
-                                        <h5 className={['text-right', 'rtl', 'mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', color: '#444444'}}>سبد خرید شما</h5>
+                                        <h5 className={['text-right', 'rtl', 'mb-0', 'pr-1', 'font-weight-bold'].join(' ')} style={{fontSize: '24px', color: '#444444'}}>سبد خرید شما</h5>
                                     </div>
-                                    <p className={['mb-0'].join(' ')} style={{fontSize: '14px', color: '#444444'}}>وجود کالاها در سبدخرید به معنی رزرو آنها نیست و تا زمان موجود بودن در سبد خرید خواهند ماند</p>
+                                    <p className={['mb-0', 'py-2'].join(' ')} style={{fontSize: '14px', color: '#444444'}}>وجود کالاها در سبدخرید به معنی رزرو آنها نیست و تا زمان موجود بودن در سبد خرید خواهند ماند</p>
                                 </div>
                                 <Link href={'/cart/payment'}>
                                 <div onClick={props.reduxStartLoading} className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'pointer'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
@@ -466,12 +466,12 @@ const ShoppingCart = (props) => {
                                 <p className={['mb-0', 'text-right', 'rtl'].join(' ')} style={{fontSize: '14px', color: '#444444'}}>وجود کالاها در سبدخرید به معنی رزرو آنها نیست و تا زمان موجود بودن در سبد خرید خواهند ماند</p>
                             </div>
                             <div className={['col-12', 'px-3', 'pt-3', 'pb-0'].join(' ')}>
-                                <div className={['d-flex', 'flex-row', 'rtl', 'justify-content-between', 'p-2'].join(' ')} style={{borderRadius: '2px 2px 0 0', border: '1px solid #D8D8D8'}}>
+                                <div className={['d-flex', 'flex-row', 'rtl', 'justify-content-between', 'px-2', 'py-3'].join(' ')} style={{borderRadius: '2px 2px 0 0', border: '1px solid #D8D8D8'}}>
                                     <h6 className={['text-right', 'mb-0'].join(' ')} style={{fontSize: '14px'}}>مبلغ قابل پرداخت</h6>
                                     {
                                         getTotalCartPrice() === getTotalDiscountedPrice()
                                         ?
-                                        <h6 className={['text-left', 'rtl', 'mb-0'].join(' ')} style={{fontSize: '14px'}}>{getTotalCartPrice().toLocaleString() + " تومان"}</h6>
+                                        <h6 className={['text-left', 'rtl', 'mb-0', 'font-weight-bold'].join(' ')} style={{fontSize: '16px'}}>{getTotalCartPrice().toLocaleString() + " تومان"}</h6>
                                         :
                                         (
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'rtl'].join(' ')}>
@@ -495,7 +495,7 @@ const ShoppingCart = (props) => {
                                     return(
                                         <div key={counter} className={['col-12', 'p-0', 'mt-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8'}}>
                                             <div className={['d-flex', 'flex-row', 'ltr', 'pb-0', 'pl-1', 'pt-1'].join(' ')}>
-                                                <img src={Constants.baseUrl + (axiosProcessInformation.type === 'remove' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/bin_red.png')} className={['pointer'].join(' ')} style={{width: '22px', height: '22px'}} onClick={() => {removeProductFromCart(counter)}} />
+                                                <img src={Constants.baseUrl + (axiosProcessInformation.type === 'remove' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/bin_red.png')} className={['pointer'].join(' ')} style={{width: '22px', height: '22px', position: 'relative', bottom: '-0.3rem', left: '0.3rem'}} onClick={() => {removeProductFromCart(counter)}} />
                                             </div>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'px-3'].join(' ')}>
                                                 <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + product.prodID + '.jpg'} style={{width: '70px', height: '70px'}} />
@@ -553,7 +553,7 @@ const ShoppingCart = (props) => {
                                     {
                                         getTotalCartPrice() === getTotalDiscountedPrice()
                                         ?
-                                        <h6 className={['text-left', 'rtl', 'mb-0'].join(' ')} style={{fontSize: '14px'}}>{getTotalCartPrice().toLocaleString() + " تومان"}</h6>
+                                        <h6 className={['text-left', 'rtl', 'mb-0', 'font-weight-bold'].join(' ')} style={{fontSize: '16px'}}>{getTotalCartPrice().toLocaleString() + " تومان"}</h6>
                                         :
                                         (
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'rtl'].join(' ')}>

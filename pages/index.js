@@ -222,10 +222,10 @@ const Home = (props) => {
       </Head>
       <Header home={true} menu={props.ssrMenu} />
       <div className={['container', 'ltr'].join(' ')}>
-        <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pb-2', 'px-2', 'd-md-none'].join(' ')}>
-            <button className={['px-3', 'pointer'].join(' ')} style={{height: '36px', borderRadius: '16px', background: '#EAEAEA', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دسته‌بندی محصولات</button>
-            <button className={['px-3', 'pointer'].join(' ')} style={{height: '36px', borderRadius: '16px', background: '#EAEAEA', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دوره‌های آنلاین</button>
-            <button className={['px-3', 'pointer'].join(' ')} style={{height: '36px', borderRadius: '16px', background: '#EAEAEA', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>راهنمای خرید</button>
+        <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pb-2', 'px-2', 'd-md-none', 'mt-2'].join(' ')}>
+            <button className={['px-3', 'pointer', 'py-2'].join(' ')} style={{borderRadius: '16px', background: '#EAEAEA', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دسته‌بندی محصولات</button>
+            <a href='https://honari.com/academy' className={['px-3', 'py-2', 'pointer'].join(' ')} style={{borderRadius: '16px', background: '#EAEAEA', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دوره‌های آنلاین</a>
+            <Link href='/site/help'><a onClick={props.reduxStartLoading} className={['px-3', 'pointer', 'py-2'].join(' ')} style={{borderRadius: '16px', background: '#EAEAEA', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>راهنمای خرید</a></Link>
         </div>
         {
           mainBanners.length !== 0
@@ -276,7 +276,8 @@ const Home = (props) => {
           </div>
         </div>
         <div className={['row', 'mt-5', 'mb-2', 'rtl', 'align-items-stretch', 'px-2', 'd-flex', 'flex-column', 'justify-content-center'].join(' ')}>
-          <h5 id='gtm-testing-button' className={['pb-1', 'text-center', 'mb-0', 'align-self-center'].join(' ')} style={{borderBottom: '1px solid #00BAC6'}}>دسته محصولات پرطرفدار</h5>
+          <h5 className={['pb-1', 'text-center', 'mb-0', 'align-self-center', 'd-none', 'd-md-block'].join(' ')} style={{borderBottom: '1px solid #00BAC6'}}>دسته محصولات پرطرفدار</h5>
+          <h5 className={['pb-1', 'text-center', 'mb-0', 'align-self-center', 'font-weight-bold', 'd-md-none'].join(' ')} style={{borderBottom: '1px solid #00BAC6'}}>دسته محصولات پرطرفدار</h5>
           <div className={['col-12', 'mb-2', 'd-none', 'd-md-block'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
         </div>
         <div className={['row', 'px-2', 'px-md-0'].join(' ')}>
@@ -328,7 +329,7 @@ const Home = (props) => {
                 <img src={Constants.baseUrl + '/assets/images/one.png'} style={{flex: '1'}} />
               </a>
             </div>
-            <div className={['col-12', 'col-md-6', 'd-flex', 'flex-row', 'pr-md-2', 'mt-3', 'mt-md-0'].join(' ')}>
+            <div className={['col-12', 'col-md-6', 'd-none', 'flex-row', 'pr-md-2', 'mt-3', 'mt-md-0', 'd-none'].join(' ')}>
               <a href='/site/help' className={['d-flex', 'flex-row', 'rtl', 'w-100', 'pointer'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
                 <div className={['d-flex', 'flex-column', 'p-2'].join(' ')} style={{flex: '1', background: '#F2F2F2'}}>
                   <h5 className={['text-right', 'rtl'].join(' ')}>برای خرید به مشکل خوردید؟</h5>
@@ -339,6 +340,19 @@ const Home = (props) => {
                   </div>
                 </div>
                 <img src={Constants.baseUrl + '/assets/images/two.png'} style={{flex: '1'}} />
+              </a>
+            </div>
+            <div className={['col-12', 'col-md-6', 'd-flex', 'flex-row', 'pr-md-2', 'mt-3', 'mt-md-0'].join(' ')}>
+              <a href='/site/help' className={['d-flex', 'flex-row', 'rtl', 'w-100', 'pointer'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
+                <div className={['d-flex', 'flex-column', 'p-2'].join(' ')} style={{flex: '1', background: '#F2F2F2'}}>
+                <h5 className={['text-right', 'rtl'].join(' ')}>برای خرید به مشکل خوردید؟</h5>
+                  <h6 className={['text-right', 'rtl', 'mb-0'].join(' ')}>راهنمای ثبت‌نام و خرید از وبسایت هنری</h6>
+                  <div className={['d-flex', 'flex-row', 'mt-auto', 'align-items-center', 'text-right', 'justify-content-right'].join(' ')}>
+                    <h6 className={['mb-0', 'pl-2'].join(' ')} style={{color: '#00BAC6'}}>مشاهده راهنما</h6>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_main_small.png'} style={{width: '14px', height: '14px'}} />
+                  </div>
+                </div>
+                <img src={Constants.baseUrl + '/assets/images/one.png'} style={{flex: '1'}} />
               </a>
             </div>
           </div>
