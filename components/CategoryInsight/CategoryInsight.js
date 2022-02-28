@@ -39,8 +39,9 @@ const CategoryInsight = (props) => {
     const [visibleFilterGroupId, setVisibleFilterGroupId] = useState(-1);
     const [id, setId] = useState(props.id);
     const [windowHeight, setWindowHeight] = useState(0);
-    const [waitingForData, setWaitingForData] = useState(true);
+    const [waitingForData, setWaitingForData] = useState(false);
     const [firstTime, setFirstTime] = useState(true);
+    const [ssrProducts, setSsrProducts] = useState(true);
 
     const filterDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -83,6 +84,7 @@ const CategoryInsight = (props) => {
     }
 
     useEffect(()=>{
+        setSsrProducts(true);
         props.reduxUpdateCategoryFilterId(props.id);
         axios.post(Constants.apiUrl + '/api/category-filters', {
             id: props.id
@@ -100,7 +102,7 @@ const CategoryInsight = (props) => {
 
     useEffect(()=>{
         if(props.reduxCategoryFilter.id !== -1){
-            axios.post(Constants.apiUrl + '/api/filtered-paginated-category-products', {
+            /*axios.post(Constants.apiUrl + '/api/filtered-paginated-category-products', {
                 id: props.id, //props.reduxCategoryFilter.id,
                 page: props.reduxCategoryFilter.page,
                 order: props.reduxCategoryFilter.order,
@@ -128,7 +130,10 @@ const CategoryInsight = (props) => {
                 console.error(error);
                 props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
                 setWaitingForData(false);
-            });
+            });*/
+            props.reduxUpdateCategoryFilterResults(props.products);
+            props.reduxUpdateCategoryFilterMaxPage(Math.ceil(props.count / 12));
+            setWaitingForData(false);
         }
         //[props.reduxCategoryFilter.id, -1]
     },[props.reduxCategoryFilter.id, props.id]);
@@ -164,6 +169,7 @@ const CategoryInsight = (props) => {
         //[props.reduxCategoryFilter.id, -1]
     },[id, props.id]);*/
 
+    /*
     useEffect(()=>{
         axios.post(Constants.apiUrl + '/api/category-banners', {
             id: props.id,
@@ -182,7 +188,9 @@ const CategoryInsight = (props) => {
             console.log(error);
         });
     },[id, props.id]);
+    */
 
+    /*
     useEffect(()=>{
         axios.post(Constants.apiUrl + '/api/category-breadcrumb',{
             id: props.id,
@@ -197,8 +205,10 @@ const CategoryInsight = (props) => {
             console.log(error);
         });
     }, [id, props.id]);
+    */
 
     const getNewProducts = (obj) => {
+        setSsrProducts(false);
         let page = obj.page;
         let order = obj.order;
         let filters = obj.filters;
@@ -485,13 +495,13 @@ const CategoryInsight = (props) => {
             <Drawer anchor="bottom" open={state['bottom']} onClose={filterDrawer('bottom', false)}>
                 {phoneFilter}
             </Drawer>
-            <div className={['d-none', 'd-md-block'].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
+            <div className={[''].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
                 <div className={['container', 'd-flex', 'flex-row', 'align-items-center', 'rtl', 'py-2', 'px-2'].join(' ')}>
                     <Breadcrumbs>
-                    <p className={['p-1', 'mb-0', 'd-none', 'd-md-block'].join(' ')} style={{backgroundColor: 'white', border: '1px solid #8bf0f7', borderRadius: '14px 1px 1px 14px'}}>اینجا هستید</p>
+                    <p className={['p-1', 'mb-0', 'font11'].join(' ')} style={{backgroundColor: 'white', border: '1px solid #8bf0f7', borderRadius: '14px 1px 1px 14px'}}>اینجا هستید</p>
                         {
-                            categoryBreadcrumbs.map((cb, count)=>{
-                                if(count === categoryBreadcrumbs.length - 1){
+                            props.breadcrumb.map((cb, count)=>{
+                                if(count === props.breadcrumb.length - 1){
                                     return (
                                         <h6 className={['breadcrumbItem', 'mb-0'].join(' ')} style={{fontSize: '14px'}} >{cb.name}</h6>
                                     );
@@ -508,7 +518,7 @@ const CategoryInsight = (props) => {
             <div className={['container'].join(' ')} style={{overflowX: 'hidden'}}>
                 <div className={['row', 'rtl', 'mt-3', 'd-flex', 'flex-row', 'align-items-stretch'].join(' ')}>
                     {
-                        categoryBanners.map((cb, key)=>{
+                        props.banners.map((cb, key)=>{
                             let categoryUrl = cb.url;
                             return(
                                 <div className={['col-4', 'p-2', 'align-self-stretch'].join(' ')} style={{}} key={key}>
@@ -541,18 +551,18 @@ const CategoryInsight = (props) => {
                     <div className={['d-none', 'd-md-block', 'mr-2', 'ml-2'].join(' ')} style={{flex: '1'}}>
                         <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right'].join(' ')}>
                         <h2 className={['text-right', 'mb-3'].join(' ')} style={{fontSize: '26px', fontWeight: 'bold'}}>{props.name}</h2>
-                        {
-                            props.reduxCategoryFilter.options.length !== 0
-                            ?
-                            <h6 className={['py-1', 'px-2', 'mr-2', 'mb-3', 'bg-danger'].join(' ')} style={{borderRadius: '9px', color: 'white', fontSize: '12px'}}>{props.reduxCategoryFilter.options.length}</h6>
-                            :
-                            null
-                        }
                         </div>
                         <div className={['rtl'].join(' ')} style={{borderRadius: '4px'}}>
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'p-3'].join(' ')}>
                                 <img src={Constants.baseUrl + '/assets/images/main_images/filter_black.png'} style={{width: '13px'}} />
                                 <span className={['font-weight-bold','mr-2'].join(' ')} style={{fontSize: '14px'}} >فیلتر کردن محصولات</span>
+                                {
+                                    props.reduxCategoryFilter.options.length !== 0
+                                    ?
+                                    <h6 className={['py-1', 'px-2', 'mr-2', 'bg-danger'].join(' ')} style={{borderRadius: '9px', color: 'white', fontSize: '10px'}}>{props.reduxCategoryFilter.options.length}</h6>
+                                    :
+                                    null
+                                }
                             </div>
                                 <div className={['w-100', 'px-3', 'mt-3'].join(' ')}>
                                     <input type="text" value={props.reduxCategoryFilter.key} className={['form-control', 'text-right', 'rtl'].join(' ')} placeholder="نام محصول را جستجو کنید" onChange={searchInputChanged}/>
@@ -639,15 +649,15 @@ const CategoryInsight = (props) => {
                                     <span className={['d-flex', 'flex-row', 'rtl'].join(' ')} style={{backgroundColor: '#f2f2f2', borderRadius: '4px', border: '1px solid #dedede'}}></span>
                                 </div>
                                 <div className={['container'].join(' ')}>
+
                                     {
-                                        props.reduxCategoryFilter.results.length !== 0 && !waitingForData
-                                        ?
+                                        ssrProducts ?
                                         (
-                                            <div className={['row', 'd-flex', 'align-items-stretch', 'px-2'].join(' ')}>
+                                            <div className={['row', 'd-flex', 'align-items-stretch', 'px-2', 'd-none'].join(' ')}>
                                             {
-                                                props.reduxCategoryFilter.results.map((r, key)=>{
+                                                props.products.map((r, key)=>{
                                                     return(
-                                                        <ProductCard information={r} key={key} />
+                                                        <ProductCard information={r} key={key} ssr={true} />
                                                     );
                                                 })
                                             }
@@ -655,15 +665,33 @@ const CategoryInsight = (props) => {
                                         )
                                         :
                                         (
-                                            props.reduxCategoryFilter.results.length === 0 && !waitingForData && !firstTime
+                                            props.reduxCategoryFilter.results.length !== 0 && !waitingForData
                                             ?
                                             (
                                                 <div className={['row', 'd-flex', 'align-items-stretch', 'px-2'].join(' ')}>
-                                                    <h6 className={['col-12', 'text-center', 'py-3'].join(' ')} style={{borderRadius: '3px', border: '2px solid #b8cf5f', color: '#b8cf5f'}}>موردی یافت نشد</h6>
+                                                {
+                                                    props.reduxCategoryFilter.results.map((r, key)=>{
+                                                        return(
+                                                            <React.Fragment>
+                                                                <ProductCard information={r} key={key} ssr={false} />
+                                                            </React.Fragment>
+                                                        );
+                                                    })
+                                                }
                                                 </div>
                                             )
                                             :
-                                            showSkeletonGrid()
+                                            (
+                                                props.reduxCategoryFilter.results.length === 0 && !waitingForData && !firstTime
+                                                ?
+                                                (
+                                                    <div className={['row', 'd-flex', 'align-items-stretch', 'px-2'].join(' ')}>
+                                                        <h6 className={['col-12', 'text-center', 'py-3'].join(' ')} style={{color: '#b8cf5f', fontSize: '20px'}}>موردی یافت نشد</h6>
+                                                    </div>
+                                                )
+                                                :
+                                                showSkeletonGrid()
+                                            )
                                         )
                                     }
 
@@ -676,8 +704,23 @@ const CategoryInsight = (props) => {
                                             <img src={Constants.baseUrl + '/assets/images/main_images/right_arrow_black.png'} style={{width: '8px', height: '8px'}} />
                                             <span className={['pr-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}}>قبلی</span>
                                         </button>
-                                        <div className={['text-right', 'rtl', 'd-none', 'd-md-block'].join(' ')}><Pagination count={props.reduxCategoryFilter.maxPage} shape='rounded' onChange={paginationChanged} page={props.reduxCategoryFilter.page} hideNextButton={true} hidePrevButton={true} /></div>
-                                        <span className={['d-block', 'd-md-none', 'px-3'].join(' ')}>{ props.reduxCategoryFilter.page + '  از  ' + props.reduxCategoryFilter.maxPage}</span>
+                                        {
+                                            ssrProducts
+                                            ?
+                                            (
+                                                <React.Fragment>
+                                                    <div className={['text-right', 'rtl', 'd-none', 'd-md-block'].join(' ')}><Pagination count={props.reduxCategoryFilter.maxPage} shape='rounded' onChange={paginationChanged} page={props.reduxCategoryFilter.page} hideNextButton={true} hidePrevButton={true} /></div>
+                                                    <span className={['d-block', 'd-md-none', 'px-3'].join(' ')}>{ 1 + '  از  ' + (Math.ceil(props.count / 12))}</span>
+                                                </React.Fragment>
+                                            )
+                                            :
+                                            (
+                                                <React.Fragment>
+                                                    <div className={['text-right', 'rtl', 'd-none', 'd-md-block'].join(' ')}><Pagination count={props.reduxCategoryFilter.maxPage} shape='rounded' onChange={paginationChanged} page={props.reduxCategoryFilter.page} hideNextButton={true} hidePrevButton={true} /></div>
+                                                    <span className={['d-block', 'd-md-none', 'px-3'].join(' ')}>{ props.reduxCategoryFilter.page + '  از  ' + props.reduxCategoryFilter.maxPage}</span>
+                                                </React.Fragment>
+                                            )
+                                        }
                                         <button className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'ltr', 'shadow-sm'].join(' ')} onClick={paginationNextButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
                                             <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black.png'} style={{width: '8px', height: '8px'}} />
                                             <span className={['pl-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}}>بعدی</span>

@@ -520,11 +520,11 @@ const ShoppingCart = (props) => {
                                                     )
                                                 }
                                             </div>
-                                            <div className={[product.price === 0 ? 'd-none' : 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'px-3'].join(' ')}>
+                                            <div className={[product.price === 0 ? 'd-none' : 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'px-3', 'py-1'].join(' ')}>
                                                 <h6 className={['text-right', 'mb-0'].join(' ')} style={{fontSize: '14px'}}>تعداد</h6>
                                                 <div className={['d-flex', 'flex-row', 'align-items-center', 'ltr'].join(' ')}>
                                                     <img src={Constants.baseUrl + (axiosProcessInformation.type === 'decrease' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/minus_gray_circle.png')} className={['pointer'].join(' ')} style={{width: '20px', height: '20px'}} onClick={() => {decreaseProductCountByOne(counter)}} />
-                                                    <h6 className={['px-2', 'mb-0'].join(' ')} style={{fontSize: '14px', color: '14px'}}>{product.count}</h6>
+                                                    <h6 className={['px-2', 'mb-0'].join(' ')} style={{fontSize: '17px', color: '14px'}}>{product.count}</h6>
                                                     <img src={Constants.baseUrl + (axiosProcessInformation.type === 'increase' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/plus_gray_circle.png')} className={['pointer'].join(' ')} style={{width: '20px', height: '20px'}} onClick={() => {increaseProductCountByOne(counter)}} />
                                                 </div>
                                             </div>

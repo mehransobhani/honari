@@ -52,6 +52,18 @@ a {
 .font14{
   font-size: 14px;
 }
+.font11{
+  font-size: 11px !important;
+}
+.MuiPaper-elevation8{
+  box-shadow:  0px 1px 1px -2px rgba(0,0,0,0.2),0px 1px 1px 1px rgba(0,0,0,0.14),0px 1px 1px 1px rgba(0,0,0,0.12) !important;
+}
+
+@media only screen and (min-width: 768px) {
+  .desktopInfo{
+    width: 380px;
+  }
+}
 
 @font-face {
   font-family: IranSansWeb;
@@ -92,6 +104,15 @@ p{
 .breadcrumbItem:hover{
   color: #00bac6;
   cursor: pointer;
+}
+.breadcrumbItem{
+  font-size: 11px !important;
+}
+.MuiBreadcrumbs-li{
+  font-size: 11px !important;
+}
+.MuiBreadcrumbs-ol{
+  font-size: 11px !important;
 }
 table{
   direction: rtl;

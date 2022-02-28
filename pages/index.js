@@ -30,6 +30,7 @@ const Home = (props) => {
   const [firstBannerImageState, setFirstBannerImageState] = useState(null);
   const [secondBannerImageState, setSecondBannerImageState] = useState(null);
   const [thirdBannerImageState, setThirdBannerImageState] = useState(null);
+  const [carouselIndex, setCarouselIndex] = useState(0);
   const [mainBanners, setMainBanners] = useState([]);
   const [topCategories, setTopCategories] = useState([]);
 
@@ -52,6 +53,7 @@ const Home = (props) => {
     });
   }, []);
 
+  /*
   useEffect(() => {
     axios.get(Constants.apiUrl + '/api/top-six-categories').then((r) => { 
       let response = r.data; 
@@ -66,6 +68,7 @@ const Home = (props) => {
       props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
     });
   }, []);
+  */
 
   useEffect(() => {
     axios.post(Constants.apiUrl + '/api/filtered-paginated-new-products', {
@@ -213,6 +216,22 @@ const Home = (props) => {
     }
 }, []);
 
+const gotoNextCarousel = () => {
+  if(carouselIndex === 3){
+    setCarouselIndex(0);
+  }else{
+    setCarouselIndex(carouselIndex + 1)
+  }
+}
+
+const gotoPreviousCarousel = () => {
+  if(carouselIndex === 0){
+    setCarouselIndex(3);
+  }else{
+    setCarouselIndex(carouselIndex - 1);
+  }
+}
+
 
   return (
     <React.Fragment>
@@ -233,15 +252,34 @@ const Home = (props) => {
           (
             <React.Fragment>
             <div className={['row', 'rtl', 'mt-0', 'mt-md-4', 'px-md-2', 'align-items-stretch'].join(' ')} style={{}}>
-              <div className={['col-12', 'col-md-6', 'pr-0', 'pl-0', 'pl-md-2', ].join(' ')}>
-                <Link href={mainBanners[0].anchor}><img src={'https://s4.uupload.ir/files/b1_gbk5.jpg' /*mainBanners[0].img*/} className={['pointer', 'shadow-sm'].join(' ')} style={{width: '100%', height: '100%', borderRadius: '4px'}} /></Link>
+              <div className={['col-12', 'col-md-8', 'pr-0', 'pl-0', 'pl-md-2'].join(' ')} style={{position: 'relative'}}>
+                <div className={['d-flex', 'flex-column', 'justify-content-center'].join(' ')} style={{position: 'absolute', left: '0', top: '0', height: '100%'}}>
+                  <img src={Constants.baseUrl + '/assets/images/main_images/home_left_arrow.png'} onClick={gotoNextCarousel} className={['pointer', 'ml-2', 'ml-md-3'].join(' ')} style={{width: '30px', height: '30px', opacity: '90%'}} />
+                </div>
+                <div className={['d-flex', 'flex-column', 'justify-content-center'].join(' ')} style={{position: 'absolute', right: '0', top: '0', height: '100%'}}>
+                  <img src={Constants.baseUrl + '/assets/images/main_images/home_right_arrow.png'} onClick={gotoPreviousCarousel} className={['pointer', 'mr-2'].join(' ')} style={{width: '30px', height: '30px', opacity: '90%'}} />
+                </div>
+                <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-center', 'mt-auto', 'mb-2'].join(' ')} style={{position: 'absolute', bottom: '0', width: '100%'}}>
+                  {
+                    props.ssrInfo.carousel.map((c, i) => {
+                      if(i < 4){
+                        if(i == carouselIndex){
+                          return <img src={Constants.baseUrl + '/assets/images/main_images/home_active_indicator.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '16px', height: '16px'}} />;
+                        }else{
+                          return <img onClick={() => {setCarouselIndex(i)}} src={Constants.baseUrl + '/assets/images/main_images/home_deactive_indicator.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '16px', height: '16px'}} />;
+                        }
+                      }
+                    })
+                  }
+                </div>
+                <Link href={props.ssrInfo.carousel[carouselIndex].anchor}><a onClick={props.reduxStartLoading}><img src={props.ssrInfo.carousel[carouselIndex].img /*mainBanners[0].img*/} className={['pointer', 'shadow-sm'].join(' ')} style={{width: '100%', height: '100%', borderRadius: '4px'}} /></a></Link>
               </div>
-              <div className={['col-12', 'col-md-6', 'pr-3', 'pl-md-0', 'd-flex', 'flex-row', 'flex-md-column'].join(' ')}>
+              <div className={['col-12', 'col-md-4', 'pr-3', 'pl-md-0', 'd-flex', 'flex-row', 'flex-md-column'].join(' ')}>
                 <div style={{flex: '1'}}>
-                <Link href={mainBanners[1].anchor}><img src={'https://s4.uupload.ir/files/b2_efw.jpg' /*mainBanners[1].img*/} className={['pointer', 'mt-3', 'mt-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></Link>
+                <Link href={props.ssrInfo.carousel[4].anchor}><img src={props.ssrInfo.carousel[4].img /*'https://s4.uupload.ir/files/b2_efw.jpg'*/ /*mainBanners[1].img*/} className={['pointer', 'mt-3', 'mt-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></Link>
                 </div>
                 <div className={['ml-3', 'ml-md-0', 'mt-0', 'mt-md-2'].join(' ')} style={{flex: '1'}}>
-                <Link href={mainBanners[2].anchor}><img src={'https://s4.uupload.ir/files/b2_efw.jpg'/*mainBanners[2].img*/} className={['pointer', 'mt-3', 'mt-md-4', 'mr-3', 'mr-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></Link>
+                <Link href={props.ssrInfo.carousel[5].anchor}><img src={props.ssrInfo.carousel[5].img /*'mainBanners[2].img*/} className={['pointer', 'mt-3', 'mt-md-4', 'mr-3', 'mr-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></Link>
                 </div>
               </div>
             </div>
@@ -253,21 +291,21 @@ const Home = (props) => {
         <div className={['row', 'rtl', 'mt-3', 'mt-md-4', 'px-md-2', styles.tripleBanner].join(' ')}>
           <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-between', 'align-items-center', 'px-0', 'mx-0', 'py-2', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px'}}>
             <Link href='/site/help#delivery_type'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-              <img src={Constants.baseUrl + '/assets/images/main_images/fast_delivery.png'} className={[styles.tripleBannerImage]} />
+              <img src={Constants.baseUrl + '/assets/images/main_images/time.png'} className={[styles.tripleBannerImage]} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
                 <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال سریع</h6>
                 <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}>به سراسر کشور</h6>
               </div>
             </a></Link>
             <Link href='/site/help#free_post'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-              <img src={Constants.baseUrl + '/assets/images/main_images/free_delivery.png'} className={[styles.tripleBannerImage]} />
+              <img src={Constants.baseUrl + '/assets/images/main_images/delivery.png'} className={[styles.tripleBannerImage]} style={{height: '100%'}} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
                 <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال رایگان</h6>
-                <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}> خرید بالای ۱۰۰ هزارتومان</h6>
+                <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}> خرید بالای ۲۵۰ هزارتومان</h6>
               </div>
             </a></Link>
             <Link href='/site/help#return_product'><a className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-              <img src={Constants.baseUrl + '/assets/images/main_images/return_delivery.png'} className={[styles.tripleBannerImage]} />
+              <img src={Constants.baseUrl + '/assets/images/main_images/return.png'} className={[styles.tripleBannerImage]} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-md-right', 'pr-2', 'py-0'].join(' ')}>
                 <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>امکان مرجوعی کالا</h6>
                 <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}>بدون محدودیت زمانی</h6>
@@ -280,13 +318,13 @@ const Home = (props) => {
           <h5 className={['pb-1', 'text-center', 'mb-0', 'align-self-center', 'font-weight-bold', 'd-md-none'].join(' ')} style={{borderBottom: '1px solid #00BAC6'}}>دسته محصولات پرطرفدار</h5>
           <div className={['col-12', 'mb-2', 'd-none', 'd-md-block'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
         </div>
-        <div className={['row', 'px-2', 'px-md-0'].join(' ')}>
+        <div className={['row', 'px-2', 'px-md-0', 'rtl'].join(' ')}>
           {
-            topCategories.map((category, index) => {
+            props.ssrInfo.populars.map((category, index) => {
               return (
-                <Link href={'/shop/product/category/' + category.categoryUrl}>
+                <Link href={category.anchor}>
                   <a onClick={props.reduxStartLoading} className={['col-6', 'col-md-2', 'px-2', 'py-0', 'my-0', index >= 2 ? 'mt-3' : '' , 'mt-md-0'].join(' ')} style={{position: 'relative'}}>
-                    <img src={category.categoryImage} style={{width: '100%'}} />
+                    <img src={category.img} className={['shadow-sm'].join(' ')} style={{width: '100%'}} />
                     {/*<div className={['d-flex', 'pointer', 'flex-row', 'justify-content-center', 'align-items-center', 'shadow-sm'].join(' ')} style={{height: '200px', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' , border: '1px solid #dedede', borderRadius: '4px', background: 'url(' + category.categoryImage + ')'}}>
                       <div className={['d-flex', 'flex-column', 'align-items-center'].join(' ')}>
                         <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '24px', fontWeight: 'bold', color: 'white'}}>{category.categoryName}</h6>
@@ -298,7 +336,7 @@ const Home = (props) => {
 
                     </div>
                     <div className={['d-flex', 'flex-column', 'align-items-center', 'justify-content-center'].join(' ')} style={{position: 'absolute', top: '0', left: '0.5rem', right: '0.5rem', height: '100%'}}>
-                        <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '24px', fontWeight: 'bold', color: 'white'}}>{category.categoryName}</h6>
+                        <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '20px', fontWeight: 'bold', color: 'white'}}>{category.description}</h6>
                         <div className={['mt-2'].join(' ')} style={{height: '3px', width: '64px', background: 'white'}}></div>
                     </div>
                   </a>
@@ -309,52 +347,18 @@ const Home = (props) => {
         </div>
         <SpecialOffers />
       </div>
-      <LatestCourses />
+      <LatestCourses courses={props.ssrInfo.courses} />
       <div className={['container'].join(' ')}>
-        <NewProducts title='جدیدترین کالاها' />
+        <NewProducts products={props.ssrInfo.products} title='جدیدترین کالاها' />
       </div>
       <div className={['container', 'mt-5'].join(' ')}>
           <div className={['row', 'rtl'].join(' ')}>
-            <div className={['col-12', 'col-md-6', 'd-flex', 'flex-row', 'pl-md-2'].join(' ')}>
-              <a href='https://honari.com/academy' className={['d-flex', 'flex-row', 'rtl', 'w-100', 'pointer'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                <div className={['d-flex', 'flex-column', 'p-2'].join(' ')} style={{flex: '1', background: '#F2F2F2'}}>
-                  <h5 className={['text-right', 'rtl'].join(' ')}>هنری آکادمی</h5>
-                  <h6 className={['text-right', 'rtl', 'mb-0'].join(' ')}>چی دوست داری یاد بگیری؟</h6>
-                  <h6 className={['text-right', 'rtl'].join(' ')}>دسترسی به بهترین هنرمندان که یادگیری هنرهای جدید را آسان میکنند</h6>
-                  <div className={['d-flex', 'flex-row', 'mt-auto', 'align-items-center', 'text-right', 'justify-content-right'].join(' ')}>
-                    <h6 className={['mb-0', 'pl-2'].join(' ')} style={{color: '#00BAC6'}}>مشاهده کلاس‌ها</h6>
-                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_main_small.png'} style={{width: '14px', height: '14px'}} />
-                  </div>
-                </div>
-                <img src={Constants.baseUrl + '/assets/images/one.png'} style={{flex: '1'}} />
-              </a>
-            </div>
-            <div className={['col-12', 'col-md-6', 'd-none', 'flex-row', 'pr-md-2', 'mt-3', 'mt-md-0', 'd-none'].join(' ')}>
-              <a href='/site/help' className={['d-flex', 'flex-row', 'rtl', 'w-100', 'pointer'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                <div className={['d-flex', 'flex-column', 'p-2'].join(' ')} style={{flex: '1', background: '#F2F2F2'}}>
-                  <h5 className={['text-right', 'rtl'].join(' ')}>برای خرید به مشکل خوردید؟</h5>
-                  <h6 className={['text-right', 'rtl', 'mb-0'].join(' ')}>راهنمای ثبت‌نام و خرید از وبسایت هنری</h6>
-                  <div className={['d-flex', 'flex-row', 'mt-auto', 'align-items-center', 'text-right', 'justify-content-right'].join(' ')}>
-                    <h6 className={['mb-0', 'pl-2'].join(' ')} style={{color: '#00BAC6'}}>مشاهده راهنما</h6>
-                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_main_small.png'} style={{width: '14px', height: '14px'}} />
-                  </div>
-                </div>
-                <img src={Constants.baseUrl + '/assets/images/two.png'} style={{flex: '1'}} />
-              </a>
-            </div>
-            <div className={['col-12', 'col-md-6', 'd-flex', 'flex-row', 'pr-md-2', 'mt-3', 'mt-md-0'].join(' ')}>
-              <a href='/site/help' className={['d-flex', 'flex-row', 'rtl', 'w-100', 'pointer'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                <div className={['d-flex', 'flex-column', 'p-2'].join(' ')} style={{flex: '1', background: '#F2F2F2'}}>
-                <h5 className={['text-right', 'rtl'].join(' ')}>برای خرید به مشکل خوردید؟</h5>
-                  <h6 className={['text-right', 'rtl', 'mb-0'].join(' ')}>راهنمای ثبت‌نام و خرید از وبسایت هنری</h6>
-                  <div className={['d-flex', 'flex-row', 'mt-auto', 'align-items-center', 'text-right', 'justify-content-right'].join(' ')}>
-                    <h6 className={['mb-0', 'pl-2'].join(' ')} style={{color: '#00BAC6'}}>مشاهده راهنما</h6>
-                    <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_main_small.png'} style={{width: '14px', height: '14px'}} />
-                  </div>
-                </div>
-                <img src={Constants.baseUrl + '/assets/images/one.png'} style={{flex: '1'}} />
-              </a>
-            </div>
+              <Link href='https://honari.com/academy'><a onClick={props.reduxStartLoading} className={['col-12', 'col-md-6'].join(' ')}>
+              <img src={Constants.baseUrl + '/assets/images/main_images/banner_academy.jpg'} style={{width: '100%', border: '1px solid #DEDEDE', borderRadius: '2px', boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.05)'}} />
+              </a></Link>
+              <Link href={'/buy_training'}><a onClick={props.reduxStartLoading} className={['col-12', 'col-md-6', 'mt-2', 'mt-md-0'].join(' ')}>
+              <img src={Constants.baseUrl + '/assets/images/main_images/banner_help.jpg'} style={{width: '100%', border: '1px solid #DEDEDE', borderRadius: '2px', boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.05)'}} />
+              </a></Link>
           </div>
       </div>
       <Footer />
@@ -390,6 +394,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(Home);
       method: 'GET'
   });
   let menu = await m.json();
+
+  const information = await fetch(Constants.apiUrl + '/api/home-information', {
+    method: 'GET'
+  });
+  let info = await information.json();
+
   if(context.req.cookies.user_server_token !== undefined){
     const res = await fetch(Constants.apiUrl + '/api/user-information',{
       method: 'POST',
@@ -400,13 +410,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(Home);
       )
     });
     let response = await res.json();
-    console.log(await response.information);
+    console.log(await response);
+
     if(await response.status === 'done' && await response.found === true){
         return {
             props: {
                 ssrUser: {status: 'LOGIN', information: await response.information},
                 ssrCookies: context.req.cookies,
-                ssrMenu: await menu
+                ssrMenu: await menu, 
+                ssrInfo: await info 
             }
         }
     }else{
@@ -414,7 +426,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(Home);
             props: {
                 ssrUser: {status: 'GUEST', information: {}},
                 ssrCookies: context.req.cookies,
-                ssrMenu: await menu
+                ssrMenu: await menu, 
+                ssrInfo: await info 
             }
         }
     }
@@ -425,7 +438,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(Home);
         props: {
             ssrUser: {status: 'GUEST', information: {}},
             ssrCookies: context.req.cookies,
-            ssrMenu: await menu
+            ssrMenu: await menu,
+            ssrInfo: await info
         }
     };
   }

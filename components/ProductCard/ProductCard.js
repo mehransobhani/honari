@@ -324,23 +324,19 @@ const ProductCard = (props) => {
         setIsImageLoaded(true);
     }
 
-    const imageChagned = () => {
-        alert('changed');
-    }
-
     return(
         <div className={['col-6', 'col-md-3', 'p-2'].join(' ')}>
             <div className={['d-flex', 'flex-column'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede', height: '100%'}} >
                 <Link href={'/' + props.information.productUrl}>
                     <a style={{position: 'relative'}} onClick={props.reduxStartLoading}>
                         {
-                            !isImageLoaded
+                            !isImageLoaded && !props.ssr
                             ?
                                 <Skeleton variant="rectangular" style={{width: '100%', height: '300px'}} />
                             :
                             null
                         }
-                        <img onChange={imageChagned} src={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + props.information.prodID + '.jpg'} className={[isImageLoaded ? '' : 'd-none'].join(' ')} onLoad={() => {imageLoadingCompleted()}} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
+                        <img src={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + props.information.prodID + '.jpg'} className={[isImageLoaded || props.ssr ? '' : 'd-none'].join(' ')} onLoad={() => {imageLoadingCompleted()}} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
                     </a>
                 </Link>
                 <Link href={'/' + props.information.productUrl}>

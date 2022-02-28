@@ -10,7 +10,7 @@ const LatestCoures = (props) => {
 
     const [topFourNewCourses, setTopFourNewCourses] = useState([]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         axios.get(Constants.academyApiUrl + '/api/shop/new-four-courses').then((r) => {
           let response = r.data;
           if(response.status === 'done' && response.found === true){
@@ -22,15 +22,16 @@ const LatestCoures = (props) => {
           //props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
         });
       }, []);
+    */
 
     return(
-        <div style={{backgroundColor: '#fff2ec'}}>
+        <div style={{backgroundImage: 'url(' + Constants.baseUrl + '/assets/images/main_images/course_background.jpeg)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
             <div className={['container', 'pt-4', 'mt-5', 'py-2'].join(' ')} style={{overflowX: 'hidden'}}>
                 <div className={['row', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl'].join(' ')}>
                     <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3', 'px-md-2'].join(' ')}>
-                        <img src={Constants.baseUrl + '/assets/images/main_images/college_hat_black.png'} style={{width: '40px', height: '40px'}} />
-                        <h5 className={['mr-1', 'mb-0', 'd-none', 'd-md-block'].join(' ')}>جدیدترین دوره‌های آنلاین</h5>
-                        <h5 className={['mr-1', 'mb-0', 'd-md-none', 'font-weight-bold'].join(' ')}>دوره‌های آنلاین</h5>
+                        <img src={Constants.baseUrl + '/assets/images/main_images/college_hat_main.png'} style={{width: '27px', height: '27px'}} />
+                        <h5 className={['mr-2', 'mb-0', 'd-none', 'd-md-block'].join(' ')}>جدیدترین دوره‌های آنلاین</h5>
+                        <h5 className={['mr-2', 'mb-0', 'd-md-none', 'font-weight-bold'].join(' ')}>دوره‌های آنلاین</h5>
                     </div>
                     <Link href='https://honari.com/academy'>
                         <a className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3', 'px-md-2', 'pointer'].join(' ')}>
@@ -42,7 +43,7 @@ const LatestCoures = (props) => {
                 <div className={['row'].join(' ')}>
                     <div className={['w-100', 'd-flex', 'flex-row', 'pt-2', 'pb-5', 'px-2', 'px-md-0', 'rtl' , styles.classContainer].join(' ')} style={{overflowX: 'scroll'}}>
                     {
-                        topFourNewCourses.map((information, index) => {
+                        props.courses.map((information, index) => {
                             return (
                                 <LatestCourseCard key={index} info={information} />
                             );
