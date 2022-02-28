@@ -20,30 +20,30 @@ const UserInformation = (props) => {
             <div className={['d-flex', 'felx-row', 'align-items-center', 'justify-content-right', 'rtl', 'py-2', 'pr-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
                 <img src={Constants.baseUrl + '/assets/images/main_images/user_black_circle.png'} style={{width: '40px', height: '40px'}} />
                 <div className={['d-flex', 'flex-column', 'mr-2'].join(' ')} style={{}}>
-                    <h5 className={['text-right'].join(' ')} style={{fontSize: '13px', fontWeight: '500', color: '#444444'}}>{props.reduxUser.information.name}</h5>
-                    <h6 className={['text-right', 'mb-0'].join(' ')} style={{fontSize: '10px', color: '#444444'}}>{props.reduxUser.information.username}</h6>
+                    <h5 className={['text-right'].join(' ')} style={{fontSize: '15px', fontWeight: '500', color: '#444444'}}>{props.reduxUser.information.name}</h5>
+                    <h6 className={['text-right', 'mb-0'].join(' ')} style={{fontSize: '12px', color: '#444444'}}>{props.reduxUser.information.username}</h6>
                 </div>
             </div>
             <Link href={'/users/charge_account'}>
                 <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                    <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>شارژ حساب کاربری</h5>
+                    <h5 className={['mb-0'].join(' ')} style={{fontSize: '15px'}}>شارژ حساب کاربری</h5>
                 </a>
             </Link>
             <Link href={'/users/orders'}>
                 <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                    <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>سفارشات من</h5>
+                    <h5 className={['mb-0'].join(' ')} style={{fontSize: '15px'}}>سفارشات من</h5>
                 </a>
             </Link>
             <Link href={'https://honari.com/academy/user/courses'}>
                 <a className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                    <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>کلاس‌های من</h5>
+                    <h5 className={['mb-0'].join(' ')} style={{fontSize: '15px'}}>کلاس‌های من</h5>
                 </a>
             </Link>
             <div onClick={logOut} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2', 'pointer'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                <h5 className={['mb-0'].join(' ')} style={{fontSize: '13px'}}>خروج از حساب کاربری</h5>
+                <h5 className={['mb-0'].join(' ')} style={{fontSize: '15px'}}>خروج از حساب کاربری</h5>
             </div>
             <div className={['d-flex', 'flex-row', 'justify-content-center', 'mt-3'].join(' ')}>
-                <Link href='/users/view'><a onClick={props.reduxStartLoading} className={['text-center', 'p-2'].join(' ')} style={{background: '#00BAC6', color: 'white', fontSize: '14px', fontWeight: '500', borderStyle: 'none', outlineStyle: 'none'}}>اطلاعات حساب من</a></Link>
+                <Link href='/users/view'><a onClick={props.reduxStartLoading} className={['text-center', 'p-2'].join(' ')} style={{background: '#00BAC6', color: 'white', fontSize: '15px', fontWeight: '500', borderStyle: 'none', outlineStyle: 'none'}}>اطلاعات حساب من</a></Link>
             </div>
         </div>
     );

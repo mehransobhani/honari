@@ -11,10 +11,6 @@
         border-top: 1px solid #dedede;
         border-bottom: 1px solid #dedede;
     }
-    .mainImage{
-        border-radius: 0px;
-        border: none;
-    }
     .tripleBannerImage{
         width: 40px;
     }
@@ -37,10 +33,6 @@
         border: 1px solid #dedede;
         border-radius: 4px;
     }
-    .mainImage{
-        border-radius: 4px;
-        border: 1px solid #dedede;
-    }
     .infoContainer p{
         font-family: IranSansWebFaNum !important;
         margin-bottom: 0px;
@@ -53,5 +45,9 @@
         top: 0;
         left: 0.6rem;
     }
+}
+.mainImage{
+    border-radius: 4px;
+    border: 1px solid #dedede;
 }
 

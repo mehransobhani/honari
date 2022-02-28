@@ -514,7 +514,7 @@ const DeliveryReview = (props) => {
                             <div className={['row', 'rtl', 'mt-3', 'mx-2'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8'}}>
                                 <div className={['col-12', 'col-md-6', 'd-flex', 'd-md-none', 'flex-row', 'rtl', 'align-items-center', 'text-right', 'justify-content-between', 'py-2'].join(' ')}>
                                     <h6 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>کد تخفیف</h6>
-                                    <input type='text' placeholder='کد خود را وارد کنید' className={['mr-2', 'text-center', 'ltr'].join(' ')} style={{height: '40px', border: '1px solid #D8D8D8', borderRadius: '2px', fontFamily: 'IranSansWeb'}} onChange={giftCodeInputChanged} />
+                                    <input type='text' placeholder='کد خود را وارد کنید' className={['mr-2', 'text-center', 'ltr'].join(' ')} style={{height: '40px', border: '1px solid #D8D8D8', flex: '1', borderRadius: '2px', fontFamily: 'IranSansWeb', fontSize: '14px'}} onChange={giftCodeInputChanged} />
                                     <button className={['text-center', 'mb-0', 'mr-2', 'px-2', 'pointer', 'font14md17'].join(' ')} style={{height: '40px', background: '#00BAC6', color: 'white', border: 'none', outline: 'none', borderRadius: '2px'}} onClick={insertGiftCodeClicked}>اعمال کد</button>
                                 </div>
                                 <div className={['col-12', 'col-md-6', 'd-none', 'd-md-flex', 'flex-row', 'rtl', 'align-items-center', 'text-right', 'justify-content-right', 'py-2'].join(' ')}>

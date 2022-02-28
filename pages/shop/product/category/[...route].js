@@ -196,7 +196,7 @@ const Category = (props) => {
     return (
         <React.Fragment>
             <Head>
-                <title>{pageTitle}</title>
+                <title>{"خرید " + props.ssrUrlInfo.name + " | هنری"}</title>
                 <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
                 {
                     props.ssrUrlInfo.type === 'product'
@@ -208,8 +208,21 @@ const Category = (props) => {
             </Head>
             <Header menu={props.ssrMenu} />
             {
-                component
+                props.ssrUrlInfo.found === true && props.ssrUrlInfo.type === 'product'
+                ?
+                    <ProductInsight id={props.ssrUrlInfo.id} name={props.ssrUrlInfo.name} information={props.ssrUrlInfo.information} description={props.ssrUrlInfo.description} features={props.ssrUrlInfo.features} breadcrumb = {props.ssrUrlInfo.breadcrumb} similarProducts={props.ssrUrlInfo.similarProducts} />
+                :
+                (
+                    props.ssrUrlInfo.found === true && props.ssrUrlInfo.type === 'category'
+                    ?
+                    <CategoryInsight id={props.ssrUrlInfo.id} name={props.ssrUrlInfo.name} count={props.ssrUrlInfo.count} products={props.ssrUrlInfo.products} breadcrumb={props.ssrUrlInfo.breadcrumb} banners={props.ssrUrlInfo.banners} />
+                    :
+                    null
+                )
             }
+            
+                
+           
             <Footer />
         </React.Fragment>
     );
@@ -263,6 +276,8 @@ export async function getServerSideProps(context){
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({route: url})
     });
+    console.log("route: " + url);
+    console.log(urlInfo);
     let urlResponse = await urlInfo.json();
     const m = await fetch(Constants.apiUrl + '/api/menu', {
         method: 'GET'
@@ -284,7 +299,7 @@ export async function getServerSideProps(context){
                     ssrUser: {status: 'LOGIN', information: await response.information},
                     ssrCookies: context.req.cookies,
                     ssrUrlInfo: await urlResponse,
-                    ssrMenu: await menu
+                    ssrMenu: await menu,
                 }
             }
         }else{

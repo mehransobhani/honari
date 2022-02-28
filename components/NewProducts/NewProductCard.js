@@ -19,7 +19,7 @@ const NewProductCard = (props) => {
                     <img src={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + props.information.prodID + '.jpg'} className={['rounded-top'].join(' ')} style={{width: '100%', height: 'auto'}} />
                     <div className={['w-100'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
                     <h6 className={['text-muted', 'rtl', 'w-100', 'pt-2', 'px-2', 'text-right', 'mb-1'].join(' ')} style={{fontSize: '11px'}}>{props.information.categoryName}</h6>
-                    <h6 className={['w-100', 'rtl', 'text-right', 'm-0', 'pb-2', 'px-2'].join(' ')} style={{fontSize: '14px'}}>{props.information.productName}</h6>
+                    <h6 className={['w-100', 'rtl', 'text-right', 'm-0', 'pb-2', 'px-2', 'pt-1'].join(' ')} style={{fontSize: '14px'}}>{props.information.productName}</h6>
                     <div className={['mt-auto'].join(' ')}>
                         {
                             props.information.discountedPrice === props.information.productPrice
