@@ -29,7 +29,7 @@ const LatestCoures = (props) => {
             <div className={['container', 'pt-4', 'mt-5', 'py-2'].join(' ')} style={{overflowX: 'hidden'}}>
                 <div className={['row', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl'].join(' ')}>
                     <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3', 'px-md-2'].join(' ')}>
-                        <img src={Constants.baseUrl + '/assets/images/main_images/college_hat_main.png'} style={{width: '27px', height: '27px'}} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/college_hat_main.png'} draggable='false' className={['mainCarouselImage'].join(' ')} style={{width: '27px', height: '27px'}} />
                         <h5 className={['mr-2', 'mb-0', 'd-none', 'd-md-block'].join(' ')}>جدیدترین دوره‌های آنلاین</h5>
                         <h5 className={['mr-2', 'mb-0', 'd-md-none', 'font-weight-bold'].join(' ')}>دوره‌های آنلاین</h5>
                     </div>
