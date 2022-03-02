@@ -880,7 +880,7 @@ function BigHeader(props){
                             return(
                                 <li className={['col-3', 'd-flex', 'flex-row', 'align-items-center', 'pointer', 'mt-2', styles.dropdownItem].join(' ')}>
                                     <Link key={counter} href={sm.url.substr(18)}>
-                                        <a onClick={props.reduxStartLoading}>
+                                        <a style={{fontSize: '13px'}} onClick={props.reduxStartLoading}>
                                             {sm.name}
                                         </a>
                                     </Link>
@@ -1045,7 +1045,7 @@ function BigHeader(props){
                             if(item.fields !== null){
                                 return(
                                     <Link key={index} href={item.fields.product_url}>
-                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 4px 0 rgba(222, 222, 222, 0.4), 0 1px 5px 0 rgba(222, 222, 222, 0.4)'}}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 2px 4px 0 rgba(222, 222, 222, 0.4)'}}>
                                             <img src={item.fields.product_image} style={{width: '46px', height: '46px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
@@ -1158,7 +1158,7 @@ function BigHeader(props){
                             if(item.fields !== null){
                                 return(
                                     <Link key={index} href={item.fields.product_url}>
-                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2', 'rtl'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 1px 4px 0 rgba(222, 222, 222, 0.4), 0 1px 5px 0 rgba(222, 222, 222, 0.4)'}}>
+                                        <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2', 'rtl'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 2px 4px 0 rgba(222, 222, 222, 0.4)'}}>
                                             <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2', 'text-right'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
@@ -1307,13 +1307,13 @@ function BigHeader(props){
                             )
                         }
                     </div>
-                    <div className={['row', 'mt-2', 'd-md-none'].join(' ')} style={{height: '1px', background: '#DEDEDE'}}></div>
+                    <div className={['row', 'mt-2', 'd-none'].join(' ')} style={{height: '1px', background: '#DEDEDE'}}></div>
                     </React.Fragment>
                     :
                     null
                 }
                 <div className={['row', 'pt-2', 'mb-0', 'pb-2', 'px-1'].join(' ')} style={{direction: 'rtl'}}>
-                    <div className={['col-7', 'col-lg-9', 'rtl', 'text-right', 'd-flex', 'flex-row', 'pr-0', 'pr-lg-1', 'align-items-center', 'justify-content-lg-between'].join(' ')}>
+                    <div className={['col-7', 'col-lg-9', 'rtl', 'text-right', 'd-flex', 'flex-row', 'pr-0', 'pr-lg-1', 'align-items-center',  'pl-0', 'justify-content-lg-between'].join(' ')}>
                         <div className={['d-flex', 'flex-row', 'rtl', 'desktopInfo  '].join(' ')}>
                             <Link href={'/'}><img onClick={props.reduxStartLoading} src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['pointer', 'd-none', 'd-lg-block'].join(' ')} style={{width: '60px'}} /></Link>
                             <div className={['pr-1', 'flex-column', 'align-items-center', 'd-none', 'd-lg-flex'].join(' ')}>

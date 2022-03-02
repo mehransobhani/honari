@@ -141,12 +141,12 @@ const CategoryLandingPage = (props) => {
                     <div className={['container'].join(' ')}>
                         <div className={['row', 'rtl',' mt-3', 'mt-md-4', 'px-2', 'align-items-stretch'].join(' ')}>
                             <div className={['col-12', 'col-md-4', 'px-2', 'px-md-0', 'pl-md-2'].join(' ')}>
-                                <div className={['d-flex', 'flex-column', 'p-3', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede', height: '100%', borderRadius: '4px'}}>
+                                <div className={['d-flex', 'flex-column', 'p-3', 'shadow-sm'].join(' ')} style={{border: '1px solid #F2F2F2', height: '100%', borderRadius: '4px'}}>
                                     <div className={['d-flex', 'flex-row'].join(' ')}>
                                         <h1 className={['my-0', 'pr-2', 'rtl', 'text-right'].join(' ')} style={{fontSize: '42px'}} >{props.ssrArtInfo.result.name}</h1>
                                     </div>
                                     <p className={['my-0', 'text-right', 'pt-3'].join(' ')}>{''}</p>
-                                    <div className={['rtl', 'text-right', 'artpage-description-div'].join(' ')} onScroll={() => {setScrolled(true)}} style={{maxHeight: '200px', overflowY: 'scroll', }}>
+                                    <div className={['rtl', 'text-right', 'artpage-description-div', 'py-2'].join(' ')} onScroll={() => {setScrolled(true)}} style={{maxHeight: '200px', overflowY: 'scroll', borderTop: '1px solid #D8D8D8', borderBottom: '1px solid #D8D8D8' }}>
                                         {parse(props.ssrArtInfo.result.description)}
                                     </div>
                                     <div className={[ 'd-flex', 'flex-row', 'rtl', 'mt-auto', 'align-items-center', 'justify-content-right', 'justify-content-md-center', 'w-100', 'mr-0', 'pt-3', 'pt-md-0'].join(' ')} onClick={()=>{categories.current.scrollIntoView()}}>

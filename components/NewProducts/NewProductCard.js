@@ -15,7 +15,7 @@ const NewProductCard = (props) => {
             <Link href={{
               pathname: '/' + props.information.productUrl
             }}>
-                <a onClick={props.reduxStartLoading} className={['d-flex', 'pointer', 'flex-column', 'shadow-sm', styles.banner].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', height: '100%'}}>
+                <a onClick={props.reduxStartLoading} className={['d-flex', 'pointer', 'flex-column', styles.banner].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', height: '100%', boxShadow: '0px 2px 3px rgba(0, 0, 0, 0.05)'}}>
                     <img src={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + props.information.prodID + '.jpg'} className={['rounded-top'].join(' ')} style={{width: '100%', height: 'auto'}} />
                     <div className={['w-100'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
                     <h6 className={['text-muted', 'rtl', 'w-100', 'pt-2', 'px-2', 'text-right', 'mb-1'].join(' ')} style={{fontSize: '11px'}}>{props.information.categoryName}</h6>

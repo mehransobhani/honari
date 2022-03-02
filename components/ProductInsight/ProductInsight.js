@@ -1022,9 +1022,9 @@ const ProductInsight = (props) =>{
                                 : 
                                     (props.information.productStatus === -1 ?
                                         <div className={['rtl', 'text-right'].join(' ')}>
-                                            <div className={['mt-3', 'mt-md-2'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
-                                            <span className={['py-3', 'px-4', 'mt-2', 'd-inline-block'].join(' ')} style={{backgroundColor: '#8c8c8c', color: 'white', borderRadius: '4px'}}>موجود نیست</span>
-                                            <div onClick={setReminderButtonClicked} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'mt-3', 'd-none', 'pointer'].join(' ')}>
+                                            <div className={['mt-3', 'mt-md-2', 'd-none'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
+                                            <span className={['py-3', 'px-4', 'mt-5', 'd-inline-block'].join(' ')} style={{backgroundColor: '#8c8c8c', color: 'white', borderRadius: '4px'}}>موجود نیست</span>
+                                            <div onClick={setReminderButtonClicked} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'mt-5', 'd-none', 'pointer'].join(' ')}>
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/bell_red.png'} style={{width: '24px', height: '24px'}} />
                                                 <span className={['mr-1', 'pointer'].join(' ')} style={{color: '#00bac6'}}>درصورت موجود شدن به من اطلاع دهید</span>
                                             </div>
@@ -1058,21 +1058,21 @@ const ProductInsight = (props) =>{
                     <Link href='/site/help#delivery_type'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
                     <img src={Constants.baseUrl + '/assets/images/main_images/time.png'} className={[styles.tripleBannerImage]} />
                     <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
-                        <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال سریع</h6>
+                        <h6 className={['mb-1', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال سریع</h6>
                         <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}>به سراسر کشور</h6>
                     </div>
                     </a></Link>
                     <Link href='/site/help#post_free'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
                     <img src={Constants.baseUrl + '/assets/images/main_images/delivery.png'} className={[styles.tripleBannerImage]} />
                     <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
-                        <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال رایگان</h6>
+                        <h6 className={['mb-1', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال رایگان</h6>
                         <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}> خرید بالای ۲۵۰ هزارتومان</h6>
                     </div>
                     </a></Link>
                     <Link href='/site/help#return_product'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
                     <img src={Constants.baseUrl + '/assets/images/main_images/return.png'} className={[styles.tripleBannerImage]} />
                     <div className={['d-flex', 'flex-column', 'text-center', 'text-md-right', 'pr-2', 'py-0'].join(' ')}>
-                        <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>امکان مرجوعی کالا</h6>
+                        <h6 className={['mb-1', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>امکان مرجوعی کالا</h6>
                         <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}>بدون محدودیت زمانی</h6>
                     </div>
                     </a></Link>

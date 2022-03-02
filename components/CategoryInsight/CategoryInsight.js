@@ -498,7 +498,7 @@ const CategoryInsight = (props) => {
             <div className={[''].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
                 <div className={['container', 'd-flex', 'flex-row', 'align-items-center', 'rtl', 'py-2', 'px-2'].join(' ')}>
                     <Breadcrumbs>
-                    <p className={['p-1', 'mb-0', 'font11'].join(' ')} style={{backgroundColor: 'white', border: '1px solid #8bf0f7', borderRadius: '14px 1px 1px 14px'}}>اینجا هستید</p>
+                    <p className={['p-1', 'mb-0', 'font11'].join(' ')} style={{backgroundColor: 'white', border: '1px solid #D8D8D8', borderRadius: '14px 1px 1px 14px'}}>اینجا هستید</p>
                         {
                             props.breadcrumb.map((cb, count)=>{
                                 if(count === props.breadcrumb.length - 1){
