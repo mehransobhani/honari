@@ -33,6 +33,7 @@ const Home = (props) => {
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [mainBanners, setMainBanners] = useState([]);
   const [topCategories, setTopCategories] = useState([]);
+  const [pageX, setPageX] = useState(0);
 
   useEffect(()=>{
     axios.get(Constants.apiUrl + '/api/top-three-home-banners').then((res)=>{
@@ -232,6 +233,18 @@ const gotoPreviousCarousel = () => {
   }
 }
 
+const mainCarouselDragStarted = (event) => {
+  setPageX(event.pageX);
+}
+
+const mainCarouselDragEnded = (event) => {
+  if(event.pageX > pageX){
+    gotoNextCarousel();
+  }else{
+    gotoPreviousCarousel();
+  }
+}
+
 
   return (
     <React.Fragment>
@@ -252,7 +265,7 @@ const gotoPreviousCarousel = () => {
           (
             <React.Fragment>
             <div className={['row', 'rtl', 'mt-0', 'mt-md-4', 'px-md-2', 'align-items-stretch'].join(' ')} style={{}}>
-              <div className={['col-12', 'col-md-8', 'pr-0', 'pl-0', 'pl-md-2'].join(' ')} style={{position: 'relative'}}>
+              <div className={['col-12', 'col-md-8', 'pr-0', 'pl-0', 'pl-md-2', 'mainCarouselImage'].join(' ')} style={{position: 'relative'}} draggable='false'>
                 <div className={['d-flex', 'flex-column', 'justify-content-center'].join(' ')} style={{position: 'absolute', left: '0', top: '0', height: '100%'}}>
                   <img src={Constants.baseUrl + '/assets/images/main_images/home_left_arrow.png'} onClick={gotoNextCarousel} className={['pointer', 'ml-2', 'ml-md-3'].join(' ')} style={{width: '30px', height: '30px', opacity: '90%'}} />
                 </div>
@@ -272,7 +285,7 @@ const gotoPreviousCarousel = () => {
                     })
                   }
                 </div>
-                <Link href={props.ssrInfo.carousel[carouselIndex].anchor}><a onClick={props.reduxStartLoading}><img src={props.ssrInfo.carousel[carouselIndex].img /*mainBanners[0].img*/} className={['pointer', 'shadow-sm'].join(' ')} style={{width: '100%', height: '100%', borderRadius: '4px'}} /></a></Link>
+                <Link href={props.ssrInfo.carousel[carouselIndex].anchor}><a className={['mainCarouselImage'].join(' ')} draggable='false' onClick={props.reduxStartLoading}><img onDragEnter={mainCarouselDragStarted} onDragLeave={mainCarouselDragEnded} src={props.ssrInfo.carousel[carouselIndex].img /*mainBanners[0].img*/} draggable='false' className={['pointer', 'shadow-sm', 'mainCarouselImage'].join(' ')} style={{width: '100%', height: '100%', borderRadius: '4px'}} /></a></Link>
               </div>
               <div className={['col-12', 'col-md-4', 'pr-3', 'pl-md-0', 'd-flex', 'flex-row', 'flex-md-column'].join(' ')}>
                 <div style={{flex: '1'}}>

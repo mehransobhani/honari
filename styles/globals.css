@@ -235,3 +235,10 @@ span{
   text-shadow: none !important;
   box-shadow: none !important;
 }
+.mainCarouselImage{
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
