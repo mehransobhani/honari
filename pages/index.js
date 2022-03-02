@@ -218,7 +218,7 @@ const Home = (props) => {
 }, []);
 
 const gotoNextCarousel = () => {
-  if(carouselIndex === 3){
+  if(carouselIndex === props.ssrInfo.carousel.length - 1){
     setCarouselIndex(0);
   }else{
     setCarouselIndex(carouselIndex + 1)
@@ -227,7 +227,7 @@ const gotoNextCarousel = () => {
 
 const gotoPreviousCarousel = () => {
   if(carouselIndex === 0){
-    setCarouselIndex(3);
+    setCarouselIndex(props.ssrInfo.carousel.length - 1);
   }else{
     setCarouselIndex(carouselIndex - 1);
   }
@@ -255,9 +255,9 @@ const mainCarouselDragEnded = (event) => {
       <Header home={true} menu={props.ssrMenu} />
       <div className={['container', 'ltr'].join(' ')}>
         <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pb-2', 'px-2', 'd-md-none', 'mt-2'].join(' ')}>
-            <button className={['px-3', 'pointer', 'py-2'].join(' ')} style={{borderRadius: '16px', background: '#EAEAEA', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دسته‌بندی محصولات</button>
-            <a href='https://honari.com/academy' className={['px-3', 'py-2', 'pointer'].join(' ')} style={{borderRadius: '16px', background: '#EAEAEA', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دوره‌های آنلاین</a>
-            <Link href='/site/help'><a onClick={props.reduxStartLoading} className={['px-3', 'pointer', 'py-2'].join(' ')} style={{borderRadius: '16px', background: '#EAEAEA', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>راهنمای خرید</a></Link>
+            <button className={['px-3', 'pointer', 'py-2'].join(' ')} style={{borderRadius: '16px', background: '#F2F2F2', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دسته‌بندی محصولات</button>
+            <a href='https://honari.com/academy' className={['px-3', 'py-2', 'pointer'].join(' ')} style={{borderRadius: '16px', background: '#F2F2F2', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دوره‌های آنلاین</a>
+            <Link href='/site/help'><a onClick={props.reduxStartLoading} className={['px-3', 'pointer', 'py-2'].join(' ')} style={{borderRadius: '16px', background: '#F2F2F2', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>راهنمای خرید</a></Link>
         </div>
         {
           mainBanners.length !== 0
@@ -267,33 +267,41 @@ const mainCarouselDragEnded = (event) => {
             <div className={['row', 'rtl', 'mt-0', 'mt-md-4', 'px-md-2', 'align-items-stretch'].join(' ')} style={{}}>
               <div className={['col-12', 'col-md-8', 'pr-0', 'pl-0', 'pl-md-2', 'mainCarouselImage'].join(' ')} style={{position: 'relative'}} draggable='false'>
                 <div className={['d-flex', 'flex-column', 'justify-content-center'].join(' ')} style={{position: 'absolute', left: '0', top: '0', height: '100%'}}>
-                  <img src={Constants.baseUrl + '/assets/images/main_images/home_left_arrow.png'} onClick={gotoNextCarousel} className={['pointer', 'ml-2', 'ml-md-3'].join(' ')} style={{width: '30px', height: '30px', opacity: '90%'}} />
+                  <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_circle.png'} onClick={gotoNextCarousel} className={['pointer', 'ml-2', 'ml-md-3'].join(' ')} style={{width: '30px', height: '30px', opacity: '90%'}} />
                 </div>
                 <div className={['d-flex', 'flex-column', 'justify-content-center'].join(' ')} style={{position: 'absolute', right: '0', top: '0', height: '100%'}}>
-                  <img src={Constants.baseUrl + '/assets/images/main_images/home_right_arrow.png'} onClick={gotoPreviousCarousel} className={['pointer', 'mr-2'].join(' ')} style={{width: '30px', height: '30px', opacity: '90%'}} />
+                  <img src={Constants.baseUrl + '/assets/images/main_images/right_arrow_white_circle.png'} onClick={gotoPreviousCarousel} className={['pointer', 'mr-2'].join(' ')} style={{width: '30px', height: '30px', opacity: '90%'}} />
                 </div>
                 <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-center', 'mt-auto', 'mb-2'].join(' ')} style={{position: 'absolute', bottom: '0', width: '100%'}}>
                   {
                     props.ssrInfo.carousel.map((c, i) => {
-                      if(i < 4){
-                        if(i == carouselIndex){
-                          return <img src={Constants.baseUrl + '/assets/images/main_images/home_active_indicator.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '16px', height: '16px'}} />;
-                        }else{
-                          return <img onClick={() => {setCarouselIndex(i)}} src={Constants.baseUrl + '/assets/images/main_images/home_deactive_indicator.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '16px', height: '16px'}} />;
-                        }
+                      if(i == carouselIndex){
+                        return <img src={Constants.baseUrl + '/assets/images/main_images/home_active_indicator.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '16px', height: '16px'}} />;
+                      }else{
+                        return <img onClick={() => {setCarouselIndex(i)}} src={Constants.baseUrl + '/assets/images/main_images/ring_main.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '16px', height: '16px'}} />;
                       }
                     })
                   }
                 </div>
                 <Link href={props.ssrInfo.carousel[carouselIndex].anchor}><a className={['mainCarouselImage'].join(' ')} draggable='false' onClick={props.reduxStartLoading}><img onDragEnter={mainCarouselDragStarted} onDragLeave={mainCarouselDragEnded} src={props.ssrInfo.carousel[carouselIndex].img /*mainBanners[0].img*/} draggable='false' className={['pointer', 'shadow-sm', 'mainCarouselImage'].join(' ')} style={{width: '100%', height: '100%', borderRadius: '4px'}} /></a></Link>
               </div>
-              <div className={['col-12', 'col-md-4', 'pr-3', 'pl-md-0', 'd-flex', 'flex-row', 'flex-md-column'].join(' ')}>
-                <div style={{flex: '1'}}>
-                <Link href={props.ssrInfo.carousel[4].anchor}><img src={props.ssrInfo.carousel[4].img /*'https://s4.uupload.ir/files/b2_efw.jpg'*/ /*mainBanners[1].img*/} className={['pointer', 'mt-3', 'mt-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></Link>
-                </div>
-                <div className={['ml-3', 'ml-md-0', 'mt-0', 'mt-md-2'].join(' ')} style={{flex: '1'}}>
-                <Link href={props.ssrInfo.carousel[5].anchor}><img src={props.ssrInfo.carousel[5].img /*'mainBanners[2].img*/} className={['pointer', 'mt-3', 'mt-md-4', 'mr-3', 'mr-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></Link>
-                </div>
+              <div className={['col-12', 'col-md-4', 'pr-3', 'pl-md-0', 'd-flex', 'flex-row', 'flex-md-column', 'rtl'].join(' ')}>
+                {
+                  props.ssrInfo.topBanners.length == 2
+                  ?
+                  (
+                    <React.Fragment>
+                      <div style={{flex: '1'}}>
+                      <Link href={props.ssrInfo.topBanners[0].anchor}><img src={props.ssrInfo.topBanners[0].img /*'https://s4.uupload.ir/files/b2_efw.jpg'*/ /*mainBanners[1].img*/} className={['pointer', 'mt-3', 'mt-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></Link>
+                      </div>
+                      <div className={['ml-3', 'ml-md-0', 'mt-0', 'mt-md-2'].join(' ')} style={{flex: '1'}}>
+                      <Link href={props.ssrInfo.topBanners[1].anchor}><img src={props.ssrInfo.topBanners[1].img /*'mainBanners[2].img*/} className={['pointer', 'mt-3', 'mt-md-4', 'mr-3', 'mr-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></Link>
+                      </div>
+                    </React.Fragment>
+                  )
+                  :
+                  null
+                }
               </div>
             </div>
           </React.Fragment>
@@ -302,25 +310,25 @@ const mainCarouselDragEnded = (event) => {
           null
         }
         <div className={['row', 'rtl', 'mt-3', 'mt-md-4', 'px-md-2', styles.tripleBanner].join(' ')}>
-          <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-between', 'align-items-center', 'px-0', 'mx-0', 'py-2', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px'}}>
+          <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-between', 'align-items-center', 'px-0', 'mx-0', 'py-2'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', boxShadow: '0px 2px 3px rgba(0, 0, 0, 0.05)'}}>
             <Link href='/site/help#delivery_type'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
               <img src={Constants.baseUrl + '/assets/images/main_images/time.png'} className={[styles.tripleBannerImage]} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
-                <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال سریع</h6>
+                <h6 className={['mb-1', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال سریع</h6>
                 <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}>به سراسر کشور</h6>
               </div>
             </a></Link>
             <Link href='/site/help#free_post'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
               <img src={Constants.baseUrl + '/assets/images/main_images/delivery.png'} className={[styles.tripleBannerImage]} style={{height: '100%'}} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
-                <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال رایگان</h6>
+                <h6 className={['mb-1', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال رایگان</h6>
                 <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}> خرید بالای ۲۵۰ هزارتومان</h6>
               </div>
             </a></Link>
             <Link href='/site/help#return_product'><a className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
               <img src={Constants.baseUrl + '/assets/images/main_images/return.png'} className={[styles.tripleBannerImage]} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-md-right', 'pr-2', 'py-0'].join(' ')}>
-                <h6 className={['mb-0', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>امکان مرجوعی کالا</h6>
+                <h6 className={['mb-1', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>امکان مرجوعی کالا</h6>
                 <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}>بدون محدودیت زمانی</h6>
               </div>
             </a></Link>
@@ -336,8 +344,8 @@ const mainCarouselDragEnded = (event) => {
             props.ssrInfo.populars.map((category, index) => {
               return (
                 <Link href={category.anchor}>
-                  <a onClick={props.reduxStartLoading} className={['col-6', 'col-md-2', 'px-2', 'py-0', 'my-0', index >= 2 ? 'mt-3' : '' , 'mt-md-0'].join(' ')} style={{position: 'relative'}}>
-                    <img src={category.img} className={['shadow-sm'].join(' ')} style={{width: '100%'}} />
+                  <a onClick={props.reduxStartLoading} className={['col-6', 'col-md-2', 'px-2', 'py-0', 'my-0', index >= 2 ? 'mt-3' : '' , 'mt-md-0'].join(' ')} style={{position: 'relative', borderRadius: '2px'}}>
+                    <img src={category.img} className={['shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '2px'}} />
                     {/*<div className={['d-flex', 'pointer', 'flex-row', 'justify-content-center', 'align-items-center', 'shadow-sm'].join(' ')} style={{height: '200px', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' , border: '1px solid #dedede', borderRadius: '4px', background: 'url(' + category.categoryImage + ')'}}>
                       <div className={['d-flex', 'flex-column', 'align-items-center'].join(' ')}>
                         <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '24px', fontWeight: 'bold', color: 'white'}}>{category.categoryName}</h6>

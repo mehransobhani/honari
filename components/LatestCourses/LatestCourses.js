@@ -36,7 +36,7 @@ const LatestCoures = (props) => {
                     <Link href='https://honari.com/academy'>
                         <a className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3', 'px-md-2', 'pointer'].join(' ')}>
                             <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>
-                            <img src={Constants.baseUrl + '/assets/images/main_images/left_black_small.png'} style={{width: '18px', height: '18px'}} />
+                            <img src={Constants.baseUrl + '/assets/images/main_images/left_main_small.png'} style={{width: '18px', height: '18px'}} />
                         </a>
                     </Link>
                 </div>
