@@ -265,7 +265,7 @@ const mainCarouselDragEnded = (event) => {
           (
             <React.Fragment>
             <div className={['row', 'rtl', 'mt-0', 'mt-md-4', 'px-md-2', 'align-items-stretch'].join(' ')} style={{}}>
-              <div className={['col-12', 'col-md-8', 'pr-0', 'pl-0', 'pl-md-2', 'mainCarouselImage'].join(' ')} style={{position: 'relative'}} draggable='false'>
+              <div className={['col-12', 'col-md-8', 'pr-0', 'pl-0', 'pl-md-2', 'mainCarouselImage'].join(' ')} style={{position: 'relative'}}onDragEnter={mainCarouselDragStarted} onDragLeave={mainCarouselDragEnded}>
                 <div className={['d-flex', 'flex-column', 'justify-content-center'].join(' ')} style={{position: 'absolute', left: '0', top: '0', height: '100%'}}>
                   <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_circle.png'} onClick={gotoNextCarousel} className={['pointer', 'ml-2', 'ml-md-3'].join(' ')} style={{width: '30px', height: '30px', opacity: '90%'}} />
                 </div>
@@ -278,12 +278,18 @@ const mainCarouselDragEnded = (event) => {
                       if(i == carouselIndex){
                         return <img src={Constants.baseUrl + '/assets/images/main_images/home_active_indicator.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '16px', height: '16px'}} />;
                       }else{
-                        return <img onClick={() => {setCarouselIndex(i)}} src={Constants.baseUrl + '/assets/images/main_images/ring_main.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '16px', height: '16px'}} />;
+                        return <img onClick={() => {setCarouselIndex(i)}} src={Constants.baseUrl + '/assets/images/main_images/ring_white.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '16px', height: '16px'}} />;
                       }
                     })
                   }
                 </div>
-                <Link href={props.ssrInfo.carousel[carouselIndex].anchor}><a className={['mainCarouselImage'].join(' ')} draggable='false' onClick={props.reduxStartLoading}><img onDragEnter={mainCarouselDragStarted} onDragLeave={mainCarouselDragEnded} src={props.ssrInfo.carousel[carouselIndex].img /*mainBanners[0].img*/} draggable='false' className={['pointer', 'shadow-sm', 'mainCarouselImage'].join(' ')} style={{width: '100%', height: '100%', borderRadius: '4px'}} /></a></Link>
+                {
+                  props.ssrInfo.carousel.map((c, i) => {
+                    return (
+                      <Link key={i} href={props.ssrInfo.carousel[i].anchor}><a draggable='false' className={['mainCarouselImage', i!=carouselIndex ? 'd-none' : ''].join(' ')} onClick={props.reduxStartLoading}><img src={props.ssrInfo.carousel[i].img /*mainBanners[0].img*/} draggable='false' className={['pointer', 'shadow-sm', 'mainCarouselImage'].join(' ')} style={{width: '100%', height: '100%', borderRadius: '4px'}} /></a></Link>
+                    );
+                  })
+                }
               </div>
               <div className={['col-12', 'col-md-4', 'pr-3', 'pl-md-0', 'd-flex', 'flex-row', 'flex-md-column', 'rtl'].join(' ')}>
                 {
@@ -292,10 +298,10 @@ const mainCarouselDragEnded = (event) => {
                   (
                     <React.Fragment>
                       <div style={{flex: '1'}}>
-                      <Link href={props.ssrInfo.topBanners[0].anchor}><img src={props.ssrInfo.topBanners[0].img /*'https://s4.uupload.ir/files/b2_efw.jpg'*/ /*mainBanners[1].img*/} className={['pointer', 'mt-3', 'mt-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></Link>
+                      <Link href={props.ssrInfo.topBanners[0].anchor}><a><img src={props.ssrInfo.topBanners[0].img /*'https://s4.uupload.ir/files/b2_efw.jpg'*/ /*mainBanners[1].img*/} className={['pointer', 'mt-3', 'mt-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></a></Link>
                       </div>
                       <div className={['ml-3', 'ml-md-0', 'mt-0', 'mt-md-2'].join(' ')} style={{flex: '1'}}>
-                      <Link href={props.ssrInfo.topBanners[1].anchor}><img src={props.ssrInfo.topBanners[1].img /*'mainBanners[2].img*/} className={['pointer', 'mt-3', 'mt-md-4', 'mr-3', 'mr-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></Link>
+                      <Link href={props.ssrInfo.topBanners[1].anchor}><a><img src={props.ssrInfo.topBanners[1].img /*'mainBanners[2].img*/} className={['pointer', 'mt-3', 'mt-md-4', 'mr-3', 'mr-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></a></Link>
                       </div>
                     </React.Fragment>
                   )

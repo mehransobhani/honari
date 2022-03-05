@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   //ignoreDuringBuilds: true,
-  basePath: '/newtest',
+  //basePath: '/newtest',
   ignoreDuringBuilds: true,
   eslint: {
     // Warning: This allows production builds to successfully complete even if
