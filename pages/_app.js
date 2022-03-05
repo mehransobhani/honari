@@ -150,10 +150,12 @@ function MyApp({ Component, pageProps }) {
           ga('send', 'pageview');
       }*/
 
+      /*
       const googleTagmanager = document.createElement('script');
       googleTagmanager.src = '/newtest/assets/js/google_tagmanager.js';
       googleTagmanager.async = true;
       document.body.appendChild(googleTagmanager);
+      */
       /*googleTagmanager.onload = () => {
         let confirmButton = document.getElementById('gtm-testing-button');
         confirmButton.addEventListener('click', () => {
@@ -164,7 +166,8 @@ function MyApp({ Component, pageProps }) {
             alert('data pushed');
         });
       }*/
-      const noscriptTagmanager = document.createElement('noscript');
+      
+      /*const noscriptTagmanager = document.createElement('noscript');
       const iframeTagmanager = document.createElement('iframe');
       iframeTagmanager.src = "https://www.googletagmanager.com/ns.html?id=GTM-PWJGW4";
       iframeTagmanager.width= "0";
@@ -173,7 +176,7 @@ function MyApp({ Component, pageProps }) {
 
       noscriptTagmanager.appendChild(iframeTagmanager);
       document.body.prepend(noscriptTagmanager);
-
+      */
   }, []);
 
   return (
