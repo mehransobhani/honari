@@ -34,6 +34,7 @@ const Home = (props) => {
   const [mainBanners, setMainBanners] = useState([]);
   const [topCategories, setTopCategories] = useState([]);
   const [pageX, setPageX] = useState(0);
+  const [carouselMouseX, setCarouselMouseX] = useState(0);
 
   useEffect(()=>{
     axios.get(Constants.apiUrl + '/api/top-three-home-banners').then((res)=>{
@@ -223,6 +224,7 @@ const gotoNextCarousel = () => {
   }else{
     setCarouselIndex(carouselIndex + 1)
   }
+  setCarouselMouseX(0);
 }
 
 const gotoPreviousCarousel = () => {
@@ -231,6 +233,7 @@ const gotoPreviousCarousel = () => {
   }else{
     setCarouselIndex(carouselIndex - 1);
   }
+  setCarouselMouseX(0);
 }
 
 const mainCarouselDragStarted = (event) => {
@@ -242,6 +245,20 @@ const mainCarouselDragEnded = (event) => {
     gotoNextCarousel();
   }else{
     gotoPreviousCarousel();
+  }
+}
+
+const carouselMouseEnterListener = (event) => {
+  setCarouselMouseX(event.clientX);
+}
+
+const carouselMouseLeaveListener = (event) => {
+  if(carouselMouseX !== 0){
+    if(event.clientX - carouselMouseX > 0){
+      gotoNextCarousel();
+    }else{
+      gotoPreviousCarousel();
+    }
   }
 }
 
@@ -265,7 +282,7 @@ const mainCarouselDragEnded = (event) => {
           (
             <React.Fragment>
             <div className={['row', 'rtl', 'mt-0', 'mt-md-4', 'px-md-2', 'align-items-stretch'].join(' ')} style={{}}>
-              <div className={['col-12', 'col-md-8', 'pr-0', 'pl-0', 'pl-md-2', 'mainCarouselImage'].join(' ')} style={{position: 'relative'}}onDragEnter={mainCarouselDragStarted} onDragLeave={mainCarouselDragEnded}>
+              <div className={['col-12', 'col-md-8', 'pr-0', 'pl-0', 'pl-md-2', 'mainCarouselImage'].join(' ')} style={{position: 'relative'}} onMouseEnter={carouselMouseEnterListener} onMouseLeave={carouselMouseLeaveListener} onDragEnter={mainCarouselDragStarted} onDragLeave={mainCarouselDragEnded}>
                 <div className={['d-flex', 'flex-column', 'justify-content-center'].join(' ')} style={{position: 'absolute', left: '0', top: '0', height: '100%'}}>
                   <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_circle.png'} onClick={gotoNextCarousel} className={['pointer', 'ml-2', 'ml-md-3'].join(' ')} style={{width: '30px', height: '30px', opacity: '90%'}} />
                 </div>
@@ -276,9 +293,9 @@ const mainCarouselDragEnded = (event) => {
                   {
                     props.ssrInfo.carousel.map((c, i) => {
                       if(i == carouselIndex){
-                        return <img src={Constants.baseUrl + '/assets/images/main_images/home_active_indicator.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '16px', height: '16px'}} />;
+                        return <img onClick={() => {setCarouselMouseX(0)}} src={Constants.baseUrl + '/assets/images/main_images/home_active_indicator.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '16px', height: '16px'}} />;
                       }else{
-                        return <img onClick={() => {setCarouselIndex(i)}} src={Constants.baseUrl + '/assets/images/main_images/ring_white.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '16px', height: '16px'}} />;
+                        return <img onClick={() => {setCarouselIndex(i); setCarouselMouseX(0);}} src={Constants.baseUrl + '/assets/images/main_images/ring_white.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '16px', height: '16px'}} />;
                       }
                     })
                   }
