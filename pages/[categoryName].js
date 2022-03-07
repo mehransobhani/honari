@@ -111,6 +111,9 @@ const CategoryLandingPage = (props) => {
         }else{
             alert('آدرس وارد شده اشتباه است');
         }
+        props.ssrArtInfo.result.courses.map((item, index) => {
+            console.error(item);
+        })
     }, [props.reduxUser.status, 'NI']);
 
     /*useEffect(()=>{
@@ -198,52 +201,83 @@ const CategoryLandingPage = (props) => {
                         }
                         
                     </div>
-                    <div className={['container-fluid', 'mt-5', 'py-5', 'd-none'].join(' ')} style={{backgroundColor: '#f0efd8'}}>
-                        <div className={['container', 'px-0', 'pb-3'].join(' ')}>
-                            <div className={['row', 'rtl'].join(' ')}>
-                                <div className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'mt-3'].join(' ')}>
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/scissors_black.png'} style={{width: '20px'}} />
-                                    <h5 className={['mb-0', 'mr-1'].join(' ')}>جدیدترین آموزش‌ها</h5>
-                                </div>
-                            </div>
-                            <div className={['row', 'rtl', 'py-2', 'px-3'].join(' ')}>
-                                <div className={['col-12', 'col-md-6', 'px-2'].join(' ')}>
-                                    <div className={['rounded', 'd-flex', 'flex-column', 'flex-md-row', 'pointer', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede'}}>
-                                        <div style={{flex: '1.3'}}>
-                                            <img src={Constants.baseUrl + '/assets/images/banner_images/banner_leather.jpg'} className={[styles.firstCourseImage].join(' ')} style={{width: '100%', height: '100%'}} />
-                                        </div>
-                                        <div className={['d-flex', 'flex-column', 'rounded-left', 'p-2', styles.firstCourseInfoBody].join(' ')} style={{flex: '2', backgroundColor: 'white'}}>
-                                            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'p-1'].join(' ')}>
-                                                <img src={Constants.baseUrl + '/assets/images/main_images/college_hat_white.png'} className={['p-1'].join(' ')} style={{width: '26px', borderRadius: '0 4px 4px 0', backgroundColor: '#00bac6'}} />
-                                                <p className={['text-white', 'font-weight-bold', 'mr-0', 'mb-0', 'p-1'].join(' ')} style={{fontSize: '12px', borderRadius: '4px 0 0 4px', backgroundColor: '#00bac6'}}>دوره آنلاین</p>
-                                            </div>
-                                            <h6 className={['mb-0','mr-1', 'text-right', 'mt-3'].join(' ')}>آموزش مقدماتی چرم دوزی</h6>
-                                            <div className={['d-flex', 'flex-row', 'mt-2', 'mb-0'].join(' ')}>
-                                                <p className={['px-2', 'py-1', 'mr-1', 'mb-2'].join(' ')} style={{backgroundColor: '#F2F2F2', borderRadius: '4px'}}>۲۳۰,۰۰۰ تومان</p>
-                                            </div>
+                    {
+                        props.ssrArtInfo.result.courses.length != 0 && props.ssrArtInfo.result.courses != undefined
+                        ?
+                        (
+                            <div className={['container-fluid', 'mt-5', 'py-5'].join(' ')} style={{backgroundColor: '#f0efd8'}}>
+                                <div className={['container', 'px-0', 'pb-3'].join(' ')}>
+                                    <div className={['row', 'rtl'].join(' ')}>
+                                        <div className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'mt-3'].join(' ')}>
+                                            <img src={Constants.baseUrl + '/assets/images/main_images/scissors_black.png'} style={{width: '20px'}} />
+                                            <h5 className={['mb-0', 'mr-1'].join(' ')}>جدیدترین آموزش‌ها</h5>
                                         </div>
                                     </div>
-                                </div>
-                                <div className={['col-12', 'col-md-6', 'px-2'].join(' ')}>
-                                    <div className={['rounded', 'd-flex', 'flex-row', 'mt-4', 'mt-md-0', 'pointer', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede'}}>
-                                        <div style={{flex: '1.3'}}>
-                                            <img src={Constants.baseUrl + '/assets/images/banner_images/banner_leather.jpg'} className={[styles.firstCourseImage].join(' ')} style={{width: '100%', height: '100%'}} />
-                                        </div>
-                                        <div className={['d-flex', 'flex-column', 'rounded-left', 'p-2', styles.firstCourseInfoBody].join(' ')} style={{flex: '2', backgroundColor: 'white'}}>
-                                            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'p-1'].join(' ')}>
-                                                <img src={Constants.baseUrl + '/assets/images/main_images/college_hat_white.png'} className={['p-1'].join(' ')} style={{width: '26px', borderRadius: '0 4px 4px 0', backgroundColor: '#00bac6'}} />
-                                                <p className={['text-white', 'font-weight-bold', 'mr-0', 'mb-0', 'p-1'].join(' ')} style={{fontSize: '12px', borderRadius: '4px 0 0 4px', backgroundColor: '#00bac6'}}>دوره آنلاین</p>
+                                    <div className={['row', 'rtl', 'py-2', 'px-3'].join(' ')}>
+                                        {
+                                            props.ssrArtInfo.result.courses.map((course, index) => {
+                                                return (
+                                                    <div className={['col-12', 'col-md-6', 'px-2', index !=0 ? 'mt-3 mt-md-0' : ''].join(' ')}>
+                                                        <div className={['rounded', 'd-flex', 'flex-column', 'flex-md-row', 'pointer', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede'}}>
+                                                            <div className={['d-none', 'd-md-flex'].join(' ')} style={{flex: '1.3', maxHeight: '200px', background: 'url(https://academy.honari.com/warehouse/images/classes/' + course[0].cover_img +')', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
+                                                                <img src={'https://academy.honari.com/warehouse/images/classes/' + course[0].cover_img} className={[styles.firstCourseImage, 'd-none'].join(' ')} style={{width: '100%', height: '100%'}} />
+                                                            </div>
+                                                            <div className={['d-md-none'].join(' ')} style={{width: '100%', height: '200px', background: 'url(https://academy.honari.com/warehouse/images/classes/' + course[0].cover_img +')', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
+                                                                <img src={'https://academy.honari.com/warehouse/images/classes/' + course[0].cover_img} className={[styles.firstCourseImage, 'd-none'].join(' ')} style={{width: '100%', height: '100%'}} />
+                                                            </div>
+                                                            <div className={['d-flex', 'flex-column', 'rounded-left', 'p-2', styles.firstCourseInfoBody].join(' ')} style={{flex: '2', backgroundColor: 'white'}}>
+                                                                <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'p-1'].join(' ')}>
+                                                                    <img src={Constants.baseUrl + '/assets/images/main_images/college_hat_white.png'} className={['p-1'].join(' ')} style={{width: '29px', borderRadius: '0 4px 4px 0', backgroundColor: '#00bac6'}} />
+                                                                    <p className={['text-white', 'mr-0', 'mb-0', 'p-1'].join(' ')} style={{fontSize: '2px', borderRadius: '4px 0 0 4px', backgroundColor: '#00bac6'}}>دوره آنلاین</p>
+                                                                </div>
+                                                                <h6 className={['mb-0','mr-1', 'text-right', 'mt-3'].join(' ')}>{course[0].name}</h6>
+                                                                <div className={['d-flex', 'flex-row', 'mt-3', 'mb-0'].join(' ')}>
+                                                                    {
+                                                                        course[0].off != 0
+                                                                        ?
+                                                                        (
+                                                                            <p className={['px-2', 'py-1', 'mr-1', 'mb-2'].join(' ')} style={{backgroundColor: '#F2F2F2', borderRadius: '4px'}}>{course[0].price.toLocaleString() + ' تومان'}</p>
+                                                                        )
+                                                                        :
+                                                                        (
+                                                                            <React.Fragment>
+                                                                                <p className={['px-2', 'py-1', 'mr-1', 'mb-2'].join(' ')} style={{backgroundColor: '#F2F2F2', borderRadius: '4px'}}><del>{course[0].price.toLocaleString() + ' تومان'}</del></p>
+                                                                                <p className={['px-2', 'py-1', 'mr-1', 'mb-2'].join(' ')} >{course[0].price.toLocaleString() + ' تومان'}</p>
+                                                                            </React.Fragment>
+                                                                        )
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                        
+                                        <div className={['col-12', 'col-md-6', 'px-2', 'd-none'].join(' ')}>
+                                            <div className={['rounded', 'd-flex', 'flex-row', 'mt-4', 'mt-md-0', 'pointer', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede'}}>
+                                                <div style={{flex: '1.3'}}>
+                                                    <img src={Constants.baseUrl + '/assets/images/banner_images/banner_leather.jpg'} className={[styles.firstCourseImage].join(' ')} style={{width: '100%', height: '100%'}} />
+                                                </div>
+                                                <div className={['d-flex', 'flex-column', 'rounded-left', 'p-2', styles.firstCourseInfoBody].join(' ')} style={{flex: '2', backgroundColor: 'white'}}>
+                                                    <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'p-1'].join(' ')} style={{background: '#00BAC6', borderRadius: '2px'}}>
+                                                        <img src={Constants.baseUrl + '/assets/images/main_images/college_hat_white.png'} className={['p-1'].join(' ')} style={{width: '30px', borderRadius: '0 4px 4px 0', backgroundColor: '#00bac6'}} />
+                                                        <p className={['text-white', 'font-weight-bold', 'mr-0', 'mb-0', 'p-1'].join(' ')} style={{fontSize: '11px', borderRadius: '4px 0 0 4px', backgroundColor: '#00bac6'}}>دوره آنلاین</p>
+                                                    </div>
+                                                    <h6 className={['mb-0','mr-1', 'text-right', 'mt-3'].join(' ')}>آموزش مقدماتی چرم دوزی</h6> 
+                                                    <div className={['d-flex', 'flex-row', 'mt-2', 'mb-0'].join(' ')}>
+                                                        <p className={['px-2', 'py-1', 'mr-1', 'mb-2'].join(' ')} style={{backgroundColor: '#F2F2F2', borderRadius: '4px'}}>۲۳۰,۰۰۰ تومان</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <h6 className={['mb-0','mr-1', 'text-right', 'mt-3'].join(' ')}>آموزش مقدماتی چرم دوزی</h6> 
-                                            <div className={['d-flex', 'flex-row', 'mt-2', 'mb-0'].join(' ')}>
-                                                <p className={['px-2', 'py-1', 'mr-1', 'mb-2'].join(' ')} style={{backgroundColor: '#F2F2F2', borderRadius: '4px'}}>۲۳۰,۰۰۰ تومان</p>
-                                            </div>
-                                        </div>
+                                        </div>  
                                     </div>
-                                </div>  
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        )
+                        :
+                        null
+                    }
                     <div className={['container'].join(' ')}>
                         <TopSixProducts moreUrl={'/shop/product/category/' + props.ssrArtInfo.result.categoryUrl} entries={props.ssrArtInfo.result.topSixProducts} title='جدیدترین کالاها' />
                     </div>
@@ -325,6 +359,8 @@ const mapStateToProps = (state) => {
         body: JSON.stringify({url: url})
     });
     let result = await artInfo.json();
+    console.log(await result);
+    console.log(await result.result.courses);
     const m = await fetch(Constants.apiUrl + '/api/menu', {
         method: 'GET'
     });

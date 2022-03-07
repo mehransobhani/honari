@@ -67,11 +67,11 @@ a {
 
 @font-face {
   font-family: IranSansWeb;
-  src: url("/newtest/assets/fonts/IRANSansWeb.woff2") format('woff2');
+  src: url("/assets/fonts/IRANSansWeb.woff2") format('woff2');
 }
 @font-face {
   font-family: IranSansWebFaNum;
-  src: url("/newtest/assets/fonts/IRANSansWeb(FaNum).woff2") format('woff2');
+  src: url("/assets/fonts/IRANSansWeb(FaNum).woff2") format('woff2');
 }
 *{
   font-family: IranSansWebFaNum;
@@ -98,9 +98,7 @@ a {
 .link:hover{
   text-decoration: none;
 }
-p{
-  font-size: 14px;
-}
+
 .breadcrumbItem:hover{
   color: #00bac6;
   cursor: pointer;
