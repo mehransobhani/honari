@@ -127,7 +127,7 @@ function MyApp({ Component, pageProps }) {
     const entry = document.getElementsByTagName('script')[0];
     entry.parentNode.insertBefore(script, entry);
 
-    /*const googleAnalyticsScript = document.createElement('script');
+    const googleAnalyticsScript = document.createElement('script');
     googleAnalyticsScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-84ZXK7F4J1';
       document.body.appendChild(script);
       googleAnalyticsScript.onload = () => {
@@ -148,24 +148,23 @@ function MyApp({ Component, pageProps }) {
           ga('async', 'true');
           ga('create', 'UA-55136021-1', 'auto');
           ga('send', 'pageview');
-      }*/
+      }
 
-      /*
+      
       const googleTagmanager = document.createElement('script');
       googleTagmanager.src = '/newtest/assets/js/google_tagmanager.js';
       googleTagmanager.async = true;
       document.body.appendChild(googleTagmanager);
-      */
-      /*googleTagmanager.onload = () => {
-        let confirmButton = document.getElementById('gtm-testing-button');
-        confirmButton.addEventListener('click', () => {
+      
+      googleTagmanager.onload = () => {
+        //let confirmButton = document.getElementById('gtm-testing-button');
+        //confirmButton.addEventListener('click', () => {
             dataLayer.push({
-              event: 'testButtonClicked',
-              v: 'tesing'
+              event: 'homePageViewed'
             });
-            alert('data pushed');
-        });
-      }*/
+            //alert('data pushed');
+        //});
+      }
       
       /*const noscriptTagmanager = document.createElement('noscript');
       const iframeTagmanager = document.createElement('iframe');

@@ -3,6 +3,7 @@ import styles from './style.module.css';
 import Countdown from 'react-countdown';
 import Image from 'next/image';
 import Link from 'next/link';
+import {connect} from 'react-redux';
 
 const SpecialOfferCard = (props) => {
     let discountPercent = ((props.price - props.discountedPrice) / props.price ) * 100 ;
@@ -36,11 +37,11 @@ const SpecialOfferCard = (props) => {
                 </React.Fragment>
             );
         }
-    };
+    };  
 
     return(
-        <Link href={props.url}>
-            <a className={['col-6', 'px-2'].join(' ')}>
+        <Link href={props.url} className={['align-self-stretch'].join(' ')}>
+            <a onClick={props.reduxStartLoading} className={['col-6', 'px-2', 'align-self-stretch'].join(' ')}>
                 <div className={['container-fluid', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px'}}>
                     <div className={['row', 'ltr'].join(' ')}>
                         <div className={['col-12', 'col-md-6', 'm-0','p-3', 'd-flex'].join(' ')}>
@@ -69,4 +70,25 @@ const SpecialOfferCard = (props) => {
     );
 }
 
-export default SpecialOfferCard;
+const mapStateToProps = (state) => {
+    return {
+        reduxUser: state.user,
+        reduxCart: state.cart
+    };
+  }
+  
+  const mapDispatchToProps = (dispatch) => {
+    return{
+        reduxUpdateCart: (d) => dispatch({type: actionTypes.UPDATE_CART, data: d}),
+        reduxAddToCart: (d) => dispatch({type: actionTypes.ADD_TO_CART, data: d}),
+        reduxIncreaseCountByOne: (d) => dispatch({type: actionTypes.INCREASE_COUNT_BY_ONE, productId: d}),
+        reduxDecreaseCountByOne: (d) => dispatch({type: actionTypes.DECREASE_COUNT_BY_ONE, productId: d}),
+        reduxRemoveFromCart: (d) => dispatch({type: actionTypes.REMOVE_FROM_CART, productId: d}),
+        reduxWipeCart: () => dispatch({type: actionTypes.WIPE_CART}),
+        reduxUpdateUserTotally: (d) => dispatch({type: actionTypes.UPDATE_USER_TOTALLY, data: d}),
+        reduxUpdateSnackbar: (k,s,t) => dispatch({type: actionTypes.UPDATE_SNACKBAR, kind: k, show: s, title: t}),
+        reduxStartLoading: () => dispatch({type: actionTypes.START_LOADING}),
+    }
+  }
+  
+export default connect(mapStateToProps, mapDispatchToProps)(SpecialOfferCard);

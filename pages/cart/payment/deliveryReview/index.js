@@ -315,6 +315,21 @@ const DeliveryReview = (props) => {
                     setOrderStage('done');
                     setOrderId(response.orderId);
                     props.reduxWipeCart();
+                    const googleTagmanager = document.createElement('script');
+                    googleTagmanager.src = '/newtest/assets/js/google_tagmanager.js';
+                    googleTagmanager.async = true;
+                    document.body.appendChild(googleTagmanager);
+                    googleTagmanager.onload = () => {
+                        dataLayer.push({
+                            event: 'gtm.load',
+                            paidPrice: response.information.paidPrice,
+                            buyPrice: response.information.buyPrice,
+                            userPhone: response.information.userPhone,
+                            userId: response.information.userId,
+                            products: response.information.products,
+                            categories: response.information.categories
+                        });
+                    }
                 }
             }else if(response.status === 'failed'){
                 console.warn(response.message);

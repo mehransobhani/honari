@@ -389,7 +389,7 @@ const carouselMouseLeaveListener = (event) => {
             })
           }
         </div>
-        <SpecialOffers />
+        <SpecialOffers offers={props.ssrInfo.discountedProducts} />
       </div>
       <LatestCourses courses={props.ssrInfo.courses} />
       <div className={['container'].join(' ')}>

@@ -205,7 +205,7 @@ const CategoryLandingPage = (props) => {
                         props.ssrArtInfo.result.courses.length != 0 && props.ssrArtInfo.result.courses != undefined
                         ?
                         (
-                            <div className={['container-fluid', 'mt-5', 'py-5'].join(' ')} style={{backgroundColor: '#f0efd8'}}>
+                            <div className={['container-fluid', 'mt-5', 'py-5'].join(' ')} style={{backgroundImage: 'url(' + Constants.baseUrl + '/assets/images/main_images/course_background.jpeg)', backgroundRepeat: 'none', backgroundSize: 'cover', backgroundPosition: 'center'}}>
                                 <div className={['container', 'px-0', 'pb-3'].join(' ')}>
                                     <div className={['row', 'rtl'].join(' ')}>
                                         <div className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'mt-3'].join(' ')}>
@@ -217,39 +217,41 @@ const CategoryLandingPage = (props) => {
                                         {
                                             props.ssrArtInfo.result.courses.map((course, index) => {
                                                 return (
-                                                    <div className={['col-12', 'col-md-6', 'px-2', index !=0 ? 'mt-3 mt-md-0' : ''].join(' ')}>
-                                                        <div className={['rounded', 'd-flex', 'flex-column', 'flex-md-row', 'pointer', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede'}}>
-                                                            <div className={['d-none', 'd-md-flex'].join(' ')} style={{flex: '1.3', maxHeight: '200px', background: 'url(https://academy.honari.com/warehouse/images/classes/' + course[0].cover_img +')', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
-                                                                <img src={'https://academy.honari.com/warehouse/images/classes/' + course[0].cover_img} className={[styles.firstCourseImage, 'd-none'].join(' ')} style={{width: '100%', height: '100%'}} />
-                                                            </div>
-                                                            <div className={['d-md-none'].join(' ')} style={{width: '100%', height: '200px', background: 'url(https://academy.honari.com/warehouse/images/classes/' + course[0].cover_img +')', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
-                                                                <img src={'https://academy.honari.com/warehouse/images/classes/' + course[0].cover_img} className={[styles.firstCourseImage, 'd-none'].join(' ')} style={{width: '100%', height: '100%'}} />
-                                                            </div>
-                                                            <div className={['d-flex', 'flex-column', 'rounded-left', 'p-2', styles.firstCourseInfoBody].join(' ')} style={{flex: '2', backgroundColor: 'white'}}>
-                                                                <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'p-1'].join(' ')}>
-                                                                    <img src={Constants.baseUrl + '/assets/images/main_images/college_hat_white.png'} className={['p-1'].join(' ')} style={{width: '29px', borderRadius: '0 4px 4px 0', backgroundColor: '#00bac6'}} />
-                                                                    <p className={['text-white', 'mr-0', 'mb-0', 'p-1'].join(' ')} style={{fontSize: '2px', borderRadius: '4px 0 0 4px', backgroundColor: '#00bac6'}}>دوره آنلاین</p>
+                                                    <Link href={'https://honari.com/academy/courses/' + course[0].urlfa}>
+                                                        <a onClick={props.reduxStartLoading} className={['col-12', 'col-md-6', 'px-2', index !=0 ? 'mt-3 mt-md-0' : ''].join(' ')}>
+                                                            <div className={['rounded', 'd-flex', 'flex-column', 'flex-md-row', 'pointer', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede'}}>
+                                                                <div className={['d-none', 'd-md-flex'].join(' ')} style={{flex: '1.3', height: '200px', background: 'url(https://academy.honari.com/warehouse/images/classes/' + course[0].cover_img +')', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
+                                                                    <img src={'https://academy.honari.com/warehouse/images/classes/' + course[0].cover_img} className={[styles.firstCourseImage, 'd-none'].join(' ')} style={{width: '100%', height: '100%'}} />
                                                                 </div>
-                                                                <h6 className={['mb-0','mr-1', 'text-right', 'mt-3'].join(' ')}>{course[0].name}</h6>
-                                                                <div className={['d-flex', 'flex-row', 'mt-3', 'mb-0'].join(' ')}>
-                                                                    {
-                                                                        course[0].off != 0
-                                                                        ?
-                                                                        (
-                                                                            <p className={['px-2', 'py-1', 'mr-1', 'mb-2'].join(' ')} style={{backgroundColor: '#F2F2F2', borderRadius: '4px'}}>{course[0].price.toLocaleString() + ' تومان'}</p>
-                                                                        )
-                                                                        :
-                                                                        (
-                                                                            <React.Fragment>
-                                                                                <p className={['px-2', 'py-1', 'mr-1', 'mb-2'].join(' ')} style={{backgroundColor: '#F2F2F2', borderRadius: '4px'}}><del>{course[0].price.toLocaleString() + ' تومان'}</del></p>
-                                                                                <p className={['px-2', 'py-1', 'mr-1', 'mb-2'].join(' ')} >{course[0].price.toLocaleString() + ' تومان'}</p>
-                                                                            </React.Fragment>
-                                                                        )
-                                                                    }
+                                                                <div className={['d-md-none'].join(' ')} style={{width: '100%', minHeight: '200px', background: 'url(https://academy.honari.com/warehouse/images/classes/' + course[0].cover_img +')', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
+                                                                    <img src={'https://academy.honari.com/warehouse/images/classes/' + course[0].cover_img} className={[styles.firstCourseImage, 'd-none'].join(' ')} style={{width: '100%', height: '100%'}} />
+                                                                </div>
+                                                                <div className={['d-flex', 'flex-column', 'rounded-left', 'p-2', styles.firstCourseInfoBody].join(' ')} style={{flex: '2', backgroundColor: 'white'}}>
+                                                                    <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'p-1'].join(' ')}>
+                                                                        <img src={Constants.baseUrl + '/assets/images/main_images/college_hat_white.png'} className={['p-1'].join(' ')} style={{width: '29px', borderRadius: '0 4px 4px 0', backgroundColor: '#00bac6'}} />
+                                                                        <p className={['text-white', 'mr-0', 'mb-0', 'p-1'].join(' ')} style={{fontSize: '2px', borderRadius: '4px 0 0 4px', backgroundColor: '#00bac6'}}>دوره آنلاین</p>
+                                                                    </div>
+                                                                    <h6 className={['mb-0','mr-1', 'text-right', 'mt-3'].join(' ')}>{course[0].name}</h6>
+                                                                    <div className={['d-flex', 'flex-row', 'mt-3', 'mb-0'].join(' ')}>
+                                                                        {
+                                                                            course[0].off != 0
+                                                                            ?
+                                                                            (
+                                                                                <p className={['px-2', 'py-1', 'mr-1', 'mb-2'].join(' ')} style={{backgroundColor: '#F2F2F2', borderRadius: '4px'}}>{course[0].price.toLocaleString() + ' تومان'}</p>
+                                                                            )
+                                                                            :
+                                                                            (
+                                                                                <React.Fragment>
+                                                                                    <p className={['px-2', 'py-1', 'mr-1', 'mb-2'].join(' ')} style={{backgroundColor: '#F2F2F2', borderRadius: '4px'}}><del>{course[0].price.toLocaleString() + ' تومان'}</del></p>
+                                                                                    <p className={['px-2', 'py-1', 'mr-1', 'mb-2'].join(' ')} >{course[0].price.toLocaleString() + ' تومان'}</p>
+                                                                                </React.Fragment>
+                                                                            )
+                                                                        }
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
+                                                        </a>
+                                                    </Link>
                                                 )
                                             })
                                         }

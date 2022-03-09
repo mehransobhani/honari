@@ -181,18 +181,7 @@ const ProductInsight = (props) =>{
                     productCategory: response.productCategory
                 });
                 }
-                /*
-                const dataLayer = document.createElement('script');
-                dataLayer.async = true;
-                document.body.appendChild(dataLayer);
-                dataLayer.onload = () => {
-                        dataLayer.push({
-                        event: 'gtm.load',
-                        productPrice: '',
-                        productUnit: '',
-                        productCategory: ''
-                        });
-                }*/
+               
             }else if(response.status === 'failed'){
                 console.warn(response.message);
             }
