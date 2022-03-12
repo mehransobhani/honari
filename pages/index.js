@@ -290,7 +290,7 @@ const carouselTouchEndListener = (event) => {
             <a href='https://honari.com/academy' className={['px-3', 'py-2', 'pointer'].join(' ')} style={{borderRadius: '16px', background: '#F2F2F2', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دوره‌های آنلاین</a>
             <Link href='/site/help'><a onClick={props.reduxStartLoading} className={['px-3', 'pointer', 'py-2'].join(' ')} style={{borderRadius: '16px', background: '#F2F2F2', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>راهنمای خرید</a></Link>
         </div>
-        {
+        { 
           mainBanners.length !== 0
           ?
           (
@@ -307,7 +307,7 @@ const carouselTouchEndListener = (event) => {
                   {
                     props.ssrInfo.carousel.map((c, i) => {
                       if(i == carouselIndex){
-                        return <img onClick={() => {setCarouselMouseX(0)}} src={Constants.baseUrl + '/assets/images/main_images/circle_dark_gray.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '12px', height: '12px', opacity: '70%'}} />;
+                        return <img onClick={() => {setCarouselMouseX(0)}} src={Constants.baseUrl + '/assets/images/main_images/circle_white.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '12px', height: '12px', opacity: '70%'}} />;
                       }else{
                         return <img onClick={() => {setCarouselIndex(i); setCarouselMouseX(0);}} src={Constants.baseUrl + '/assets/images/main_images/circle_light_gray.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '12px', height: '12px'}} />;
                       }
