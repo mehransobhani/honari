@@ -15,7 +15,6 @@ const Pasargad = () => {
 
     return (
         <React.Fragment>
-            <Header />
                 <div className={['container'].join(' ')}>
                     <div className={['row'].join(' ')}>
                         <div className={['col-12'].join(' ')}>
@@ -23,7 +22,6 @@ const Pasargad = () => {
                         </div>
                     </div>
                 </div>
-            <Footer />
         </React.Fragment>
     );
 }
