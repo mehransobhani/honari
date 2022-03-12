@@ -55,7 +55,7 @@ const SpecialOffer = (props) => {
         return (
             <div className={['row', 'mt-5'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-row', 'w-100', 'rtl', 'text-center', 'justify-content-center', 'align-items-center', 'p-0', 'mb-1'].join(' ')}>
-                    <h5 className={['mb-0'].join(' ')}>پیشنهادهای ویژه</h5>
+                    <h5 className={['mb-0'].join(' ')} style={{color: '#2B2B2B'}}>پیشنهادهای ویژه</h5>
                 </div>
                 <div className={['container-fluid'].join(' ')} style={{position: 'relative'}}>
                     <div className={['row', 'rtl', 'px-2', 'px-md-0', 'mt-2'].join(' ')}>

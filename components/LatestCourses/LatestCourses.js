@@ -30,8 +30,8 @@ const LatestCoures = (props) => {
                 <div className={['row', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl'].join(' ')}>
                     <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3', 'px-md-2'].join(' ')}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/college_hat_main.png'} draggable='false' className={['mainCarouselImage'].join(' ')} style={{width: '27px', height: '27px'}} />
-                        <h5 className={['mr-2', 'mb-0', 'd-none', 'd-md-block'].join(' ')}>جدیدترین دوره‌های آنلاین</h5>
-                        <h5 className={['mr-2', 'mb-0', 'd-md-none', 'font-weight-bold'].join(' ')}>دوره‌های آنلاین</h5>
+                        <h5 className={['mr-2', 'mb-0', 'd-none', 'd-md-block'].join(' ')} style={{color: '#2B2B2B'}}>جدیدترین دوره‌های آنلاین</h5>
+                        <h5 className={['mr-2', 'mb-0', 'd-md-none'].join(' ')} style={{color: '#2B2B2B'}}>دوره‌های آنلاین</h5>
                     </div>
                     <Link href='https://honari.com/academy'>
                         <a className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3', 'px-md-2', 'pointer'].join(' ')}>

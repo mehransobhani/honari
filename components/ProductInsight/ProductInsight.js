@@ -736,7 +736,7 @@ const ProductInsight = (props) =>{
                                     <h4 className={['mb-2', 'text-right', 'rtl', 'font11md14'].join(' ')} style={{color: '#00BAC6'}}>{comment.senderName}</h4>
                                     <button onClick={() => {setReplyCommentIndex(index)}} className={['font11md14', 'py-1', 'px-2', 'comment-reply-button', 'pointer'].join(' ')} style={{borderStyle: 'none', outlineStyle: 'none', border: '1px solid #00BAC6'}}>پاسخ</button>
                                 </div>
-                                <h5 className={['font11md14', 'text-right', 'rtl'].join(' ')}>{parse(comment.comment)}</h5>
+                                <h5 className={['font11md14', 'text-right', 'rtl', 'mt-1'].join(' ')} style={{lineHeight: '1.6rem'}}>{parse(comment.comment)}</h5>
                                 <div className={['text-left', 'ltr', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-left'].join(' ')}>
                                     <h6 className={['text-center', 'rtl', 'mb-0'].join(' ')} style={{fontSize: '11px', color: '#00BAC6'}}>{comment.date}</h6>
                                     <h6 className={['text-center', 'rtl', 'mb-0', 'px-1'].join(' ')} style={{fontSize: '11px'}}>ارسال شده در : </h6>
@@ -766,9 +766,9 @@ const ProductInsight = (props) =>{
                                     return (
                                         <React.Fragment>
                                             <div className={['col-1'].join(' ')}></div>
-                                            <div className={['col-11', 'mt-3', 'p-3'].join(' ')} style={{background: '#F7F7F7', borderRadius: '2px', border: '1px solid #DEDEDE'}}>
+                                            <div className={['col-11', 'mt-3', 'p-3'].join(' ')} style={{background: '#FBFBFB', borderRadius: '2px', border: '1px solid #DEDEDE'}}>
                                                 <h4 className={['mb-2', 'text-right', 'rtl', 'font11md14'].join(' ')} style={{color: '#00BAC6'}}>{r.senderName}</h4>
-                                                <h5 className={['font11md14', 'text-right', 'rtl'].join(' ')}>{parse(r.comment)}</h5>
+                                                <h5 className={['font11md14', 'text-right', 'rtl'].join(' ')} style={{lineHeight: '1.6rem'}}>{parse(r.comment)}</h5>
                                                 <div className={['text-left', 'ltr', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-left'].join(' ')}>
                                                     <h6 className={['text-center', 'rtl', 'mb-0'].join(' ')} style={{fontSize: '11px', color: '#00BAC6'}}>{r.date}</h6>
                                                     <h6 className={['text-center', 'rtl', 'mb-0', 'px-1'].join(' ')} style={{fontSize: '11px'}}>ارسال شده در : </h6>
@@ -862,10 +862,6 @@ const ProductInsight = (props) =>{
                             :
                             null
                         }
-                        <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{position: 'absolute', left: '0', width: '100%'}}>
-                            <img src={Constants.baseUrl + '/assets/images/main_images/semicircular_left_white.png'} style={{width: '30px', height: '30px'}} />
-                            <img src={Constants.baseUrl + '/assets/images/main_images/semicircular_right_white.png'} style={{width: '30px', height: '30px'}}  />
-                        </div>
                         <div className={['d-flex', 'flex-column', styles.otherImages, 'ml-3', 'mt-3', 'ml-md-0', 'mt-md-0'  ].join(' ')} style={{width: '3rem', height: '100%', borderRadius: '2px'}}>
                             {
                                 otherImages.map((oi, index) => {
@@ -884,23 +880,23 @@ const ProductInsight = (props) =>{
                         </div>
                     </div>
                     <div className={['col-12', 'col-md-7', 'rtl', 'mt-3', 'mt-md-0'].join(' ')}>
-                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between'].join(' ')}>
-                            <h2 className={['mb-0', 'text-right', 'rtl', 'font-weight-bold'].join(' ')} style={{fontSize: '20px'}}>{props.information.productName}</h2>
+                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-start', 'justify-content-between'].join(' ')}>
+                            <h2 className={['mb-0', 'text-right', 'rtl', 'font-weight-bold'].join(' ')} style={{fontSize: '20px', color: '#2B2B2B', lineHeight: '2.2rem'}}>{props.information.productName}</h2>
                             {   
                                 props.information.productStatus === 1  ?
-                                    <div  className={['d-flex', 'flex-row', 'align-items-center', 'bg-success', 'rtl', 'py-1', 'px-2'].join(' ')} style={{color: 'white', borderRadius: '2px'}}>
+                                    <div  className={['d-flex', 'flex-row', 'align-items-center', 'bg-success', 'rtl', 'py-1', 'px-2', 'align-self-top'].join(' ')} style={{color: 'white', borderRadius: '2px'}}>
                                         <img src={Constants.baseUrl + '/assets/images/main_images/tick_white_small.png'} style={{width: '12px', height: '12px'}} />
                                         <small className={['mb-0', 'mr-1'].join(' ')}>موجود</small>
                                     </div>
                                 :
                                     (props.information.productStatus === -1 ?
-                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'bg-danger', 'rtl', 'py-1', 'px-2'].join(' ')} style={{color: 'white', borderRadius: '2px'}}>
+                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'bg-danger', 'rtl', 'py-1', 'px-2', 'align-self-top'].join(' ')} style={{color: 'white', borderRadius: '2px'}}>
                                             <img src={Constants.baseUrl + '/assets/images/main_images/cross_white_small.png'} style={{width: '12px', height: '12px'}} />
                                             <small className={['mb-0', 'mr-1'].join(' ')}>ناموجود</small>
                                         </div>
                                     :
                                         (props.information.productStatus === 0) ?
-                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'bg-warning', 'rtl', 'py-1', 'px-2'].join(' ')} style={{color: 'white', borderRadius: '2px'}}>
+                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'bg-warning', 'rtl', 'py-1', 'px-2', 'align-self-top'].join(' ')} style={{color: 'white', borderRadius: '2px'}}>
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/tick_white_small.png'} style={{width: '12px', height: '12px'}} />
                                                 <small className={['mb-0', 'mr-1'].join(' ')}>بزودی</small>
                                             </div>
@@ -936,7 +932,7 @@ const ProductInsight = (props) =>{
                                         props.information.productPrice != props.information.discountedPrice
                                         ?
                                             <div className={['col-12', 'col-md-6', 'd-flex', 'flex-row', 'align-items-center'].join(' ')}>
-                                                <h6 className={['mb-0']} style={{fontSize: '17px'}}>قیمت کالا : </h6>
+                                                <h6 className={['mb-0']} style={{fontSize: '17px'}}>قیمت برای شما : </h6>
                                                 <h6 className={['text-secondary', 'mb-0', 'mr-2'].join(' ')} style={{fontSize: '20px'}}><del>{props.information.productPrice.toLocaleString() + ' تومان '}</del></h6>
                                                 <h6 className={['p-1', 'mb-0', 'bg-danger', 'text-white', 'mr-2', 'rtl'].join(' ')} style={{fontSize: '17px', borderRadius: '2px'}}>{'تخفیف ٪' + props.information.discountPercent}</h6>
                                             </div>  

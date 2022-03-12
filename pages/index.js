@@ -293,9 +293,9 @@ const carouselMouseLeaveListener = (event) => {
                   {
                     props.ssrInfo.carousel.map((c, i) => {
                       if(i == carouselIndex){
-                        return <img onClick={() => {setCarouselMouseX(0)}} src={Constants.baseUrl + '/assets/images/main_images/home_active_indicator.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '16px', height: '16px'}} />;
+                        return <img onClick={() => {setCarouselMouseX(0)}} src={Constants.baseUrl + '/assets/images/main_images/circle_dark_gray.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '12px', height: '12px', opacity: '70%'}} />;
                       }else{
-                        return <img onClick={() => {setCarouselIndex(i); setCarouselMouseX(0);}} src={Constants.baseUrl + '/assets/images/main_images/ring_white.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '16px', height: '16px'}} />;
+                        return <img onClick={() => {setCarouselIndex(i); setCarouselMouseX(0);}} src={Constants.baseUrl + '/assets/images/main_images/circle_light_gray.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '12px', height: '12px'}} />;
                       }
                     })
                   }
@@ -338,28 +338,28 @@ const carouselMouseLeaveListener = (event) => {
               <img src={Constants.baseUrl + '/assets/images/main_images/time.png'} className={[styles.tripleBannerImage]} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
                 <h6 className={['mb-1', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال سریع</h6>
-                <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}>به سراسر کشور</h6>
+                <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#444444'}}>به سراسر کشور</h6>
               </div>
             </a></Link>
             <Link href='/site/help#free_post'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
               <img src={Constants.baseUrl + '/assets/images/main_images/delivery.png'} className={[styles.tripleBannerImage]} style={{height: '100%'}} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
                 <h6 className={['mb-1', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال رایگان</h6>
-                <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}> خرید بالای ۲۵۰ هزارتومان</h6>
+                <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#444444'}}> خرید بالای ۲۵۰ هزارتومان</h6>
               </div>
             </a></Link>
             <Link href='/site/help#return_product'><a className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
               <img src={Constants.baseUrl + '/assets/images/main_images/return.png'} className={[styles.tripleBannerImage]} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-md-right', 'pr-2', 'py-0'].join(' ')}>
                 <h6 className={['mb-1', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>امکان مرجوعی کالا</h6>
-                <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')}>بدون محدودیت زمانی</h6>
+                <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#444444'}}>بدون محدودیت زمانی</h6>
               </div>
             </a></Link>
           </div>
         </div>
         <div className={['row', 'mt-5', 'mb-2', 'rtl', 'align-items-stretch', 'px-2', 'd-flex', 'flex-column', 'justify-content-center'].join(' ')}>
-          <h5 className={['pb-1', 'text-center', 'mb-0', 'align-self-center', 'd-none', 'd-md-block'].join(' ')} style={{borderBottom: '1px solid #00BAC6'}}>دسته محصولات پرطرفدار</h5>
-          <h5 className={['pb-1', 'text-center', 'mb-0', 'align-self-center', 'font-weight-bold', 'd-md-none'].join(' ')} style={{borderBottom: '1px solid #00BAC6'}}>دسته محصولات پرطرفدار</h5>
+          <h5 className={['pb-1', 'text-center', 'mb-0', 'align-self-center', 'd-none', 'd-md-block'].join(' ')} style={{borderBottom: '1px solid #00BAC6', color: '#2B2B2B', fontWeight: '400'}}>دسته محصولات پرطرفدار</h5>
+          <h5 className={['pb-1', 'text-center', 'mb-0', 'align-self-center', 'd-md-none'].join(' ')} style={{borderBottom: '1px solid #00BAC6', color: '#2B2B2B', fontWeight: '400'}}>دسته محصولات پرطرفدار</h5>
           <div className={['col-12', 'mb-2', 'd-none', 'd-md-block'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
         </div>
         <div className={['row', 'px-2', 'px-md-0', 'rtl'].join(' ')}>
@@ -376,12 +376,12 @@ const carouselMouseLeaveListener = (event) => {
                       </div>
                     </div> 
                     */}
-                    <div className={[''].join(' ')} style={{position: 'absolute', borderRadius: '2px', backgroundColor: 'black', opacity: '0.2', top: '0', left: '0.5rem', right: '0.5rem', height: '100%'}}>
+                    <div className={[''].join(' ')} style={{position: 'absolute', borderRadius: '2px', backgroundColor: 'black', opacity: '0.4', top: '0', left: '0.5rem', right: '0.5rem', height: '100%'}}>
 
                     </div>
                     <div className={['d-flex', 'flex-column', 'align-items-center', 'justify-content-center'].join(' ')} style={{position: 'absolute', top: '0', left: '0.5rem', right: '0.5rem', height: '100%'}}>
                         <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '20px', fontWeight: 'bold', color: 'white'}}>{category.description}</h6>
-                        <div className={['mt-2'].join(' ')} style={{height: '3px', width: '64px', background: 'white'}}></div>
+                        <div className={['mt-2', 'd-none'].join(' ')} style={{height: '3px', width: '64px', background: 'white'}}></div>
                     </div>
                   </a>
                 </Link>

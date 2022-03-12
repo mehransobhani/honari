@@ -81,6 +81,21 @@ const PasargadOrderPaymentResult = (props) => {
             let response = res.data;
             if(response.status === 'done'){
                 if(response.successfulPayment === true){
+                    const googleTagmanager = document.createElement('script');
+                    googleTagmanager.src = '/newtest/assets/js/google_tagmanager.js';
+                    googleTagmanager.async = true;
+                    document.body.appendChild(googleTagmanager);
+                    googleTagmanager.onload = () => {
+                        dataLayer.push({
+                            event: 'gtm.load',
+                            paidPrice: response.information.paidPrice,
+                            buyPrice: response.information.buyPrice,
+                            userPhone: response.information.userPhone,
+                            userId: response.information.userId,
+                            products: response.information.products,
+                            categories: response.information.categories
+                        });
+                    }
                     setPaymentResult(true);
                 }else{
                     setPaymentResult(false);

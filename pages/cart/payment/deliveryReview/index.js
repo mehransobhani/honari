@@ -402,7 +402,7 @@ const DeliveryReview = (props) => {
                             <div className={['col-12', 'mt-4', 'px-3'].join(' ')}>
                                 <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl'].join(' ')}>
                                     <img src={Constants.baseUrl + '/assets/images/main_images/form.png'} style={{width: '18px', heigth: '18px'}} />
-                                    <h4 className={['text-right', 'mb-0', 'mr-2'].join(' ')} style={{fontSize: '24px', color: '#2b2b2b'}}><b>فاکتور نهایی خرید</b></h4>
+                                    <h4 className={['text-right', 'mb-0', 'mr-2'].join(' ')} style={{fontSize: '24px', color: '#2b2b2b'}}>فاکتور نهایی خرید</h4>
                                 </div>
                             </div>
                         </div>
@@ -421,7 +421,7 @@ const DeliveryReview = (props) => {
                                             <div className={['col-6', 'text-right', 'mb-0', 'pr-2', 'd-flex', 'flex-row', 'align-items-center'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>
                                                 <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '75px', height: '75px', borderRadius: '1px'}} />
                                                 <div className={['d-flex', 'flex-column', 'text-right', 'mr-2'].join(' ')}>
-                                                    <h5 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px'}}>{item.name}</h5>
+                                                    <h5 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', lineHeight: '1.6rem'}}>{item.name}</h5>
                                                     <h5 className={['mb-0', 'font11md17', 'mt-2'].join(' ')} style={{fontSize: '14px'}}>{item.label}</h5>
                                                 </div>
                                             </div>
@@ -472,7 +472,7 @@ const DeliveryReview = (props) => {
                                                 <div className={['text-right', 'mb-0', 'pr-2', 'd-flex', 'flex-row', 'align-items-center'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '4'}}>
                                                     <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '75px', height: '75px', borderRadius: '1px'}} />
                                                     <div className={['d-flex', 'flex-column', 'text-right', 'mr-2'].join(' ')}>
-                                                        <h5 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px'}}>{item.name}</h5>
+                                                        <h5 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', lineHeight: '1.6rem'}}>{item.name}</h5>
                                                         <h5 className={['mb-0', 'font11md17', 'mt-2'].join(' ')} style={{fontSize: '14px'}}>{item.label}</h5>
                                                     </div>
                                                 </div>
@@ -528,9 +528,9 @@ const DeliveryReview = (props) => {
                             ?
                             <div className={['row', 'rtl', 'mt-3', 'mx-2'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8'}}>
                                 <div className={['col-12', 'col-md-6', 'd-flex', 'd-md-none', 'flex-row', 'rtl', 'align-items-center', 'text-right', 'justify-content-between', 'py-2'].join(' ')}>
-                                    <h6 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>کد تخفیف</h6>
-                                    <input type='text' placeholder='کد خود را وارد کنید' className={['mr-2', 'text-center', 'ltr'].join(' ')} style={{height: '40px', border: '1px solid #D8D8D8', flex: '1', borderRadius: '2px', fontFamily: 'IranSansWeb', fontSize: '14px'}} onChange={giftCodeInputChanged} />
-                                    <button className={['text-center', 'mb-0', 'mr-2', 'px-2', 'pointer', 'font14md17'].join(' ')} style={{height: '40px', background: '#00BAC6', color: 'white', border: 'none', outline: 'none', borderRadius: '2px'}} onClick={insertGiftCodeClicked}>اعمال کد</button>
+                                    <h6 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '2'}}>کد تخفیف</h6>
+                                    <input type='text' placeholder='کد خود را وارد کنید' className={['mr-2', 'text-center', 'ltr'].join(' ')} style={{height: '40px', width: '7rem', border: '1px solid #D8D8D8', borderRadius: '2px', fontFamily: 'IranSansWeb', fontSize: '12px'}} onChange={giftCodeInputChanged} />
+                                    <button className={['text-center', 'mb-0', 'mr-2', 'px-2', 'pointer', 'font14md17'].join(' ')} style={{height: '40px', background: '#00BAC6', color: 'white', border: 'none', outline: 'none', borderRadius: '2px', flex: '2'}} onClick={insertGiftCodeClicked}>اعمال کد</button>
                                 </div>
                                 <div className={['col-12', 'col-md-6', 'd-none', 'd-md-flex', 'flex-row', 'rtl', 'align-items-center', 'text-right', 'justify-content-right', 'py-2'].join(' ')}>
                                     <h6 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>کد تخفیف</h6>
