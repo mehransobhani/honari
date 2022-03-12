@@ -32,13 +32,13 @@ const NewProduct = (props) => {
         <React.Fragment>
         <div className={['row', 'mt-5', 'd-none', 'd-md-block', 'px-2'].join(' ')}>
             <div className={['col-12', 'd-flex', 'flex-row', 'w-100', 'rtl', 'text-right', 'align-items-center', 'p-0', 'mb-0', 'justify-content-center'].join(' ')}>
-                <h5 className='mb-0 mr-2 pb-2 px-2' style={{borderBottom: '1px solid #00BAC6'}}>{mainTitle}</h5>
+                <h5 className='mb-0 mr-2 pb-2 px-2' style={{borderBottom: '1px solid #00BAC6', color: '#2B2B2B'}}>{mainTitle}</h5>
             </div>
             <div className={['col-12', 'mb-2', 'mt-0'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
         </div>
         <div className={['row', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'd-md-none', 'mt-4'].join(' ')}>
             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3'].join(' ')}>
-                <h5 className={['mb-0', 'font-weight-bold'].join(' ')}>{mainTitle}</h5>
+                <h5 className={['mb-0'].join(' ')} style={{color: '#2B2B2B'}}>{mainTitle}</h5>
             </div>
             <Link href='/products'>
                 <a className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3', 'pointer'].join(' ')}>

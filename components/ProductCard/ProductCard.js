@@ -341,7 +341,7 @@ const ProductCard = (props) => {
                 </Link>
                 <Link href={'/' + props.information.productUrl}>
                     <a className={['p-3', 'text-right', 'rtl'].join(' ')} onClick={props.reduxStartLoading}>
-                        <h6 className={['font-weight-bold', 'text-right', 'rtl', 'mb-3'].join(' ')} style={{lineHeight: '1.6rem'}}>{props.information.productName}</h6>
+                        <h6 className={['font-weight-bold', 'text-right', 'rtl', 'mb-3'].join(' ')} style={{lineHeight: '1.6rem', color: '#444444'}}>{props.information.productName}</h6>
                         {
                             props.information.productPrice != -1 ?
                             props.information.productPrice != props.information.discountedPrice ?

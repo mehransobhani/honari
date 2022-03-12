@@ -98,9 +98,7 @@ a {
 .link:hover{
   text-decoration: none;
 }
-p{
-  font-size: 14px;
-}
+
 .breadcrumbItem:hover{
   color: #00bac6;
   cursor: pointer;

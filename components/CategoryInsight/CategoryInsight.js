@@ -550,7 +550,7 @@ const CategoryInsight = (props) => {
                 <div className={['row', 'rtl', 'mt-2'].join(' ')}>
                     <div className={['d-none', 'd-md-block', 'mr-2', 'ml-2'].join(' ')} style={{flex: '1'}}>
                         <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right'].join(' ')}>
-                        <h2 className={['text-right', 'mb-3'].join(' ')} style={{fontSize: '26px', fontWeight: 'bold'}}>{props.name}</h2>
+                        <h2 className={['text-right', 'mb-3'].join(' ')} style={{fontSize: '26px', fontWeight: 'bold', color: '#444444', lineHeight: '2.6rem'}}>{props.name}</h2>
                         </div>
                         <div className={['rtl'].join(' ')} style={{borderRadius: '4px'}}>
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'p-3'].join(' ')}>
