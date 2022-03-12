@@ -282,7 +282,7 @@ const carouselMouseLeaveListener = (event) => {
           (
             <React.Fragment>
             <div className={['row', 'rtl', 'mt-0', 'mt-md-4', 'px-md-2', 'align-items-stretch'].join(' ')} style={{}}>
-              <div className={['col-12', 'col-md-8', 'pr-0', 'pl-0', 'pl-md-2', 'mainCarouselImage'].join(' ')} style={{position: 'relative'}} onMouseEnter={carouselMouseEnterListener} onMouseLeave={carouselMouseLeaveListener} onDragEnter={mainCarouselDragStarted} onDragLeave={mainCarouselDragEnded}>
+              <div className={['col-12', 'col-md-8', 'pr-0', 'pl-0', 'pl-md-2', 'mainCarouselImage'].join(' ')} style={{position: 'relative'}} onTouchStart={() => {alert('carousel touched');}} onMouseEnter={carouselMouseEnterListener} onMouseLeave={carouselMouseLeaveListener} onDragEnter={mainCarouselDragStarted} onDragLeave={mainCarouselDragEnded}>
                 <div className={['d-flex', 'flex-column', 'justify-content-center'].join(' ')} style={{position: 'absolute', left: '0', top: '0', height: '100%'}}>
                   <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_circle.png'} onClick={gotoNextCarousel} className={['pointer', 'ml-2', 'ml-md-3'].join(' ')} style={{width: '30px', height: '30px', opacity: '90%'}} />
                 </div>
