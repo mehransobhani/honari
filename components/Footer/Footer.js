@@ -17,7 +17,7 @@ const Footer = () => {
     }, []);
     return(
         <div className={['container-fluid'].join(' ')} style={{position: 'relative', left: '0', bottom: loaded ? '0' : '-50rem'}}>
-            <div className={['row', 'mt-5'].join(' ')} style={{backgroundColor: '#bedde1'}}>
+            <div className={['row', 'mt-5'].join(' ')} style={{backgroundColor: '#b3dde1'}}>
                 <div className={['container', 'py-2'].join(' ')}>
                     <div className={['row', 'rtl'].join(' ')}>
                         <div className={['col-4', 'd-flex','flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')}>
@@ -45,8 +45,8 @@ const Footer = () => {
                             <p className={['text-danger', 'mb-1', 'font-weight-bold', styles.floatAlignedText].join(' ')}>از آخرین آموزش‌ها، محصولات و تخفیف‌ها باخبر شوید!</p>
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')}>
                                 <input type="text" className={['px-1', 'py-2', styles.emailInput].join(' ')} style={{flex: '0.68', outline: 'none', border: '1px solid #dedede', borderRadius: '4px', fontSize: '14px'}} placeholder="آدرس ایمیل خود را وارد کنید"/>
-                                <button className={['btn', 'btn-danger', 'py-1', 'py-2'].join(' ')} style={{flex: '0.3', fontSize: '14px'}}>تایید ایمیل</button>
-                            </div>
+                                <button className={['btn', 'py-1', 'py-2'].join(' ')} style={{flex: '0.3', fontSize: '14px', backgroundColor: '#F15F58', color: 'white'}}>تایید ایمیل</button>
+                            </div>  
                             <p className={['text-info', 'text-right', 'mb-1', 'mt-4', 'font-weight-bold', 'd-none', 'd-md-block'].join(' ')}>هنری در شبکه‌های اجتماعی</p>
                             <p className={['text-center', 'font-weight-bold', 'd-block', 'd-md-none','mt-4', 'mb-1'].join(' ')} style={{color: '#575757'}}>با ما در شبکه‌های اجتماعی همراه باشید</p>
                             <div className={['d-flex', 'flex-row', 'justify-content-start'].join(' ')}>
@@ -74,9 +74,14 @@ const Footer = () => {
                                             <h5 className={['align-md-self-end', 'mb-0', 'mt-2', 'text-secondary'].join(' ')} style={{fontSize: '14px'}}>آموزش، الگو، مواد اولیه</h5>
                                         </div>
                                     </div>
-                                    <p className={['mb-0', 'mt-2', styles.floatAlignedText, 'font-weight-bold'].join(' ')} style={{fontSize: '14px'}}>تهران، بلوار مرزداران، جنب پل یادگار امام، خیابان ابراهیمی، برج الوند، واحد 303 (فروش حضوری نداریم)</p>
-                                    <Link href='/buy_training'><a className={['mt-3', 'text-center', 'link', 'pointer', 'font-weight-bold', 'w-100', 'mb-0', 'd-block', 'd-md-none'].join(' ')} style={{fontSize: '14px'}}>راهنمای ثبت‌نام و خرید از وب‌سایت</a></Link>
-                                    <Link href='/products'><a className={['mt-1', 'text-center', 'link', 'pointer', 'font-weight-bold', 'w-100', 'mb-0', 'd-block', 'd-md-none'].join(' ')} style={{fontSize: '14px'}}>محصولات جدید</a></Link>
+                                    <p className={['mb-0', 'mt-2', styles.floatAlignedText].join(' ')} style={{fontSize: '14px'}}>تهران، بلوار مرزداران، جنب پل یادگار امام، خیابان ابراهیمی، برج الوند، واحد 303 (فروش حضوری نداریم)</p>
+                                    <div className={['row', 'd-md-none', 'flex-row', 'rtl', 'mt-3', 'justify-content-center'].join(' ')} style={{fontSize: '14px'}}>
+                                        <Link href='/buy_training'><a className={['link', 'px-1', 'font-weight-normal'].join(' ')} style={{fontSize: '14px'}}>راهنمای ثبت‌نام و خرید از وبسایت</a></Link>
+                                        |
+                                        <a href='https://docs.google.com/forms/d/e/1FAIpQLSeQlMv9Ou6VEhBsBuW8Da2TQD4osto8i_UxhCu-Xmsxl3vMTA/viewform' className={['link', 'px-1', 'font-weight-normal'].join(' ')} style={{fontSize: '14px'}} >همکاری در فروش</a>
+                                        |
+                                        <Link href='/products'><a className={['link', 'px-1', 'font-weight-normal'].join(' ')} style={{fontSize: '14px'}}>محصولات جدید</a></Link>
+                                    </div>
                                 </div>
                                 <div className={['w-100', 'd-flex', 'flex-row', 'ltr', 'align-items-center', 'justify-content-center', 'justify-content-md-start', 'mt-3', 'mt-md-0'].join(' ')} style={{flex: '1'}}>
                                     <img src={Constants.baseUrl + '/assets/images/main_images/enamad.png'} style={{width: '70px', height: '70px'}} />
@@ -84,11 +89,11 @@ const Footer = () => {
                                 </div>
                             </div>
                             <div className={['d-none', 'd-md-flex', 'flex-row', 'rtl', 'mt-3'].join(' ')} style={{fontSize: '14px'}}>
-                                <Link href='/buy_training'><a className={['link', 'px-1', 'font-weight-bold'].join(' ')}>راهنمای ثبت‌نام و خرید از وبسایت</a></Link>
+                                <Link href='/buy_training'><a className={['link', 'px-1', 'font-weight-normal'].join(' ')}>راهنمای ثبت‌نام و خرید از وبسایت</a></Link>
                                 |
-                                <a href='https://docs.google.com/forms/d/e/1FAIpQLSeQlMv9Ou6VEhBsBuW8Da2TQD4osto8i_UxhCu-Xmsxl3vMTA/viewform' className={['link', 'px-1', 'font-weight-bold'].join(' ')} >همکاری در فروش</a>
+                                <a href='https://docs.google.com/forms/d/e/1FAIpQLSeQlMv9Ou6VEhBsBuW8Da2TQD4osto8i_UxhCu-Xmsxl3vMTA/viewform' className={['link', 'px-1', 'font-weight-normal'].join(' ')} >همکاری در فروش</a>
                                 |
-                                <Link href='/products'><a className={['link', 'px-1', 'font-weight-bold'].join(' ')}>محصولات جدید</a></Link>
+                                <Link href='/products'><a className={['link', 'px-1', 'font-weight-normal'].join(' ')}>محصولات جدید</a></Link>
                             </div>
                         </div>
                     </div>

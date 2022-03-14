@@ -431,6 +431,17 @@ const CategoryInsight = (props) => {
                     <h6 className={['mb-0', 'mr-2'].join(' ')} style={{fontSize: '13px', color: 'rgb(68, 68, 68)'}}>عدم نمایش محصولات ناموحود</h6>
                 </div>
             </div>
+            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'mt-2'].join(' ')}>
+                <p className={['d-inline-block', 'px-2', 'mb-0'].join(' ')}>مرتب‌سازی براساس :</p>
+                <Select
+                    defaultValue={'new'}                 
+                    onChange={sortByMenuChanged}>
+                    <MenuItem value={'new'}><div className={['text-right'].join(' ')} style={{fontSize: '14px'}}>جدیدترین</div></MenuItem>
+                    <MenuItem value={'old'}><div className={['text-right'].join(' ')} style={{fontSize: '14px'}}>قدیمی‌ترین</div></MenuItem>
+                    <MenuItem value={'cheap'}><div className={['text-right'].join(' ')} style={{fontSize: '14px'}}>کمترین قیمت</div></MenuItem>
+                    <MenuItem value={'expensive'}><div className={['text-right'].join(' ')} style={{fontSize: '14px'}}>بیشترین قیمت</div></MenuItem>
+                </Select>
+            </div>
             {
                 filters.map((filter, key)=>{
                     if(filter.type === 'radio'){
@@ -523,9 +534,9 @@ const CategoryInsight = (props) => {
                             return(
                                 <div className={['col-4', 'p-2', 'align-self-stretch'].join(' ')} style={{}} key={key}>
                                     <Link href={categoryUrl.substring(18)}>
-                                        <a onClick={props.reduxStartLoading} className={['w-100', 'd-flex', 'flex-column', 'shadow-sm', 'pointer'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede', height: '100%'}}>
+                                        <a onClick={props.reduxStartLoading} className={['w-100', 'd-flex', 'flex-column', 'pointer'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede', height: '100%', boxShadow: '0 0.05rem 0.09rem rgba(0, 0, 0, 0.08)'}}>
                                             <img src={cb.image} className={['w-100'].join(' ')} />
-                                            <h6 className={['py-3', 'text-center', 'mb-0'].join(' ')}>{cb.title}</h6>
+                                            <h6 className={['py-3', 'text-center', 'mb-0', 'font11md17', 'font-weight-normal'].join(' ')} style={{lineHeight: '1.2rem'}}>{cb.title}</h6>
                                         </a>
                                     </Link>
                                 </div>
@@ -533,8 +544,8 @@ const CategoryInsight = (props) => {
                         })
                     }
                 </div>
-                <div className={['d-flex', 'flex-column', 'd-md-none', 'align-items-center', 'justify-content-center', 'rtl', 'text-right'].join(' ')}>
-                    <h6 className={['mb-0', 'text-right'].join(' ')} style={{width: '100%'}}>{props.name}</h6>
+                <div className={['d-flex', 'flex-column', 'd-md-none', 'align-items-center', 'justify-content-center', 'rtl', 'text-right', 'mt-3'].join(' ')}>
+                    <h6 className={['mb-0', 'text-right', 'font-weight-bold'].join(' ')} style={{width: '100%'}}>{props.name}</h6>
                     <div className={['d-flex', 'flex-row', 'rtl', 'py-2', 'px-3', 'mt-3', 'align-items-center', 'justify-content-center', 'w-100', 'pointer'].join(' ')} onClick={filterDrawer('bottom', true)} style={{color: '#00bac6', borderRadius: '4px', border: '2px solid #00bac6'}}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/filter_main.png'} style={{width: '17px', height: '17px'}} />
                         <span className={['mr-2', 'font-weight-bold'].join(' ')} style={{color: '#00bac6', fontSize: '14px'}}>فیلترها</span> 
@@ -547,7 +558,7 @@ const CategoryInsight = (props) => {
                         }
                     </div>
                 </div>
-                <div className={['row', 'rtl', 'mt-2'].join(' ')}>
+                <div className={['row', 'rtl', 'mt-2', 'mt-md-4'].join(' ')}>
                     <div className={['d-none', 'd-md-block', 'mr-2', 'ml-2'].join(' ')} style={{flex: '1'}}>
                         <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right'].join(' ')}>
                         <h2 className={['text-right', 'mb-3'].join(' ')} style={{fontSize: '26px', fontWeight: 'bold', color: '#444444', lineHeight: '2.6rem'}}>{props.name}</h2>
@@ -700,7 +711,7 @@ const CategoryInsight = (props) => {
                                     props.reduxCategoryFilter.results.length !== 0 
                                     ?
                                     <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-center', 'align-items-center', 'mt-2'].join(' ')}>
-                                        <button className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'shadow-sm'].join(' ')} onClick={paginationPrevButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
+                                        <button className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-3'].join(' ')} onClick={paginationPrevButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
                                             <img src={Constants.baseUrl + '/assets/images/main_images/right_arrow_black.png'} style={{width: '8px', height: '8px'}} />
                                             <span className={['pr-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}}>قبلی</span>
                                         </button>
@@ -721,7 +732,7 @@ const CategoryInsight = (props) => {
                                                 </React.Fragment>
                                             )
                                         }
-                                        <button className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'ltr', 'shadow-sm'].join(' ')} onClick={paginationNextButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
+                                        <button className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'ltr'].join(' ')} onClick={paginationNextButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
                                             <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black.png'} style={{width: '8px', height: '8px'}} />
                                             <span className={['pl-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}}>بعدی</span>
                                         </button>

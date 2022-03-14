@@ -1100,6 +1100,8 @@ function BigHeader(props){
         }
     }
 
+    
+
     const phoneSearchResults = (
                 <div className={['d-md-none', 'w-100'].join(' ')} style={{background: 'white', width: windowWidth, height: windowHeight, overflowY: 'scroll', overflowX: 'hidden'}}>
                     <form method='GET' action='/search/SearchResult' className={['d-flex', 'flex-row', 'ltr', 'text-left', 'justify-content-between', 'align-items-center', 'pt-2', 'px-2'].join(' ')}>
@@ -1312,7 +1314,7 @@ function BigHeader(props){
                     :
                     null
                 }
-                <div className={['row', 'pt-2', 'mb-0', 'pb-2', 'px-1'].join(' ')} style={{direction: 'rtl'}}>
+                <div className={['row', 'pt-2', 'mb-0', 'pb-2', 'px-1', 'd-none', 'd-md-flex'].join(' ')} style={{direction: 'rtl'}}>
                     <div className={['col-7', 'col-lg-9', 'rtl', 'text-right', 'd-flex', 'flex-row', 'pr-0', 'pr-lg-1', 'align-items-center',  'pl-0', 'justify-content-lg-between'].join(' ')}>
                         <div className={['d-flex', 'flex-row', 'rtl', 'desktopInfo  '].join(' ')}>
                             <Link href={'/'}><img onClick={props.reduxStartLoading} src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['pointer', 'd-none', 'd-lg-block'].join(' ')} style={{width: '60px'}} /></Link>
@@ -1326,26 +1328,6 @@ function BigHeader(props){
                             <input onMouseEnter={() => {setDsw('100%');}} onMouseLeave={()=>{if(!shouldDesktopSearchBarBeOpen){setDsw('300px')}}} onClick={()=>{setDsw('100%'); setShouldDesktopSearchBarBeOpen(true)}} name='query' type='text' onChange={getSearchResults} placeholder='عبارت مورد نظر را جستجو کنید' className={['pr-2', styles.desktopSearchBar].join(' ')} style={{fontSize: '14px', width: dsw, height: '42px', outline: 'none', outlineOffset: 'none', border: '1px solid #C4C4C4', borderRadius: '4px 0 0 4px'}} />
                             {desktopSearchResults()}
                         </form> 
-                        {
-                                props.home != true 
-                            ?
-                                <React.Fragment>
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/menu_black_small.png'} className={['pointer', 'd-block', 'd-lg-none'].join(' ')} style={{width: '30px'}} onClick={toggleDrawer('right', true)} />
-                                    <Link href='/'><img onClick={props.reduxStartLoading} src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['d-lg-none', 'mr-2', 'ml-1', 'pointer'].join(' ')} style={{width: '30px', height: '30px'}} /></Link>
-                                </React.Fragment>
-                            :
-                                null
-                        }
-                        {/*##### searchbox for mobile view #####*/}
-                        <form onClick={toggleSearchDrawer('top', true)} method='GET' action='/search/SearchResult' className={['d-flex', 'flex-row', 'ltr', 'd-md-none', 'pr-1', 'align-items-center', 'justify-content-right'].join(' ')} style={{height: '30px'}} >
-                            <div onClick={() => {if(phoneSearchInput.length !== 0){window.location.href = '/search/SearchResult?query=' + phoneSearchInput}}} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'p-0', 'pointer'].join(' ')} style={{width: '30px', height: '30px', background: '#F7F7F7', borderTop: '1px solid #D8D8D8', borderBottom: '1px solid #D8D8D8', borderLeft: '1px solid #D8D8D8', borderRadius: '3px 0px 0px 3px'}}>
-                                <img src={Constants.baseUrl + '/assets/images/main_images/search_main.png'} className={['pointer'].join(' ')} style={{width: '15px', height: '15px'}}/>
-                            </div>
-                            <div className={['d-none'].join(' ')} style={{height: '30px', background: '#F7F7F7'}}>
-                            </div>
-                            <input name='query' readOnly={'readonly'}  type='search' placeholder='جست و جو کنید' onChange={getSearchResults} className={['rtl', 'px-2'].join(' ')} style={{fontSize: '14px', width: '100%', height: '30px', border: 'none', outlineStyle: 'none', outlineOffset: 'none', outlineColor: 'none', background: '#F7F7F7', border: '1px solid #D8D8D8', borderRadius: '0px 3px 3px 0px'}} /> 
-                        </form>
-                        {/*<h1 className={['pr-1', 'm-0', 'd-block', 'd-lg-none'].join(' ')} style={{fontSize: '22px', color: '#00bac6'}}>هنری</h1>*/}
                     </div>
                     <div className={['col-5', 'col-lg-3', 'text-left', 'd-flex', 'align-items-center', 'ltr', 'p-0'].join(' ')}>
                         <div className={['ltr', 'align-items-center', 'p-2', 'pointer', 'd-none', 'd-md-flex', 'flex-row'].join(' ')} style={{position: 'relative'}} onMouseEnter={()=>{setCartOpenState(true)}} onMouseLeave={()=>{setCartOpenState(false)}}>
@@ -1374,25 +1356,6 @@ function BigHeader(props){
                                 :
                                     null
                             }
-                        </div>
-                        <div className={['ltr', 'align-items-center', 'p-2', 'pointer', 'd-md-none', 'flex-row'].join(' ')} style={{position: 'relative'}} onMouseEnter={()=>{setCartOpenState(true)}} onMouseLeave={()=>{setCartOpenState(false)}}>
-                        <img src={Constants.baseUrl + '/assets/images/header_cart.png'} className={['ml-0'].join(' ')} style={{width: '20px'}} onClick={toggleCartDrawer('left', true)} />
-                            {
-                                props.reduxCart.status === 'HI'
-                                ?
-                                (
-                                    <span className={['bg-danger', 'px-2', 'mr-1', 'rounded'].join(' ')} style={{color: 'white', fontSize: '11px', position: 'relative', bottom: '0.7rem', left: '-0.2rem'}}>{props.reduxCart.information.length}</span>
-                                )
-                                :
-                                null
-                            }
-                            {/*
-                                newCartProductsNumber !== null || newCartProductsNumber !== undefined
-                                ?
-                                    <span className={['bg-danger', 'px-2', 'mr-1', 'rounded'].join(' ')} style={{color: 'white', fontSize: '14px'}}>{cartProductsNumber}</span>
-                                :
-                                    <span className={['bg-danger', 'px-2', 'mr-1', 'rounded'].join(' ')} style={{color: 'white', fontSize: '14px'}}>{newCartProductsNumber}</span>
-                            */}    
                         </div>
                         <div>
                         {
@@ -1451,26 +1414,64 @@ function BigHeader(props){
                             </Link>
                         </div>  
                         </div>
-                        <div className={['ltr', 'align-items-center', 'pointer', 'd-md-none'].join(' ')}>
-                            {
-                                props.reduxUser.status === 'GUEST' && props.home !== true ?
-                                    <a href='https://honari.com/user' className={['px-2', 'py-1', 'pointer'].join(' ')} style={{borderRadius: '3px', fontSize: '11px', backgroundColor: '#00BAC6', color: 'white', position: 'relative', bottom: '0.06rem'}}>ورود</a>
-                                :
-                                (
-                                    props.reduxUser.status === 'LOGIN' ? 
-                                        <Link href='/users/view'><a className={['px-2', 'py-1', 'mb-0', 'd-none'].join(' ')} style={{borderStyle: 'none', borderRadius: '6px', fontSize: '11px', backgroundColor: '#00BAC6', color: 'white', height: '30px'}}>حساب کاربری</a></Link>
-                                    :
-                                        null
-                                )
-                            }
-                        </div>
                         <form onSubmit={searchFormSubmited} onSubmitCapture={null} className={['col-12', 'm-0', 'p-2', 'align-items-center', 'ml-2', 'ml-md-0', menuSearchBar].join(' ')} style={{border: '1px solid #00bac6', borderRadius: '18px'}}>
                             <img src={Constants.baseUrl + '/assets/images/main_images/cross_main.png'} style={{width: '22px'}} className={['ml-1', 'pointer'].join(' ')} onClick={()=>{setMenuSearchBar('d-none'); setOtherMenuItems('d-flex');}}/>
                             <input onSubmit={null} type="search" className={['w-100', 'text-right'].join(' ')} style={{direction: 'rtl', outline: 'none', outlineOffset: 'none',  borderStyle: 'none', fontSize: '12px'}} placeholder='در هنری جستجو کنید ...'/>
                             <img src={Constants.baseUrl + '/assets/images/main_images/search_main.png'} style={{width: '22px'}} className={['ml-1', 'pointer'].join(' ')} onClick={searchFormSubmited}/>
                         </form>
                     </div>
-                    {/*phoneSearchResults()*/}
+                </div>
+                <div className={['row', 'pt-2', 'mb-0', 'pb-2', 'px-1', 'd-md-none', 'align-items-center'].join(' ')} style={{direction: 'rtl'}}>
+                    {
+                            props.home != true 
+                        ?
+                            <React.Fragment>
+                                <img src={Constants.baseUrl + '/assets/images/main_images/menu_black_small.png'} className={['pointer'].join(' ')} style={{width: '30px'}} onClick={toggleDrawer('right', true)} />
+                                <Link href='/'><img onClick={props.reduxStartLoading} src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['mr-2', 'ml-1', 'pointer'].join(' ')} style={{width: '30px', height: '30px'}} /></Link>
+                            </React.Fragment>
+                        :
+                            null
+                    }
+                    <div onClick={toggleSearchDrawer('top', true)} className={['d-flex', 'flex-row', 'ltr', 'd-md-none', 'pr-1', 'align-items-center', 'justify-content-right', 'ml-2'].join(' ')} style={{height: '30px', flex: '1'}} >
+                        <div onClick={() => {if(phoneSearchInput.length !== 0){window.location.href = '/search/SearchResult?query=' + phoneSearchInput}}} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'p-0', 'pointer'].join(' ')} style={{width: '30px', height: '30px', background: '#FFFFFF', borderTop: '1px solid #D8D8D8', borderBottom: '1px solid #D8D8D8', borderLeft: '1px solid #D8D8D8', borderRadius: '3px 0px 0px 3px'}}>
+                            <img src={Constants.baseUrl + '/assets/images/main_images/search_main.png'} className={['pointer'].join(' ')} style={{width: '15px', height: '15px'}}/>
+                        </div>
+                        <div className={['d-none'].join(' ')} style={{height: '30px', background: '#F7F7F7'}}>
+                        </div>
+                        <p className={['rtl', 'px-2', 'mb-0', 'pt-1', 'text-right'].join(' ')} style={{fontSize: '14px', width: '100%', height: '30px', border: 'none', color: '#C4C4C4', outlineStyle: 'none', background: '#FFFFFF', border: '1px solid #D8D8D8', borderRadius: '0px 3px 3px 0px'}} >جست و جو کنید</p> 
+                    </div>
+                    <div className={['ltr', 'align-items-center', 'pointer'].join(' ')} onClick={() => {setRightMenuHeaderNumber(2)}}>
+                        {
+                            props.reduxUser.status === 'GUEST' && props.home !== true ?
+                                <a href='https://honari.com/user' className={['px-3', 'py-1', 'pointer'].join(' ')} style={{borderRadius: '3px', fontSize: '11px', backgroundColor: '#00BAC6', color: 'white', position: 'relative', bottom: '0.06rem'}}>ورود</a>
+                            :
+                            (
+                                props.reduxUser.status === 'LOGIN' ? 
+                                    <img src={Constants.baseUrl + '/assets/images/header_user.png'} style={{height: '25px', height: '25px'}} onClick={toggleDrawer('right', true)}  />
+                                :
+                                null
+                            )
+                        }
+                    </div>
+                    <div className={['ltr', 'align-items-center', 'p-2', 'pr-0', 'mr-0', 'pointer', 'd-md-none', 'flex-row'].join(' ')} style={{position: 'relative'}}>
+                        <img src={Constants.baseUrl + '/assets/images/header_cart.png'} className={['ml-0'].join(' ')} style={{width: '25px'}} onClick={toggleCartDrawer('left', true)} />
+                            {
+                                props.reduxCart.status === 'HI'
+                                ?
+                                (
+                                    <span className={['bg-danger', 'pl-2', 'pr-2', 'mr-0', 'rounded'].join(' ')} style={{color: 'white', fontSize: '11px', position: 'relative', bottom: '0.7rem', left: '-0.2rem'}}>{props.reduxCart.information.length}</span>
+                                )
+                                :
+                                null
+                            }
+                            {/*
+                                newCartProductsNumber !== null || newCartProductsNumber !== undefined
+                                ?
+                                    <span className={['bg-danger', 'px-2', 'mr-1', 'rounded'].join(' ')} style={{color: 'white', fontSize: '14px'}}>{cartProductsNumber}</span>
+                                :
+                                    <span className={['bg-danger', 'px-2', 'mr-1', 'rounded'].join(' ')} style={{color: 'white', fontSize: '14px'}}>{newCartProductsNumber}</span>
+                            */}    
+                    </div>
                 </div>
             </div>
             <div className={['container-fluid', 'd-none', 'd-lg-block', 'align-items-center'].join(' ')} style={{backgroundColor: '#F7F7F7', height: '48px', borderBottom: '0px solid #EDEDED'}}>
@@ -1508,7 +1509,7 @@ function BigHeader(props){
                                 desktopAcademyArts
                                 
                                 }
-                                <a  href={'https://honari.com/academy'} onMouseEnter={academyMouseEntered} onMouseLeave={academyMouseLeft} className={[styles.desktopHeaderAcademyButton, 'px-4', 'py-1'].join(' ')} style={{position: 'relative', left: '-1.3rem'}}>هنری آکادمی</a>
+                                <a  href={'https://honari.com/academy'} onMouseEnter={academyMouseEntered} onMouseLeave={academyMouseLeft} className={[styles.desktopHeaderAcademyButton, 'px-4', 'py-1', 'text-center'].join(' ')} style={{position: 'relative', left: '-1.3rem'}}>هنری آکادمی</a>
                                 <div onMouseOver={academyMouseEntered} onMouseLeave={academyMouseLeft} className={[''].join(' ')} style={{position: 'absolute', bottom: '-0.8rem', right: '1.25rem', height: '0.5rem', width: '100%'}}></div>
                             </div>
                         </div>
