@@ -298,18 +298,18 @@ const carouselTouchEndListener = (event) => {
             <div className={['row', 'rtl', 'mt-0', 'mt-md-4', 'px-md-2', 'align-items-stretch'].join(' ')} style={{}}>
               <div className={['col-12', 'col-md-8', 'pr-0', 'pl-0', 'pl-md-2', 'mainCarouselImage'].join(' ')} style={{position: 'relative'}} onTouchStart={carouselTouchStartListener} onTouchEnd={carouselTouchEndListener} onDragEnter={mainCarouselDragStarted} onDragLeave={mainCarouselDragEnded}>
                 <div className={['d-flex', 'flex-column', 'justify-content-center'].join(' ')} style={{position: 'absolute', left: '0', top: '0', height: '100%'}}>
-                  <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_circle.png'} onClick={gotoNextCarousel} className={['pointer', 'ml-2', 'ml-md-3'].join(' ')} style={{width: '30px', height: '30px', opacity: '90%'}} />
+                  <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_circle.png'} onClick={gotoNextCarousel} className={['pointer', 'ml-2', 'ml-md-3'].join(' ')} style={{width: '20px', height: '20px', opacity: '90%'}} />
                 </div>
                 <div className={['d-flex', 'flex-column', 'justify-content-center'].join(' ')} style={{position: 'absolute', right: '0', top: '0', height: '100%'}}>
-                  <img src={Constants.baseUrl + '/assets/images/main_images/right_arrow_white_circle.png'} onClick={gotoPreviousCarousel} className={['pointer', 'mr-2'].join(' ')} style={{width: '30px', height: '30px', opacity: '90%'}} />
+                  <img src={Constants.baseUrl + '/assets/images/main_images/right_arrow_white_circle.png'} onClick={gotoPreviousCarousel} className={['pointer', 'mr-2'].join(' ')} style={{width: '20px', height: '20px', opacity: '90%'}} />
                 </div>
                 <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-center', 'mt-auto', 'mb-2'].join(' ')} style={{position: 'absolute', bottom: '0', width: '100%'}}>
                   {
                     props.ssrInfo.carousel.map((c, i) => {
                       if(i == carouselIndex){
-                        return <img onClick={() => {setCarouselMouseX(0)}} src={Constants.baseUrl + '/assets/images/main_images/circle_white.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '12px', height: '12px', opacity: '70%'}} />;
+                        return <img onClick={() => {setCarouselMouseX(0)}} src={Constants.baseUrl + '/assets/images/main_images/circle_white.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '8px', height: '8px'}} />;
                       }else{
-                        return <img onClick={() => {setCarouselIndex(i); setCarouselMouseX(0);}} src={Constants.baseUrl + '/assets/images/main_images/circle_light_gray.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '12px', height: '12px'}} />;
+                        return <img onClick={() => {setCarouselIndex(i); setCarouselMouseX(0);}} src={Constants.baseUrl + '/assets/images/main_images/circle_light_gray.png'} className={['pointer', 'mx-1'].join(' ')} style={{width: '8px', height: '8px'}} />;
                       }
                     })
                   }
@@ -322,7 +322,7 @@ const carouselTouchEndListener = (event) => {
                   })
                 }
               </div>
-              <div className={['col-12', 'col-md-4', 'pr-3', 'pl-md-0', 'd-flex', 'flex-row', 'flex-md-column', 'rtl'].join(' ')}>
+              <div className={['col-12', 'col-md-4', 'pr-0', 'pr-md-3', 'pl-0', 'd-flex', 'flex-row', 'flex-md-column', 'rtl'].join(' ')}>
                 {
                   props.ssrInfo.topBanners.length == 2
                   ?
@@ -351,30 +351,30 @@ const carouselTouchEndListener = (event) => {
             <Link href='/site/help#delivery_type'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
               <img src={Constants.baseUrl + '/assets/images/main_images/time.png'} className={[styles.tripleBannerImage]} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
-                <h6 className={['mb-1', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال سریع</h6>
-                <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#444444'}}>به سراسر کشور</h6>
+                <h6 className={['mb-1', styles.tripleBannerTitle].join(' ')} style={{color: '#444444', fontWeight: '400'}}>ارسال سریع</h6>
+                <h6 className={['mb-0', 'mt-auto', styles.tripleBannerTitle].join(' ')} style={{color: '#494949', fontWeight: '500'}}>به سراسر کشور</h6>
               </div>
             </a></Link>
             <Link href='/site/help#free_post'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
               <img src={Constants.baseUrl + '/assets/images/main_images/delivery.png'} className={[styles.tripleBannerImage]} style={{height: '100%'}} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
-                <h6 className={['mb-1', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>ارسال رایگان</h6>
-                <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#444444'}}> خرید بالای ۲۵۰ هزارتومان</h6>
+                <h6 className={['mb-1', styles.tripleBannerTitle].join(' ')} style={{color: '#444444', fontWeight: '400'}}>ارسال رایگان</h6>
+                <h6 className={['mb-0', 'mt-auto', styles.tripleBannerTitle].join(' ')} style={{color: '#494949', fontWeight: '500'}}> خرید بالای ۲۵۰ هزارتومان</h6>
               </div>
             </a></Link>
             <Link href='/site/help#return_product'><a className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
               <img src={Constants.baseUrl + '/assets/images/main_images/return.png'} className={[styles.tripleBannerImage]} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-md-right', 'pr-2', 'py-0'].join(' ')}>
-                <h6 className={['mb-1', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#707070'}}>امکان مرجوعی کالا</h6>
-                <h6 className={['mb-0', 'mt-auto', 'font-weight-bold', styles.tripleBannerTitle].join(' ')} style={{color: '#444444'}}>بدون محدودیت زمانی</h6>
+                <h6 className={['mb-1', styles.tripleBannerTitle].join(' ')} style={{color: '#444444', fontWeight: '400'}}>امکان مرجوعی کالا</h6>
+                <h6 className={['mb-0', 'mt-auto', styles.tripleBannerTitle].join(' ')} style={{color: '#494949', fontWeight: '500'}}>بدون محدودیت زمانی</h6>
               </div>
             </a></Link>
           </div>
         </div>
         <div className={['row', 'mt-5', 'mb-2', 'rtl', 'align-items-stretch', 'px-2', 'd-flex', 'flex-column', 'justify-content-center'].join(' ')}>
-          <h5 className={['pb-1', 'text-center', 'mb-0', 'align-self-center', 'd-none', 'd-md-block'].join(' ')} style={{borderBottom: '1px solid #00BAC6', color: '#2B2B2B', fontWeight: '400'}}>دسته محصولات پرطرفدار</h5>
+          <h5 className={['pb-1', 'text-center', 'mb-0', 'align-self-center', 'd-none', 'd-md-block'].join(' ')} style={{borderBottom: '1px solid #00BAC6', zIndex: '3', color: '#2B2B2B', fontWeight: '400', position: 'relative',top: '1px'}}>دسته محصولات پرطرفدار</h5>
           <h5 className={['pb-1', 'text-center', 'mb-0', 'align-self-center', 'd-md-none'].join(' ')} style={{borderBottom: '1px solid #00BAC6', color: '#2B2B2B', fontWeight: '400'}}>دسته محصولات پرطرفدار</h5>
-          <div className={['col-12', 'mb-2', 'd-none', 'd-md-block'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
+          <div className={['col-12', 'mb-2', 'd-none', 'd-md-block'].join(' ')} style={{height: '1px', backgroundColor: '#dedede', zIndex: '1'}}></div>
         </div>
         <div className={['row', 'px-2', 'px-md-0', 'rtl'].join(' ')}>
           {

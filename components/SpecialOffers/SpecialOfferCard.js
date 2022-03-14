@@ -40,14 +40,14 @@ const SpecialOfferCard = (props) => {
     };  
 
     return(
-        <Link href={props.url} className={['align-self-stretch'].join(' ')}>
-            <a onClick={props.reduxStartLoading} className={['col-6', 'px-2', 'align-self-stretch'].join(' ')}>
-                <div className={['container-fluid', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px'}}>
+        <Link href={props.url} className={[''].join(' ')}>
+            <a onClick={props.reduxStartLoading} className={['col-6', 'px-2'].join(' ')}>
+                <div className={['container-fluid', 'shadow-sm', 'h-100'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', background: props.bgColor}}>
                     <div className={['row', 'ltr'].join(' ')}>
-                        <div className={['col-12', 'col-md-6', 'm-0','p-3', 'd-flex'].join(' ')}>
+                        <div className={['col-12', 'col-md-6', 'm-0','p-3', 'd-flex'].join(' ')} style={{background: 'white'}}>
                             <img className={['rounded-circle'].join(' ')} src={props.imageUrl} style={{flex: '1', width: '100%', height: 'auto'}} />
                         </div>
-                        <div className={['col-12', 'col-md-6', 'd-flex', 'flex-column', 'p-0', 'pb-3', 'p-md-3'].join(' ')} style={{backgroundColor: props.bgColor}}>
+                        <div className={['col-12', 'col-md-6', 'd-flex', 'flex-column', 'p-0', 'pb-3', 'p-md-3', 'h-100'].join(' ')} style={{backgroundColor: props.bgColor}}>
                             <h5 className={['mb-1', 'mb-md-4', 'mx-1', 'px-3', 'px-md-0', 'pt-3', 'pt-md-0', 'text-right', 'rtl', 'font-weight-bold', styles.specialTitle].join(' ')}>{props.title}</h5>
                             <div className={['w-100', 'rtl', 'mt-2', 'mt-md-0', 'mb-1', 'mb-md-4', styles.prices].join(' ')} style={{flex: '1'}}>
                                 <h5 className={['text-secondary', 'text-right', 'py-1', 'px-2', 'd-inline-block', 'mb-1', styles.specialTitle].join(' ')} style={{color: '#2B2B2B', background: '#DEDEDE', borderRadius: '2px'}}><del>{props.price.toLocaleString()}</del></h5>

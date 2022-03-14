@@ -36,11 +36,19 @@ const SpecialOffer = (props) => {
     }
 
     const gotoNextPage = () => {
-        setPage(page + 1);
+        if(page < Math.ceil(props.offers.length / 2) - 1){
+            setPage(page + 1);
+        }else{
+            setPage(0);
+        }
     }
 
     const gotoPreviousePage = () => {
-        setPage(page - 1);
+        if(page > 0){
+            setPage(page -1);
+        }else{
+            setPage(Math.ceil(props.offers.length / 2) - 1);
+        }
     }
 
     const pageIndicators = (
@@ -58,7 +66,7 @@ const SpecialOffer = (props) => {
                     <h5 className={['mb-0'].join(' ')} style={{color: '#2B2B2B'}}>پیشنهادهای ویژه</h5>
                 </div>
                 <div className={['container-fluid'].join(' ')} style={{position: 'relative'}}>
-                    <div className={['row', 'rtl', 'px-2', 'px-md-0', 'mt-2'].join(' ')}>
+                    <div className={['row', 'rtl', 'px-2', 'px-md-0', 'mt-2', 'd-flex', 'flex-row', 'align-items-stretch'].join(' ')}>
                         {
                             props.offers[page*2] !== undefined 
                             ?
@@ -74,10 +82,10 @@ const SpecialOffer = (props) => {
                             null
                         }
                     </div>
-                    <div className={['d-flex', 'flext-column', 'px-2', 'justify-content-center', 'align-items-center', 'd-none'].join(' ')} style={{position: 'absolute', left: '-0.8rem', top: '0', height: '100%'}}>
+                    <div className={['d-flex', 'flext-column', 'px-2', 'justify-content-center', 'align-items-center', 'd-none', 'specialOfferLeftButton'].join(' ')} style={{position: 'absolute', top: '0', height: '100%'}}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/left_semicircular_arrow.png'} onClick={gotoNextPage} className={['pointer'].join(' ')} />
                     </div>
-                    <div className={['d-flex', 'flext-column', 'px-2', 'justify-content-center', 'align-items-center', 'd-none'].join(' ')} style={{position: 'absolute', right: '-0.9rem', top: '0', height: '100%'}}>
+                    <div className={['d-flex', 'flext-column', 'px-2', 'justify-content-center', 'align-items-center', 'd-none', 'specialOfferRightButton'].join(' ')} style={{position: 'absolute', top: '0', height: '100%'}}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/right_semicircular_arrow.png'} onClick={gotoPreviousePage} className={['pointer'].join(' ')} />
                     </div>
                 </div>

@@ -53,7 +53,7 @@ const TopSixProducts = (props) => {
                                         <img src={imageUrl} className={['rounded-top'].join(' ')} style={{width: '100%', height: 'auto'}} />
                                         <div className={['w-100'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
                                         <p className={['text-muted', 'rtl', 'w-100', 'pt-2', 'px-2', 'text-right', 'm-0', 'font11'].join(' ')} style={{fontSize: '11px'}}>{item.categoryName}</p>
-                                        <p className={['w-100', 'rtl', 'text-right', 'm-0', 'pb-2', 'px-2', 'pt-1'].join(' ')}>{item.productName}</p>
+                                        <p className={['w-100', 'rtl', 'text-right', 'm-0', 'pb-2', 'px-2', 'pt-1', 'mb-3'].join(' ')}>{item.productName}</p>
                                         <div className={['mt-auto'].join(' ')}>
                                             {
                                                 item.discountedPrice != item.productPrice 

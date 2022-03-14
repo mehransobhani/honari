@@ -27,6 +27,25 @@ a {
   .font17md22{
     font-size: 17px !important;
   }
+  .specialOfferLeftButton{
+    left: -0.8rem !important;
+  }
+  .specialOfferRightButton{
+    right: -0.8rem !important;
+  }
+  .productInsightLeftSemicircular{
+    left: -0.1rem !important;
+  }
+  .productInsightRightSemicircular{
+    right: -0.2rem !important;
+  }
+}
+
+.specialOfferLeftButton{
+  left: -0.1rem;
+}
+.specialOfferRightButton{
+  right: -0.3rem;
 }
 
 .font11md17{
@@ -239,4 +258,13 @@ span{
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+.productSecondDescription p{
+  color: #444444 !important;
+}
+.productInsightLeftSemicircular{
+  left: 0.3rem;
+}
+.productInsightRightSemicircular{
+  right: 0.2rem;
 }
