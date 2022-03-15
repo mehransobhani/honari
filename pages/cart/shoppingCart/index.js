@@ -504,7 +504,7 @@ const ShoppingCart = (props) => {
                                                     <h6 className={['text-right', 'rtl', 'mb-0', 'mt-auto'].join(' ')} style={{fontSize: '14px', color: '#444444'}}>{product.price === 0 ? 'موجود نیست !' : product.label}</h6>
                                                 </div>
                                             </div>
-                                            <div className={['mx-3', 'my-2'].join(' ')} style={{height: '1px', background: product.price == 0 ? '#FFFFFF' :'#D8D8D8'}}></div>
+                                            <div className={['mx-3', 'mt-4', 'mb-3'].join(' ')} style={{height: '1px', background: product.price == 0 ? '#FFFFFF' :'#D8D8D8'}}></div>
                                             <div className={[product.price === 0 ? 'd-none' : 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'px-3',].join(' ')}>
                                                 <h6 className={['text-right'].join(' ')} style={{fontSize: '14px'}}>قیمت هر واحد</h6>
                                                 {

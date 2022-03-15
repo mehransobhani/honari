@@ -607,7 +607,7 @@ const DeliveryReview = (props) => {
                         }
                         <div className={['row', 'mt-5', 'mx-2'].join(' ')}>
                             <div className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'rtl', 'text-right', 'mb-3', 'px-0'].join(' ')}>
-                                <img src={Constants.baseUrl + '/assets/images/main_images/cash_black_small.png'} style={{width: '18px', height: '18px'}} />
+                                <img src={Constants.baseUrl + '/assets/images/main_images/card_wallet.svg'} style={{width: '18px', height: '18px'}} />
                                 <h5 className={['mb-0', 'mr-2'].join(' ')} style={{fontSize: '24px', color: '#2B2B2B'}}><b>شیوه پرداخت</b></h5>
                             </div>
                             <div className={['col-12', 'd-flex', 'flex-row', 'text-right', 'rtl', 'align-items-center', 'justify-content-right', 'py-2', 'mr-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>

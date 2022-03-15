@@ -349,21 +349,21 @@ const carouselTouchEndListener = (event) => {
         <div className={['row', 'rtl', 'mt-3', 'mt-md-4', 'px-md-2', styles.tripleBanner].join(' ')}>
           <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-between', 'align-items-center', 'px-0', 'mx-0', 'py-2'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', boxShadow: '0px 2px 3px rgba(0, 0, 0, 0.05)'}}>
             <Link href='/site/help#delivery_type'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-              <img src={Constants.baseUrl + '/assets/images/main_images/time.png'} className={[styles.tripleBannerImage]} />
+              <img src={Constants.baseUrl + '/assets/images/main_images/time.svg'} className={[styles.tripleBannerImage]} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
                 <h6 className={['mb-1', styles.tripleBannerTitle].join(' ')} style={{color: '#444444', fontWeight: '400'}}>ارسال سریع</h6>
                 <h6 className={['mb-0', 'mt-auto', styles.tripleBannerTitle].join(' ')} style={{color: '#494949', fontWeight: '500'}}>به سراسر کشور</h6>
               </div>
             </a></Link>
             <Link href='/site/help#free_post'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-              <img src={Constants.baseUrl + '/assets/images/main_images/delivery.png'} className={[styles.tripleBannerImage]} style={{height: '100%'}} />
+              <img src={Constants.baseUrl + '/assets/images/main_images/delivery.svg'} className={[styles.tripleBannerImage]} style={{height: '100%'}} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
                 <h6 className={['mb-1', styles.tripleBannerTitle].join(' ')} style={{color: '#444444', fontWeight: '400'}}>ارسال رایگان</h6>
                 <h6 className={['mb-0', 'mt-auto', styles.tripleBannerTitle].join(' ')} style={{color: '#494949', fontWeight: '500'}}> خرید بالای ۲۵۰ هزارتومان</h6>
               </div>
             </a></Link>
             <Link href='/site/help#return_product'><a className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-              <img src={Constants.baseUrl + '/assets/images/main_images/return.png'} className={[styles.tripleBannerImage]} />
+              <img src={Constants.baseUrl + '/assets/images/main_images/return.svg'} className={[styles.tripleBannerImage]} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-md-right', 'pr-2', 'py-0'].join(' ')}>
                 <h6 className={['mb-1', styles.tripleBannerTitle].join(' ')} style={{color: '#444444', fontWeight: '400'}}>امکان مرجوعی کالا</h6>
                 <h6 className={['mb-0', 'mt-auto', styles.tripleBannerTitle].join(' ')} style={{color: '#494949', fontWeight: '500'}}>بدون محدودیت زمانی</h6>

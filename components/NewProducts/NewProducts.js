@@ -58,7 +58,7 @@ const NewProduct = (props) => {
                 }
             </div>
         </div>
-        <Link href='/products'>
+        <Link href={props.moreUrl === undefined ? '/products' : props.moreUrl}>
             <a onClick={props.reduxStartLoading} className={['pointer', 'w-100', 'd-none', 'd-md-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'text-center', 'mt-2'].join(' ')} style={{borderRadius: '8px'}}>
                     <img src={Constants.baseUrl + '/assets/images/main_images/left_main_small.png'} style={{width: '18px', height: '18px'}} />
                     <span className={['ml-1'].join(' ')} style={{fontSize: '13px'}}>مشاهده همه</span>

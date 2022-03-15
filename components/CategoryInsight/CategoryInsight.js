@@ -507,23 +507,34 @@ const CategoryInsight = (props) => {
                 {phoneFilter}
             </Drawer>
             <div className={[''].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
-                <div className={['container', 'd-flex', 'flex-row', 'align-items-center', 'rtl', 'py-2', 'px-2'].join(' ')}>
-                    <Breadcrumbs>
-                    <p className={['p-1', 'mb-0', 'font11'].join(' ')} style={{backgroundColor: 'white', border: '1px solid #D8D8D8', borderRadius: '14px 1px 1px 14px'}}>اینجا هستید</p>
+                <div className={['container'].join(' ')} style={{overflowX: 'hidden'}}>
+                   <div className={['row', 'align-items-center', 'rtl', 'py-1', 'py-md-2', 'px-2'].join(' ')} style={{overflowX: 'hidden'}}>
+                        <img src={Constants.baseUrl + '/assets/images/main_images/youre_here.svg'} style={{width: '80px'}} />
+                        <p className={['p-1', 'mb-0', 'font11', 'd-none'].join(' ')} style={{backgroundColor: 'white', border: '1px solid #D8D8D8', borderRadius: '14px 1px 1px 14px', fontSize: '11px'}}>اینجا هستید</p>
                         {
                             props.breadcrumb.map((cb, count)=>{
-                                if(count === props.breadcrumb.length - 1){
-                                    return (
-                                        <h6 className={['breadcrumbItem', 'mb-0'].join(' ')} style={{fontSize: '14px'}} >{cb.name}</h6>
+                                if(count == 0){
+                                    return(
+                                        <Link key={count} href={'/shop/product/category/' + cb.url} ><a onClick={props.reduxStartLoading} className={['breadcrumbItem', 'mb-0', 'font11', 'mr-2'].join(' ')} style={{fontSize: '11px'}} >{cb.name}</a></Link>
+                                    );
+                                }else if(count == props.breadcrumb.length - 1){
+                                    return(
+                                        <React.Fragment>
+                                            <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['mx-2'].join(' ')} style={{width: '10px'}} />
+                                            <p className={['breadcrumbItem', 'mb-0', 'font11'].join(' ')} style={{fontSize: '11px'}} >{cb.name}</p>
+                                        </React.Fragment>
                                     );
                                 }else{
                                     return(
-                                        <Link key={count} href={cb.url} ><a onClick={props.reduxStartLoading} className={['breadcrumbItem', 'mb-0'].join(' ')} style={{fontSize: '14px'}} >{cb.name}</a></Link>
+                                        <React.Fragment>
+                                            <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['mx-2'].join(' ')} style={{width: '10px'}} />
+                                            <Link key={count} href={'/shop/product/category/' + cb.url} ><a onClick={props.reduxStartLoading} className={['breadcrumbItem', 'mb-0', 'font11'].join(' ')} style={{fontSize: '11px'}} >{cb.name}</a></Link>
+                                        </React.Fragment>
                                     );
                                 }
                             })
                         }
-                    </Breadcrumbs>
+                   </div>
                 </div>
             </div>
             <div className={['container'].join(' ')} style={{overflowX: 'hidden'}}>
