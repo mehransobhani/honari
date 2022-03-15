@@ -1297,7 +1297,7 @@ function BigHeader(props){
                         {
                             props.reduxUser.status == 'LOGIN'
                             ?
-                                <Link href='/users/view'><a onClick={props.reduxStartLoading}><img  src={Constants.baseUrl + '/assets/images/main_images/user_black.png'} className={['d-md-none'].join(' ')} style={{width: '27px', height: '27px'}}/></a></Link>
+                                <div onClick={() => {setRightMenuHeaderNumber(2)}} className={['pointer'].join(' ')}><img onClick={toggleDrawer('right', true)} src={Constants.baseUrl + '/assets/images/main_images/user_black.png'} className={['d-md-none'].join(' ')} style={{width: '27px', height: '27px'}}/></div>
                             :
                             (
                                 <Link href='/user'>
@@ -1440,19 +1440,29 @@ function BigHeader(props){
                         </div>
                         <p className={['rtl', 'px-2', 'mb-0', 'pt-1', 'text-right'].join(' ')} style={{fontSize: '14px', width: '100%', height: '30px', border: 'none', color: '#C4C4C4', outlineStyle: 'none', background: '#FFFFFF', border: '1px solid #D8D8D8', borderRadius: '0px 3px 3px 0px'}} >جست و جو کنید</p> 
                     </div>
-                    <div className={['ltr', 'align-items-center', 'pointer'].join(' ')} onClick={() => {setRightMenuHeaderNumber(2)}}>
-                        {
-                            props.reduxUser.status === 'GUEST' && props.home !== true ?
-                                <a href='https://honari.com/user' className={['px-3', 'py-1', 'pointer'].join(' ')} style={{borderRadius: '3px', fontSize: '11px', backgroundColor: '#00BAC6', color: 'white', position: 'relative', bottom: '0.06rem'}}>ورود</a>
-                            :
-                            (
-                                props.reduxUser.status === 'LOGIN' ? 
-                                    <img src={Constants.baseUrl + '/assets/images/header_user.png'} style={{height: '25px', height: '25px'}} onClick={toggleDrawer('right', true)}  />
-                                :
-                                null
-                            )
-                        }
-                    </div>
+                    {
+                        props.home == true
+                        ?
+                        (
+                            null
+                        )
+                        : 
+                        (
+                            <div className={['ltr', 'align-items-center', 'pointer'].join(' ')} onClick={() => {setRightMenuHeaderNumber(2)}}>
+                                {
+                                    props.reduxUser.status === 'GUEST' && props.home !== true ?
+                                        <a href='https://honari.com/user' className={['px-3', 'py-1', 'pointer'].join(' ')} style={{borderRadius: '3px', fontSize: '11px', backgroundColor: '#00BAC6', color: 'white', position: 'relative', bottom: '0.06rem'}}>ورود</a>
+                                    :
+                                    (
+                                        props.reduxUser.status === 'LOGIN' ? 
+                                            <img src={Constants.baseUrl + '/assets/images/main_images/user_black.png'} style={{height: '25px', height: '25px'}} onClick={toggleDrawer('right', true)}  />
+                                        :
+                                        null
+                                    )
+                                }
+                            </div>    
+                        )
+                    }
                     <div className={['ltr', 'align-items-center', 'p-2', 'pr-0', 'mr-0', 'pointer', 'd-md-none', 'flex-row'].join(' ')} style={{position: 'relative'}}>
                         <img src={Constants.baseUrl + '/assets/images/header_cart.png'} className={['ml-0'].join(' ')} style={{width: '25px'}} onClick={toggleCartDrawer('left', true)} />
                             {

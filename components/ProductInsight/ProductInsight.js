@@ -692,9 +692,9 @@ const ProductInsight = (props) =>{
                         {
                             props.features.map((feature, index)=>{
                                 return(
-                                    <tr key={index}>
-                                        <td className={['text-right', 'ltr'].join(' ')} style={{fontSize: '14px'}}>{feature.title}</td>
-                                        <td className={['text-right', 'ltr'].join(' ')} style={{borderRight: '1px dashed #DEDEDE', fontSize: '14px'}}>{feature.value}</td>
+                                    <tr key={index} className={['d-flex', 'flex-row', 'align-items-center'].join(' ')}>
+                                        <td className={['text-right', 'ltr', 'font-weight-bold'].join(' ')} style={{fontSize: '14px', flex: '1'}}>{feature.title}</td>
+                                        <td className={['text-right', 'ltr'].join(' ')} style={{borderRight: '1px dashed #DEDEDE', fontSize: '14px', flex: '3'}}>{feature.value}</td>
                                     </tr> 
                                 );
                             })
@@ -703,7 +703,7 @@ const ProductInsight = (props) =>{
                 </table>
             </div>
             <div className={['col-12', 'pl-1', 'px-5', 'rtl', 'mt-3', 'productSecondDescription'].join(' ')}>
-                <div className={['mb-0', 'rtl', 'text-right', styles.infoContainer].join(' ')} style={{}}>{parse(props.description)}</div>
+                <div className={['mb-0', 'rtl', 'text-right', styles.infoContainer].join(' ')} style={{fontSize: '13px'}}>{parse(props.description)}</div>
             </div>
         </div>
     );
@@ -712,15 +712,15 @@ const ProductInsight = (props) =>{
         <div className={['row', 'py-4', 'py-md-5', 'rtl', 'px-md-5', selectedSection == 1 ? '' : 'd-none'].join(' ')} style={{backgroundColor: '#F7F7F7'}}>
             <div className={['col-12', 'text-right', 'px-md-5'].join(' ')}>
                 <h6 className={['rtl'].join(' ')} style={{color: '#00BAC6'}}>- امکان مرجوه کردن کالا بدون محدودیت</h6>
-                <h6 className={['rtl'].join(' ')} style={{lineHeight: '1.7rem'}}>{helpSectionBigPart}</h6>
-                <h6 className={['rtl'].join(' ')}>توجه : کالاهایی که به دلیل ماهیت خاص و نوع بسته‌بندی امکان تشخیص در استفاده محصول نیست، امکان مرجوع کردن ندارند.</h6>
+                <h6 className={['rtl', 'font-weight-normal'].join(' ')} style={{lineHeight: '1.6rem', fontSize: '13px'}}>{helpSectionBigPart}</h6>
+                <h6 className={['rtl', 'font-weight-normal'].join(' ')} style={{lineHeight: '1.6rem', fontSize: '13px'}}>توجه : کالاهایی که به دلیل ماهیت خاص و نوع بسته‌بندی امکان تشخیص در استفاده محصول نیست، امکان مرجوع کردن ندارند.</h6>
             </div>
             <div className={['col-12', 'mt-3', 'text-right', 'px-md-5'].join(' ')}>
                 <h6 className={['rtl'].join(' ')} style={{color: '#00BAC6'}}>- ارسال رایگان سفارشات</h6>
-                <h6 className={['rtl'].join(' ')}>کلیه سفارشات پست و پیک که مجموع سبد خرید آنها بیش از ۲۰۰ هزار تومان باشد به صورت رایگان ارسال میشود. پست پیشتاز شامل ارسال رایگان نمیشود.</h6>
-                <h6 className={['rtl'].join(' ')}>ارسال سریع در شهر تهران با پیک انجام میشود و زمان رسیدن سفارش توسط شما انتخاب شده و در بازه انتخابی به دست شما میرسد</h6>
-                <h6 className={['rtl'].join(' ')}>ارسال در سایر شهرهای ایران به انتخاب خود شما توسط پست سفارشی، پیشتاز و ارسال سریع انجام میشود.</h6>
-                <h6 className={['rtl'].join(' ')}>ارسال سریع به بیش از ۲۰ استان کشور و با دریافت طی ۲۴ ساعت کاری میباشد و شامل ارسال رایگان نمیشود</h6>
+                <h6 className={['rtl', 'font-weight-normal'].join(' ')} style={{lineHeight: '1.6rem', fontSize: '13px'}}>کلیه سفارشات پست و پیک که مجموع سبد خرید آنها بیش از ۲۰۰ هزار تومان باشد به صورت رایگان ارسال میشود. پست پیشتاز شامل ارسال رایگان نمیشود.</h6>
+                <h6 className={['rtl', 'font-weight-normal'].join(' ')} style={{lineHeight: '1.6rem', fontSize: '13px'}}>ارسال سریع در شهر تهران با پیک انجام میشود و زمان رسیدن سفارش توسط شما انتخاب شده و در بازه انتخابی به دست شما میرسد</h6>
+                <h6 className={['rtl', 'font-weight-normal'].join(' ')} style={{lineHeight: '1.6rem', fontSize: '13px'}}>ارسال در سایر شهرهای ایران به انتخاب خود شما توسط پست سفارشی، پیشتاز و ارسال سریع انجام میشود.</h6>
+                <h6 className={['rtl', 'font-weight-normal'].join(' ')} style={{lineHeight: '1.6rem', fontSize: '13px'}}>ارسال سریع به بیش از ۲۰ استان کشور و با دریافت طی ۲۴ ساعت کاری میباشد و شامل ارسال رایگان نمیشود</h6>
             </div>
         </div>
     );
@@ -731,12 +731,12 @@ const ProductInsight = (props) =>{
                 comments.length != 0
                 ?
                 (
-                    <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'justify-content-between', 'align-items-center'].join(' ')}>
+                    <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'justify-content-between', 'align-items-center', 'px-0'].join(' ')}>
                         <div className={['d-flex', 'flex-row', 'align-items-center', 'rtl'].join(' ')}>
-                            <img src={Constants.baseUrl + '/assets/images/main_images/rectangle_comment_black.png'} style={{width: '24px', height: '24px'}} />
-                            <h6 className={['mb-0', 'mr-2'].join(' ')}>نظرات کاربران</h6>
+                            <img src={Constants.baseUrl + '/assets/images/main_images/rectangle_comment_black.png'} style={{width: '22px', height: '22px'}} />
+                            <h6 className={['mb-0', 'mr-2', 'font-weight-bold'].join(' ')}>نظرات کاربران</h6>
                         </div>
-                        <p className={['px-2', 'py-1'].join(' ')} style={{background: '#E9E9E9', fontSize: '14px'}}>{comments.length + ' نظر'}</p>
+                        <p className={['px-2', 'py-1', 'ml-5'].join(' ')} style={{background: '#E9E9E9', fontSize: '14px'}}>{comments.length + ' نظر'}</p>
                     </div>
                 )
                 : 
@@ -748,15 +748,17 @@ const ProductInsight = (props) =>{
                 comments.map((comment, index) => {
                     return (
                         <React.Fragment>
-                            <div className={['col-12', 'mt-3', 'p-3'].join(' ')} style={{background: '#FFFFFF', borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')}>
-                                    <h4 className={['mb-2', 'text-right', 'rtl', 'font11md14'].join(' ')} style={{color: '#00BAC6'}}>{comment.senderName}</h4>
-                                    <button onClick={() => {setReplyCommentIndex(index)}} className={['font11md14', 'py-1', 'px-2', 'comment-reply-button', 'pointer'].join(' ')} style={{borderStyle: 'none', outlineStyle: 'none', border: '1px solid #00BAC6'}}>پاسخ</button>
-                                </div>
-                                <h5 className={['font11md14', 'text-right', 'rtl', 'mt-1'].join(' ')} style={{lineHeight: '1.6rem'}}>{parse(comment.comment)}</h5>
-                                <div className={['text-left', 'ltr', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-left'].join(' ')}>
-                                    <h6 className={['text-center', 'rtl', 'mb-0'].join(' ')} style={{fontSize: '11px', color: '#00BAC6'}}>{comment.date}</h6>
-                                    <h6 className={['text-center', 'rtl', 'mb-0', 'px-1'].join(' ')} style={{fontSize: '11px'}}>ارسال شده در : </h6>
+                            <div className={['col-12', index == 0 ? 'mt-1' : 'mt-3', 'px-0'].join(' ')}>
+                                <div className={['p-3', 'ml-5'].join(' ')} style={{background: '#FFFFFF', borderRadius: '2px', border: '1px solid #DEDEDE'}}>
+                                    <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')}>
+                                        <h4 className={['mb-2', 'text-right', 'rtl', 'font11md14', 'font-weight-bold'].join(' ')} style={{color: '#00BAC6'}}>{comment.senderName}</h4>
+                                        <button onClick={() => {setReplyCommentIndex(index)}} className={['font11md14', 'py-1', 'px-2', 'comment-reply-button', 'pointer'].join(' ')} style={{borderStyle: 'none', outlineStyle: 'none', border: '1px solid #00BAC6'}}>پاسخ</button>
+                                    </div>
+                                    <h5 className={['font11md14', 'text-right', 'rtl', 'mt-1'].join(' ')} style={{lineHeight: '1.6rem'}}>{parse(comment.comment)}</h5>
+                                    <div className={['text-left', 'ltr', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-left'].join(' ')}>
+                                        <h6 className={['text-center', 'rtl', 'mb-0', 'font-weight-normal'].join(' ')} style={{fontSize: '11px', color: '#F15F58'}}>{comment.date}</h6>
+                                        <h6 className={['text-center', 'rtl', 'mb-0', 'px-1'].join(' ')} style={{fontSize: '11px'}}>ارسال شده در : </h6>
+                                    </div>
                                 </div>
                             </div>
                             {
@@ -816,10 +818,12 @@ const ProductInsight = (props) =>{
                                 <img src={Constants.baseUrl + '/assets/images/main_images/add_comment_black.png'} style={{width: '22px', height: '22px'}}/>
                                 <h5 className={['text-right', 'rtl', 'font14md17', 'mb-0', 'mr-2'].join(' ')} style={{color: 'black'}}>ایجاد نظر</h5>
                             </div>
-                            <h6 className={['mt-1'].join(' ')} style={{fontSize: '14px', color: '#00BAC6'}}>{props.reduxUser.information.name}</h6>
-                            <textarea onChange={commentInputChanged} className={['rtl', 'text-right', 'w-100', 'font11md14', 'p-2'].join(' ')} rows={2} placeholder='نظر خود را وارد کنید...' style={{border: '1px solid #DEDEDE'}} />
-                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'ltr'].join(' ')}>
-                                <button onClick={submitComment} className={['font11md14', 'mt-2', 'px-5', 'py-1', 'pointer'].join(' ')} style={{borderStyle: 'none', outlineStyle: 'none', borderRadius: '3px', border: '1px solid #00BAC6', background: '#00BAC6', color: 'white'}}>{sendingComment ? 'درحال ارسال' : 'ارسال نظر'}</button>
+                            <h6 className={['mt-1', 'pr-4'].join(' ')} style={{fontSize: '14px', color: '#00BAC6'}}>{props.reduxUser.information.name}</h6>
+                            <div className={['mr-4', 'mr-md-5', 'pr-0', 'pr-md-5'].join(' ')}>
+                            <textarea onChange={commentInputChanged} className={['rtl', 'text-right', 'font11md14', 'p-2', 'w-100'].join(' ')} rows={2} placeholder='نظر خود را وارد کنید...' style={{border: '1px solid #DEDEDE'}} />
+                            </div>
+                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'ltr', 'pr-4', 'pr-md-0'].join(' ')}>
+                                <button onClick={submitComment} className={['font11md14', 'mt-2', 'py-1', 'pointer', 'col-12', 'col-md-3', 'font-weight-bold'].join(' ')} style={{borderStyle: 'none', outlineStyle: 'none', border: '1px solid #00BAC6', background: '#00BAC6', color: 'white', paddingLeft: '5rem', paddingRight: '5rem'}}>{sendingComment ? 'درحال ارسال' : 'ارسال نظر'}</button>
                             </div>
                         </div>
                     </React.Fragment>
@@ -916,10 +920,10 @@ const ProductInsight = (props) =>{
                             {
                                 aparatScript !== undefined && props.information.aparat !== ''
                                 ?
-                                <div className={['pointer'].join(' ')} style={{width: '3rem', height: '3rem', position: 'relative'}} onClick={videoImageClicked}>
-                                    <img style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '2', opacity: '100%', border: '1px solid #DEDEDE'}} src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + otherImages[0] + '.jpg'} className={['pointer', otherImages.length > 1 ? 'mt-2' : ''].join(' ')} />
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/square_black.png'} className={[''].join(' ')} style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', opacity: '40%', zIndex: '3', border: '1px solid #DEDEDE'}} />
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/play_white_small.png'} className={[''].join(' ')} style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', opacity: '100%', zIndex: '4', border: '1px solid #DEDEDE'}} />
+                                <div className={['pointer'].join(' ')} style={{width: '3rem', height: '3rem', position: 'relative', borderRadius: '2px'}} onClick={videoImageClicked}>
+                                    <img style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '2', opacity: '100%', border: '1px solid #DEDEDE', borderRadius: '2px'}} src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + otherImages[0] + '.jpg'} className={['pointer', otherImages.length > 1 ? 'mt-2' : ''].join(' ')} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/square_black.png'} className={[''].join(' ')} style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', opacity: '40%', zIndex: '3', border: '1px solid #DEDEDE', borderRadius: '2px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/play_white_small.png'} className={[''].join(' ')} style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', opacity: '100%', zIndex: '4', border: '1px solid #DEDEDE', borderRadius: '2px'}} />
                                 </div>
                                 :
                                 null
@@ -969,8 +973,9 @@ const ProductInsight = (props) =>{
                                 (props.information.productStatus === 1) ? 
                                 <React.Fragment>
                                 <h6 className={['w-100', 'mb-1', 'text-right', 'mt-5', 'pr-md-3'].join(' ')} style={{fontSize: '17px', color: '#949494'}}>انتخاب نوع بسته</h6>
-                                <div className={['d-flex', 'flex-row', 'row', 'align-items-center', 'mx-0', 'px-2', 'py-1', 'mr-md-3'].join(' ')} style={{border: '1px solid #C4C4C4'}}>
-                                    <input type='radio' className={['form-control'].join(' ')} checked={true} style={{width: '14px'}} value='' />
+                                <div className={['d-flex', 'flex-row', 'row', 'align-items-center', 'mx-0', 'px-2', 'py-1', 'mr-md-3'].join(' ')} style={{border: '1px solid #D8D8D8'}}>
+                                    <input type='radio' className={['form-control', 'd-none'].join(' ')} checked={true} style={{width: '14px'}} value='' />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/radio_button_main.png'} style={{width: '14px', height: '14px'}} />
                                     <label className={['mb-0', 'mr-2', 'text-right', 'rtl'].join(' ')} style={{fontSize: '14px'}}>{props.information.productLabel}</label>
                                     {
                                         props.information.productBasePrice !== undefined
@@ -1064,8 +1069,8 @@ const ProductInsight = (props) =>{
                                     (props.information.productStatus === -1 ?
                                         <div className={['rtl', 'text-right'].join(' ')}>
                                             <div className={['mt-3', 'mt-md-2', 'd-none'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
-                                            <span className={['py-3', 'px-4', 'mt-5', 'd-inline-block'].join(' ')} style={{backgroundColor: '#8c8c8c', color: 'white', borderRadius: '4px'}}>موجود نیست</span>
-                                            <div onClick={setReminderButtonClicked} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'mt-5', 'd-none', 'pointer'].join(' ')}>
+                                            <span className={['py-3', 'px-4', 'mt-5', 'd-inline-block', 'mr-md-3'].join(' ')} style={{backgroundColor: '#8c8c8c', color: 'white', borderRadius: '4px'}}>موجود نیست</span>
+                                            <div onClick={setReminderButtonClicked} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'mt-5', 'mr-md-3', 'pointer'].join(' ')}>
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/bell_red.png'} style={{width: '24px', height: '24px'}} />
                                                 <span className={['mr-1', 'pointer'].join(' ')} style={{color: '#00bac6'}}>درصورت موجود شدن به من اطلاع دهید</span>
                                             </div>
@@ -1097,21 +1102,21 @@ const ProductInsight = (props) =>{
                 <div className={['row', 'rtl', 'mt-3', 'mt-md-5', 'px-md-2', styles.tripleBanner].join(' ')}>
                     <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-between', 'align-items-center', 'px-0', 'mx-0', 'py-2'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', boxShadow: '0px 2px 3px rgba(0, 0, 0, 0.05)'}}>
                     <Link href='/site/help#delivery_type'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-                    <img src={Constants.baseUrl + '/assets/images/main_images/time.png'} className={[styles.tripleBannerImage]} />
+                    <img src={Constants.baseUrl + '/assets/images/main_images/time.svg'} className={[styles.tripleBannerImage]} />
                     <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
                         <h6 className={['mb-1', styles.tripleBannerTitle].join(' ')} style={{color: '#444444', fontWeight: '400'}}>ارسال سریع</h6>
                         <h6 className={['mb-0', 'mt-auto', styles.tripleBannerTitle].join(' ')} style={{color: '#494949', fontWeight: '500'}}>به سراسر کشور</h6>
                     </div>
                     </a></Link>
                     <Link href='/site/help#free_post'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-                    <img src={Constants.baseUrl + '/assets/images/main_images/delivery.png'} className={[styles.tripleBannerImage]} style={{height: '100%'}} />
+                    <img src={Constants.baseUrl + '/assets/images/main_images/delivery.svg'} className={[styles.tripleBannerImage]} style={{height: '100%'}} />
                     <div className={['d-flex', 'flex-column', 'text-center', 'text-lg-right', 'pr-2', 'py-0'].join(' ')}>
                         <h6 className={['mb-1', styles.tripleBannerTitle].join(' ')} style={{color: '#444444', fontWeight: '400'}}>ارسال رایگان</h6>
                         <h6 className={['mb-0', 'mt-auto', styles.tripleBannerTitle].join(' ')} style={{color: '#494949', fontWeight: '500'}}> خرید بالای ۲۵۰ هزارتومان</h6>
                     </div>
                     </a></Link>
                     <Link href='/site/help#return_product'><a className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-                    <img src={Constants.baseUrl + '/assets/images/main_images/return.png'} className={[styles.tripleBannerImage]} />
+                    <img src={Constants.baseUrl + '/assets/images/main_images/return.svg'} className={[styles.tripleBannerImage]} />
                     <div className={['d-flex', 'flex-column', 'text-center', 'text-md-right', 'pr-2', 'py-0'].join(' ')}>
                         <h6 className={['mb-1', styles.tripleBannerTitle].join(' ')} style={{color: '#444444', fontWeight: '400'}}>امکان مرجوعی کالا</h6>
                         <h6 className={['mb-0', 'mt-auto', styles.tripleBannerTitle].join(' ')} style={{color: '#494949', fontWeight: '500'}}>بدون محدودیت زمانی</h6>

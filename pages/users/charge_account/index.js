@@ -138,25 +138,119 @@ const ChargeAccount = (props) => {
                     <div className={['container'].join(' ')}>
                             <div className={['row', 'rtl', 'mt-3'].join(' ')}>
                                 <div className={['col-2', 'd-none', 'd-md-flex', 'flex-column', 'align-items-center'].join(' ')}>
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/user_black_circle_big.png'} style={{width: '50%'}} />
-                                    <Link href='/users/view'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>نمایه کاربر</a></Link>
-                                    <Link href='/users/orders'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2', 'mb-0'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>سفارش‌های من</a></Link>
-                                    <Link href='/users/showreturned'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>تاریخچه مرجوعی</a></Link>
-                                    <h6 className={['text-center', 'py-2', 'w-100', 'mb-0', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #00BAC6', fontSize: '17px',borderRadius: '4px', color: '#00BAC6'}}>موجودی / شارژ حساب</h6>
-                                    <Link href='https://honari.com/academy/user/courses'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>کلاس‌های من</a></Link>
-                                    <Link href='/users/balance'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'mb-0', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>تسویه حساب</a></Link>
-                                    <Link href='https://docs.google.com/forms/d/e/1FAIpQLSdRYGrhGRHlNk0SlGD6v2UQCmq2gm5hkHFM4hEw4oeIJ5gz0w/viewform'><a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-2', 'w-100', 'pointer', 'mt-2'].join(' ')} style={{background: '#F2F2F2', border: '1px solid #DEDEDE', fontSize: '17px',borderRadius: '4px'}}>همکاری در فروش</a></Link>
+                                <img src={Constants.baseUrl + '/assets/images/main_images/panel_wallet_main.svg'} style={{width: '50%', border: '4px solid #00BAC6', borderRadius: '50%'}} />
+                                    <Link href='/users/view'>
+                                        <a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-3', 'w-100', 'pointer', 'mt-3'].join(' ')} style={{fontSize: '14px', borderBottom: '1px solid #DEDEDE'}}>
+                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'px-2'].join(' ')}>
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/panel_user_black.svg'} style={{width: '25px', height: '25px'}} />
+                                                <h6 className={['mb-0', 'mr-2'].join(' ')} style={{fontSize: '14px'}}>نمایه کاربری</h6>
+                                            </div>
+                                        </a>
+                                    </Link>
+                                    <Link href='/users/orders'>
+                                        <a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-3', 'w-100', 'pointer'].join(' ')} style={{fontSize: '14px', borderBottom: '1px solid #DEDEDE'}}>
+                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'px-2'].join(' ')}>
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/panel_cart_black.svg'} style={{width: '25px', height: '25px'}} />
+                                                <h6 className={['mb-0', 'mr-2'].join(' ')} style={{fontSize: '14px'}}>سفارش‌های من</h6>
+                                            </div>
+                                        </a>
+                                    </Link>
+                                    <Link href='/users/showreturned'>
+                                        <a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-3', 'w-100', 'pointer'].join(' ')} style={{fontSize: '14px'}}>
+                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'px-2'].join(' ')}>
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/panel_return_black.svg'} style={{width: '25px', height: '25px'}} />
+                                                <h6 className={['mb-0', 'mr-2'].join(' ')} style={{fontSize: '14px'}}>تاریخچه مرجوعی</h6>
+                                            </div>
+                                        </a>
+                                    </Link>
+                                    <div className={['text-center', 'py-3', 'w-100', 'pointer'].join(' ')} style={{fontSize: '14px', borderTop: '1px solid #DEDEDE', borderBottom: '1px solid #DEDEDE', borderRight: '1px dashed #DEDEDE', borderLeft: '1px dashed #DEDEDE', background: '#F9F9F9'}}>
+                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'px-2'].join(' ')}>
+                                            <img src={Constants.baseUrl + '/assets/images/main_images/panel_wallet_main.svg'} style={{width: '25px', height: '25px'}} />
+                                            <h6 className={['mb-0', 'mr-2'].join(' ')} style={{fontSize: '14px', color: '#00BAC6'}}>موجودی/شارژ حساب</h6>
+                                        </div>
+                                    </div>
+                                    <Link href='https://honari.com/academy/user/courses'>
+                                        <a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-3', 'w-100', 'pointer'].join(' ')} style={{fontSize: '14px', borderBottom: '1px solid #DEDEDE'}}>
+                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'px-2'].join(' ')}>
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/panel_video_black.svg'} style={{width: '25px', height: '25px'}} />
+                                                <h6 className={['mb-0', 'mr-2'].join(' ')} style={{fontSize: '14px'}}>کلاس‌های من</h6>
+                                            </div>
+                                        </a>
+                                    </Link>
+                                    <Link href='/users/balance'>
+                                        <a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-3', 'w-100', 'pointer'].join(' ')} style={{fontSize: '14px', borderBottom: '1px solid #DEDEDE'}}>
+                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'px-2'].join(' ')}>
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/panel_checkout_black.svg'} style={{width: '25px', height: '25px'}} />
+                                                <h6 className={['mb-0', 'mr-2'].join(' ')} style={{fontSize: '14px'}}>تسویه حساب</h6>
+                                            </div>
+                                        </a>
+                                    </Link>
+                                    <Link href='https://docs.google.com/forms/d/e/1FAIpQLSdRYGrhGRHlNk0SlGD6v2UQCmq2gm5hkHFM4hEw4oeIJ5gz0w/viewform'>
+                                        <a onClick={() => {props.reduxStartLoading()}} className={['text-center', 'py-3', 'w-100', 'pointer'].join(' ')} style={{fontSize: '14px'}}>
+                                            <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'px-2'].join(' ')}>
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/panel_cooperation_black.svg'} style={{width: '25px', height: '25px'}} />
+                                                <h6 className={['mb-0', 'mr-2'].join(' ')} style={{fontSize: '14px'}}>همکاری در فروش</h6>
+                                            </div>
+                                        </a>
+                                    </Link>
                                 </div>
                                 <div className={['col-12', 'd-md-none'].join(' ')}>
                                     <div className={['container'].join(' ')}>
-                                        <div className={['row', 'rtl', 'justify-content-between'].join(' ')}>
-                                            <h6 className={['col-12', 'text-center', 'py-1'].join(' ')} style={{background: '#F2F2F2', color: '#00BAC6', borderRadius: '2px', fontSize: '14px', border: '1px solid #00BAC6'}}>موجودی / شارژ حساب</h6>
-                                            <Link href='/users/view'><a onClick={() => {props.reduxStartLoading()}} className={['col-5', 'text-center', 'py-1', 'font11md17', 'mb-2'].join(' ')} style={{background: '#F2F2F2', borderRadius: '2px', border: '1px solid #DEDEDE'}}>نمایه کاربری</a></Link>
-                                            <Link href='/users/orders'><a onClick={() => {props.reduxStartLoading()}} className={['col-5', 'text-center', 'py-1', 'font11md17', 'mb-2'].join(' ')} style={{background: '#F2F2F2', borderRadius: '2px', border: '1px solid #DEDEDE'}}>سفارش‌های من</a></Link>
-                                            <Link href='/users/showreturned'><a onClick={() => {props.reduxStartLoading()}} className={['col-5', 'text-center', 'py-1', 'font11md17', 'mb-2'].join(' ')} style={{background: '#F2F2F2', borderRadius: '2px', border: '1px solid #DEDEDE'}}>تاریخچه مرجوعی</a></Link>
-                                            <Link href='https://honari.com/academy/user/courses'><a onClick={() => {props.reduxStartLoading()}} className={['col-5', 'text-center', 'py-1', 'font11md17', 'mb-2'].join(' ')} style={{background: '#F2F2F2', borderRadius: '2px', border: '1px solid #DEDEDE'}}>کلاس‌های من</a></Link>
-                                            <Link href='/users/balance'><a onClick={() => {props.reduxStartLoading()}} className={['col-5', 'text-center', 'py-1', 'font11md17', 'mb-2'].join(' ')} style={{background: '#F2F2F2', borderRadius: '2px', border: '1px solid #DEDEDE'}}>تسویه حساب</a></Link>
-                                            <Link href='https://docs.google.com/forms/d/e/1FAIpQLSdRYGrhGRHlNk0SlGD6v2UQCmq2gm5hkHFM4hEw4oeIJ5gz0w/viewform'><a onClick={() => {props.reduxStartLoading()}} className={['col-5', 'text-center', 'py-1', 'font11md17', 'mb-2'].join(' ')} style={{background: '#F2F2F2', borderRadius: '2px', border: '1px solid #DEDEDE'}}>همکاری در فروش</a></Link>
+                                    <div className={['row', 'rtl', 'justify-content-between'].join(' ')} style={{borderTop: '1px solid #DEDEDE', borderRight: '1px dashed #DEDEDE', borderLeft: '1px dashed #DEDEDE'}}>
+                                            <div className={['col-12', 'text-center', 'py-3', 'w-100', 'pointer', 'd-flex', 'flex-row', 'justify-content-center'].join(' ')} style={{fontSize: '14px', borderBottom: '1px solid #DEDEDE', background: '#F9F9F9'}}>
+                                                <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'px-2'].join(' ')} style={{position: 'relative', left: '0.5rem'}}>
+                                                    <img src={Constants.baseUrl + '/assets/images/main_images/panel_wallet_main.svg'} style={{width: '20px', height: '20px'}} />
+                                                    <h6 className={['mb-0', 'mr-1'].join(' ')} style={{fontSize: '13px', color: '#00BAC6'}}>موجودی/شارژ حساب</h6>
+                                                </div>
+                                            </div>
+                                            <Link href='/users/view'>
+                                                <a onClick={() => {props.reduxStartLoading()}} className={['col-6', 'text-center', 'py-2', 'font11md17', 'pr-5'].join(' ')} style={{borderBottom: '1px solid #DEDEDE', borderLeft: '1px dashed #DEDEDE'}}>
+                                                    <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start'].join(' ')}>
+                                                        <img src={Constants.baseUrl + '/assets/images/main_images/panel_user_black.svg'} style={{width: '20px', height: '20px'}} />
+                                                        <h6 className={['mb-0', 'mr-1'].join(' ')} style={{fontSize: '11px'}}>نمایه کابری</h6>
+                                                    </div>
+                                                </a>
+                                            </Link>
+                                            <Link href='/users/orders'>
+                                                <a onClick={() => {props.reduxStartLoading()}} className={['col-6', 'text-center', 'py-2', 'font11md17', 'pr-5'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                                                    <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start'].join(' ')}>
+                                                        <img src={Constants.baseUrl + '/assets/images/main_images/panel_cart_black.svg'} style={{width: '20px', height: '20px'}} />
+                                                        <h6 className={['mb-0', 'mr-1'].join(' ')} style={{fontSize: '11px'}}>سفارش‌های من</h6>
+                                                    </div>
+                                                </a>
+                                            </Link>
+                                            <Link href='/users/showreturned'>
+                                                <a onClick={() => {props.reduxStartLoading()}} className={['col-6', 'text-center', 'py-2', 'font11md17', 'pr-5'].join(' ')} style={{borderLeft: '1px dashed #DEDEDE', borderBottom: '1px solid #DEDEDE'}}>
+                                                    <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start'].join(' ')}>
+                                                        <img src={Constants.baseUrl + '/assets/images/main_images/panel_return_black.svg'} style={{width: '20px', height: '20px'}} />
+                                                        <h6 className={['mb-0', 'mr-1'].join(' ')} style={{fontSize: '11px'}}>تاریخچه مرجوعی</h6>
+                                                    </div>
+                                                </a>
+                                            </Link>
+                                            <Link href='https://honari.com/academy/user/courses'>
+                                                <a onClick={() => {props.reduxStartLoading()}} className={['col-6', 'text-center', 'py-2', 'font11md17', 'pr-5'].join(' ')} style={{ borderBottom: '1px solid #DEDEDE'}}>
+                                                    <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start'].join(' ')}>
+                                                        <img src={Constants.baseUrl + '/assets/images/main_images/panel_video_black.svg'} style={{width: '20px', height: '20px'}} />
+                                                        <h6 className={['mb-0', 'mr-1'].join(' ')} style={{fontSize: '11px'}}>کلاس‌های من</h6>
+                                                    </div>
+                                                </a>
+                                            </Link>
+                                            <Link href='/users/balance'>
+                                                <a onClick={() => {props.reduxStartLoading()}} className={['col-6', 'text-center', 'py-2', 'font11md17', 'pr-5'].join(' ')} style={{borderBottom: '1px solid #DEDEDE', borderLeft: '1px dashed #DEDEDE'}}>
+                                                    <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start'].join(' ')}>
+                                                        <img src={Constants.baseUrl + '/assets/images/main_images/panel_checkout_black.svg'} style={{width: '20px', height: '20px'}} />
+                                                        <h6 className={['mb-0', 'mr-1'].join(' ')} style={{fontSize: '11px'}}>تسویه حساب</h6>
+                                                    </div>
+                                                </a>
+                                            </Link>
+                                            <Link href='https://docs.google.com/forms/d/e/1FAIpQLSdRYGrhGRHlNk0SlGD6v2UQCmq2gm5hkHFM4hEw4oeIJ5gz0w/viewform'>
+                                                <a onClick={() => {props.reduxStartLoading()}} className={['col-6', 'text-center', 'py-2', 'font11md17', 'pr-5'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                                                    <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-start'].join(' ')}>
+                                                        <img src={Constants.baseUrl + '/assets/images/main_images/panel_cooperation_black.svg'} style={{width: '20px', height: '20px'}} />
+                                                        <h6 className={['mb-0', 'mr-1'].join(' ')} style={{fontSize: '11px'}}>همکاری در فروش</h6>
+                                                    </div>
+                                                </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

@@ -22,9 +22,9 @@ const TopSixProducts = (props) => {
         <React.Fragment>
         <div className={['row', 'mt-5', 'd-none', 'd-md-block', 'px-3'].join(' ')}>
             <div className={['col-12', 'd-flex', 'flex-row', 'w-100', 'rtl', 'text-right', 'align-items-center', 'p-0', 'mb-0', 'justify-content-center'].join(' ')}>
-                <h5 className='mb-0 mr-2 pb-2 px-2' style={{borderBottom: '1px solid #00BAC6'}}>{props.title}</h5>
+                <h5 className='mb-0 mr-2 pb-2 px-2' style={{borderBottom: '1px solid #00BAC6', position: 'relative', top: '1px', zIndex: '2'}}>{props.title}</h5>
             </div>
-            <div className={['col-12', 'mb-2', 'mt-0', 'px-1'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
+            <div className={['col-12', 'mb-2', 'mt-0', 'px-1'].join(' ')} style={{height: '1px', backgroundColor: '#dedede', zIndex: '1'}}></div>
         </div>
         <div className={['row', 'px-1', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'd-md-none', 'mt-4'].join(' ')}>
             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-3'].join(' ')}>
@@ -49,7 +49,7 @@ const TopSixProducts = (props) => {
                         return (
                             <div className={['col-5', 'col-md-2', 'px-2', 'py-0', 'my-0', 'mb-2'].join(' ')} key={counter}>
                                 <Link href={'/' + item.productUrl}>
-                                    <a onClick={() => {props.reduxStartLoading()}} className={['d-flex', 'pointer', 'flex-column', 'shadow-sm', styles.banner].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', height: '100%'}}>
+                                    <a onClick={() => {props.reduxStartLoading()}} className={['d-flex', 'pointer', 'flex-column', styles.banner].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', height: '100%'}}>
                                         <img src={imageUrl} className={['rounded-top'].join(' ')} style={{width: '100%', height: 'auto'}} />
                                         <div className={['w-100'].join(' ')} style={{height: '1px', backgroundColor: '#dedede'}}></div>
                                         <p className={['text-muted', 'rtl', 'w-100', 'pt-2', 'px-2', 'text-right', 'm-0', 'font11'].join(' ')} style={{fontSize: '11px'}}>{item.categoryName}</p>

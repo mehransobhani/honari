@@ -13,6 +13,7 @@ import parse from 'html-react-parser'
 import Link from 'next/link';
 import TopSixProducts from '../components/TopSixProducts/TopSixProducts';
 import { TramRounded } from '@material-ui/icons';
+import NewProducts from '../components/NewProducts/NewProducts';
 
 const CategoryLandingPage = (props) => {
 
@@ -171,7 +172,7 @@ const CategoryLandingPage = (props) => {
                                 <div className={['row', 'rtl', 'mt-5', 'px-1'].join(' ')}>
                                     <div className={['col-12', 'd-flex', 'flex-column', 'px-md-1'].join(' ')}>
                                         <div className={['d-flex', 'flex-row'].join(' ')}>
-                                            <h5 className={['pb-2', 'mb-0', 'font-weight-bold'].join(' ')} style={{borderBottom: '1px solid #00BAC6'}}>{' دسته‌بندی محصولات '}</h5>
+                                            <h5 className={['pb-2', 'mb-0', 'font-weight-bold'].join(' ')} style={{borderBottom: '1px solid #00BAC6', position: 'relative', top: '1px'}}>{' دسته‌بندی محصولات '}</h5>
                                         </div>
                                         <div style={{height: '1px', width: '100%', backgroundColor: '#dedede'}}></div>
                                     </div>
@@ -186,7 +187,7 @@ const CategoryLandingPage = (props) => {
                                     return(
                                         <Link key={counter} href={banner.anchor}>
                                             <a className={['col-6', 'col-md-2', 'px-2', 'mt-3'].join(' ')}>
-                                                <div className={['d-flex', 'flex-column', 'pointer', 'shadow-sm'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', height: '100%'}} onClick={props.clicked}>
+                                                <div className={['d-flex', 'flex-column', 'pointer'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', height: '100%', boxShadow: '0 0.05rem 0.09rem rgba(0, 0, 0, 0.08)'}} onClick={props.clicked}>
                                                     <img src={banner.img} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
                                                     {/*<h6 className={['my-3', 'text-right', 'mx-2', 'font-weight-bold'].join(' ')}>{props.name}</h6>*/}
                                                 </div>            
@@ -281,7 +282,7 @@ const CategoryLandingPage = (props) => {
                         null
                     }
                     <div className={['container'].join(' ')}>
-                        <TopSixProducts moreUrl={'/shop/product/category/' + props.ssrArtInfo.result.categoryUrl} entries={props.ssrArtInfo.result.topSixProducts} title='جدیدترین کالاها' />
+                        <NewProducts moreUrl={'/shop/product/category/' + props.ssrArtInfo.result.categoryUrl} products={props.ssrArtInfo.result.topSixProducts} title='جدیدترین کالاها' />
                     </div>
                     <div className={['container', 'mt-5'].join(' ')}>
                         <div className={['row', 'rtl'].join(' ')}>
@@ -380,10 +381,10 @@ const mapStateToProps = (state) => {
       if(await response.status === 'done' && await response.found === true){
           return {
               props: {
-                  ssrUser: {status: 'LOGIN', information: await response.information},
-                  ssrCookies: context.req.cookies,
-                  ssrMenu: await menu,
-                  ssrArtInfo: await result
+                  ssrUser: {status: 'LOGIN', information: await response.information}, 
+                  ssrCookies: context.req.cookies, 
+                  ssrMenu: await menu, 
+                  ssrArtInfo: await result 
               }
           }
       }else{
