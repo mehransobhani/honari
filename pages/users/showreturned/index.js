@@ -5,7 +5,6 @@ import * as Constants from '../../../components/constants';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 import {useCookies} from 'react-cookie';
-import styles from './style.module.css';
 import * as actionTypes from '../../../store/actions';
 import {connect} from 'react-redux';
 import Link from 'next/link';
@@ -70,6 +69,20 @@ const UserPanel  = (props) => {
         }else if(props.reduxUser.status === 'LOGIN'){
             setUserAddressInformation(JSON.parse(props.reduxUser.information.address).addressPack);
         }
+    }, [props.reduxUser.status, 'NI']);
+
+    useEffect(() => {
+        axios.post(Constants.apiUrl + '/api/user-all-return-requests', {}, {
+            headers: {
+                'Authorization': 'Bearer ' + props.ssrCookies.user_server_token, 
+            }
+        }).then((r) => {
+            let response = r.data;
+
+        }).catch((e) => {
+            console.error(e);
+            props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+        })
     }, [props.reduxUser.status, 'NI']);
 
     return(
@@ -200,152 +213,8 @@ const UserPanel  = (props) => {
                                     </div>
                                 </div>
                                 <div className={['col-12', 'col-md-10', 'container', 'mt-3', 'mt-md-0', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center'].join(' ')}>
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/panel_user_main.svg'} className={['d-md-none'].join(' ')} style={{width: '20%', borderRadius: '50%', border: '4px solid #00BAC6'}} />
-                                    <div className={['row', 'mt-3', 'px-2'].join(' ')}>
-                                        <div className={['col-12', 'col-md-6', 'p-2'].join(' ')}>
-                                            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>نام</h6>
-                                                <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
-                                                {
-                                                    props.reduxUser.status === 'NI'
-                                                    ?
-                                                    ''
-                                                    :
-                                                    props.reduxUser.information.firstName
-                                                }
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div className={['col-12', 'col-md-6', 'p-2'].join(' ')}>
-                                            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>نام خانوادگی</h6>
-                                                <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
-                                                    {
-                                                        props.reduxUser.status === 'NI'
-                                                        ?
-                                                        ''
-                                                        :
-                                                        props.reduxUser.information.lastName
-                                                    }
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div className={['col-12', 'col-md-6', 'p-2'].join(' ')}>
-                                            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>پست الکترونیک</h6>
-                                                <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
-                                                    {
-                                                        props.reduxUser.status === 'NI'
-                                                        ?
-                                                        ''
-                                                        :
-                                                        props.reduxUser.information.email
-                                                    }
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div className={['col-12', 'col-md-6', 'p-2'].join(' ')}>
-                                            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>نام نمایشی</h6>
-                                                <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
-                                                    {
-                                                        props.reduxUser.status === 'NI'
-                                                        ?
-                                                        ''
-                                                        :
-                                                        props.reduxUser.information.name
-                                                    }
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div className={['col-12', 'col-md-6', 'p-2'].join(' ')}>
-                                            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>موبایل</h6>
-                                                <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
-                                                    {
-                                                        props.reduxUser.status === 'NI'
-                                                        ?
-                                                        ''
-                                                        :
-                                                        props.reduxUser.information.mobile
-                                                    }
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div className={['col-12', 'col-md-6', 'p-2'].join(' ')}>
-                                            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>تلفن ثابت</h6>
-                                                <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
-                                                    {
-                                                        props.reduxUser.status === 'NI'
-                                                        ?
-                                                        ''
-                                                        :
-                                                        props.reduxUser.information.telephone
-                                                    }
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div className={['col-6', 'col-md-4', 'p-2'].join(' ')}>
-                                            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>استان</h6>
-                                                <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
-                                                    {
-                                                        userAddressInformation === null
-                                                        ?
-                                                        ''
-                                                        :
-                                                        userAddressInformation.province
-                                                    }
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div className={['col-6', 'col-md-4', 'p-2'].join(' ')}>
-                                            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>شهر</h6>
-                                                <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
-                                                    {
-                                                        userAddressInformation === null
-                                                        ?
-                                                        ''
-                                                        :
-                                                        userAddressInformation.city
-                                                    }
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div className={['col-12', 'col-md-4', 'p-2'].join(' ')}>
-                                            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>کد پستی</h6>
-                                                <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
-                                                    {
-                                                        userAddressInformation === null
-                                                        ?
-                                                        ''
-                                                        :
-                                                        userAddressInformation.postal
-                                                    }
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div className={['col-12', 'p-2'].join(' ')}>
-                                            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.12', fontWeight: '500'}}>آدرس</h6>
-                                                <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
-                                                    {
-                                                        userAddressInformation === null
-                                                        ?
-                                                        ''
-                                                        :
-                                                        userAddressInformation.address
-                                                    }
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div className={['col-12', 'mt-3', 'd-flex', 'flex-row', 'justify-content-center'].join(' ')}>
-                                            <a href='https://honari.com/user/edit' className={['px-5', 'py-2', 'font11md17'].join(' ')} style={{background: '#00BAC6', color: 'white', fontSize: '17px', borderRadius: '2px'}}>ویرایش</a>
-                                        </div>
-                                    </div>
+                                    
+                                    
                                 </div>
                             </div>
                         </div>

@@ -1265,7 +1265,7 @@ function BigHeader(props){
             {
                 props.reduxSnackbar.warning.show
                 ?
-                <div className={['d-flex', 'flex-row', 'rtl', 'mr-2', 'mb-2', 'px-3', 'py-2', 'align-items-center'].join(' ')} style={{background: '#a1a100', color: 'white', position: 'fixed', bottom: '0', right: '0', borderRadius: '2px', zIndex: '5000'}}>
+                <div className={['d-flex', 'flex-row', 'rtl', 'mr-2', 'mb-2', 'px-3', 'py-2', 'align-items-center'].join(' ')} style={{background: '#E8A138', color: 'white', position: 'fixed', bottom: '0', right: '0', borderRadius: '2px', zIndex: '5000'}}>
                     <img src={Constants.baseUrl + '/assets/images/main_images/alert_white_small.png'} className={['ml-2'].join(' ')} style={{width: '20px', height: '20px'}} />
                     <span>{props.reduxSnackbar.warning.title}</span>
                 </div>

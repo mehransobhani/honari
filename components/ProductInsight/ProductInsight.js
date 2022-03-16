@@ -972,19 +972,50 @@ const ProductInsight = (props) =>{
                             (
                                 (props.information.productStatus === 1) ? 
                                 <React.Fragment>
-                                <h6 className={['w-100', 'mb-1', 'text-right', 'mt-5', 'pr-md-3'].join(' ')} style={{fontSize: '17px', color: '#949494'}}>انتخاب نوع بسته</h6>
-                                <div className={['d-flex', 'flex-row', 'row', 'align-items-center', 'mx-0', 'px-2', 'py-1', 'mr-md-3'].join(' ')} style={{border: '1px solid #D8D8D8'}}>
-                                    <input type='radio' className={['form-control', 'd-none'].join(' ')} checked={true} style={{width: '14px'}} value='' />
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/radio_button_main.png'} style={{width: '14px', height: '14px'}} />
-                                    <label className={['mb-0', 'mr-2', 'text-right', 'rtl'].join(' ')} style={{fontSize: '14px'}}>{props.information.productLabel}</label>
-                                    {
-                                        props.information.productBasePrice !== undefined
-                                        ?
-                                        <label className={['mb-0', 'text-danger', 'mr-1', 'text-right', 'rtl'].join(' ')} style={{fontSize: '14px'}}>{'( هر واحد ' + props.information.productBasePrice.toLocaleString() + ' تومان )'}</label>
-                                        :
-                                        null
-                                    }
-                                </div>
+                                {
+                                    props.information.type === 'product'
+                                    ?
+                                    (
+                                        <React.Fragment>
+                                            <h6 className={['w-100', 'mb-1', 'text-right', 'mt-5', 'pr-md-3'].join(' ')} style={{fontSize: '17px', color: '#949494'}}>انتخاب نوع بسته</h6>
+                                            <div className={['d-flex', 'flex-row', 'row', 'align-items-center', 'mx-0', 'px-2', 'py-1', 'mr-md-3'].join(' ')} style={{border: '1px solid #D8D8D8'}}>
+                                                <input type='radio' className={['form-control', 'd-none'].join(' ')} checked={true} style={{width: '14px'}} value='' />
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/radio_button_main.png'} style={{width: '14px', height: '14px'}} />
+                                                <label className={['mb-0', 'mr-2', 'text-right', 'rtl'].join(' ')} style={{fontSize: '14px'}}>{props.information.productLabel}</label>
+                                                {
+                                                    props.information.productBasePrice !== undefined
+                                                    ?
+                                                    <label className={['mb-0', 'text-danger', 'mr-1', 'text-right', 'rtl'].join(' ')} style={{fontSize: '14px'}}>{'( هر واحد ' + props.information.productBasePrice.toLocaleString() + ' تومان )'}</label>
+                                                    :
+                                                    null
+                                                }
+                                            </div>
+                                        </React.Fragment>
+                                    )
+                                    :
+                                    (
+                                        <React.Fragment>
+                                            <h5 className={['font-wieight-normal', 'text-right', 'mr-3', 'mt-3'].join(' ')} style={{fontSize: '17px', color: '#949494'}}>محتویات بسته</h5>
+                                            <div className={['d-flex', 'flex-column', 'rtl', 'p-4', 'mr-3'].join(' ')} style={{border: '1px solid #DEDEDE', maxHeight: '200px', overflowY: 'scroll'}}>
+                                                
+                                                {
+                                                    props.information.subProducts.map((subProduct, index) => {
+                                                        return (
+                                                            <Link href={subProduct.url}>
+                                                                <a className={[index == 0 ? '' : 'mt-4'].join(' ')}>
+                                                                    <div className={['d-flex', 'flex-row', 'justify-content-start', 'rtl', 'align-items-center', 'pr-2'].join(' ')}>
+                                                                        <img src={Constants.baseUrl + '/assets/images/main_images/circle_main.png'} style={{width: '8px', height: '8px'}} />
+                                                                        <h6 className={['mb-0', 'text-right', 'mr-2'].join(' ')} style={{fontSize: '13px'}}>{subProduct.name}</h6>
+                                                                    </div>
+                                                                </a>
+                                                            </Link>
+                                                        );
+                                                    })
+                                                }
+                                            </div>
+                                        </React.Fragment>
+                                    )
+                                }
                                 <div className={['row', 'align-items-center', 'mt-5', 'pt-2', 'pr-md-3'].join(' ')}>
                                 {
                                     props.information.productPrice !== undefined && props.information.discountedPrice !== undefined
