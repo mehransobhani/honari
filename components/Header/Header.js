@@ -792,13 +792,14 @@ function BigHeader(props){
     const RightMenu = () => {
         return (
             <div className={['']} style={{minWidth: '270px', overflowX: 'hidden'}}>
-                <div className={['d-flex', 'flex-row', 'rtl'].join(' ')} style={{background: '#E0F6F2', padding: '10px'}}>
-                    <Link href={'/'}><img onClick={props.reduxStartLoading} src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['poniter'].join(' ')} style={{width: '36px', height: '36px'}} /></Link>
-                    <div className={['d-flex', 'flex-column', 'rtl'].join(' ')}>
+                <div className={['d-flex', 'flex-row', 'rtl'].join(' ')} style={{background: '#E0F6F2'}}>
+                    <Link href={'/'}><img onClick={props.reduxStartLoading} src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['poniter'].join(' ')} style={{width: '36px', height: '36px', marginRight: '10px', marginTop: '10px', marginBottom: '10px'}} /></Link>
+                    <div className={['d-flex', 'flex-column', 'rtl'].join(' ')} style={{marginTop: '10px', marginBottom: '10px'}}>
                         <Link href={'/'}><a onClick={props.reduxStartLoading}><h2 className={['mr-2', 'mb-0', 'text-right', 'pointer'].join(' ')} style={{color: '#00BAC6', fontSize: '20px', fontWeight: '500'}}>هنری</h2></a></Link>
                         <h4 className={['mr-2', 'mb-0', 'text-right'].join(' ')} style={{color: '#949494', fontSize: '10px'}}>آموزش، الگو، مواداولیه</h4>
                     </div>
-                </div>
+                    <div className={['bg-danger'].join(' ')} style={{position: 'absolute', top: '0', left: '0', width: '5.4rem', height: '3.5rem', background: 'url(' + Constants.baseUrl + '/assets/images/main_images/desktop_flower_left.png)', backgroundRepeat: 'no-repeat', backgroundPosition: 'left', backgroundSize: 'cover'}}></div>
+                </div>  
                 {
                     rightMenuHeaderNumber == 0 
                     ?
@@ -1265,7 +1266,7 @@ function BigHeader(props){
             {
                 props.reduxSnackbar.warning.show
                 ?
-                <div className={['d-flex', 'flex-row', 'rtl', 'mr-2', 'mb-2', 'px-3', 'py-2', 'align-items-center'].join(' ')} style={{background: '#a1a100', color: 'white', position: 'fixed', bottom: '0', right: '0', borderRadius: '2px', zIndex: '5000'}}>
+                <div className={['d-flex', 'flex-row', 'rtl', 'mr-2', 'mb-2', 'px-3', 'py-2', 'align-items-center'].join(' ')} style={{background: '#E8A138', color: 'white', position: 'fixed', bottom: '0', right: '0', borderRadius: '2px', zIndex: '5000'}}>
                     <img src={Constants.baseUrl + '/assets/images/main_images/alert_white_small.png'} className={['ml-2'].join(' ')} style={{width: '20px', height: '20px'}} />
                     <span>{props.reduxSnackbar.warning.title}</span>
                 </div>
@@ -1284,20 +1285,36 @@ function BigHeader(props){
             }
             <div className={['container-fluid', 'p-0'].join(' ')} style={{position: 'sticky', top: '0', zIndex: '500', backgroundColor: 'white'}}>
             {
-                props.reduxLoad === true ? <div className={['w-100'].join(' ')} style={{position: 'absolute', top: '0', left: '0'}}><StyledLinearProgressActive /></div> : null
+                props.reduxUser.status === 'LOGIN'
+                ?
+                (
+                    <React.Fragment>
+                        <div className={['d-none', 'd-xl-block'].join(' ')} style={{position: 'absolute', top: '0', left: '0', bottom: '3rem'}}>
+                            <img src={Constants.baseUrl + '/assets/images/main_images/desktop_flower_left.png'} className={[''].join(' ')} style={{height: '100%'}} />
+                        </div>
+                        <div className={['d-none', 'd-xl-block'].join(' ')} style={{position: 'absolute', top: '0', right: '0.7rem', bottom: '3rem'}}>
+                            <img src={Constants.baseUrl + '/assets/images/main_images/desktop_flower_right.png'} className={[''].join(' ')} style={{height: '100%'}} />
+                        </div>
+                    </React.Fragment>
+                )
+                :
+                null
             }
-            <div className={'container'}>
+            {
+                props.reduxLoad === true ? <div className={['w-100'].join(' ')} style={{position: 'absolute', top: '0', left: '0', zIndex: '3000'}}><StyledLinearProgressActive /></div> : null
+            }
+            <div className={['container'].join(' ')}>
                 {
                     props.home == true 
                     ?
                     <React.Fragment>
-                    <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'd-md-none', 'p-2', 'mt-2'].join(' ')}>
+                    <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'd-lg-none', 'p-2', 'mt-2'].join(' ')}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/menu_black_small.png'} style={{width: '27px', height: '27px'}} onClick={toggleDrawer('right', true)} />
                         <img src={Constants.baseUrl + '/assets/images/main_images/honari.png'} style={{width: '40px', height: '40px'}} />
                         {
                             props.reduxUser.status == 'LOGIN'
                             ?
-                                <div onClick={() => {setRightMenuHeaderNumber(2)}} className={['pointer'].join(' ')}><img onClick={toggleDrawer('right', true)} src={Constants.baseUrl + '/assets/images/main_images/user_black.png'} className={['d-md-none'].join(' ')} style={{width: '27px', height: '27px'}}/></div>
+                                <div onClick={() => {setRightMenuHeaderNumber(2)}} className={['pointer'].join(' ')}><img onClick={toggleDrawer('right', true)} src={Constants.baseUrl + '/assets/images/main_images/user_black.png'} className={['d-lg-none'].join(' ')} style={{width: '27px', height: '27px'}}/></div>
                             :
                             (
                                 <Link href='/user'>
@@ -1314,13 +1331,13 @@ function BigHeader(props){
                     :
                     null
                 }
-                <div className={['row', 'pt-2', 'mb-0', 'pb-2', 'px-1', 'd-none', 'd-md-flex'].join(' ')} style={{direction: 'rtl'}}>
-                    <div className={['col-7', 'col-lg-9', 'rtl', 'text-right', 'd-flex', 'flex-row', 'pr-0', 'pr-lg-1', 'align-items-center',  'pl-0', 'justify-content-lg-between'].join(' ')}>
+                <div className={['row', 'py-0', 'mb-0', 'px-1', 'd-none', 'd-lg-flex'].join(' ')} style={{direction: 'rtl'}}>
+                    <div className={['col-7', 'col-lg-9', 'rtl', 'text-right', 'd-flex', 'flex-row', 'pr-0', 'pr-lg-1', 'align-items-center',  'pl-0', 'pb-2', 'pt-2', 'justify-content-lg-between'].join(' ')} style={{background: 'white'}}>
                         <div className={['d-flex', 'flex-row', 'rtl', 'desktopInfo  '].join(' ')}>
                             <Link href={'/'}><img onClick={props.reduxStartLoading} src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['pointer', 'd-none', 'd-lg-block'].join(' ')} style={{width: '60px'}} /></Link>
                             <div className={['pr-1', 'flex-column', 'align-items-center', 'd-none', 'd-lg-flex'].join(' ')}>
-                                <Link href={'/'}><a onClick={props.reduxStartLoading} className={['w-100'].join(' ')}><h1 className={['pr-1', 'align-self-start', 'm-0', 'pointer', 'text-right'].join(' ')} style={{fontSize: '24px', color: '#00bac6'}}>هنری</h1></a></Link>
-                                <p className={['pr-1', 'align-self-end', 'mb-0', 'mt-2'].join(' ')}>آموزش، الگو، مواداولیه</p>
+                                <Link href={'/'}><a onClick={props.reduxStartLoading} className={['w-100'].join(' ')}><h1 className={['pr-3', 'align-self-start', 'm-0', 'pointer', 'text-right'].join(' ')} style={{fontSize: '24px', color: '#00bac6'}}>هنری</h1></a></Link>
+                                <p className={['pr-3', 'align-self-end', 'mb-0', 'mt-2'].join(' ')}>آموزش، الگو، مواداولیه</p>
                             </div>
                         </div>
                         <form action='/search/SearchResult' method='GET' ref={desktopSearchBar} className={['rounded-sm', 'd-none', 'd-lg-flex', 'flex-row', 'rtl', 'w-100'].join(' ')}>
@@ -1329,7 +1346,7 @@ function BigHeader(props){
                             {desktopSearchResults()}
                         </form> 
                     </div>
-                    <div className={['col-5', 'col-lg-3', 'text-left', 'd-flex', 'align-items-center', 'ltr', 'p-0'].join(' ')}>
+                    <div className={['col-5', 'col-lg-3', 'text-left', 'd-flex', 'align-items-center', 'ltr', 'px-0', 'pt-2', 'pb-2'].join(' ')} style={{background: 'white'}}>
                         <div className={['ltr', 'align-items-center', 'p-2', 'pointer', 'd-none', 'd-md-flex', 'flex-row'].join(' ')} style={{position: 'relative'}} onMouseEnter={()=>{setCartOpenState(true)}} onMouseLeave={()=>{setCartOpenState(false)}}>
                             {
                                 props.reduxCart.status === 'HI'
@@ -1391,18 +1408,18 @@ function BigHeader(props){
                             </Link>
                             <Link href='/users/charge_account'>
                                 <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl', 'text-right', 'pr-2', 'mt-2'].join(' ')}>
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/cash_black_small.png'} style={{width: '20px', height: '20px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/panel_wallet_black.svg'} style={{width: '20px', height: '20px'}} />
                                     <h6 className={['mb-0', 'pr-2', 'rtl', 'text-right'].join(' ')} style={{fontSize: '13px'}}>شارژ حساب کاربری</h6> 
                                 </a>
                             </Link>
                             <Link href='/users/orders'>
                                 <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl', 'text-right', 'mt-4', 'pr-2'].join(' ')}>
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/to-do-list.png'} style={{width: '20px', height: '20px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/panel_cart_black.svg'} style={{width: '20px', height: '20px'}} />
                                     <h6 className={['mb-0', 'pr-2', 'rtl', 'text-right'].join(' ')} style={{fontSize: '13px'}}>سفارشات من</h6> 
                                 </a>
                             </Link>
                             <a href='https://honari.com/academy/user/courses' className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl', 'text-right', 'mt-4', 'pr-2'].join(' ')}>
-                                <img src={Constants.baseUrl + '/assets/images/main_images/online-education.png'} style={{width: '20px', height: '20px'}} />
+                                <img src={Constants.baseUrl + '/assets/images/main_images/panel_video_black.svg'} style={{width: '20px', height: '20px'}} />
                                 <h6 className={['mb-0', 'pr-2', 'rtl', 'text-right'].join(' ')} style={{fontSize: '13px'}}>کلاس‌های من</h6> 
                             </a>
                             <div onClick={logoutUserButtonClicked} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl', 'text-right', 'mt-4', 'pr-2', 'pointer', 'mb-3'].join(' ')}>
@@ -1421,7 +1438,7 @@ function BigHeader(props){
                         </form>
                     </div>
                 </div>
-                <div className={['row', 'pt-2', 'mb-0', 'pb-2', 'px-1', 'd-md-none', 'align-items-center'].join(' ')} style={{direction: 'rtl'}}>
+                <div className={['row', 'pt-2', 'mb-0', 'pb-2', 'px-1', 'd-lg-none', 'align-items-center'].join(' ')} style={{direction: 'rtl'}}>
                     {
                             props.home != true 
                         ?
@@ -1432,7 +1449,7 @@ function BigHeader(props){
                         :
                             null
                     }
-                    <div onClick={toggleSearchDrawer('top', true)} className={['d-flex', 'flex-row', 'ltr', 'd-md-none', 'pr-1', 'align-items-center', 'justify-content-right', 'ml-2'].join(' ')} style={{height: '30px', flex: '1'}} >
+                    <div onClick={toggleSearchDrawer('top', true)} className={['d-flex', 'flex-row', 'ltr', 'd-lg-none', 'pr-1', 'align-items-center', 'justify-content-right', 'ml-2'].join(' ')} style={{height: '30px', flex: '1'}} >
                         <div onClick={() => {if(phoneSearchInput.length !== 0){window.location.href = '/search/SearchResult?query=' + phoneSearchInput}}} className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-center', 'p-0', 'pointer'].join(' ')} style={{width: '30px', height: '30px', background: '#FFFFFF', borderTop: '1px solid #D8D8D8', borderBottom: '1px solid #D8D8D8', borderLeft: '1px solid #D8D8D8', borderRadius: '3px 0px 0px 3px'}}>
                             <img src={Constants.baseUrl + '/assets/images/main_images/search_main.png'} className={['pointer'].join(' ')} style={{width: '15px', height: '15px'}}/>
                         </div>
@@ -1463,7 +1480,7 @@ function BigHeader(props){
                             </div>    
                         )
                     }
-                    <div className={['ltr', 'align-items-center', 'p-2', 'pr-0', 'mr-0', 'pointer', 'd-md-none', 'flex-row'].join(' ')} style={{position: 'relative'}}>
+                    <div className={['ltr', 'align-items-center', 'p-2', 'pr-0', 'mr-0', 'pointer', 'd-lg-none', 'flex-row'].join(' ')} style={{position: 'relative'}}>
                         <img src={Constants.baseUrl + '/assets/images/header_cart.png'} className={['ml-0'].join(' ')} style={{width: '25px'}} onClick={toggleCartDrawer('left', true)} />
                             {
                                 props.reduxCart.status === 'HI'

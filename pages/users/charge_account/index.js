@@ -33,9 +33,10 @@ const ChargeAccount = (props) => {
                     if(response.cart !== '{}'){
                         response.cart.map((item, counter) => {
                             cartArray.push({
-                                productId: item.productId,
-                                name: item.productName,
-                                categoryId: item.categoryId,
+                                productId: item.productId, 
+                                productPackId: item.productPackId, 
+                                name: item.productName, 
+                                categoryId: item.categoryId, 
                                 prodID: item.prodID,
                                 url: item.productUrl,
                                 count: item.productCount,

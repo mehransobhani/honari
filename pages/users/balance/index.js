@@ -40,20 +40,21 @@ const UserBalance = (props) => {
                     if(response.cart !== '{}'){
                         response.cart.map((item, counter) => {
                             cartArray.push({
-                                productId: item.productId,
-                                name: item.productName,
-                                categoryId: item.categoryId,
-                                prodID: item.prodID,
-                                url: item.productUrl,
-                                count: item.productCount,
-                                unitCount: item.productUnitCount,
-                                unitName: item.productUnitName,
-                                label: item.productLabel,
-                                basePrice: item.productBasePrice,
-                                price: item.productPrice,
-                                discountedPrice: item.discountedPrice,
-                                discountPercent: item.discountPercent
-                            });
+                                productId: item.productId, 
+                                productPackId: item.productPackId, 
+                                name: item.productName, 
+                                categoryId: item.categoryId, 
+                                prodID: item.prodID, 
+                                url: item.productUrl, 
+                                count: item.productCount, 
+                                unitCount: item.productUnitCount, 
+                                unitName: item.productUnitName, 
+                                label: item.productLabel, 
+                                basePrice: item.productBasePrice, 
+                                price: item.productPrice, 
+                                discountedPrice: item.discountedPrice, 
+                                discountPercent: item.discountPercent 
+                            }); 
                         });
                         props.reduxUpdateCart(cartArray);
                     }else{
