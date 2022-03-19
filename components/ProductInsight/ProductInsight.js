@@ -921,7 +921,7 @@ const ProductInsight = (props) =>{
                                 aparatScript !== undefined && props.information.aparat !== ''
                                 ?
                                 <div className={['pointer'].join(' ')} style={{width: '3rem', height: '3rem', position: 'relative', borderRadius: '2px'}} onClick={videoImageClicked}>
-                                    <img style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '2', opacity: '100%', border: '1px solid #DEDEDE', borderRadius: '2px'}} src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + otherImages[0] + '.jpg'} className={['pointer', otherImages.length > 1 ? 'mt-2' : ''].join(' ')} />
+                                    <img style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '2', opacity: '100%', border: '1px solid #DEDEDE', borderRadius: '2px'}} src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + otherImages[0] + '.jpg'} className={['pointer'].join(' ')} />
                                     <img src={Constants.baseUrl + '/assets/images/main_images/square_black.png'} className={[''].join(' ')} style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', opacity: '40%', zIndex: '3', border: '1px solid #DEDEDE', borderRadius: '2px'}} />
                                     <img src={Constants.baseUrl + '/assets/images/main_images/play_white_small.png'} className={[''].join(' ')} style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', opacity: '100%', zIndex: '4', border: '1px solid #DEDEDE', borderRadius: '2px'}} />
                                 </div>

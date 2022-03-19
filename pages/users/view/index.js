@@ -204,7 +204,7 @@ const UserPanel  = (props) => {
                                     <div className={['row', 'mt-3', 'px-2'].join(' ')}>
                                         <div className={['col-12', 'col-md-6', 'p-2'].join(' ')}>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>نام</h6>
+                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md14'].join(' ')} style={{background: '#FAFAFA', flex: '0.3', fontWeight: '500'}}>نام</h6>
                                                 <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
                                                 {
                                                     props.reduxUser.status === 'NI'
@@ -218,7 +218,7 @@ const UserPanel  = (props) => {
                                         </div>
                                         <div className={['col-12', 'col-md-6', 'p-2'].join(' ')}>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>نام خانوادگی</h6>
+                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md14'].join(' ')} style={{background: '#FAFAFA', flex: '0.3', fontWeight: '500'}}>نام خانوادگی</h6>
                                                 <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
                                                     {
                                                         props.reduxUser.status === 'NI'
@@ -232,7 +232,7 @@ const UserPanel  = (props) => {
                                         </div>
                                         <div className={['col-12', 'col-md-6', 'p-2'].join(' ')}>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>پست الکترونیک</h6>
+                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md14'].join(' ')} style={{background: '#FAFAFA', flex: '0.3', fontWeight: '500'}}>پست الکترونیک</h6>
                                                 <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
                                                     {
                                                         props.reduxUser.status === 'NI'
@@ -246,7 +246,7 @@ const UserPanel  = (props) => {
                                         </div>
                                         <div className={['col-12', 'col-md-6', 'p-2'].join(' ')}>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>نام نمایشی</h6>
+                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md14'].join(' ')} style={{background: '#FAFAFA', flex: '0.3', fontWeight: '500'}}>نام نمایشی</h6>
                                                 <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
                                                     {
                                                         props.reduxUser.status === 'NI'
@@ -260,7 +260,7 @@ const UserPanel  = (props) => {
                                         </div>
                                         <div className={['col-12', 'col-md-6', 'p-2'].join(' ')}>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>موبایل</h6>
+                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md14'].join(' ')} style={{background: '#FAFAFA', flex: '0.3', fontWeight: '500'}}>موبایل</h6>
                                                 <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
                                                     {
                                                         props.reduxUser.status === 'NI'
@@ -274,7 +274,7 @@ const UserPanel  = (props) => {
                                         </div>
                                         <div className={['col-12', 'col-md-6', 'p-2'].join(' ')}>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>تلفن ثابت</h6>
+                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md14'].join(' ')} style={{background: '#FAFAFA', flex: '0.3', fontWeight: '500'}}>تلفن ثابت</h6>
                                                 <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
                                                     {
                                                         props.reduxUser.status === 'NI'
@@ -288,7 +288,7 @@ const UserPanel  = (props) => {
                                         </div>
                                         <div className={['col-6', 'col-md-4', 'p-2'].join(' ')}>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>استان</h6>
+                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md14'].join(' ')} style={{background: '#FAFAFA', flex: '0.3', fontWeight: '500'}}>استان</h6>
                                                 <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
                                                     {
                                                         userAddressInformation === null
@@ -302,7 +302,7 @@ const UserPanel  = (props) => {
                                         </div>
                                         <div className={['col-6', 'col-md-4', 'p-2'].join(' ')}>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>شهر</h6>
+                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md14'].join(' ')} style={{background: '#FAFAFA', flex: '0.3', fontWeight: '500'}}>شهر</h6>
                                                 <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
                                                     {
                                                         userAddressInformation === null
@@ -316,7 +316,7 @@ const UserPanel  = (props) => {
                                         </div>
                                         <div className={['col-12', 'col-md-4', 'p-2'].join(' ')}>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.3', fontWeight: '500'}}>کد پستی</h6>
+                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md14'].join(' ')} style={{background: '#FAFAFA', flex: '0.3', fontWeight: '500'}}>کد پستی</h6>
                                                 <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
                                                     {
                                                         userAddressInformation === null
@@ -330,7 +330,7 @@ const UserPanel  = (props) => {
                                         </div>
                                         <div className={['col-12', 'p-2'].join(' ')}>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
-                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md17'].join(' ')} style={{background: '#F2F2F2', flex: '0.12', fontWeight: '500'}}>آدرس</h6>
+                                                <h6 className={['py-2', 'mb-0', 'text-center', 'font11md14'].join(' ')} style={{background: '#FAFAFA', flex: '0.12', fontWeight: '500'}}>آدرس</h6>
                                                 <h6 className={['py-2', 'mb-0', 'text-right', 'pr-3', 'font11md17'].join(' ')} style={{flex: '1'}}>
                                                     {
                                                         userAddressInformation === null

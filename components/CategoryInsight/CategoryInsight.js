@@ -506,7 +506,7 @@ const CategoryInsight = (props) => {
             <Drawer anchor="bottom" open={state['bottom']} onClose={filterDrawer('bottom', false)}>
                 {phoneFilter}
             </Drawer>
-            <div className={[''].join(' ')} style={{backgroundColor: '#F2F2F2'}}>
+            <div className={[''].join(' ')} style={{backgroundColor: '#F7F7F7'}}>
                 <div className={['container'].join(' ')} style={{overflowX: 'hidden'}}>
                    <div className={['row', 'align-items-center', 'rtl', 'py-1', 'py-md-2', 'px-2'].join(' ')} style={{overflowX: 'hidden'}}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/youre_here.svg'} style={{width: '80px'}} />
