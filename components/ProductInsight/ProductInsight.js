@@ -687,14 +687,14 @@ const ProductInsight = (props) =>{
                 <div className={['d-flex', 'flex-row', 'align-items-center', 'mb-2'].join(' ')}>
                     <h6 className={['mb-0', 'mr-2'].join(' ')}>مشخصات محصول</h6>
                 </div>
-                <table className={['table', 'table-striped', 'mt-3'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', backgroundColor: 'white'}}>
-                    <tbody>
+                <table className={['mt-3', 'col-12', 'px-0'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', backgroundColor: 'white'}}>
+                    <tbody className={['container'].join(' ')}>
                         {
                             props.features.map((feature, index)=>{
                                 return(
-                                    <tr key={index} className={['d-flex', 'flex-row', 'align-items-center'].join(' ')}>
-                                        <td className={['text-right', 'ltr', 'font-weight-bold'].join(' ')} style={{fontSize: '14px', flex: '1'}}>{feature.title}</td>
-                                        <td className={['text-right', 'ltr'].join(' ')} style={{borderRight: '1px dashed #DEDEDE', fontSize: '14px', flex: '3'}}>{feature.value}</td>
+                                    <tr key={index} className={['d-flex', 'flex-row', 'align-items-stretch', 'row', 'mx-0'].join(' ')} style={{background: index%2 == 0 ? '#FFF8F1' : '#FFFFFF', borderTop: index != 0 ?'1px solid #DEDEDE' : ''}}>
+                                        <td className={['text-right', 'ltr', 'font-weight-bold'].join(' ')} style={{fontSize: '14px', flex: '1', padding: '0.7rem'}}>{feature.title}</td>
+                                        <td className={['text-right', 'ltr'].join(' ')} style={{borderRight: '1px dashed #DEDEDE', fontSize: '14px', flex: '3', padding: '0.7rem'}}>{feature.value}</td>
                                     </tr> 
                                 );
                             })
@@ -913,7 +913,7 @@ const ProductInsight = (props) =>{
                             {
                                 otherImages.map((oi, index) => {
                                     return (
-                                        <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + oi + '.jpg'} onClick={() => {changeSelectedImage(index)}} className={['pointer'].join(' ')} key={index} style={{width: '3rem', borderRadius: '2px', border: '1px solid #DEDEDE'}} />
+                                        <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + oi + '.jpg'} onClick={() => {changeSelectedImage(index)}} className={['pointer', otherImages.length <= 1 ? 'd-none' : ''].join(' ')} key={index} style={{width: '3rem', borderRadius: '2px', border: '1px solid #DEDEDE'}} />
                                     );
                                 })
                             }
@@ -929,15 +929,9 @@ const ProductInsight = (props) =>{
                                 null
                             }
                         </div>
-                        <div className={['d-none', 'flex-column', 'justify-content-center', 'productInsightLeftSemicircular', 'pointer'].join(' ')} style={{position: 'absolute', top: '0', height: '100%', zIndex: '50'}}>
-                            
-                        </div>
-                        <div className={['d-none', 'flex-column', 'justify-content-center', 'productInsightRightSemicircular', 'pointer'].join(' ')} style={{position: 'absolute', top: '0', height: '100%', zIndex: '50'}}>
-                            
-                        </div>
                         <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'ltr'].join(' ')} style={{position: 'absolute', left: '0', top: '13rem', width: '100%', zIndex: '100'}}>
-                            <img src={Constants.baseUrl + '/assets/images/main_images/left_semicircular_arrow.png'} onClick={gotoNexImage} className={['productInsightLeftSemicircular', 'pointer'].join(' ')} style={{width: '3rem', position: 'relative'}} />
-                            <img src={Constants.baseUrl + '/assets/images/main_images/right_semicircular_arrow.png'} onClick={gotoPreviousImage} className={['productInsightRightSemicircular', 'pointer'].join(' ')} style={{width: '3rem', position: 'relative'}} />
+                            <img src={Constants.baseUrl + '/assets/images/main_images/left_semicircular_arrow.png'} onClick={gotoNexImage} className={['productInsightLeftSemicircular', 'pointer', otherImages.length <= 1 ? 'd-none' : ''].join(' ')} style={{width: '3rem', position: 'relative'}} />
+                            <img src={Constants.baseUrl + '/assets/images/main_images/right_semicircular_arrow.png'} onClick={gotoPreviousImage} className={['productInsightRightSemicircular', 'pointer', otherImages.length <= 1 ? 'd-none' : ''].join(' ')} style={{width: '3rem', position: 'relative'}} />
                         </div>
                     </div>
                     <div className={['col-12', 'col-md-7', 'rtl', 'mt-3', 'mt-md-0', 'pr-md-4'].join(' ')}>
@@ -1187,7 +1181,7 @@ const ProductInsight = (props) =>{
                     {commentsSection}
             </div>
             <div className={['container'].join(' ')}>
-                    <TopSixProducts title='محصولات مشابه' entries={props.similarProducts} />   
+                <TopSixProducts title='محصولات مشابه' entries={props.similarProducts} />   
             </div>
         </React.Fragment>
         

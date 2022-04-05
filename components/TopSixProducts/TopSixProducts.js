@@ -42,10 +42,10 @@ const TopSixProducts = (props) => {
             }
         </div>
         <div className={['row','mt-2', 'mt-md-3', 'px-1'].join(' ')}>
-            <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'px-2', 'p-md-0', 'align-items-stretch', styles.topSixContainer].join(' ')} style={{overflowX: 'scroll'}}>
+            <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'px-2', 'p-md-0', 'align-items-stretch', 'horizontal-scrollable', styles.topSixContainer].join(' ')}>
                 {
                     props.entries.map((item, counter) => {
-                        let imageUrl='https://honari.com/image/resizeTest/shop/_600x/thumb_' + item.prodID + '.jpg';
+                        let imageUrl='https://honari.com/image/resizeTest/shop/_200x/thumb_' + item.prodID + '.jpg';
                         return (
                             <div className={['col-5', 'col-md-2', 'px-2', 'py-0', 'my-0', 'mb-2'].join(' ')} key={counter}>
                                 <Link href={'/' + item.productUrl}>

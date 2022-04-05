@@ -48,7 +48,7 @@ const NewProduct = (props) => {
             </Link>
         </div>
         <div className={['row','mt-2', 'mt-md-3', 'rtl'].join(' ')}>
-            <div className={['w-100', 'd-flex', 'flex-row', 'rtl', 'px-2', 'p-md-0', 'align-items-stretch', styles.newProductContainer].join(' ')} style={{overflowX: 'scroll'}}>
+            <div className={['w-100', 'd-flex', 'flex-row', 'rtl', 'px-2', 'p-md-0', 'align-items-stretch', 'horizontal-scrollable', styles.newProductContainer].join(' ')}>
                 {
                     props.products.map((product, counter) => {
                             return(

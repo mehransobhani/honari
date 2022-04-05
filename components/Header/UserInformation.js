@@ -5,14 +5,16 @@ import Link from 'next/link';
 import Image from 'next/image';
 import * as Constants from '../constants';
 import {useCookies} from 'react-cookie';
+import { useRouter } from 'next/router';
 
 const UserInformation = (props) => {
 
+    const router = useRouter();
     const [cookies , setCookie , removeCookie] = useCookies();
 
     const logOut = () => {
-        removeCookie('user_server_token');
-        window.location.href = '/';
+        removeCookie('user_server_token', {domain: '.honari.com', path: '/'});
+        router.reload(window.location.pathname);
     }
 
     return (
