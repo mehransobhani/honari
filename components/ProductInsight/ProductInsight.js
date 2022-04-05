@@ -942,7 +942,7 @@ const ProductInsight = (props) =>{
                     </div>
                     <div className={['col-12', 'col-md-7', 'rtl', 'mt-3', 'mt-md-0', 'pr-md-4'].join(' ')}>
                         <div className={['d-flex', 'flex-row', 'rtl', 'align-items-start', 'justify-content-between', 'pr-md-3', 'mt-md-5'].join(' ')}>
-                            <h2 className={['mb-0', 'text-right', 'rtl', 'font-weight-bold'].join(' ')} style={{fontSize: '20px', color: '#2B2B2B', lineHeight: '2.2rem'}}>{props.information.productName}</h2>
+                            <h2 className={['mb-0', 'text-right', 'rtl', 'font-weight-bold', 'font14md20'].join(' ')} style={{color: '#2B2B2B', lineHeight: '2.2rem'}}>{props.information.productName}</h2>
                             {   
                                 props.information.productStatus === 1  ?
                                     <div  className={['d-flex', 'flex-row', 'align-items-center', 'bg-success', 'rtl', 'py-1', 'px-2', 'align-self-top'].join(' ')} style={{color: 'white', borderRadius: '2px'}}>

@@ -47,7 +47,7 @@
 }
 
 .desktopSearchBar {
-    width: 300px;
+    width: 100px;
     transition: width 1.4s ease;
 }
 .menuArts:hover{
