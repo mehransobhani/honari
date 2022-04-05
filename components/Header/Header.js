@@ -69,7 +69,7 @@ function BigHeader(props){
         setWindowWidth(window.outerWidth);
         setWindowHeight(window.outerHeight);
         setShowSearchResults(false);
-        setDesktopSearchBarWidth(desktopSearchBar.current.offsetWidth);
+        setDesktopSearchBarWidth(86.5 * desktopSearchBar.current.offsetWidth / 100);
     }, []);
 
     const handleChange = (panel) => (event, isExpanded) => {
@@ -976,20 +976,24 @@ function BigHeader(props){
     }
 
     const desktopAcademyArts = (
-        <div onMouseEnter={academyMouseEntered} onMouseLeave={academyMouseLeft} className={['row' , showDesktopAcademyArts ? '' : 'd-none'].join(' ')} style={{width: '44rem', background: 'white', borderRadius: '2px', position: 'absolute', left: '-0.42rem', top: '2.2rem', border: '1px solid #DEDEDE'}}>
-            <div className={['d-none'].join(' ')} style={{width: '44rem', height: '1px', boxShadow: '0 0.09rem 0.2rem rgba(0, 0, 0, 0.22)', marginTop: '0.4rem', background: '#F7F7F7'}}></div>
-            <div className={['container-fluid'].join(' ')}>
-                <div className={['row', 'p-2'].join(' ')}>
-                {
-                    academyArts.map((art, index) => {
-                        return (
-                            <a className={['col-4', 'mb-2'].join(' ')} href={'https://honari.com/academy/category/' + art.url}><h3 key={index} className={['text-right', 'rtl', styles.menuArts].join(' ')} style={{fontSize: '14px'}}>{art.name}</h3></a>
-                        )
-                    })
-                }
+        <React.Fragment>
+            <div onMouseEnter={academyMouseEntered} onMouseLeave={academyMouseLeft} className={['row' , showDesktopAcademyArts ? '' : 'd-none'].join(' ')} style={{width: '8rem', height: '1rem', position: 'absolute', left: '-4.8rem', top: '1.0rem'}}>
+            </div>
+            <div onMouseEnter={academyMouseEntered} onMouseLeave={academyMouseLeft} className={['row' , showDesktopAcademyArts ? '' : 'd-none'].join(' ')} style={{width: '44rem', background: 'white', borderRadius: '2px', position: 'absolute', left: '-4.8rem', top: '1.5rem', border: '1px solid #DEDEDE'}}>
+                <div className={['d-none'].join(' ')} style={{width: '44rem', height: '1px', boxShadow: '0 0.09rem 0.2rem rgba(0, 0, 0, 0.22)', marginTop: '0.4rem', background: '#F7F7F7'}}></div>
+                <div className={['container-fluid'].join(' ')}>
+                    <div className={['row', 'p-2'].join(' ')}>
+                    {
+                        academyArts.map((art, index) => {
+                            return (
+                                <a className={['col-4', 'mb-2'].join(' ')} href={'https://honari.com/academy/category/' + art.url}><h3 key={index} className={['text-right', 'rtl', styles.menuArts].join(' ')} style={{fontSize: '14px'}}>{art.name}</h3></a>
+                            )
+                        })
+                    }
+                    </div>
                 </div>
             </div>
-        </div>
+        </React.Fragment>
     );
 
     const slashesCountInUrl = (url) => {
@@ -1005,7 +1009,7 @@ function BigHeader(props){
     const desktopSearchResults = () => {
         if(searchResults.length !== 0 && showSearchResults){
             return (
-                <div className={['d-flex', 'flex-column'].join(' ')} style={{background: 'white', display: 'flex', position: 'absolute', top: '3.3rem', minWidth: '330px', width: desktopSearchBarWidth, zIndex: '999999999', borderRadius: '2px', border: '1px solid #D8D8D8'}}>
+                <div className={['d-flex', 'flex-column'].join(' ')} style={{background: 'white', display: 'flex', position: 'absolute', top: '2.6rem', minWidth: '10rem', width: desktopSearchBarWidth, zIndex: '999999999', borderRadius: '2px', border: '1px solid #D8D8D8'}}>
                     <div className={['d-flex', 'flex-row', 'ltr', 'text-left', 'justify-content-left', 'pt-2', 'px-2'].join(' ')}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/close_gray_small.png'} className={['pointer'].join(' ')} style={{width: '17px', heigth: '17px'}} onClick={() => {setShowSearchResults(false); setShouldDesktopSearchBarBeOpen(false); setDsw('300px');}} />
                     </div>
@@ -1334,15 +1338,15 @@ function BigHeader(props){
                 <div className={['row', 'py-0', 'mb-0', 'px-1', 'd-none', 'd-lg-flex'].join(' ')} style={{direction: 'rtl'}}>
                     <div className={['col-7', 'col-lg-9', 'rtl', 'text-right', 'd-flex', 'flex-row', 'pr-0', 'pr-lg-1', 'align-items-center',  'pl-0', 'pb-2', 'pt-2', 'justify-content-lg-between'].join(' ')} style={{background: 'white'}}>
                         <div className={['d-flex', 'flex-row', 'rtl', 'desktopInfo  '].join(' ')}>
-                            <Link href={'/'}><img onClick={props.reduxStartLoading} src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['pointer', 'd-none', 'd-lg-block'].join(' ')} style={{width: '60px'}} /></Link>
-                            <div className={['pr-1', 'flex-column', 'align-items-center', 'd-none', 'd-lg-flex'].join(' ')}>
+                            <Link href={'/'}><img onClick={props.reduxStartLoading} src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['pointer', 'd-none', 'd-lg-block'].join(' ')} style={{width: '50px', height: '50px', position: 'relative', top: '0.28rem'}} /></Link>
+                            <div className={['pr-0', 'flex-column', 'align-items-center', 'd-none', 'd-lg-flex'].join(' ')}>
                                 <Link href={'/'}><a onClick={props.reduxStartLoading} className={['w-100'].join(' ')}><h1 className={['pr-3', 'align-self-start', 'm-0', 'pointer', 'text-right'].join(' ')} style={{fontSize: '24px', color: '#00bac6'}}>هنری</h1></a></Link>
                                 <p className={['pr-3', 'align-self-end', 'mb-0', 'mt-2'].join(' ')}>آموزش، الگو، مواداولیه</p>
                             </div>
                         </div>
-                        <form action='/search/SearchResult' method='GET' ref={desktopSearchBar} className={['rounded-sm', 'd-none', 'd-lg-flex', 'flex-row', 'rtl', 'w-100'].join(' ')}>
+                        <form action='/search/SearchResult' method='GET' ref={desktopSearchBar} className={['rounded-sm', 'd-none', 'd-lg-flex', 'flex-row', 'rtl', 'w-100'].join(' ')} style={{position: 'relative', right: '3rem'}}>
                             <button type='submin' className={['p-2', 'pointer'].join(' ')} style={{borderRadius: '0 4px 4px 0', border: 'none', backgroundColor: '#00bac6', width: '40px'}}><img src={Constants.baseUrl + '/assets/images/main_images/search_white.png'} style={{width: '100%', padding: '2px'}}/></button>
-                            <input onMouseEnter={() => {setDsw('100%');}} onMouseLeave={()=>{if(!shouldDesktopSearchBarBeOpen){setDsw('300px')}}} onClick={()=>{setDsw('100%'); setShouldDesktopSearchBarBeOpen(true)}} name='query' type='text' onChange={getSearchResults} placeholder='عبارت مورد نظر را جستجو کنید' className={['pr-2', styles.desktopSearchBar].join(' ')} style={{fontSize: '14px', width: dsw, height: '42px', outline: 'none', outlineOffset: 'none', border: '1px solid #C4C4C4', borderRadius: '4px 0 0 4px'}} />
+                            <input onMouseEnter={() => {setDsw('80%');}} onMouseLeave={()=>{if(!shouldDesktopSearchBarBeOpen){setDsw('300px')}}} onClick={()=>{setDsw('80%'); setShouldDesktopSearchBarBeOpen(true)}} name='query' type='text' onChange={getSearchResults} placeholder='عبارت مورد نظر را جستجو کنید' className={['pr-2', styles.desktopSearchBar].join(' ')} style={{fontSize: '14px', width: dsw, height: '42px', outline: 'none', outlineOffset: 'none', border: '1px solid #C4C4C4', borderRadius: '4px 0 0 4px'}} />
                             {desktopSearchResults()}
                         </form> 
                     </div>
@@ -1472,7 +1476,7 @@ function BigHeader(props){
                                     :
                                     (
                                         props.reduxUser.status === 'LOGIN' ? 
-                                            <img src={Constants.baseUrl + '/assets/images/main_images/user_black.png'} style={{height: '25px', height: '25px'}} onClick={toggleDrawer('right', true)}  />
+                                            <img src={Constants.baseUrl + '/assets/images/main_images/user_black.png'} style={{height: '25px', height: '25px'}} className={['d-none'].join(' ')} onClick={toggleDrawer('right', true)}  />
                                         :
                                         null
                                     )
@@ -1486,7 +1490,7 @@ function BigHeader(props){
                                 props.reduxCart.status === 'HI'
                                 ?
                                 (
-                                    <span className={['bg-danger', 'pl-2', 'pr-2', 'mr-0', 'rounded'].join(' ')} style={{color: 'white', fontSize: '11px', position: 'relative', bottom: '0.7rem', left: '-0.2rem'}}>{props.reduxCart.information.length}</span>
+                                    <span className={['pl-2', 'pr-2', 'mr-0', 'rounded'].join(' ')} style={{color: 'white', fontSize: '11px', position: 'relative', bottom: '0.7rem', left: '-0.2rem', background: '#F15F58'}}>{props.reduxCart.information.length}</span>
                                 )
                                 :
                                 null
@@ -1517,8 +1521,8 @@ function BigHeader(props){
                                 <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'pointer'].join(' ')} onMouseEnter={() => {setShowDesktopMoreMenus(true)}} onMouseLeave={() => {setShowDesktopMoreMenus(false)}} style={{position: 'relative', fontSize: '14px'}}>
                                     <li className={['mr-3', 'mb-2', 'pb-1'].join(' ')} style={{listStyleType: 'none'}}>سایر</li>
                                     <img src={Constants.baseUrl + '/assets/images/main_images/down_arrow_black_small.png'} className={['mr-1', 'mb-2'].join(' ')} style={{width: '7px', height: '7px'}} />
-                                    <div style={{heigth: '10rem', width: '4rem', position: 'absolute', top: '1rem', right: '0', background: 'red'}}></div>
-                                    <ul className={['flex-column', 'shadow-sm', 'p-2', showDesktopMoreMenus ? 'd-flex' : 'd-none'].join(' ')} style={{position: 'absolute', width: '7rem', right: '0', top: '2.1rem', background: 'white', borderRadius: '2px', border: '1px solid #DEDEDE'}}>
+                                    
+                                    <ul className={['flex-column', 'shadow-sm', 'p-2', showDesktopMoreMenus ? 'd-flex' : 'd-none'].join(' ')} onMouseEnter={() => {setShowDesktopMoreMenus(true)}} onMouseLeave={() => {setShowDesktopMoreMenus(false)}} style={{position: 'absolute', width: '7rem', right: '0', top: '2.1rem', background: 'white', borderRadius: '2px', border: '1px solid #DEDEDE', zIndex: '5000'}}>
                                     {
                                         props.menu.menu.map((item, cntr) => {
                                             if(cntr >= 10){
@@ -1534,9 +1538,8 @@ function BigHeader(props){
                             <div className={['text-center', 'mr-auto'].join(' ')} style={{position: 'relative'}}>
                                 {
                                 desktopAcademyArts
-                                
                                 }
-                                <a  href={'https://honari.com/academy'} onMouseEnter={academyMouseEntered} onMouseLeave={academyMouseLeft} className={[styles.desktopHeaderAcademyButton, 'px-4', 'py-1', 'text-center'].join(' ')} style={{position: 'relative', left: '-1.3rem'}}>هنری آکادمی</a>
+                                <a  href={'https://honari.com/academy'} onMouseEnter={academyMouseEntered} onMouseLeave={academyMouseLeft} className={[styles.desktopHeaderAcademyButton, 'px-0', 'py-1', 'text-center'].join(' ')} style={{position: 'absolute', top: '-0.95rem', left: '-5.8rem', width: '8rem'}}>هنری آکادمی</a>
                                 <div onMouseOver={academyMouseEntered} onMouseLeave={academyMouseLeft} className={[''].join(' ')} style={{position: 'absolute', bottom: '-0.8rem', right: '1.25rem', height: '0.5rem', width: '100%'}}></div>
                             </div>
                         </div>

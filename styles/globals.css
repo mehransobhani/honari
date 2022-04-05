@@ -24,6 +24,9 @@ a {
   .font14md22{
     font-size: 14px !important;
   }
+  .font14md20{
+    font-size: 14px !important;
+  }
   .font17md22{
     font-size: 17px !important;
   }
@@ -62,6 +65,10 @@ a {
 
 .font14md22{
   font-size: 22px;
+}
+
+.font14md20{
+  font-size: 20px;
 }
 
 .font17md22{
@@ -267,4 +274,17 @@ span{
 }
 .productInsightRightSemicircular{
   right: 0.2rem;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #DEDEDE;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #DEDEDE;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #DEDEDE;
 }
