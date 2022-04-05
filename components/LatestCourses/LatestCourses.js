@@ -41,7 +41,7 @@ const LatestCoures = (props) => {
                     </Link>
                 </div>
                 <div className={['row'].join(' ')}>
-                    <div className={['w-100', 'd-flex', 'flex-row', 'pt-2', 'pb-5', 'px-2', 'px-md-0', 'rtl' , styles.classContainer].join(' ')} style={{overflowX: 'scroll'}}>
+                    <div className={['w-100', 'd-flex', 'flex-row', 'pt-2', 'pb-5', 'px-2', 'px-md-0', 'rtl', 'horizontal-scrollable' , styles.classContainer].join(' ')}>
                     {
                         props.courses.map((information, index) => {
                             return (

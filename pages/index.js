@@ -346,6 +346,7 @@ const carouselTouchEndListener = (event) => {
           :
           null
         }
+
         <div className={['row', 'rtl', 'mt-3', 'mt-md-4', 'px-md-2', styles.tripleBanner].join(' ')}>
           <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-between', 'align-items-center', 'px-0', 'mx-0', 'py-2'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', boxShadow: '0px 2px 3px rgba(0, 0, 0, 0.05)'}}>
             <Link href='/site/help#delivery_type'><a onClick={props.reduxStartLoading} className={['d-flex', 'flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{flex: '1'}}>

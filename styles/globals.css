@@ -42,6 +42,9 @@ a {
   .productInsightRightSemicircular{
     right: -0.2rem !important;
   }
+  .horizontal-scrollable{
+    overflow-x: scroll;
+  }
 }
 
 .specialOfferLeftButton{
