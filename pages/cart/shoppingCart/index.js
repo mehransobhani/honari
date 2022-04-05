@@ -332,7 +332,7 @@ const ShoppingCart = (props) => {
                             <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between'].join(' ')}>
                                 <div className={['d-flex', 'flex-column', 'align-items-right'].join(' ')}>
                                     <div className={['d-flex', 'felx-row', 'rtl', 'align-items-center', 'justify-content-right'].join(' ')}>
-                                        <img src={Constants.baseUrl + '/assets/images/header_cart.png'} style={{width: '20px', heigth: '20px'}} />
+                                        <img src={Constants.baseUrl + '/assets/images/cart.svg'} style={{width: '20px', heigth: '20px'}} />
                                         <h5 className={['text-right', 'rtl', 'mb-0', 'pr-1', 'font-weight-bold'].join(' ')} style={{fontSize: '24px', color: '#444444'}}>سبد خرید شما</h5>
                                     </div>
                                     <p className={['mb-0', 'py-2'].join(' ')} style={{fontSize: '14px', color: '#444444'}}>وجود کالاها در سبدخرید به معنی رزرو آنها نیست و تا زمان موجود بودن در سبد خرید خواهند ماند</p>
@@ -460,7 +460,7 @@ const ShoppingCart = (props) => {
                         <div className={['row'].join(' ')}>
                             <div className={['col-12', 'd-flex', 'flex-column', 'justify-content-right', 'align-items-right'].join(' ')}>
                                 <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')}>
-                                    <img src={Constants.baseUrl + '/assets/images/header_cart.png'} style={{width: '14px', height: '14px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/cart.svg'} style={{width: '14px', height: '14px'}} />
                                     <h6 className={['mb-0', 'rtl', 'text-right', 'mr-1'].join(' ')} style={{fontSize: '22px', color: '#444444'}}>سبد خرید شما</h6>
                                 </div>
                                 <p className={['mb-0', 'text-right', 'rtl', 'mt-1', 'mt-md-0'].join(' ')} style={{fontSize: '14px', color: '#444444'}}>وجود کالاها در سبدخرید به معنی رزرو آنها نیست و تا زمان موجود بودن در سبد خرید خواهند ماند</p>
