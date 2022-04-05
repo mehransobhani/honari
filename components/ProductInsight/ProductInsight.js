@@ -971,11 +971,11 @@ const ProductInsight = (props) =>{
                                     ?
                                     (
                                         <React.Fragment>
-                                            <h6 className={['w-100', 'mb-1', 'text-right', 'mt-5', 'pr-md-3'].join(' ')} style={{fontSize: '17px', color: '#949494'}}>انتخاب نوع بسته</h6>
+                                            <h6 className={['w-100', 'mb-1', 'text-right', 'mt-5', 'pr-md-3', 'font14md17'].join(' ')} style={{color: '#949494'}}>انتخاب نوع بسته</h6>
                                             <div className={['d-flex', 'flex-row', 'row', 'align-items-center', 'mx-0', 'px-2', 'py-1', 'mr-md-3'].join(' ')} style={{border: '1px solid #D8D8D8'}}>
                                                 <input type='radio' className={['form-control', 'd-none'].join(' ')} checked={true} style={{width: '14px'}} value='' />
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/radio_button_main.png'} style={{width: '14px', height: '14px'}} />
-                                                <label className={['mb-0', 'mr-2', 'text-right', 'rtl'].join(' ')} style={{fontSize: '14px'}}>{props.information.productLabel}</label>
+                                                <label className={['mb-0', 'mr-2', 'text-right', 'rtl', 'font11md14'].join(' ')} >{props.information.productLabel}</label>
                                                 {
                                                     props.information.productBasePrice !== undefined
                                                     ?
@@ -1018,9 +1018,9 @@ const ProductInsight = (props) =>{
                                         props.information.productPrice != props.information.discountedPrice
                                         ?
                                             <div className={['col-12', 'col-md-6', 'd-flex', 'flex-row', 'align-items-center'].join(' ')}>
-                                                <h6 className={['mb-0']} style={{fontSize: '17px'}}>قیمت برای شما : </h6>
-                                                <h6 className={['text-secondary', 'mb-0', 'mr-2'].join(' ')} style={{fontSize: '20px'}}><del>{props.information.productPrice.toLocaleString() + ' تومان '}</del></h6>
-                                                <h6 className={['p-1', 'mb-0', 'bg-danger', 'text-white', 'mr-2', 'rtl'].join(' ')} style={{fontSize: '17px', borderRadius: '2px'}}>{'تخفیف ٪' + props.information.discountPercent}</h6>
+                                                <h6 className={['mb-0', 'font14md17'].join(' ')}>قیمت برای شما : </h6>
+                                                <h6 className={['text-secondary', 'mb-0', 'mr-2', 'font14md20'].join(' ')}><del>{props.information.productPrice.toLocaleString() + ' تومان '}</del></h6>
+                                                <h6 className={['p-1', 'mb-0', 'bg-danger', 'text-white', 'mr-2', 'rtl', 'font14md17'].join(' ')} style={{borderRadius: '2px'}}>{'تخفیف ٪' + props.information.discountPercent}</h6>
                                             </div>  
                                         :
                                         null
@@ -1031,13 +1031,13 @@ const ProductInsight = (props) =>{
                                 {
                                     props.information.productPrice !== props.information.discountedPrice ?
                                         <div className={['col-12', 'col-md-6', 'd-flex', 'flex-row', 'align-items-center', 'mt-2', 'mt-md-0'].join(' ')}>
-                                            <h5 className={['mb-0']} style={{fontSize: '17px'}}>قیمت برای شما : </h5>
-                                            <h5 className={['mb-0', 'mr-2'].join(' ')} style={{color: '#00bac6', fontSize: '20px'}}>{props.information.discountedPrice.toLocaleString() + ' تومان '}</h5>
+                                            <h5 className={['mb-0', 'font14md17'].join(' ')}>قیمت برای شما : </h5>
+                                            <h5 className={['mb-0', 'mr-2', 'font14md20'].join(' ')} style={{color: '#00bac6'}}>{props.information.discountedPrice.toLocaleString() + ' تومان '}</h5>
                                         </div>
                                     :
                                         <div className={['col-12', 'col-md-6', 'd-flex', 'flex-row', 'align-items-center'].join(' ')}>
-                                            <h5 className={['mb-0']} style={{fontSize: '17px'}}>قیمت برای شما : </h5>
-                                            <h5 className={['mb-0', 'mr-2'].join(' ')} style={{color: '#00bac6', fontSize: '20px'}}>{props.information.productPrice.toLocaleString() + ' تومان '}</h5>
+                                            <h5 className={['mb-0', 'font14md17'].join(' ')} >قیمت برای شما : </h5>
+                                            <h5 className={['mb-0', 'mr-2', 'font14md20'].join(' ')} style={{color: '#00bac6'}}>{props.information.productPrice.toLocaleString() + ' تومان '}</h5>
                                         </div>
                                 }
                                 </div>
@@ -1047,14 +1047,14 @@ const ProductInsight = (props) =>{
                                     (
                                         <div className={['row', 'rtl', 'align-items-center', 'mt-5', 'pr-md-3'].join(' ')}>
                                             <div className={['col-6', 'd-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')}>
-                                                <h6 className={['mb-0', 'ml-2'].join(' ')} style={{fontSize: '14px'}}>تعداد : </h6>
+                                                <h6 className={['mb-0', 'ml-2', 'font14md17'].join(' ')}>تعداد : </h6>
                                                 <img onClick={increaseOrderCountByOne} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png'} style={{width: '26px', height: '26px'}} />
-                                                <h6 className={['mb-0', 'px-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#2B2B2B'}}>{orderCount}</h6>
+                                                <h6 className={['mb-0', 'px-3', 'text-center', 'font14md17'].join(' ')} style={{color: '#2B2B2B'}}>{orderCount}</h6>
                                                 <img onClick={decreaseOrderCountByOne} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png'} style={{width: '26px', height: '26px'}} />
                                             </div>
                                             <div onClick={() => {informationRef.current.scrollIntoView(); window.scrollBy(0, -120)}} className={['col-6', 'd-flex', 'flex-row', 'align-items-center', 'pointer'].join(' ')}>
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/down_arrow_black_small.png'} style={{width: '7px', height: '7px'}} />
-                                                <span className={['mr-2'].join(' ')} style={{fontSize: '14px'}}>توضیحات بیشتر</span>
+                                                <span className={['mr-2', 'font14md17'].join(' ')}>توضیحات بیشتر</span>
                                             </div>
                                         </div>
                                     )
@@ -1062,9 +1062,9 @@ const ProductInsight = (props) =>{
                                     (
                                         <div className={['row', 'align-items-center', 'mt-5', 'pr-md-3', 'mb-5'].join(' ')}>
                                             <div className={['col-6', 'd-flex', 'flex-row', 'align-items-center', 'text-right', 'rtl'].join(' ')}>
-                                                <h6 className={['mb-0', 'ml-2'].join(' ')} style={{fontSize: '14px'}}>تعداد : </h6>
+                                                <h6 className={['mb-0', 'ml-2', 'font14md17'].join(' ')}>تعداد : </h6>
                                                 <img onClick={increaseButtonClicked} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png'} style={{width: '26px', height: '26px'}} />
-                                                <h6 className={['mb-0', 'px-3', 'text-center'].join(' ')} style={{fontSize: '17px', color: '#2B2B2B'}}>{getProductOrderCount()}</h6>
+                                                <h6 className={['mb-0', 'px-3', 'text-center', 'font14md17'].join(' ')} style={{color: '#2B2B2B'}}>{getProductOrderCount()}</h6>
                                                 {
                                                     getProductOrderCount() === 1
                                                     ?
@@ -1075,7 +1075,7 @@ const ProductInsight = (props) =>{
                                             </div>
                                             <div onClick={() => {informationRef.current.scrollIntoView(); window.scrollBy(0, -120)}} className={['col-6', 'd-flex', 'flex-row', 'align-items-center', 'pointer'].join(' ')}>
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/down_arrow_black_small.png'} style={{width: '7px', height: '7px'}} />
-                                                <span className={['mr-2'].join(' ')} style={{fontSize: '14px'}}>توضیحات بیشتر</span>
+                                                <span className={['mr-2', 'font14md17'].join(' ')}>توضیحات بیشتر</span>
                                             </div>
                                         </div>
                                     )
@@ -1083,7 +1083,7 @@ const ProductInsight = (props) =>{
                                 <div className={['d-flex', 'flex-row', 'justify-content-center', 'mr-md-3'].join(' ')}>
                                 {
                                     !productExistsOrNot() ?
-                                        <button className={['d-flex', 'flex-row', 'align-items-center', 'mt-5', 'py-2', 'pointer', 'mb-2', 'mb-md-0'].join(' ')} style={{backgroundColor: '#00bac6', color: 'white', borderStyle: 'none', borderRadius: '2px', outlineStyle: 'none', paddingRight: '6rem', paddingLeft: '6rem'}} onClick={addToCartButtonClicked}>اضافه به سبد خرید</button>
+                                        <button className={['d-flex', 'flex-row', 'align-items-center', 'mt-5', 'py-2', 'pointer', 'mb-2', 'mb-md-0'].join(' ')} style={{fontSize: '17px' ,backgroundColor: '#00bac6', color: 'white', borderStyle: 'none', borderRadius: '2px', outlineStyle: 'none', paddingRight: '6rem', paddingLeft: '6rem'}} onClick={addToCartButtonClicked}>اضافه به سبد خرید</button>
                                     :
                                     null
                                 }
@@ -1152,9 +1152,9 @@ const ProductInsight = (props) =>{
             </div>
             <div className={['container', 'mt-5'].join(' ')} ref={informationRef}>
                 <div className={['row', 'rtl', 'mt-3'].join(' ')}>
-                    <h6 className={['py-3', 'col-4', 'pointer', 'text-center', 'mb-0', 'font14md17'].join(' ')} style={{background: getSectionBackground(0), borderTop: selectedSection !== 0 ? '2px solid #DEDEDE' : '', borderBottom: selectedSection !== 0 ? '2px solid #DEDEDE' : '', borderRight: selectedSection !== 0 ? '1px solid #DEDEDE' : '', borderLeft: selectedSection !== 0 ? '1px solid #DEDEDE' : ''}} onClick={()=>{setSelectedSection(0)}}>توضیحات محصول</h6>
-                    <h6 className={['py-3', 'col-4', 'pointer', 'text-center', 'mb-0', 'font14md17'].join(' ')} style={{background: getSectionBackground(1), borderTop: selectedSection !== 1 ? '2px solid #DEDEDE' : '', borderBottom: selectedSection !== 1 ? '2px solid #DEDEDE' : '', borderRight: selectedSection !== 1 ? '1px solid #DEDEDE' : '', borderLeft: selectedSection !== 1 ? '1px solid #DEDEDE' : ''}} onClick={()=>{setSelectedSection(1)}}>ارسال و مرجوعی</h6>
-                    <h6 className={['py-3', 'col-4', 'pointer', 'text-center', 'mb-0', 'font14md17'].join(' ')} style={{background: getSectionBackground(2), borderTop: selectedSection !== 2 ? '2px solid #DEDEDE' : '', borderBottom: selectedSection !== 2 ? '2px solid #DEDEDE' : '', borderRight: selectedSection !== 2 ? '1px solid #DEDEDE' : '', borderLeft: selectedSection !== 2 ? '1px solid #DEDEDE' : ''}} onClick={()=>{setSelectedSection(2)}}>نظر کاربران</h6>
+                    <h6 className={['py-3', 'col-4', 'pointer', 'text-center', 'mb-0', 'font13md17'].join(' ')} style={{background: getSectionBackground(0), borderTop: selectedSection !== 0 ? '2px solid #DEDEDE' : '', borderBottom: selectedSection !== 0 ? '2px solid #DEDEDE' : '', borderRight: selectedSection !== 0 ? '1px solid #DEDEDE' : '', borderLeft: selectedSection !== 0 ? '1px solid #DEDEDE' : ''}} onClick={()=>{setSelectedSection(0)}}>توضیحات محصول</h6>
+                    <h6 className={['py-3', 'col-4', 'pointer', 'text-center', 'mb-0', 'font13md17'].join(' ')} style={{background: getSectionBackground(1), borderTop: selectedSection !== 1 ? '2px solid #DEDEDE' : '', borderBottom: selectedSection !== 1 ? '2px solid #DEDEDE' : '', borderRight: selectedSection !== 1 ? '1px solid #DEDEDE' : '', borderLeft: selectedSection !== 1 ? '1px solid #DEDEDE' : ''}} onClick={()=>{setSelectedSection(1)}}>ارسال و مرجوعی</h6>
+                    <h6 className={['py-3', 'col-4', 'pointer', 'text-center', 'mb-0', 'font13md17'].join(' ')} style={{background: getSectionBackground(2), borderTop: selectedSection !== 2 ? '2px solid #DEDEDE' : '', borderBottom: selectedSection !== 2 ? '2px solid #DEDEDE' : '', borderRight: selectedSection !== 2 ? '1px solid #DEDEDE' : '', borderLeft: selectedSection !== 2 ? '1px solid #DEDEDE' : ''}} onClick={()=>{setSelectedSection(2)}}>نظر کاربران</h6>
                 </div>
                 {/*
                     selectedSection == 0 
