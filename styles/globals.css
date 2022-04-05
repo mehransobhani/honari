@@ -15,11 +15,14 @@ a {
   .font11md17{
     font-size: 11px !important;
   }
+  .font13md17{
+    font-size: 13px !important;
+  }
   .font14md17{
     font-size: 14px !important;
   }
   .font11md14{
-    font-size: 11px !important  ;
+    font-size: 11px !important;
   }
   .font14md22{
     font-size: 14px !important;
@@ -55,6 +58,10 @@ a {
 }
 
 .font11md17{
+  font-size: 17px;
+}
+
+.font13md17{
   font-size: 17px;
 }
 
