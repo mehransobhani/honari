@@ -405,9 +405,9 @@ const CategoryInsight = (props) => {
                 {
                     selectedOptions.map((item, index) => {
                         return (
-                            <div className={['d-flex', 'flex-row', 'rtl', 'text-right', 'px-1', 'ml-1', 'align-items-center', 'mt-2', 'pointer'].join(' ')} onClick={() =>{removeThisSelectedFilterItem({en_name: enName, value: item})}} style={{borderRadius: '3px', background: '#00BAC6'}}>
-                                <img src={Constants.baseUrl + '/assets/images/main_images/close_white_small.png'} style={{width: '11px', height: '11px'}} />
-                                <span className={['pr-1', 'mb-0'].join(' ')} style={{color: 'white', fontSize: '12px'}} >{item}</span>
+                            <div className={['d-flex', 'flex-row', 'rtl', 'text-right', 'pl-1', 'ml-1', 'align-items-center', 'mt-2', 'pointer'].join(' ')} onClick={() =>{removeThisSelectedFilterItem({en_name: enName, value: item})}} style={{borderRadius: '3px'}}>
+                                <img src={Constants.baseUrl + '/assets/images/main_images/close_circle_full_main.png'} style={{width: '15px', height: '15px'}} />
+                                <span className={['pr-1', 'mb-0'].join(' ')} style={{color: 'white', fontSize: '12px', color: '#00BAC6'}} >{item}</span>
                             </div>
                         );
                     })
@@ -427,7 +427,7 @@ const CategoryInsight = (props) => {
                     <input type="text" value={props.reduxCategoryFilter.key} className={['form-control', 'text-right', 'rtl'].join(' ')} placeholder="نام محصول را جستجو کنید" onChange={searchInputChanged}/>
                 </div>
                 <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'justify-content-right', 'align-items-center', 'mt-3'].join(' ')}>
-                    <input type='checkbox' checked={isShowOnlyAvailableProductsCheckboxChecked()} onChange={showOnlyAvailableProductsCheckboxChanged} />
+                    <input type='checkbox' checked={isShowOnlyAvailableProductsCheckboxChecked()} onChange={showOnlyAvailableProductsCheckboxChanged} style={{accentColor: '#009CA6'}} />
                     <h6 className={['mb-0', 'mr-2'].join(' ')} style={{fontSize: '13px', color: 'rgb(68, 68, 68)'}}>عدم نمایش محصولات ناموحود</h6>
                 </div>
             </div>
@@ -458,8 +458,8 @@ const CategoryInsight = (props) => {
                                         JSON.parse(filter.options).map((option, index)=>{
                                             return(
                                                 <div key={index}>
-                                                    <input type='checkbox' className={[''].join(' ')} value={option} checked={isTheCheckboxSelected({en_name: filter.enName, value: option})} onChange={() => {filterCheckboxChanged({en_name: filter.enName, value: option})}} />
-                                                    <label className={['mr-1', 'mb-1'].join(' ')} style={{fontSize: '13px', color: '#444444'}} >{option}</label>
+                                                    <input type='checkbox' style={{accentColor: '#009CA6'}} className={[''].join(' ')} value={option} checked={isTheCheckboxSelected({en_name: filter.enName, value: option})} onChange={() => {filterCheckboxChanged({en_name: filter.enName, value: option})}} />
+                                                    <label className={['mr-2', 'mb-1'].join(' ')} style={{fontSize: '13px', color: '#444444'}} >{option}</label>
                                                 </div>
                                             );
                                         })
@@ -587,10 +587,10 @@ const CategoryInsight = (props) => {
                                 }
                             </div>
                                 <div className={['w-100', 'px-3', 'mt-3'].join(' ')}>
-                                    <input type="text" value={props.reduxCategoryFilter.key} className={['form-control', 'text-right', 'rtl'].join(' ')} placeholder="نام محصول را جستجو کنید" onChange={searchInputChanged}/>
+                                    <input type="text" value={props.reduxCategoryFilter.key} className={['form-control', 'text-right', 'rtl'].join(' ')} placeholder="نام محصول را جستجو کنید" style={{fontSize: '13px'}} onChange={searchInputChanged}/>
                                 </div>
                                 <div className={['d-flex', 'flex-row', 'align-items-center', 'rtl', 'px-3', 'mt-3'].join(' ')}>
-                                    <input type='checkbox' checked={isShowOnlyAvailableProductsCheckboxChecked()} onChange={showOnlyAvailableProductsCheckboxChanged} />
+                                    <input type='checkbox' className={[''].join(' ')} checked={isShowOnlyAvailableProductsCheckboxChecked()} onChange={showOnlyAvailableProductsCheckboxChanged} style={{accentColor: '#009CA6'}} />
                                     <h6 className={['text-right', 'rtl', 'mb-0', 'mr-2'].join(' ')} style={{fontSize: '13px'}}>عدم نمایش محصولات ناموجود</h6>
                                 </div>
                                 {
@@ -609,7 +609,7 @@ const CategoryInsight = (props) => {
                                                             JSON.parse(filter.options).map((option, index)=>{
                                                                 return(
                                                                     <div key={index}>
-                                                                        <input type='checkbox' className={[''].join(' ')} value={option} checked={isTheCheckboxSelected({en_name: filter.enName, value: option})} onChange={() => {filterCheckboxChanged({en_name: filter.enName, value: option})}} />
+                                                                        <input type='checkbox' className={[''].join(' ')} style={{accentColor: '#009CA6'}} value={option} checked={isTheCheckboxSelected({en_name: filter.enName, value: option})} onChange={() => {filterCheckboxChanged({en_name: filter.enName, value: option})}} />
                                                                         <label className={['mr-1', 'mb-1'].join(' ')} style={{fontSize: '14px'}} >{option}</label>
                                                                     </div>
                                                                 );

@@ -792,13 +792,13 @@ function BigHeader(props){
     const RightMenu = () => {
         return (
             <div className={['']} style={{minWidth: '270px', overflowX: 'hidden'}}>
-                <div className={['d-flex', 'flex-row', 'rtl'].join(' ')} style={{background: '#E0F6F2'}}>
+                <div className={['d-flex', 'flex-row', 'rtl'].join(' ')} style={{}}>
                     <Link href={'/'}><img onClick={props.reduxStartLoading} src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['poniter'].join(' ')} style={{width: '36px', height: '36px', marginRight: '10px', marginTop: '10px', marginBottom: '10px'}} /></Link>
                     <div className={['d-flex', 'flex-column', 'rtl'].join(' ')} style={{marginTop: '10px', marginBottom: '10px'}}>
                         <Link href={'/'}><a onClick={props.reduxStartLoading}><h2 className={['mr-2', 'mb-0', 'text-right', 'pointer'].join(' ')} style={{color: '#00BAC6', fontSize: '20px', fontWeight: '500'}}>هنری</h2></a></Link>
                         <h4 className={['mr-2', 'mb-0', 'text-right'].join(' ')} style={{color: '#949494', fontSize: '10px'}}>آموزش، الگو، مواداولیه</h4>
                     </div>
-                    <div className={[''].join(' ')} style={{position: 'absolute', top: '0', left: '0', width: '5.4rem', height: '3.5rem', background: 'url(' + Constants.baseUrl + '/assets/images/main_images/desktop_flower_left.png)', backgroundRepeat: 'no-repeat', backgroundPosition: 'left', backgroundSize: 'cover'}}></div>
+                    <div className={[''].join(' ')} style={{position: 'relative', top: '0', left: '-2.6rem', width: '5.4rem', height: '3.5rem', background: 'url(' + Constants.baseUrl + '/assets/images/main_images/desktop_flower_left.png)', backgroundRepeat: 'no-repeat', backgroundPosition: 'left', backgroundSize: 'cover'}}></div>
                 </div>  
                 {
                     rightMenuHeaderNumber == 0 
@@ -1288,7 +1288,7 @@ function BigHeader(props){
                 :
                 null
             }
-            <div className={['container-fluid', 'p-0'].join(' ')} style={{position: 'sticky', top: '0', zIndex: '500', backgroundColor: '#FFFFFF', backgroundImage: 'url(' + Constants.baseUrl + '/assets/images/main_images/gol.svg)', backgroundPosition: 'center', backgroundRepeat: 'no-repeat no-repeat', backgroundSize: 'contain'}}>
+            <div className={['container-fluid', 'p-0', props.reduxUser.status == 'LOGIN' ? 'desktopHeaderBackgroundFlowers' : ''].join(' ')} style={{position: 'sticky', top: '0', zIndex: '500', backgroundColor: '#FFFFFF'}}>
             {
                 props.reduxUser.status === 'LOGIN'
                 ?
