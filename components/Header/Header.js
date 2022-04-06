@@ -798,7 +798,7 @@ function BigHeader(props){
                         <Link href={'/'}><a onClick={props.reduxStartLoading}><h2 className={['mr-2', 'mb-0', 'text-right', 'pointer'].join(' ')} style={{color: '#00BAC6', fontSize: '20px', fontWeight: '500'}}>هنری</h2></a></Link>
                         <h4 className={['mr-2', 'mb-0', 'text-right'].join(' ')} style={{color: '#949494', fontSize: '10px'}}>آموزش، الگو، مواداولیه</h4>
                     </div>
-                    <div className={['bg-danger'].join(' ')} style={{position: 'absolute', top: '0', left: '0', width: '5.4rem', height: '3.5rem', background: 'url(' + Constants.baseUrl + '/assets/images/main_images/desktop_flower_left.png)', backgroundRepeat: 'no-repeat', backgroundPosition: 'left', backgroundSize: 'cover'}}></div>
+                    <div className={[''].join(' ')} style={{position: 'absolute', top: '0', left: '0', width: '5.4rem', height: '3.5rem', background: 'url(' + Constants.baseUrl + '/assets/images/main_images/desktop_flower_left.png)', backgroundRepeat: 'no-repeat', backgroundPosition: 'left', backgroundSize: 'cover'}}></div>
                 </div>  
                 {
                     rightMenuHeaderNumber == 0 
@@ -1288,16 +1288,16 @@ function BigHeader(props){
                 :
                 null
             }
-            <div className={['container-fluid', 'p-0'].join(' ')} style={{position: 'sticky', top: '0', zIndex: '500', backgroundColor: 'white'}}>
+            <div className={['container-fluid', 'p-0'].join(' ')} style={{position: 'sticky', top: '0', zIndex: '500', backgroundColor: '#FFFFFF', backgroundImage: 'url(' + Constants.baseUrl + '/assets/images/main_images/gol.svg)', backgroundPosition: 'center', backgroundRepeat: 'no-repeat no-repeat', backgroundSize: 'contain'}}>
             {
                 props.reduxUser.status === 'LOGIN'
                 ?
                 (
                     <React.Fragment>
-                        <div className={['d-none', 'd-xl-block'].join(' ')} style={{position: 'absolute', top: '0', left: '0', bottom: '3rem'}}>
+                        <div className={['d-none', 'd-xl-none'].join(' ')} style={{position: 'absolute', top: '0', left: '0', bottom: '3rem'}}>
                             <img src={Constants.baseUrl + '/assets/images/main_images/desktop_flower_left.png'} className={[''].join(' ')} style={{height: '100%'}} />
                         </div>
-                        <div className={['d-none', 'd-xl-block'].join(' ')} style={{position: 'absolute', top: '0', right: '0.7rem', bottom: '3rem'}}>
+                        <div className={['d-none', 'd-xl-none'].join(' ')} style={{position: 'absolute', top: '0', right: '0.7rem', bottom: '3rem'}}>
                             <img src={Constants.baseUrl + '/assets/images/main_images/desktop_flower_right.png'} className={[''].join(' ')} style={{height: '100%'}} />
                         </div>
                     </React.Fragment>
@@ -1337,7 +1337,7 @@ function BigHeader(props){
                     null
                 }
                 <div className={['row', 'py-0', 'mb-0', 'px-1', 'd-none', 'd-lg-flex'].join(' ')} style={{direction: 'rtl'}}>
-                    <div className={['col-7', 'col-lg-9', 'rtl', 'text-right', 'd-flex', 'flex-row', 'pr-0', 'pr-lg-1', 'align-items-center',  'pl-0', 'pb-2', 'pt-2', 'justify-content-lg-between'].join(' ')} style={{background: 'white'}}>
+                    <div className={['col-7', 'col-lg-9', 'rtl', 'text-right', 'd-flex', 'flex-row', 'pr-0', 'pr-lg-1', 'align-items-center',  'pl-0', 'pb-2', 'pt-2', 'justify-content-lg-between'].join(' ')} >
                         <div className={['d-flex', 'flex-row', 'rtl', 'desktopInfo  '].join(' ')}>
                             <Link href={'/'}><img onClick={props.reduxStartLoading} src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['pointer', 'd-none', 'd-lg-block'].join(' ')} style={{width: '50px', height: '50px', position: 'relative', top: '0.28rem'}} /></Link>
                             <div className={['pr-0', 'flex-column', 'align-items-center', 'd-none', 'd-lg-flex'].join(' ')}>
@@ -1351,7 +1351,7 @@ function BigHeader(props){
                             {desktopSearchResults()}
                         </form> 
                     </div>
-                    <div className={['col-5', 'col-lg-3', 'text-left', 'd-flex', 'align-items-center', 'ltr', 'px-0', 'pt-2', 'pb-2'].join(' ')} style={{background: 'white'}}>
+                    <div className={['col-5', 'col-lg-3', 'text-left', 'd-flex', 'align-items-center', 'ltr', 'px-0', 'pt-2', 'pb-2'].join(' ')} >
                         <div className={['ltr', 'align-items-center', 'p-2', 'pointer', 'd-none', 'd-md-flex', 'flex-row'].join(' ')} style={{position: 'relative'}} onMouseEnter={()=>{setCartOpenState(true)}} onMouseLeave={()=>{setCartOpenState(false)}}>
                             {
                                 props.reduxCart.status === 'HI'
