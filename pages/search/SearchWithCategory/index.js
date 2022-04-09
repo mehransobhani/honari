@@ -336,9 +336,9 @@ const SearchWithCategory = (props) => {
                 {
                     selectedOptions.map((item, index) => {
                         return (
-                            <div key={index} className={['d-flex', 'flex-row', 'rtl', 'text-right', 'px-1', 'ml-1', 'align-items-center', 'mt-2', 'pointer'].join(' ')} onClick={() =>{removeThisSelectedFilterItem({name: name, value: item})}} style={{borderRadius: '3px', background: '#00BAC6'}}>
-                                <img src={Constants.baseUrl + '/assets/images/main_images/close_white_small.png'} style={{width: '11px', height: '11px'}} />
-                                <span className={['pr-1', 'mb-0'].join(' ')} style={{color: 'white', fontSize: '12px'}} >{item}</span>
+                            <div key={index} className={['d-flex', 'flex-row', 'rtl', 'text-right', 'pl-1', 'ml-1', 'align-items-center', 'mt-2', 'pointer'].join(' ')} onClick={() =>{removeThisSelectedFilterItem({name: name, value: item})}} style={{borderRadius: '3px'}}>
+                                <img src={Constants.baseUrl + '/assets/images/main_images/close_circle_full_main.png'} style={{width: '15px', height: '15px'}} />
+                                <span className={['pr-1', 'mb-0'].join(' ')} style={{color: 'white', fontSize: '12px', color: '#00BAC6'}} >{item}</span>
                             </div>
                         );
                     })
@@ -370,7 +370,7 @@ const SearchWithCategory = (props) => {
                                         filter.values.map((option, index)=>{
                                             return(
                                                 <div key={index}>
-                                                    <input type='checkbox' className={[''].join(' ')} value={option.value} checked={isTheCheckboxSelected({name: filter.name, min: filter.min, max: filter.max, value: option.value})} onChange={() => {filterCheckboxChanged({name: filter.name, min: filter.min, max: filter.max, value: option.value})}} />
+                                                    <input type='checkbox' className={[''].join(' ')} value={option.value} checked={isTheCheckboxSelected({name: filter.name, min: filter.min, max: filter.max, value: option.value})} onChange={() => {filterCheckboxChanged({name: filter.name, min: filter.min, max: filter.max, value: option.value})}} style={{accentColor: '#009CA6'}} />
                                                     <label className={['mr-1', 'mb-1'].join(' ')} style={{fontSize: '13px', color: '#444444'}} >{option.value}</label>
                                                 </div>
                                             );
@@ -388,7 +388,7 @@ const SearchWithCategory = (props) => {
             </div>
             <div className={['d-flex', 'flex-column', 'w-100', 'px-3'].join(' ')} style={{position: 'fixed', bottom: '0', right: '0'}}>
                 <button className={['py-2', 'text-center', 'pointer'].join(' ')} style={{fontSize: '14px', color: '#00BAC6', background: 'white', borderRadius: '2px', border: '1px solid #00BAC6'}} onClick={filterDrawer('bottom', false)}>اعمال فیلترها</button>
-                <button className={['py-3', 'text-center', 'pointer'].join(' ')} style={{fontSize: '14px', color: '#02959F', background: 'white', border: 'none', outline: 'none'}} onClick={phoneWipeAllFacets}>پاک‌کردن همه فیلترها</button>
+                <button className={['py-3', 'text-center', 'pointer'].join(' ')} style={{fontSize: '14px', color: '#00BAC6', background: 'white', border: 'none', outline: 'none'}} onClick={phoneWipeAllFacets}>پاک‌کردن همه فیلترها</button>
             </div>
         </div>
     );
@@ -511,7 +511,7 @@ const SearchWithCategory = (props) => {
                                                             filter.values.map((option, index)=>{
                                                                 return(
                                                                     <div key={index}>
-                                                                        <input type='checkbox' className={[''].join(' ')} value={option.value} checked={isTheCheckboxSelected({name: filter.name, min: filter.min, max: filter.max, value: option.value})} onChange={() => {filterCheckboxChanged({name: filter.name, min: filter.min, max: filter.max, value: option.value})}} />
+                                                                        <input type='checkbox' className={[''].join(' ')} value={option.value} checked={isTheCheckboxSelected({name: filter.name, min: filter.min, max: filter.max, value: option.value})} onChange={() => {filterCheckboxChanged({name: filter.name, min: filter.min, max: filter.max, value: option.value})}} style={{accentColor: '#009CA6'}} />
                                                                         <label className={['mr-1', 'mb-1'].join(' ')} style={{fontSize: '14px'}} >{option.value}</label>
                                                                     </div>
                                                                 );
@@ -587,13 +587,13 @@ const SearchWithCategory = (props) => {
                                     props.reduxSearchFilter.results.length !== 0 
                                     ?
                                     <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-center', 'align-items-center', 'mt-2'].join(' ')}>
-                                        <button className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'shadow-sm'].join(' ')} onClick={paginationPrevButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
+                                        <button className={[props.reduxSearchFilter.maxPage != 1 ? 'd-flex' : 'd-none', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'shadow-sm'].join(' ')} onClick={paginationPrevButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
                                             <img src={Constants.baseUrl + '/assets/images/main_images/right_arrow_black.png'} style={{width: '8px', height: '8px'}} />
                                             <span className={['pr-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}}>قبلی</span>
                                         </button>
                                         <div className={['text-right', 'rtl', 'd-none', 'd-md-block'].join(' ')}><Pagination count={props.reduxSearchFilter.maxPage} shape='rounded' onChange={paginationChanged} page={props.reduxSearchFilter.page} hideNextButton={true} hidePrevButton={true} /></div>
                                         <span className={['d-block', 'd-md-none', 'px-3'].join(' ')}>{ props.reduxSearchFilter.page + '  از  ' + props.reduxSearchFilter.maxPage}</span>
-                                        <button className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'ltr', 'shadow-sm'].join(' ')} onClick={paginationNextButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
+                                        <button className={[props.reduxSearchFilter.maxPage != 1 ?'d-flex' : 'd-none', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'ltr', 'shadow-sm'].join(' ')} onClick={paginationNextButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
                                             <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black.png'} style={{width: '8px', height: '8px'}} />
                                             <span className={['pl-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}}>بعدی</span>
                                         </button>

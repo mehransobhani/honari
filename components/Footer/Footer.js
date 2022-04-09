@@ -20,6 +20,7 @@ const Footer = () => {
             <div className={['row', 'mt-5'].join(' ')} style={{backgroundColor: '#b3dde1'}}>
                 <div className={['container', 'py-2'].join(' ')}>
                     <div className={['row', 'rtl'].join(' ')}>
+                        {/*
                         <div className={['col-4', 'd-flex','flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')}>
                             <img src={Constants.baseUrl + '/assets/images/main_images/envelope_black_small.png'} style={{width: '24px', height: '24px'}} />
                             <p className={['mb-0', 'mr-1', styles.topBarText].join(' ')} style={{color: 'black'}}>ایمیل</p>
@@ -30,7 +31,8 @@ const Footer = () => {
                             <p className={['mb-0', 'mr-1', styles.topBarText].join(' ')} style={{color: 'black'}}>پشتیبانی تلگرام</p>
                             <p className={['mb-0', 'mr-1'].join(' ')} style={{color: 'black'}}>t.me/honaricom</p>
                         </div>
-                        <div className={['col-4', 'd-flex','flex-column', 'flex-lg-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{borderRight: '1px dashed gray'}}>
+                        */}
+                        <div className={['col-12', 'd-flex','flex-row', 'justify-content-center', 'align-items-center'].join(' ')} style={{borderRight: '1px dashed gray'}}>
                             <img src={Constants.baseUrl + '/assets/images/main_images/phone_black_small.png'} style={{width: '24px', height: '24px'}} />
                             <p className={['mb-0', 'mr-1', styles.topBarText].join(' ')} style={{color: 'black'}}>تلفن پشتیبانی</p>
                             <p className={['mb-0', 'mr-1', 'ltr'].join(' ')} style={{color: 'black'}}>021 91003037</p>

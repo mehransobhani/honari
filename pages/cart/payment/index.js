@@ -154,6 +154,7 @@ const Payment = (props) => {
         if(serviceId == 14){
             setAvailableWorkTimes([]);
             setTemporaryInformation(serviceId, 0, 0);
+            setSelectedWorkTimeDate(0);
         }else if (serviceId == 11 || serviceId == 12){
             setTemporaryInformation(serviceId, 0, 0);
             getActiveDeliveryWorkTimes(serviceId);
@@ -261,15 +262,8 @@ const Payment = (props) => {
                     </div>
                     <div style={{height: '1px', borderBottom: '1px dashed #D8D8D8'}}></div>
                     <div className={['d-flex', 'flex-row', 'align-items-center', 'py-2', 'rtl'].join(' ')}>
-                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} style={{flex: '1'}}>
-                            <p className={['mb-0', 'font14md17'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>آدرس :</p>
-                            {
-                                userAddress !== undefined 
-                                ?
-                                <p className={['mb-0', 'pr-2', 'font14md17'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}>{userAddress.address}</p>
-                                :
-                                <p className={['mb-0', 'pr-2', 'font14md17'].join(' ')} style={{color: '#444444', fontSize: '17px', fontWeight: '500'}}></p>
-                            }
+                        <div className={['d-flex', 'flex-row', 'align-items-center', 'rtl'].join(' ')} style={{flex: '1'}}>
+                            <p className={['mb-0', 'font14md17', 'text-right', 'rtl'].join(' ')} style={{color: '#949494', fontSize: '17px', fontWeight: '500'}}>آدرس :<span className={['mr-2'].join(' ')} style={{color: '#444444'}}>{userAddress.address}</span></p>
                         </div>
                     </div>
                 </div>
@@ -298,7 +292,7 @@ const Payment = (props) => {
                         }
                         let backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: 'white'};
                         if(option.id === selectedDeliveryId){
-                            backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: '#F2F2F2'};
+                            backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: 'linear-gradient(270deg, #DEEEEF 0%, rgba(222, 238, 239, 0) 89.58%)'};
                         }
                         return( 
                             <div key={counter} className={['col-12', 'col-md-6', 'p-3', 'd-flex', 'flex-row', 'align-items-center', 'justify-cotent-right', 'pointer'].join(' ')} style={backgroundStyle} onClick={() => {deliveryServiceSelected(option.id);}}>
@@ -307,7 +301,7 @@ const Payment = (props) => {
                                     ?
                                     <img src={Constants.baseUrl + '/assets/images/main_images/rec_main_full.png'} style={{width: '18px', height: '18px'}} />
                                     :
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/rec_black_empty.png'} style={{width: '18px', height: '18px'}} />
+                                    <img src={Constants.baseUrl + '/assets/images/main_images/rec_main_empty.png'} style={{width: '18px', height: '18px'}} />
                                 }
                                 <div className={['d-flex', 'flex-column', 'justify-content-right'].join(' ')}>
                                     <h5 className={['mb-0', 'mr-3', 'text-right'].join(' ')} style={{fontSize: '17px', fontWeight: '500'}}>{option.fname}</h5>
@@ -331,7 +325,7 @@ const Payment = (props) => {
                         <div className={['row', 'mt-4', 'mx-1'].join(' ')}>
                             <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')}>
                                 <img src={Constants.baseUrl + '/assets/images/main_images/delivery_time.png'} className={['d-none'].join(' ')} style={{width: '16px', height: '16px'}}/>
-                                <h6 className={['mb-0'].join(' ')} style={{fontSize: '16px', fontWeight: '500', color: '500'}}>زمان ارسال سفارشتان را از بازه‌های زیر انتخاب کنید</h6>
+                                <h6 className={['mb-0'].join(' ')} style={{fontSize: '16px', fontWeight: '500', color: '500'}}>زمان ارسال سفارشتان را از بین بازه‌های زیر انتخاب کنید</h6>
                             </div>
                         </div>
                         <div className={['row', 'mt-2', 'rtl', 'mx-1'].join(' ')}>
@@ -339,7 +333,7 @@ const Payment = (props) => {
                                 availableWorkTimes.map((workTime, counter) => {
                                     let backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: 'white'};
                                     if(workTime.timestamp === selectedWorkTimeDate){
-                                        backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: '#F2F2F2'};
+                                        backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: 'linear-gradient(270deg, #DEEEEF 0%, rgba(222, 238, 239, 0) 89.58%)'};
                                     }
                                     return( 
                                         <div key={counter} className={['col-12', 'col-md-4', 'p-3', 'd-flex', 'flex-row', 'align-items-center', 'justify-cotent-right', 'pointer'].join(' ')} style={backgroundStyle} onClick={() => {workTimeSelected(workTime.timestamp, workTime.worktimeId);}}>
@@ -348,7 +342,7 @@ const Payment = (props) => {
                                                 ?
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/rec_main_full.png'} style={{width: '18px', height: '18px'}} />
                                                 :
-                                                <img src={Constants.baseUrl + '/assets/images/main_images/rec_black_empty.png'} style={{width: '18px', height: '18px'}} />
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/rec_main_empty.png'} style={{width: '18px', height: '18px'}} />
                                             }
                                             <div className={['d-flex', 'flex-column', 'justify-content-right', 'pr-3'].join(' ')}>
                                                 <h6 className={['text-right', 'rtl', 'mb-2'].join(' ')}>{workTime.day + "  " + workTime.label}</h6>
@@ -364,18 +358,18 @@ const Payment = (props) => {
                 :
                 null
             }
-            <div className={['row', 'pl-3'].join(' ')}>
+            <div className={['row', 'pl-3', 'mr-2'].join(' ')}>
                 {
                     (selectedDeliveryId == 14 && selectedWorkTimeDate == 0) || ((selectedDeliveryId == 11 || selectedDeliveryId == 12) && selectedWorkTimeDate != 0)
                     ?
                     <Link href={'/cart/payment/deliveryReview'}>
-                        <div onClick={() => {props.reduxStartLoading()}} className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3', 'pointer', 'ml-1'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
+                        <div onClick={() => {props.reduxStartLoading()}} className={['d-flex', 'col-12', 'col-lg-3', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3', 'pointer', 'ml-1'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                             <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>تایید و نهایی کردن خرید</h6>
                             <img className={['mr-2'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '10px', height: '10px'}} />
                         </div>
                     </Link>
                     :
-                    <div onClick={() => {props.reduxUpdateSnackbar('warning', true, 'لطفا اطلاعات روش و زمان ارسال را به درستی وارد کنید')}} className={['d-flex', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3', 'pointer', 'ml-1'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
+                    <div onClick={() => {props.reduxUpdateSnackbar('warning', true, 'لطفا اطلاعات روش و زمان ارسال را به درستی وارد کنید')}} className={['d-flex', 'col-12', 'col-lg-3', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3', 'pointer', 'ml-1'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                         <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>تایید و نهایی کردن خرید</h6>
                         <img className={['mr-2'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '10px', height: '10px'}} />
                     </div>

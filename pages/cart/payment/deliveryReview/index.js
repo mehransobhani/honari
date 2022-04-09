@@ -176,11 +176,6 @@ const DeliveryReview = (props) => {
                             }else{
                                 setUserOrderPriceInformation({price: userOrderPriceInformation.price, discountedPrice: userOrderPriceInformation.discountedPrice - response.discountPrice});
                             }
-                            /*if(response.discountPrice + userOrderPriceInformation.discountedPrice >= userOrderPriceInformation.price){
-                                setUserOrderPriceInformation({price: userOrderPriceInformation.price, discountedPrice: 0});
-                            }else{
-                                
-                            }*/
                         }else if(response.type === 'shipping'){
                             if(userShippingPriceInformation.discountedPrice - response.discountedPrice < 0){
                                 setUserShippingPriceInformation({price: userShippingPriceInformation.price, discountedPrice: 0});
@@ -211,35 +206,9 @@ const DeliveryReview = (props) => {
 
     const toggleUserWalletUsage = (status) => {
         setWalletCheckboxSelected(status);
-        /*let orderPrice = userOrderPriceInformation.price;
-        let orderDiscountedPrice = userOrderPriceInformation.discountedPrice;
-        if(status){
-            let newOrderPrice = orderPrice - userStock;
-            let newOrderDiscountedPrice = orderDiscountedPrice - userStock;
-            setUserOrderPriceInformation({price: newOrderPrice, discountedPrice: newOrderDiscountedPrice});
-        }else{
-            let newOrderPrice = orderPrice + userStock;
-            let newOrderDiscountedPrice = orderDiscountedPrice + userStock;
-            setUserOrderPriceInformation({price: newOrderPrice, discountedPrice: newOrderDiscountedPrice});
-        }*/
     }
 
     const totalPriceComponent = () => {
-        /*
-<div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'px-2', 'py-1'].join(' ')} style={{background: '#F7F7F7'}}>
-                                    <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: '#2B2B2B'}}>مبلغ نهایی سفارش : </h6>
-                                    {
-                                        userOrderPriceInformation.price + userShippingPriceInformation.price === userOrderPriceInformation.discountedPrice + userShippingPriceInformation.discountedPrice
-                                        ?
-                                        <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'red'}}>{(userOrderPriceInformation.price + userShippingPriceInformation.price).toLocaleString() + " تومان"}</h6>
-                                        :
-                                        <div className={['d-flex', 'flex-row', 'align-items-center', 'rtl'].join(' ')}>
-                                            <h6 className={['mb-0', 'pr-2'].join(' ')} style={{fontSize: '17px', color: 'gray'}}><del>{(userOrderPriceInformation.price + userShippingPriceInformation.price).toLocaleString()}</del></h6>
-                                            <h6 className={['mb-0', 'pr-2'].join(' ')} style={{fontSize: '17px', color: 'red'}}>{(userOrderPriceInformation.discountedPrice + userShippingPriceInformation.discountedPrice).toLocaleString() + " تومان"}</h6>
-                                        </div>
-                                    }
-                                </div>
-        */
        let totalPrice = userOrderPriceInformation.price + userShippingPriceInformation.price;
        let totalDiscountedPrice = userOrderPriceInformation.discountedPrice + userShippingPriceInformation.discountedPrice;
        if(walletCheckboxSelected){
@@ -359,7 +328,33 @@ const DeliveryReview = (props) => {
             totalPrice -= userStock;
             totalDiscountedPrice -= userStock;
         }
-        // tomorrow I have to continue from here.
+    }
+
+    const getTotalOrderPriceText = () => {
+        if(userOrderPriceInformation.discountedPrice == 0){
+            return (<h6 className={['rtl', 'text-right', 'mb-0', 'text-center'].join(' ')} style={{fontSize: '14px', flex: '3', color: '#F15F58'}}>رایگان</h6>);
+        }else{
+            return (<h6 className={['rtl', 'text-right', 'mb-0', 'text-center'].join(' ')} style={{fontSize: '14px', flex: '3'}}>{(userOrderPriceInformation.discountedPrice).toLocaleString() + ' تومان'}</h6>);
+        }
+    }
+
+    const getTotalShippingPriceText = () => {
+        if(userShippingPriceInformation.discountedPrice == 0){
+            return (<h6 className={['rtl', 'text-right', 'mb-0', 'text-center'].join(' ')} style={{fontSize: '14px', flex: '3', color: '#F15F58'}}>رایگان</h6>);
+        }else{
+            return (<h6 className={['rtl', 'text-right', 'mb-0', 'text-center'].join(' ')} style={{fontSize: '14px', flex: '3'}}>{(userShippingPriceInformation.discountedPrice).toLocaleString() + ' تومان'}</h6>);
+        }
+    }
+
+    const getTotalPaymentPriceText = () => {
+        let tp = userOrderPriceInformation.price + userShippingPriceInformation.price;
+        let tdp = userOrderPriceInformation.discountedPrice + userShippingPriceInformation.discountedPrice;
+
+        if(tdp == 0){
+            return (<h6 className={['rtl', 'text-right', 'mb-0', 'text-center'].join(' ')} style={{fontSize: '14px', flex: '3', color: '#F15F58'}}>رایگان</h6>);
+        }else{
+            return (<h6 className={['rtl', 'text-right', 'mb-0', 'text-center'].join(' ')} style={{fontSize: '14px', flex: '3'}}>{(tdp).toLocaleString() + ' تومان'}</h6>);
+        }
     }
 
     return(
@@ -373,7 +368,7 @@ const DeliveryReview = (props) => {
                 ?
                 (
                 <React.Fragment>
-                    <div className={['container'].join(' ')}>
+                    <div className={['container'].join(' ')} style={{overflowX: 'hidden'}}>
                         <div className={['row', 'mt-3', 'mt-md-5'].join(' ')}>
                             <div className={['col-12'].join(' ')}>
                                 <div className={['w-100', 'd-flex', 'flex-row', 'align-items-center', 'rtl'].join(' ')}>
@@ -406,48 +401,48 @@ const DeliveryReview = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div className={['row', 'rtl', 'py-3', 'mt-2', 'align-items-center', 'mx-1', 'mx-md-0', 'd-none', 'd-md-flex'].join(' ')} style={{background: '#F7F7F7', border: '1px solid #D8D8D8'}}>
-                            <h6 className={['col-6', 'text-right', 'mb-0', 'pr-2', 'font11md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>محصول</h6>
-                            <h6 className={['col-1', 'text-center', 'mb-0', 'font11md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>تعداد</h6>
-                            <h6 className={['col-1', 'text-center', 'mb-0', 'font11md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>واحد</h6>
-                            <h6 className={['col-2', 'text-center', 'mb-0', 'font11md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>قیمت واحد</h6>
-                            <h6 className={['col-2', 'text-center', 'mb-0', 'font11md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>قیمت کل</h6>
+                        <div className={['row', 'rtl', 'py-3', 'mt-2', 'align-items-center', 'mx-1', 'mx-md-0'].join(' ')} style={{background: '#F7F7F7', border: '1px solid #D8D8D8'}}>
+                            <h6 className={['col-5', 'text-right', 'mb-0', 'pr-2', 'font11md17'].join(' ')} style={{color: '#444444'}}>محصول</h6>
+                            <h6 className={['col-1', 'text-center', 'mb-0', 'font11md17'].join(' ')} style={{color: '#444444'}}>تعداد</h6>
+                            <h6 className={['col-2', 'text-center', 'mb-0', 'font11md17'].join(' ')} style={{color: '#444444'}}>واحد</h6>
+                            <h6 className={['col-2', 'text-center', 'mb-0', 'font11md17'].join(' ')} style={{color: '#444444'}}>قیمت واحد</h6>
+                            <h6 className={['col-2', 'text-center', 'mb-0', 'font11md17'].join(' ')} style={{color: '#444444'}}>قیمت کل</h6>
                         </div>
                         {
                             props.reduxCart.information.map((item, counter) => {
                                 return (
                                     <React.Fragment>
-                                        <div className={['row', 'rtl', 'py-2', 'mt-1', 'align-items-center', 'd-none', 'd-md-flex', 'mx-1'].join(' ')} style={{borderRight: '1px solid #D8D8D8', borderBottom: '1px solid #D8D8D8', borderLeft: '1px solid #D8D8D8'}}>
-                                            <div className={['col-6', 'text-right', 'mb-0', 'pr-2', 'd-flex', 'flex-row', 'align-items-center'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>
-                                                <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '75px', height: '75px', borderRadius: '1px'}} />
+                                        <div className={['row', 'rtl', 'py-2', 'mt-1', 'align-items-center', 'mx-1', 'mx-lg-0'].join(' ')} style={{borderRight: '1px solid #D8D8D8', borderBottom: '1px solid #D8D8D8', borderLeft: '1px solid #D8D8D8'}}>
+                                            <div className={['col-5', 'text-right', 'mb-0', 'pr-2', 'd-flex', 'flex-row', 'align-items-center'].join(' ')} style={{color: '#444444'}}>
+                                                <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} className={['finalFactorImage'].join(' ')} style={{borderRadius: '1px'}} />
                                                 <div className={['d-flex', 'flex-column', 'text-right', 'mr-2'].join(' ')}>
-                                                    <h5 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', lineHeight: '1.6rem'}}>{item.name}</h5>
-                                                    <h5 className={['mb-0', 'font11md17', 'mt-2'].join(' ')} style={{fontSize: '14px'}}>{item.label}</h5>
+                                                    <h5 className={['mb-0', 'font11md17'].join(' ')} style={{lineHeight: '1.6rem'}}>{item.name}</h5>
+                                                    <h5 className={['mb-0', 'font11md17', 'mt-2', 'd-none', 'd-lg-block'].join(' ')} style={{}}>{item.label}</h5>
                                                 </div>
                                             </div>
-                                            <h6 className={['col-1', 'text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>{item.count}</h6>
-                                            <h6 className={['col-1', 'text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>{item.unitName}</h6>
+                                            <h6 className={['col-1', 'text-center', 'mb-0', 'font11md17'].join(' ')} style={{color: '#444444'}}>{item.count}</h6>
+                                            <h6 className={['col-2', 'text-center', 'mb-0', 'font11md17'].join(' ')} style={{color: '#444444'}}>{item.unitName}</h6>
                                             {
                                                 item.price === item.discountedPrice
                                                 ?
-                                                <h6 className={['col-2', 'text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>{item.price.toLocaleString() + " تومان"}</h6>
+                                                <h6 className={['col-2', 'text-center', 'mb-0', 'font11md17'].join(' ')} style={{color: '#444444'}}>{item.price.toLocaleString()}</h6>
                                                 : 
                                                 (
-                                                    <div className={['col-2', 'd-flex', 'flex-column', 'font14md17'].join(' ')}>
-                                                            <h6 className={['text-center', 'mb-1', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}><del>{item.price.toLocaleString() + " تومان"}</del></h6>
-                                                            <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: 'red'}}>{item.discountedPrice.toLocaleString() + " تومان"}</h6>
+                                                    <div className={['col-2', 'd-flex', 'flex-column', 'font11md17'].join(' ')}>
+                                                            <h6 className={['text-center', 'mb-1', 'font11md17'].join(' ')} style={{color: '#444444'}}><del>{item.price.toLocaleString()}</del></h6>
+                                                            <h6 className={['text-center', 'mb-0', 'font11md17'].join(' ')} style={{color: 'red'}}>{item.discountedPrice.toLocaleString()}</h6>
                                                     </div>
                                                 )
                                             }
                                             {
                                                 item.price === item.discountedPrice
                                                 ?
-                                                <h6 className={['col-2', 'text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}>{(item.price * item.count).toLocaleString() + " تومان"}</h6>
+                                                <h6 className={['col-2', 'text-center', 'mb-0', 'font11md17'].join(' ')} style={{color: '#444444'}}>{(item.price * item.count).toLocaleString()}</h6>
                                                 : 
                                                 (
-                                                    <div className={['col-2', 'd-flex', 'flex-column', 'font14md17'].join(' ')}>
-                                                            <h6 className={['text-center', 'mb-1', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444'}}><del>{(item.price * item.count).toLocaleString() + " تومان"}</del></h6>
-                                                            <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: 'red'}}>{(item.discountedPrice * item.count).toLocaleString() + " تومان"}</h6>
+                                                    <div className={['col-2', 'd-flex', 'flex-column', 'font11md17'].join(' ')}>
+                                                            <h6 className={['text-center', 'mb-1', 'font11md17'].join(' ')} style={{color: '#444444'}}><del>{(item.price * item.count).toLocaleString()}</del></h6>
+                                                            <h6 className={['text-center', 'mb-0', 'font11md17'].join(' ')} style={{ color: 'red'}}>{(item.discountedPrice * item.count).toLocaleString()}</h6>
                                                     </div>
                                                 )
                                             }
@@ -456,7 +451,7 @@ const DeliveryReview = (props) => {
                                 );
                             })
                         }
-                        <div className={['rtl', 'text-right', 'd-md-none', 'mt-2'].join(' ')} style={{width: '100%', overflowX: 'scroll', scrollbarWidth: 'thin', direction: 'rtl'}}>
+                        <div className={['rtl', 'text-right', 'd-none', 'mt-2'].join(' ')} style={{width: '100%', overflowX: 'scroll', scrollbarWidth: 'thin', direction: 'rtl'}}>
                             <div className={['rtl', 'py-2', 'mt-1', 'd-flex', 'd-flex-row', 'align-items-center'].join(' ')} style={{border: '1px solid #D8D8D8', width: '700px', background: '#F7F7F7'}}>
                                 <h6 className={['text-right', 'mb-0', 'pr-2'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '4'}}>محصول</h6>
                                 <h6 className={['text-center', 'mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1'}}>تعداد</h6>
@@ -468,7 +463,7 @@ const DeliveryReview = (props) => {
                             props.reduxCart.information.map((item, counter) => {
                                 return (
                                     <React.Fragment>
-                                            <div className={['rtl', 'py-2', 'mt-1', 'd-flex', 'd-flex-row', 'align-items-center', 'd-md-none'].join(' ')} style={{borderBottom: '1px solid #D8D8D8', width: '700px'}}>
+                                            <div className={['rtl', 'py-2', 'mt-1', 'd-flex', 'd-flex-row', 'align-items-center', 'd-none'].join(' ')} style={{borderBottom: '1px solid #D8D8D8', width: '700px'}}>
                                                 <div className={['text-right', 'mb-0', 'pr-2', 'd-flex', 'flex-row', 'align-items-center'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '4'}}>
                                                     <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '75px', height: '75px', borderRadius: '1px'}} />
                                                     <div className={['d-flex', 'flex-column', 'text-right', 'mr-2'].join(' ')}>
@@ -508,6 +503,22 @@ const DeliveryReview = (props) => {
                             })
                         }
                         </div>
+                        <div className={['row', 'px-3', 'mt-3'].join(' ')}>
+                            <div className={['col-12', 'col-lg-6', 'px-0'].join(' ')} style={{background: '#F7F7F7', border: '1px solid #DEDEDE'}}>
+                                <div className={['d-flex', 'flex-row', 'align-items-center', 'rtl', 'py-3'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                                    <h6 className={['rtl', 'text-right', 'mb-0', 'pr-3'].join(' ')} style={{fontSize: '14px', flex: '4'}}>مجموع خرید شما</h6>
+                                    {getTotalOrderPriceText()}
+                                </div>
+                                <div className={['d-flex', 'flex-row', 'align-items-center', 'rtl', 'py-3'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                                    <h6 className={['rtl', 'text-right', 'mb-0', 'pr-3'].join(' ')} style={{fontSize: '14px', flex: '4'}}>هزینه ارسال</h6>
+                                    {getTotalShippingPriceText()}
+                                </div>
+                                <div className={['d-flex', 'flex-row', 'align-items-center', 'rtl', 'py-3'].join(' ')}>
+                                    <h6 className={['rtl', 'text-right', 'mb-0', 'pr-3'].join(' ')} style={{fontSize: '14px', flex: '4'}}>مبلغ قابل پرداخت</h6>
+                                    {getTotalPaymentPriceText()}
+                                </div>
+                            </div>
+                        </div>
                         <div className={['row', 'mt-5', 'mx-2'].join(' ')}>
                             <div className={['col-12', 'd-flex', 'text-right', 'justify-content-right', 'rtl', 'align-items-center', 'px-0'].join(' ')}>
                                 {
@@ -541,11 +552,11 @@ const DeliveryReview = (props) => {
                                     approvedGiftCodesInformation.map((item, counter) => {
                                         if(counter === 0){
                                             return (
-                                                <div className={['col-6', 'd-flex', 'flex-row', 'align-items-center', 'py-2'].join(' ')}>
-                                                    <div className={['d-flex', 'flex-column', 'justify-content-right', 'pr-5'].join(' ')} >
+                                                <div className={['col-12', 'col-lg-6', 'd-flex', 'flex-row', 'align-items-center', 'py-2'].join(' ')}>
+                                                    <div className={['d-flex', 'flex-column', 'justify-content-right', 'pr-0', 'pr-lg-5', 'w-100'].join(' ')} >
                                                         <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')}>
                                                             <img src={Constants.baseUrl + '/assets/images/main_images/tick.png'} style={{width: '12px', height: '12px'}} />
-                                                            <h6 className={['mb-0', 'pr-1'].join(" ")} style={{fontFamily: 'IranSansWeb', color: '#00A128', fontSize: '17px'}}>{
+                                                            <h6 className={['mb-0', 'pr-1', 'font14md17'].join(" ")} style={{fontFamily: 'IranSansWeb', color: '#00A128'}}>{
                                                                 "کد تخفیف " + item.code + " اعمال شد"
                                                             }</h6>
                                                         </div>
@@ -559,7 +570,7 @@ const DeliveryReview = (props) => {
                                                             )
                                                             :
                                                             (
-                                                                <h6 className={['mb-0', 'text-right'].join(' ')} style={{fontSize: '14px', color: '#2B2B2B'}}>{
+                                                                <h6 className={['mb-0', 'text-right', 'font11md14'].join(' ')} style={{fontSize: '14px', color: '#2B2B2B'}}>{
                                                                     item.discountPrice.toLocaleString() + " تومان از هزینه ارسال کاسته شد"
                                                                 }</h6>
                                                             )
