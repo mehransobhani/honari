@@ -426,9 +426,9 @@ const CategoryInsight = (props) => {
                 <div className={['col-12', 'px-3', 'mt-3'].join(' ')}>
                     <input type="text" value={props.reduxCategoryFilter.key} className={['form-control', 'text-right', 'rtl'].join(' ')} placeholder="نام محصول را جستجو کنید" onChange={searchInputChanged}/>
                 </div>
-                <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'justify-content-right', 'align-items-center', 'mt-3'].join(' ')}>
-                    <input type='checkbox' checked={isShowOnlyAvailableProductsCheckboxChecked()} onChange={showOnlyAvailableProductsCheckboxChanged} style={{accentColor: '#009CA6'}} />
-                    <h6 className={['mb-0', 'mr-2'].join(' ')} style={{fontSize: '13px', color: 'rgb(68, 68, 68)'}}>عدم نمایش محصولات ناموحود</h6>
+                <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'justify-content-right', 'align-items-center', 'mt-3', 'd-none'].join(' ')}>
+                    <input type='checkbox' className={['d-none'].join(' ')} checked={isShowOnlyAvailableProductsCheckboxChecked()} onChange={showOnlyAvailableProductsCheckboxChanged} style={{accentColor: '#009CA6'}} />
+                    <h6 className={['mb-0', 'mr-2', 'd-none'].join(' ')} style={{fontSize: '13px', color: 'rgb(68, 68, 68)'}}>عدم نمایش محصولات ناموحود</h6>
                 </div>
             </div>
             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'mt-2'].join(' ')}>
@@ -441,6 +441,32 @@ const CategoryInsight = (props) => {
                     <MenuItem value={'cheap'}><div className={['text-right'].join(' ')} style={{fontSize: '14px'}}>کمترین قیمت</div></MenuItem>
                     <MenuItem value={'expensive'}><div className={['text-right'].join(' ')} style={{fontSize: '14px'}}>بیشترین قیمت</div></MenuItem>
                 </Select>
+            </div>
+            <div className={['rtl', 'text-right', 'px-1', 'py-3'].join(' ')} style={{borderBottom: '1px solid #dedede'}}>
+                <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer'].join(' ')} onClick={() => {-2 === visibleFilterGroupId ?  setVisibleFilterGroupId(-1) : setVisibleFilterGroupId(-2)}}>
+                    <h6 className={['mb-0']} style={{fontSize: '13px', color: '#444444'}}>موجود بودن/نبودن</h6>
+                    <img src={-2 === visibleFilterGroupId ? Constants.baseUrl+'/assets/images/main_images/minus_black.png' : Constants.baseUrl+'/assets/images/main_images/plus_black.png'} style={{width: '14px', heigth: '14px'}} />
+                </div>
+                {
+                    isShowOnlyAvailableProductsCheckboxChecked() 
+                    ?
+                    (
+                    <div className={['row', 'text-right', 'rtl', 'px-3'].join(' ')}>
+                        <div className={['d-flex', 'flex-row', 'rtl', 'text-right', 'pl-1', 'ml-1', 'align-items-center', 'mt-2', 'pointer'].join(' ')} onClick={showOnlyAvailableProductsCheckboxChanged} style={{borderRadius: '3px'}}>
+                            <img src={Constants.baseUrl + '/assets/images/main_images/close_circle_full_main.png'} style={{width: '15px', height: '15px'}} />
+                            <span className={['pr-1', 'mb-0'].join(' ')} style={{color: 'white', fontSize: '12px', color: '#00BAC6'}} >موجود بودن</span>
+                        </div>
+                    </div>
+                    )
+                    : 
+                    null
+                }
+                <div hidden={-2 === visibleFilterGroupId ? false : true} className={['mt-2'].join(' ')} style={{maxHeight: '200px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#dedede, #dedede'}}>
+                    <div >
+                        <input type='checkbox' className={[''].join(' ')} style={{accentColor: '#009CA6'}} checked={isShowOnlyAvailableProductsCheckboxChecked()} onChange={showOnlyAvailableProductsCheckboxChanged} />
+                        <label className={['mr-1', 'mb-1'].join(' ')} style={{fontSize: '14px'}} >عدم نمایش محصولات ناموجود</label>
+                    </div>
+                </div>
             </div>
             {
                 filters.map((filter, key)=>{
@@ -476,7 +502,7 @@ const CategoryInsight = (props) => {
             </div>
             <div className={['d-flex', 'flex-column', 'w-100', 'px-3'].join(' ')} style={{position: 'fixed', bottom: '0', right: '0'}}>
                 <button className={['py-2', 'text-center', 'pointer'].join(' ')} style={{fontSize: '14px', color: '#00BAC6', background: 'white', borderRadius: '2px', border: '1px solid #00BAC6'}} onClick={filterDrawer('bottom', false)}>اعمال فیلترها</button>
-                <button className={['py-3', 'text-center', 'pointer'].join(' ')} style={{fontSize: '14px', color: '#02959F', background: 'white', border: 'none', outline: 'none'}} onClick={removeAllFilters}>پاک‌کردن همه فیلترها</button>
+                <button className={['py-3', 'text-center', 'pointer'].join(' ')} style={{fontSize: '14px', color: '#00BAC6', background: 'white', border: 'none', outline: 'none'}} onClick={removeAllFilters}>پاک‌کردن همه فیلترها</button>
             </div>
         </div>
     );
@@ -561,9 +587,15 @@ const CategoryInsight = (props) => {
                         <img src={Constants.baseUrl + '/assets/images/main_images/filter_main.png'} style={{width: '17px', height: '17px'}} />
                         <span className={['mr-2', 'font-weight-bold'].join(' ')} style={{color: '#00bac6', fontSize: '14px'}}>فیلترها</span> 
                         {
-                            props.reduxCategoryFilter.options.length !== 0
+                            props.reduxCategoryFilter.options.length !== 0 || isShowOnlyAvailableProductsCheckboxChecked()
                             ?
-                            <span className={['bg-danger', 'px-2', 'mr-1'].join(' ')} style={{color: 'white', borderRadius: '9px', fontSize: '11px'}}>{props.reduxCategoryFilter.options.length}</span>
+                            (
+                                isShowOnlyAvailableProductsCheckboxChecked()
+                                ? 
+                                <span className={['bg-danger', 'px-2', 'mr-1'].join(' ')} style={{color: 'white', borderRadius: '9px', fontSize: '11px'}}>{props.reduxCategoryFilter.options.length + 1}</span>
+                                :
+                                <span className={['bg-danger', 'px-2', 'mr-1'].join(' ')} style={{color: 'white', borderRadius: '9px', fontSize: '11px'}}>{props.reduxCategoryFilter.options.length}</span>
+                            )
                             :
                             null
                         }
@@ -579,9 +611,15 @@ const CategoryInsight = (props) => {
                                 <img src={Constants.baseUrl + '/assets/images/main_images/filter_black.png'} style={{width: '13px'}} />
                                 <span className={['font-weight-bold','mr-2'].join(' ')} style={{fontSize: '14px'}} >فیلتر کردن محصولات</span>
                                 {
-                                    props.reduxCategoryFilter.options.length !== 0
+                                    props.reduxCategoryFilter.options.length !== 0 || isShowOnlyAvailableProductsCheckboxChecked()
                                     ?
-                                    <h6 className={['py-1', 'px-2', 'mr-2', 'bg-danger'].join(' ')} style={{borderRadius: '9px', color: 'white', fontSize: '10px'}}>{props.reduxCategoryFilter.options.length}</h6>
+                                    (
+                                        isShowOnlyAvailableProductsCheckboxChecked()
+                                        ?
+                                            <h6 className={['py-1', 'px-2', 'mr-2', 'bg-danger'].join(' ')} style={{borderRadius: '9px', color: 'white', fontSize: '10px'}}>{props.reduxCategoryFilter.options.length + 1}</h6>
+                                        :
+                                            <h6 className={['py-1', 'px-2', 'mr-2', 'bg-danger'].join(' ')} style={{borderRadius: '9px', color: 'white', fontSize: '10px'}}>{props.reduxCategoryFilter.options.length}</h6>
+                                    )
                                     :
                                     null
                                 }
@@ -589,9 +627,35 @@ const CategoryInsight = (props) => {
                                 <div className={['w-100', 'px-3', 'mt-3'].join(' ')}>
                                     <input type="text" value={props.reduxCategoryFilter.key} className={['form-control', 'text-right', 'rtl'].join(' ')} placeholder="نام محصول را جستجو کنید" style={{fontSize: '13px'}} onChange={searchInputChanged}/>
                                 </div>
-                                <div className={['d-flex', 'flex-row', 'align-items-center', 'rtl', 'px-3', 'mt-3'].join(' ')}>
-                                    <input type='checkbox' className={[''].join(' ')} checked={isShowOnlyAvailableProductsCheckboxChecked()} onChange={showOnlyAvailableProductsCheckboxChanged} style={{accentColor: '#009CA6'}} />
-                                    <h6 className={['text-right', 'rtl', 'mb-0', 'mr-2'].join(' ')} style={{fontSize: '13px'}}>عدم نمایش محصولات ناموجود</h6>
+                                <div className={['d-flex', 'flex-row', 'align-items-center', 'rtl', 'px-3', 'mt-3', 'd-none'].join(' ')}>
+                                    <input type='checkbox' className={['d-none'].join(' ')} checked={isShowOnlyAvailableProductsCheckboxChecked()} onChange={showOnlyAvailableProductsCheckboxChanged} style={{accentColor: '#009CA6'}} />
+                                    <h6 className={['text-right', 'rtl', 'mb-0', 'mr-2', 'd-none'].join(' ')} style={{fontSize: '13px'}}>عدم نمایش محصولات ناموجود</h6>
+                                </div>
+                                <div className={['rtl', 'text-right', 'p-3'].join(' ')} style={{borderBottom: '1px solid #dedede'}}>
+                                    <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pointer'].join(' ')} onClick={() => {-2 === visibleFilterGroupId ?  setVisibleFilterGroupId(-1) : setVisibleFilterGroupId(-2)}}>
+                                        <h6 className={['mb-0']} style={{fontSize: '13px', color: '#444444'}}>موجود بودن/نبودن</h6>
+                                        <img src={-2 === visibleFilterGroupId ? Constants.baseUrl+'/assets/images/main_images/minus_black.png' : Constants.baseUrl+'/assets/images/main_images/plus_black.png'} style={{width: '14px', heigth: '14px'}} />
+                                    </div>
+                                    {
+                                        isShowOnlyAvailableProductsCheckboxChecked() 
+                                        ?
+                                        (
+                                        <div className={['row', 'text-right', 'rtl', 'px-3'].join(' ')}>
+                                            <div className={['d-flex', 'flex-row', 'rtl', 'text-right', 'pl-1', 'ml-1', 'align-items-center', 'mt-2', 'pointer'].join(' ')} onClick={showOnlyAvailableProductsCheckboxChanged} style={{borderRadius: '3px'}}>
+                                                <img src={Constants.baseUrl + '/assets/images/main_images/close_circle_full_main.png'} style={{width: '15px', height: '15px'}} />
+                                                <span className={['pr-1', 'mb-0'].join(' ')} style={{color: 'white', fontSize: '12px', color: '#00BAC6'}} >موجود بودن</span>
+                                            </div>
+                                        </div>
+                                        )
+                                        : 
+                                        null
+                                    }
+                                    <div hidden={-2 === visibleFilterGroupId ? false : true} className={['mt-2'].join(' ')} style={{maxHeight: '200px', overflowY: 'scroll', scrollbarWidth: 'thin', scrollbarColor: '#dedede, #dedede'}}>
+                                        <div >
+                                            <input type='checkbox' className={[''].join(' ')} style={{accentColor: '#009CA6'}} checked={isShowOnlyAvailableProductsCheckboxChecked()} onChange={showOnlyAvailableProductsCheckboxChanged} />
+                                            <label className={['mr-1', 'mb-1'].join(' ')} style={{fontSize: '14px'}} >عدم نمایش محصولات ناموجود</label>
+                                        </div>
+                                    </div>
                                 </div>
                                 {
                                     filters.map((filter, key)=>{
@@ -722,7 +786,7 @@ const CategoryInsight = (props) => {
                                     props.reduxCategoryFilter.results.length !== 0 
                                     ?
                                     <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-center', 'align-items-center', 'mt-2'].join(' ')}>
-                                        <button className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-3'].join(' ')} onClick={paginationPrevButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
+                                        <button className={[props.reduxCategoryFilter.maxPage != 1 ? 'd-flex' : 'd-none', 'flex-row', 'align-items-center', 'pointer', 'px-3'].join(' ')} onClick={paginationPrevButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
                                             <img src={Constants.baseUrl + '/assets/images/main_images/right_arrow_black.png'} style={{width: '8px', height: '8px'}} />
                                             <span className={['pr-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}}>قبلی</span>
                                         </button>
@@ -743,8 +807,8 @@ const CategoryInsight = (props) => {
                                                 </React.Fragment>
                                             )
                                         }
-                                        <button className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'ltr'].join(' ')} onClick={paginationNextButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
-                                            <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black.png'} style={{width: '8px', height: '8px'}} />
+                                        <button className={[props.reduxCategoryFilter.maxPage != 1 ? 'd-flex' : 'd-none', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'ltr'].join(' ')} onClick={paginationNextButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
+                                            <img  src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black.png'} style={{width: '8px', height: '8px'}} />
                                             <span className={['pl-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}}>بعدی</span>
                                         </button>
                                     </div>

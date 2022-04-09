@@ -48,6 +48,10 @@ a {
   .horizontal-scrollable{
     overflow-x: scroll;
   }
+  .finalFactorImage{
+    width: 30px !important;
+    height: 30px !important;
+  }
 }
 
 .specialOfferLeftButton{
@@ -112,11 +116,11 @@ a {
 
 @font-face {
   font-family: IranSansWeb;
-  src: url("/newtest/assets/fonts/IRANSansWeb.woff2") format('woff2');
+  src: url("/fonts/IRANSansWeb.woff2") format('woff2');
 }
 @font-face {
   font-family: IranSansWebFaNum;
-  src: url("/newtest/assets/fonts/IRANSansWeb(FaNum).woff2") format('woff2');
+  src: url("/fonts/IRANSansWeb(FaNum).woff2") format('woff2');
 }
 *{
   font-family: IranSansWebFaNum;
@@ -162,6 +166,10 @@ table{
 }
 td{
   direction: rtl;
+}
+.finalFactorImage{
+  width: 75px;
+  height: 75px;
 }
 .MuiButtonBase-root .MuiListItem-root .MuiMenuItem-root .MuiMenuItem-gutters .MuiListItem-gutters .MuiListItem-button{
   font-family: IranSansWebFaNum;

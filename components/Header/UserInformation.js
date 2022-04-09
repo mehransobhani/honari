@@ -27,21 +27,25 @@ const UserInformation = (props) => {
                 </div>
             </div>
             <Link href={'/users/charge_account'}>
-                <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/panel_wallet_black.svg'} style={{width: '20px', height: '20px'}} className={['ml-2'].join(' ')} />
                     <h5 className={['mb-0'].join(' ')} style={{fontSize: '15px'}}>شارژ حساب کاربری</h5>
                 </a>
             </Link>
             <Link href={'/users/orders'}>
-                <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/panel_cart_black.svg'} style={{width: '20px', height: '20px'}} className={['ml-2'].join(' ')} />
                     <h5 className={['mb-0'].join(' ')} style={{fontSize: '15px'}}>سفارشات من</h5>
                 </a>
             </Link>
             <Link href={'https://honari.com/academy/user/courses'}>
-                <a className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                <a className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/panel_video_black.svg'} style={{width: '20px', height: '20px'}} className={['ml-2'].join(' ')} />
                     <h5 className={['mb-0'].join(' ')} style={{fontSize: '15px'}}>کلاس‌های من</h5>
                 </a>
             </Link>
-            <div onClick={logOut} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between', 'py-3', 'px-2', 'pointer'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+            <div onClick={logOut} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'py-3', 'px-2', 'pointer'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
+                <img src={Constants.baseUrl + '/assets/images/main_images/logout_red.png'} style={{width: '20px', height: '20px'}} className={['ml-2'].join(' ')} />
                 <h5 className={['mb-0'].join(' ')} style={{fontSize: '15px'}}>خروج از حساب کاربری</h5>
             </div>
             <div className={['d-flex', 'flex-row', 'justify-content-center', 'mt-3'].join(' ')}>

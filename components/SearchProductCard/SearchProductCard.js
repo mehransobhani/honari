@@ -14,7 +14,7 @@ const SearchProductcard = (props) => {
                     {
                         props.information.has_stock === "true"  
                         ?
-                        <h6 className={['text-danger', 'text-right', 'rtl', 'px-3', 'mb-2', 'text-right'].join(' ')}>{price.toLocaleString() + ' تومان '}</h6>        
+                        <h6 className={['text-right', 'rtl', 'px-3', 'mb-2', 'text-right'].join(' ')} style={{color: '#F15F58'}}>{price.toLocaleString() + ' تومان '}</h6>        
                         :
                         <h6 className={['text-center', 'rtl', 'mb-0', 'py-2', 'mt-auto', 'w-100'].join(' ')} style={{background: '#F7F7F7', color: 'gray', borderRadius: '4px', borderTop: '1px solid #D8D8D8', marginTop: 'auto'}}>ناموجود</h6>
                     }

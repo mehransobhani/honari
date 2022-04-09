@@ -374,7 +374,7 @@ const carouselTouchEndListener = (event) => {
         </div>
         <div className={['row', 'mt-5', 'mb-2', 'rtl', 'align-items-stretch', 'px-2', 'd-flex', 'flex-column', 'justify-content-center'].join(' ')}>
           <h5 className={['pb-1', 'text-center', 'mb-0', 'align-self-center', 'd-none', 'd-md-block'].join(' ')} style={{borderBottom: '1px solid #00BAC6', zIndex: '3', color: '#2B2B2B', fontWeight: '400', position: 'relative',top: '1px'}}>دسته محصولات پرطرفدار</h5>
-          <h5 className={['pb-1', 'text-center', 'mb-0', 'align-self-center', 'd-md-none'].join(' ')} style={{borderBottom: '1px solid #00BAC6', color: '#2B2B2B', fontWeight: '400'}}>دسته محصولات پرطرفدار</h5>
+          <h5 className={['pb-1', 'text-center', 'mb-0', 'align-self-center', 'd-md-none'].join(' ')} style={{color: '#2B2B2B', fontWeight: '400'}}>دسته محصولات پرطرفدار</h5>
           <div className={['col-12', 'mb-2', 'd-none', 'd-md-block'].join(' ')} style={{height: '1px', backgroundColor: '#dedede', zIndex: '1'}}></div>
         </div>
         <div className={['row', 'px-2', 'px-md-0', 'rtl'].join(' ')}>
