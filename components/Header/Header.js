@@ -552,7 +552,7 @@ function BigHeader(props){
                                                 <div className={['d-flex', 'flex-column'].join(' ')} style={{flex: '1'}}>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
                                                         <img className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '16px', height: '16px'}} onClick={() => {removeProductFromCart(counter)}} />
-                                                        <Link href={"/" + item.url}><a onClick={props.reduxStartLoading} className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '14px', color: "#444444", flex: '1'}}>{item.name}</a></Link>
+                                                        <Link href={"/" + item.url}><a onClick={props.reduxStartLoading} className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '14px', color: "#444444"}}>{item.name}</a></Link>
                                                     </div>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between', 'align-items-center'].join(' ')} style={{marginTop: 'auto'}}>
                                                         {
@@ -623,7 +623,7 @@ function BigHeader(props){
                 :
                 (
                     <div className={['d-flex', 'flex-column', 'align-items-center', 'justify-content-center', 'py-3'].join(' ')}>
-                        <img src={Constants.baseUrl + '/assets/images/main_images/cart.png'} style=   {{width: '60px', height: '60px'}}/>
+                        <img src={Constants.baseUrl + '/assets/images/main_images/panel_cart_main.svg'} style=   {{width: '60px', height: '60px'}}/>
                         <p className={['rtl', 'text-center', 'mb-0', 'mt-2'].join(" ")}>سبد خرید شما خالی است</p>
                     </div>
                 )
@@ -666,7 +666,7 @@ function BigHeader(props){
                                                 <div className={['d-flex', 'flex-column', 'pl-1'].join(' ')} style={{flex: '1'}}>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
                                                         <img className={['pointer']} src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '20px', height: '20px'}} onClick={() => {removeProductFromCart(counter)}} />
-                                                        <Link href={"/" + item.url}><a onClick={toggleCartDrawer('left', false)} className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '16px', color: "#444444", flex: '1'}}><span onClick={props.reduxStartLoading}>{item.name}</span></a></Link>
+                                                        <Link href={"/" + item.url}><a onClick={toggleCartDrawer('left', false)} className={['mb-0', 'rtl', 'text-right', 'px-1'].join(' ')} style={{fontSize: '16px', color: "#444444", width: '70%'}}><span onClick={props.reduxStartLoading}>{item.name}</span></a></Link>
                                                     </div>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between', 'align-items-center'].join(' ')} style={{marginTop: 'auto'}}>
                                                         {
@@ -714,8 +714,8 @@ function BigHeader(props){
                         </div>
                         <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'text-right', 'mt-1', 'mr-3', 'ml-3'].join(' ')} style={{marginBottom: '7.5rem'}}>
                             <div className={['col-12', 'd-flex', 'flex-column', 'px-2'].join(' ')} style={{position: 'absolute', bottom: '0', left: '0', background: 'white', borderTop: props.reduxCart.information.length >= 5 ? '1px solid #DEDEDE' : ''}}>
-                                <div className={['d-flex', 'flex-row', 'w-100', 'rtl', 'align-items-center', 'justify-content-right', 'mt-2', 'py-1'].join(' ')}>
-                                    <p className={['mb-0'].join(' ')} style={{fontSize: '16px', color: '#444444'}}> مبلغ قابل پرداخت : </p>
+                                <div className={['d-flex', 'flex-row', 'w-100', 'rtl', 'align-items-center', 'justify-content-right', 'mt-2', 'py-1'].join(' ')} style={{background: '#F7F7F7', borderTop: '1px solid #DEDEDE'}}>
+                                    <p className={['mb-0', 'p-2'].join(' ')} style={{fontSize: '16px', color: '#444444'}}> مبلغ قابل پرداخت : </p>
                                     {
                                     sumOfCartDiscountedPrices() !== sumOfCartPrices()
                                     ?
@@ -731,7 +731,7 @@ function BigHeader(props){
                                     )
                                     }
                                 </div>
-                                <Link href='/cart/shoppingCart' ><a onClick={() => {props.reduxStartLoading()}} className={['col-12', 'py-2', 'text-center', 'mb-1', 'mt-2'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: '#00BAC6', border: 'none', borderRadius: '2px', outline: 'none'}}>تکمیل فرآیند خرید</a></Link>
+                                <Link href='/cart/shoppingCart' ><a onClick={() => {props.reduxStartLoading()}} className={['col-12', 'py-2', 'text-center', 'mb-1'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: '#00BAC6', border: 'none', borderRadius: '2px', outline: 'none'}}>تکمیل فرآیند خرید</a></Link>
                                 <button onClick={toggleCartDrawer('left', false)} className={['col-12', 'py-1', 'text-center', 'mb-1', 'mt-2', 'pointer'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'white', background: 'white', border: 'none', borderRadius: '2px', outline: 'none', color: '#949494', borderRadius: '2px'}}>بستن</button>
                             </div>
                         </div> 
@@ -743,7 +743,7 @@ function BigHeader(props){
                         <div className={['d-flex', 'flex-row', 'text-right', 'justify-content-right', 'align-items-center', 'rtl', 'px-3', 'pb-1', 'w-100'].join(' ')}>
                             <img src={Constants.baseUrl + '/assets/images/main_images/close_gray_small.png'} style={{width: '22px', height: '22px'}} onClick={toggleCartDrawer('left', false)} />
                         </div>
-                        <img src={Constants.baseUrl + '/assets/images/main_images/cart.png'} style=   {{width: '60px', height: '60px'}}/>
+                        <img src={Constants.baseUrl + '/assets/images/main_images/panel_cart_main.svg'} style=   {{width: '60px', height: '60px'}}/>
                         <p className={['rtl', 'text-center', 'mb-0', 'mt-2'].join(" ")}>سبدخرید شما خالی است</p>
                     </div> 
                 )
@@ -1387,7 +1387,7 @@ function BigHeader(props){
                         </div>
                         <div>
                         {
-                            props.reduxUser.status === 'GUEST'
+                            props.reduxUser.status === 'GUEST' || props.reduxUser.status === 'NI'
                             ?
                             <a href="https://honari.com/user" className={['ltr', 'align-items-center', 'ml-1', 'p-2', 'pointer', 'd-none', 'd-md-flex'].join(' ')}>
                                 <small className={['m-0'].join(' ')} style={{fontSize: '11px'}}>ورود</small>
@@ -1464,17 +1464,12 @@ function BigHeader(props){
                     </div>
                     
                     <div className={['ltr', 'align-items-center', 'pointer'].join(' ')} onClick={() => {setRightMenuHeaderNumber(2)}}>
-                        {/*
-                            props.reduxUser.status === 'GUEST' && props.home !== true ?
+                        {
+                            props.reduxUser.status === 'GUEST' || props.reduxUser.status == 'NI' ?
                                 <a href='https://honari.com/user' className={['px-3', 'py-1', 'pointer'].join(' ')} style={{borderRadius: '3px', fontSize: '11px', backgroundColor: '#00BAC6', color: 'white', position: 'relative', bottom: '0.06rem'}}>ورود</a>
                             :
-                            (
-                                props.reduxUser.status === 'LOGIN' ? 
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/user_black.png'} style={{height: '25px', height: '25px'}} className={['d-none'].join(' ')} onClick={toggleDrawer('right', true)}  />
-                                :
-                                null
-                            )
-                            */}
+                            null
+                        }
                     </div>    
                        
                     <div className={['ltr', 'align-items-center', 'p-2', 'pr-0', 'mr-0', 'pointer', 'd-lg-none', 'flex-row'].join(' ')} style={{position: 'relative'}}>

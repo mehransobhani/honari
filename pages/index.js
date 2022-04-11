@@ -367,7 +367,7 @@ const carouselTouchEndListener = (event) => {
               <img src={Constants.baseUrl + '/assets/images/main_images/return.svg'} className={[styles.tripleBannerImage]} />
               <div className={['d-flex', 'flex-column', 'text-center', 'text-md-right', 'pr-2', 'py-0'].join(' ')}>
                 <h6 className={['mb-1', styles.tripleBannerTitle].join(' ')} style={{color: '#444444', fontWeight: '400'}}>امکان مرجوعی کالا</h6>
-                <h6 className={['mb-0', 'mt-auto', styles.tripleBannerTitle].join(' ')} style={{color: '#494949', fontWeight: '500'}}>بدون محدودیت زمانی</h6>
+                <h6 className={['mb-0', 'mt-auto', styles.tripleBannerTitle].join(' ')} style={{color: '#494949', fontWeight: '500'}}>تا ۱۰ روز پس از دریافت</h6>
               </div>
             </a></Link>
           </div>

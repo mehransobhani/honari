@@ -215,7 +215,7 @@ const SearchResult = (props) => {
                         </div>
                     </div>
                     <div className={['col-12', 'col-md-4', 'px-5', 'px-md-0', 'mt-3', 'mt-md-0'].join(' ')}>
-                        <img src={Constants.baseUrl + '/assets/images/main_images/search_result_not_found_main.png'} className={[''].join(' ')} style={{width: '100%'}} />
+                        <img src={Constants.baseUrl + '/assets/images/main_images/search_result_not_found_main.svg'} className={[''].join(' ')} style={{width: '100%'}} />
                     </div>
                     <div className={['col-12', 'd-md-none'].join(' ')}>
                         <div className={['d-flex', 'flex-row', 'rtl', 'text-right', 'align-items-center', 'mt-5'].join(' ')}>

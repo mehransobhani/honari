@@ -53,6 +53,7 @@ const ProductInsight = (props) =>{
     const [sendingComment, setSendingComment] = useState(false);
     const [otherImages, setOtherImages] = useState([]);
     const [selectedImage, setSelectedImage] = useState(0);
+    const [axiosProcessType, setAxiosProcessType] = useState('nothing');
 
     const informationRef = useRef(null);
 
@@ -332,6 +333,7 @@ const ProductInsight = (props) =>{
         if(!axiosProcessing){
             if(props.reduxUser.status === 'LOGIN'){
                 setAxiosProcessing(true);
+                setAxiosProcessType('remove');
                 axios.post(Constants.apiUrl + '/api/user-remove-from-cart', {
                     productPackId: props.information.productPackId
                 },{
@@ -346,9 +348,11 @@ const ProductInsight = (props) =>{
                     }else if(response.status === 'failed'){
                         alert(response.umessage);
                     }
+                    setAxiosProcessType('nothing');
                 }).catch((error) => {
                     console.log(error);
                     alert('خطا در برقراری ارتباط');
+                    setAxiosProcessType('nothing');
                 });
                 setAxiosProcessing(false);
             }else if(props.reduxUser.status === 'GUEST'){
@@ -372,6 +376,7 @@ const ProductInsight = (props) =>{
         }
         if(props.reduxUser.status == 'GUEST'){
             setAxiosProcessing(true);
+            setAxiosProcessType('increase');
             axios.post(Constants.apiUrl + '/api/guest-check-cart-changes', {
                 productPackId: props.information.productPackId,
                 count: parseInt(orderCount) + 1
@@ -387,13 +392,16 @@ const ProductInsight = (props) =>{
                     console.warn(response.umessage);
                     props.reduxUpdateSnackbar('warning', true, response.umessage);
                 }
+                setAxiosProcessType('nothing');
             }).catch((error) => {
                 setAxiosProcessing(false);
                 console.log(error);
                 props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+                setAxiosProcessType('nothing');
             });
         }else if(props.reduxUser.status === 'LOGIN'){
             setAxiosProcessing(true);
+            setAxiosProcessType('increase');
             axios.post(Constants.apiUrl + '/api/user-increase-cart-by-one', {
                 productPackId: props.information.productPackId
             }, {
@@ -411,10 +419,12 @@ const ProductInsight = (props) =>{
                     console.warn(response.message);
                     props.reduxUpdateSnackbar('warning', true, response.umessage);
                 }
+                setAxiosProcessType('nothing');
             }).catch((error) => {
                 setAxiosProcessing(false);
                 console.log(error);
                 props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+                setAxiosProcessType('nothing');
             });
         }
     }
@@ -425,6 +435,7 @@ const ProductInsight = (props) =>{
         }
         if(props.reduxUser.status == 'GUEST'){
             setAxiosProcessing(true);
+            setAxiosProcessType('decrease');
             axios.post(Constants.apiUrl + '/api/guest-check-cart-changes', {
                 productPackId: props.information.productPackId,
                 count: parseInt(orderCount) - 1
@@ -440,13 +451,16 @@ const ProductInsight = (props) =>{
                     console.warn(response.message);
                     props.reduxUpdateSnackbar('warning', true, response.umessage);
                 }
+                setAxiosProcessType('nothing');
             }).catch((error) => {
                 setAxiosProcessing(false);
                 console.log(error);
                 props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+                setAxiosProcessType('nothing');
             });
         }else if(props.reduxUser.status == 'LOGIN'){
             setAxiosProcessing(true);
+            setAxiosProcessType('decrease');
             axios.post(Constants.apiUrl + '/api/user-decrease-cart-by-one', {
                 productPackId: props.information.productPackId
             }, {
@@ -463,10 +477,12 @@ const ProductInsight = (props) =>{
                     console.log(response.message);
                     props.reduxUpdateSnackbar('warning', true, response.umessage);
                 }
+                setAxiosProcessType('nothing');
             }).catch((error) => {
                 setAxiosProcessing(true);
                 console.log(error);
                 props.reduxUpdateSnackbar('error', true, 'خطا در برقراری ارتباط');
+                setAxiosProcessType('nothing');
             });
         }
     }
@@ -717,10 +733,9 @@ const ProductInsight = (props) =>{
             </div>
             <div className={['col-12', 'mt-3', 'text-right', 'px-md-5'].join(' ')}>
                 <h6 className={['rtl'].join(' ')} style={{color: '#00BAC6'}}>- ارسال رایگان سفارشات</h6>
-                <h6 className={['rtl', 'font-weight-normal'].join(' ')} style={{lineHeight: '1.6rem', fontSize: '13px'}}>کلیه سفارشات پست و پیک که مجموع سبد خرید آنها بیش از ۲۰۰ هزار تومان باشد به صورت رایگان ارسال میشود. پست پیشتاز شامل ارسال رایگان نمیشود.</h6>
+                <h6 className={['rtl', 'font-weight-normal'].join(' ')} style={{lineHeight: '1.6rem', fontSize: '13px'}}>کلیه سفارشات پست و پیک که مجموع سبد خرید آنها بیش از ۲۵۰ هزار تومان باشد به صورت رایگان ارسال میشود. پست پیشتاز شامل ارسال رایگان نمیشود.</h6>
                 <h6 className={['rtl', 'font-weight-normal'].join(' ')} style={{lineHeight: '1.6rem', fontSize: '13px'}}>ارسال سریع در شهر تهران با پیک انجام میشود و زمان رسیدن سفارش توسط شما انتخاب شده و در بازه انتخابی به دست شما میرسد</h6>
                 <h6 className={['rtl', 'font-weight-normal'].join(' ')} style={{lineHeight: '1.6rem', fontSize: '13px'}}>ارسال در سایر شهرهای ایران به انتخاب خود شما توسط پست سفارشی، پیشتاز و ارسال سریع انجام میشود.</h6>
-                <h6 className={['rtl', 'font-weight-normal'].join(' ')} style={{lineHeight: '1.6rem', fontSize: '13px'}}>ارسال سریع به بیش از ۲۰ استان کشور و با دریافت طی ۲۴ ساعت کاری میباشد و شامل ارسال رایگان نمیشود</h6>
             </div>
         </div>
     );
@@ -971,9 +986,8 @@ const ProductInsight = (props) =>{
                                     ?
                                     (
                                         <React.Fragment>
-                                            <h6 className={['w-100', 'mb-1', 'text-right', 'mt-5', 'pr-md-3', 'font14md17'].join(' ')} style={{color: '#949494'}}>انتخاب نوع بسته</h6>
-                                            <div className={['d-flex', 'flex-row', 'row', 'align-items-center', 'mx-0', 'px-2', 'py-1', 'mr-md-3'].join(' ')} style={{border: '1px solid #D8D8D8'}}>
-                                                <input type='radio' className={['form-control', 'd-none'].join(' ')} checked={true} style={{width: '14px'}} value='' />
+                                            <h6 className={['w-100', 'mb-1', 'mb-md-2', 'text-right', 'mt-5', 'pr-md-3', 'font14md17'].join(' ')} style={{color: '#949494'}}>انتخاب نوع بسته</h6>
+                                            <div className={['d-flex', 'flex-row', 'row', 'align-items-center', 'mx-0', 'px-2', 'py-2', 'mr-md-3'].join(' ')} style={{border: '1px solid #D8D8D8'}}>
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/radio_button_main.png'} style={{width: '14px', height: '14px'}} />
                                                 <label className={['mb-0', 'mr-2', 'text-right', 'rtl', 'font11md14'].join(' ')} >{props.information.productLabel}</label>
                                                 {
@@ -1052,7 +1066,7 @@ const ProductInsight = (props) =>{
                                                 <h6 className={['mb-0', 'px-3', 'text-center', 'font14md17'].join(' ')} style={{color: '#2B2B2B'}}>{orderCount}</h6>
                                                 <img onClick={decreaseOrderCountByOne} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png'} style={{width: '26px', height: '26px'}} />
                                             </div>
-                                            <div onClick={() => {informationRef.current.scrollIntoView(); window.scrollBy(0, -120)}} className={['col-6', 'd-flex', 'flex-row', 'align-items-center', 'pointer'].join(' ')}>
+                                            <div onClick={() => {informationRef.current.scrollIntoView(); window.scrollBy(0, -120)}} className={['col-6', 'd-none', 'd-md-flex', 'flex-row', 'align-items-center', 'pointer'].join(' ')}>
                                                 <img src={Constants.baseUrl + '/assets/images/main_images/down_arrow_black_small.png'} style={{width: '7px', height: '7px'}} />
                                                 <span className={['mr-2', 'font14md17'].join(' ')}>توضیحات بیشتر</span>
                                             </div>
@@ -1063,14 +1077,14 @@ const ProductInsight = (props) =>{
                                         <div className={['row', 'align-items-center', 'mt-5', 'pr-md-3', 'mb-5'].join(' ')}>
                                             <div className={['col-6', 'd-flex', 'flex-row', 'align-items-center', 'text-right', 'rtl'].join(' ')}>
                                                 <h6 className={['mb-0', 'ml-2', 'font14md17'].join(' ')}>تعداد : </h6>
-                                                <img onClick={increaseButtonClicked} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png'} style={{width: '26px', height: '26px'}} />
+                                                <img onClick={increaseButtonClicked} className={['pointer'].join(' ')} src={Constants.baseUrl + axiosProcessType != 'increase' ? '/assets/images/main_images/plus_gray_circle.png' : '/assets/images/main_images/loading_circle_dotted.png'} style={{width: '26px', height: '26px'}} />
                                                 <h6 className={['mb-0', 'px-3', 'text-center', 'font14md17'].join(' ')} style={{color: '#2B2B2B'}}>{getProductOrderCount()}</h6>
                                                 {
                                                     getProductOrderCount() === 1
                                                     ?
-                                                    <img onClick={removeFromCartButtonClicked} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '26px', height: '26px'}} />
+                                                    <img onClick={removeFromCartButtonClicked} className={['pointer'].join(' ')} src={Constants.baseUrl + axiosProcessType != 'remove' ? '/assets/images/main_images/bin_red.png' : '/assets/images/main_images/loading_circle_dotted.png'} style={{width: '26px', height: '26px'}} />
                                                     :
-                                                    <img onClick={decreaseButtonClicked} className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png'} style={{width: '26px', height: '26px'}} />
+                                                    <img onClick={decreaseButtonClicked} className={['pointer'].join(' ')} src={Constants.baseUrl + axiosProcessType != 'decrease'? '/assets/images/main_images/minus_gray_circle.png' : '/assets/images/main_images/loading_circle_dotted.png'} style={{width: '26px', height: '26px'}} />
                                                 }
                                             </div>
                                             <div onClick={() => {informationRef.current.scrollIntoView(); window.scrollBy(0, -120)}} className={['col-6', 'd-flex', 'flex-row', 'align-items-center', 'pointer'].join(' ')}>
@@ -1083,7 +1097,16 @@ const ProductInsight = (props) =>{
                                 <div className={['d-flex', 'flex-row', 'justify-content-center', 'mr-md-3'].join(' ')}>
                                 {
                                     !productExistsOrNot() ?
-                                        <button className={['d-flex', 'flex-row', 'align-items-center', 'mt-5', 'py-2', 'pointer', 'mb-2', 'mb-md-0'].join(' ')} style={{fontSize: '17px' ,backgroundColor: '#00bac6', color: 'white', borderStyle: 'none', borderRadius: '2px', outlineStyle: 'none', paddingRight: '6rem', paddingLeft: '6rem'}} onClick={addToCartButtonClicked}>اضافه به سبد خرید</button>
+                                        <React.Fragment>
+                                            <div className={['col-12', 'px-0', 'd-flex', 'd-md-none', 'flex-row', 'align-items-center', 'justify-content-between', 'rtl', 'mt-4'].join(' ')}>
+                                                <button className={['d-flex', 'flex-row', 'align-items-center', 'py-2', 'px-4', 'pointer', 'mb-2', 'mb-md-0'].join(' ')} style={{fontSize: '17px' ,backgroundColor: '#00bac6', color: 'white', borderStyle: 'none', borderRadius: '2px', outlineStyle: 'none'}} onClick={addToCartButtonClicked}>اضافه به سبد خرید</button>
+                                                <div onClick={() => {informationRef.current.scrollIntoView(); window.scrollBy(0, -120)}} className={['col-6', 'd-flex', 'flex-row', 'align-items-center', 'pointer'].join(' ')}>
+                                                    <img src={Constants.baseUrl + '/assets/images/main_images/down_arrow_black_small.png'} style={{width: '7px', height: '7px'}} />
+                                                    <span className={['mr-2', 'font14md17'].join(' ')}>توضیحات بیشتر</span>
+                                                </div>
+                                            </div>
+                                            <button className={['d-none', 'd-md-block', 'flex-row', 'align-items-center', 'mt-5', 'py-2', 'pointer', 'mb-2', 'mb-md-0'].join(' ')} style={{fontSize: '17px' ,backgroundColor: '#00bac6', color: 'white', borderStyle: 'none', borderRadius: '2px', outlineStyle: 'none', paddingRight: '6rem', paddingLeft: '6rem'}} onClick={addToCartButtonClicked}>اضافه به سبد خرید</button>
+                                        </React.Fragment>
                                     :
                                     null
                                 }
@@ -1144,7 +1167,7 @@ const ProductInsight = (props) =>{
                     <img src={Constants.baseUrl + '/assets/images/main_images/return.svg'} className={[styles.tripleBannerImage]} />
                     <div className={['d-flex', 'flex-column', 'text-center', 'text-md-right', 'pr-2', 'py-0'].join(' ')}>
                         <h6 className={['mb-1', styles.tripleBannerTitle].join(' ')} style={{color: '#444444', fontWeight: '400'}}>امکان مرجوعی کالا</h6>
-                        <h6 className={['mb-0', 'mt-auto', styles.tripleBannerTitle].join(' ')} style={{color: '#494949', fontWeight: '500'}}>بدون محدودیت زمانی</h6>
+                        <h6 className={['mb-0', 'mt-auto', styles.tripleBannerTitle].join(' ')} style={{color: '#494949', fontWeight: '500'}}>تا ۱۰ روز پس از دریافت</h6>
                     </div>
                     </a></Link>
                 </div>

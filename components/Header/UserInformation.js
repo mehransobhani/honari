@@ -20,12 +20,13 @@ const UserInformation = (props) => {
     return (
         <div>
             <div className={['d-flex', 'felx-row', 'align-items-center', 'justify-content-right', 'rtl', 'py-2', 'pr-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                <img src={Constants.baseUrl + '/assets/images/main_images/user_black_circle.png'} style={{width: '40px', height: '40px'}} />
+                <img src={Constants.baseUrl + '/assets/images/main_images/panel_user_black.svg'} style={{width: '40px', height: '40px'}} />
                 <div className={['d-flex', 'flex-column', 'mr-2'].join(' ')} style={{}}>
                     <h5 className={['text-right'].join(' ')} style={{fontSize: '15px', fontWeight: '500', color: '#444444'}}>{props.reduxUser.information.name}</h5>
                     <h6 className={['text-right', 'mb-0'].join(' ')} style={{fontSize: '12px', color: '#444444'}}>{props.reduxUser.information.username}</h6>
                 </div>
             </div>
+            
             <Link href={'/users/charge_account'}>
                 <a onClick={props.reduxStartLoading} className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'py-3', 'px-2'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
                     <img src={Constants.baseUrl + '/assets/images/main_images/panel_wallet_black.svg'} style={{width: '20px', height: '20px'}} className={['ml-2'].join(' ')} />
