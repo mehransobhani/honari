@@ -134,7 +134,7 @@ const PasargadOrderPaymentResult = (props) => {
                 <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center'].join(' ')}>
                     <img src={Constants.baseUrl + '/assets/images/main_images/cancel_red_huge.png'} className={['mt-3'].join(' ')} style={{width: '76px', height: '76px'}} />
                     <h5 className={['mb-0', 'text-center', 'mt-2'].join(' ')} style={{fontSize: '22px', color: 'black'}}><b>پرداخت شما ناموفق بوده است</b></h5>
-                    <p className={['mb-0', 'text-center', 'mt-2'].join(' ')} style={{fontSize: '17px'}}>چنانچه مبلغ از شما کسر شده است معمولا ظرف ۷۲ ساعت آینده به حساب شما بازگردانده خواهد شد</p>
+                    <p className={['mb-0', 'text-center', 'mt-2'].join(' ')} style={{fontSize: '17px'}}>چنانچه مبلغ از حساب شما کم شده است معمولا ظرف ۷۲ ساعت آینده به حساب شما بازگردانده خواهد شد.</p>
                     <p className={['mb-0', 'text-center', 'mt-2'].join(' ')} style={{fontSize: '17px'}}>درصورت عدم بازگشت مبلغ در این بازه زمانی با پشتیبانی بانک خود تماس حاصل نمایید</p>
                 </div>
                 <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center', 'mt-3', 'py-4', 'px-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8', background: '#F7F7F7'}}>

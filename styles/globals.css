@@ -33,6 +33,13 @@ a {
   .font17md22{
     font-size: 17px !important;
   }
+  .font20md22{
+    font-size: 20px !important;
+  }
+  .notFoundSadImage{
+    width: 147px !important;
+    height: 147px !important;
+  }
   .specialOfferLeftButton{
     left: -0.8rem !important;
   }
@@ -52,6 +59,34 @@ a {
     width: 30px !important;
     height: 30px !important;
   }
+  .notFoundMessage{
+    font-size: 17px !important;
+  }
+  .serverErrorImage{
+    width: 180px !important;
+  }
+  .serverErrorNumber{
+    font-size: 80px !important;
+  }
+  .serverErrorMessage{
+    font-size: 14px !important;
+  }
+}
+.serverErrorNumber{
+  font-size: 280px;
+}
+.serverErrorImage{
+  width: 360px;
+}
+.serverErrorMessage{
+  font-size: 30px;
+}
+.notFoundMessage{
+  font-size: 35px;
+}
+.notFoundSadImage{
+  width: 318px;
+  height: 318px;
 }
 
 .specialOfferLeftButton{
@@ -88,6 +123,9 @@ a {
 .font17md22{
   font-size: 22px;
 }
+.font20md22{
+  font-size: 22px;
+}
 
 .font14{
   font-size: 14px;
@@ -107,7 +145,7 @@ a {
 
 @media only screen and (min-width: 992px) {
   .desktopHeaderBackgroundFlowers{
-    background-image: url("/assets/images/main_images/gol.png");
+    background-image: url("/newtest/assets/images/main_images/gol.png");
     background-position: center top;
     background-repeat: no-repeat;
     background-size: contain;
@@ -116,11 +154,11 @@ a {
 
 @font-face {
   font-family: IranSansWeb;
-  src: url("/fonts/IRANSansWeb.woff2") format('woff2');
+  src: url("/newtest/assets/fonts/IRANSansWeb.woff2") format('woff2');
 }
 @font-face {
   font-family: IranSansWebFaNum;
-  src: url("/fonts/IRANSansWeb(FaNum).woff2") format('woff2');
+  src: url("/newtest/assets/fonts/IRANSansWeb(FaNum).woff2") format('woff2');
 }
 *{
   font-family: IranSansWebFaNum;

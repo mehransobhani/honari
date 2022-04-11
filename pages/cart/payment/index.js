@@ -171,8 +171,8 @@ const Payment = (props) => {
         <div className={['container']}>
             <div className={['row', 'mt-5', 'px-2'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')}>
-                    <img src={Constants.baseUrl + '/assets/images/main_images/location_black.png'} style={{width: '16px', height: '16px'}}/>
-                    <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', fontWeight: '500', color: '500'}}>آدرس</h6>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/location_black.png'} style={{width: '20px', height: '20px'}}/>
+                    <h6 className={['mb-0', 'pr-1', 'font20md22'].join(' ')} style={{fontWeight: '500', color: '500'}}>آدرس</h6>
                 </div>
                 <div className={['col-12', 'mt-2', 'd-flex', 'flex-column', 'align-items-center'].join(' ')} style={{border: '1px dashed #D8D8D8', background: '#F9F9F9'}}>
                     <img src={Constants.baseUrl + '/assets/images/main_images/delivery_location.png'} className={['mt-4'].join(' ')} style={{width: '70px', height: '70px'}} />
@@ -199,8 +199,8 @@ const Payment = (props) => {
         <div className={['container'].join(' ')}>
             <div className={['row', 'mt-3', 'mx-1'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')}>
-                    <img src={Constants.baseUrl + '/assets/images/main_images/location_black.png'} style={{width: '16px', height: '16px'}}/>
-                    <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', fontWeight: '500', color: '500'}}>آدرس</h6>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/location_black.png'} style={{width: '22px', height: '22px'}}/>
+                    <h6 className={['mb-0', 'pr-1', 'font20md22'].join(' ')} style={{fontWeight: '500', color: '500'}}>آدرس</h6>
                 </div>
                 <div className={['col-12', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'mt-2'].join(' ')} style={{background: 'linear-gradient(270deg, #DEEEEF 0%, rgba(222, 238, 239, 0) 89.58%)', border: '1px solid #DEDEDE'}}>
                     <div className={['d-flex', 'flex-row', 'align-items-center', 'px-0', 'px-md-3', 'py-2'].join(' ')}>
@@ -270,8 +270,8 @@ const Payment = (props) => {
             </div>
             <div className={['row', 'mt-4', 'mx-1'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right', 'px-0'].join(' ')}>
-                    <img src={Constants.baseUrl + '/assets/images/main_images/delivery_time.png'} style={{width: '16px', height: '16px'}}/>
-                    <h6 className={['mb-0', 'pr-1'].join(' ')} style={{fontSize: '24px', fontWeight: '500', color: '500'}}>شیوه و زمان ارسال</h6>
+                    <img src={Constants.baseUrl + '/assets/images/main_images/delivery_time.png'} style={{width: '22px', height: '22px'}}/>
+                    <h6 className={['mb-0', 'pr-1', 'font20md22'].join(' ')} style={{fontWeight: '500', color: '500'}}>شیوه و زمان ارسال</h6>
                 </div>
             </div>
             <div className={['row', 'mt-2', 'rtl', 'mx-1'].join(' ')}>
@@ -390,19 +390,19 @@ const Payment = (props) => {
                         <div className={['col-12'].join(' ')}>
                             <div className={['w-100', 'd-flex', 'flex-row', 'align-items-center', 'rtl'].join(' ')}>
                                 <div class={[''].join(' ')} style={{flex: '1', height: '2px', background: '#00BAC6'}}></div>
-                                <div class={[''].join(' ')} style={{flex: '1', height: '2px', background: '#BFBFBF'}}></div>
+                                <div class={[''].join(' ')} style={{flex: '1', height: '2px', background: '#DEDEDE'}}></div>
                             </div>
                             <div className={['d-flex', 'flex-row', 'align-items-center', 'rtl'].join(' ')} style={{position: 'relative', top: '-10px'}}>
                                 <div className={['d-flex', 'flex-column', 'text-center', 'justify-content-center'].join(' ')} style={{flex: '1'}}>
-                                    <div className={['text-center'].join(' ')}><img src={Constants.baseUrl + '/assets/images/main_images/circle_main.png'} style={{width: '20px', height: '20px'}} /></div>
+                                    <div className={['text-center'].join(' ')}><img src={Constants.baseUrl + '/assets/images/main_images/previous_shopping_step_indicator.svg'} style={{width: '20px', height: '20px'}} /></div>
                                     <h6 className={['text-center', 'mt-2', 'font11md17'].join(' ')} style={{color: '#00BAC6'}}><b>ورود به هنری</b></h6>
                                 </div>
                                 <div className={['d-flex', 'flex-column', 'text-center', 'justify-content-center'].join(' ')} style={{flex: '1'}}>
-                                    <div className={['text-center'].join(' ')}><img src={Constants.baseUrl + '/assets/images/main_images/circle_main.png'} style={{width: '20px', height: '20px'}} /></div>
+                                    <div className={['text-center'].join(' ')}><img src={Constants.baseUrl + '/assets/images/main_images/current_shopping_step_indicator.svg'} style={{width: '20px', height: '20px'}} /></div>
                                     <h6 className={['text-center', 'mt-2', 'font11md17'].join(' ')} style={{color: '#00BAC6'}}><b>اطلاعات ارسال</b></h6>
                                 </div>
                                 <div className={['d-flex', 'flex-column', 'text-center', 'justify-content-center'].join(' ')} style={{flex: '1'}}>
-                                    <div className={['text-center'].join(' ')}><img src={Constants.baseUrl + '/assets/images/main_images/circle_gray_small.png'} style={{width: '20px', height: '20px'}} /></div>
+                                    <div className={['text-center'].join(' ')}><img src={Constants.baseUrl + '/assets/images/main_images/next_shopping_step_indicator.svg'} style={{width: '20px', height: '20px'}} /></div>
                                     <h6 className={['text-center', 'mt-2', 'font11md17'].join(' ')} style={{color: 'gray'}}><b>بازبینی نهایی و ارسال</b></h6>
                                 </div>
                             </div>

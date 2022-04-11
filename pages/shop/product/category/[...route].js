@@ -13,6 +13,7 @@ import CategoryInsight from '../../../../components/CategoryInsight/CategoryInsi
 import RootCategory from '../../../../components/RootCategory/RootCategory';
 import * as actionTypes from '../../../../store/actions';
 import {connect} from 'react-redux';
+import NotFoundBody from '../../../../components/notFound/notFound';
 
 const Category = (props) => {
     const router = useRouter();
@@ -115,10 +116,13 @@ const Category = (props) => {
                 //setComponent(null);
                 setComponent(<CategoryInsight id={props.ssrUrlInfo.id} name={props.ssrUrlInfo.name} />);
             }else{
-                alert('not product nor category');
+                setPageTitle('صفحه مورد نظر یافت نشد');
+                setComponent(<NotFoundBody />);
             }
         }else{
-            alert('failed and this is its message : ' + props.ssrUrlInfo.message + ' | and url itself : ' + props.ssrUrlInfo.url);
+            //alert('hi');
+            setPageTitle('صفحه مورد نظر یافت نشد | هنری');
+            setComponent(<NotFoundBody />);
         }
     }, [props.reduxUser.status, 'NI']);
 
@@ -196,7 +200,7 @@ const Category = (props) => {
     return (
         <React.Fragment>
             <Head>
-                <title>{"خرید " + props.ssrUrlInfo.name + " | هنری"}</title>
+                <title>{pageTitle}</title>
                 <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
                 {
                     props.ssrUrlInfo.type === 'product'
@@ -217,7 +221,7 @@ const Category = (props) => {
                     ?
                     <CategoryInsight id={props.ssrUrlInfo.id} name={props.ssrUrlInfo.name} count={props.ssrUrlInfo.count} products={props.ssrUrlInfo.products} breadcrumb={props.ssrUrlInfo.breadcrumb} banners={props.ssrUrlInfo.banners} />
                     :
-                    null
+                    <NotFoundBody />
                 )
             }
             
