@@ -869,6 +869,10 @@ const ProductInsight = (props) =>{
         }
     }
 
+    const getReversedBreadcrumb = (breadcrumb) => {
+        return breadcrumb.reverse();
+    }
+
     return(
         <React.Fragment>
             <div className={[videoFullscreenDisplay, 'flex-row', 'align-items-center', 'justify-content-center'].join(' ')} style={{width: '100%', height: '100%', position: 'fixed', top: '0px', left: '0px', background: 'black', zIndex: '99999'}}>
@@ -886,7 +890,7 @@ const ProductInsight = (props) =>{
                         <img src={Constants.baseUrl + '/assets/images/main_images/youre_here.svg'} style={{width: '80px'}} />
                         <p className={['p-1', 'mb-0', 'font11', 'd-none'].join(' ')} style={{backgroundColor: 'white', border: '1px solid #D8D8D8', borderRadius: '14px 1px 1px 14px', fontSize: '11px'}}>اینجا هستید</p>
                         {
-                            (props.breadcrumb.reverse()).map((bread, count)=>{
+                            (props.breadcrumb).map((bread, count)=>{
                                 if(count == 0){
                                     return(
                                         <Link key={count} href={'/shop/product/category/' + bread.url} ><a onClick={props.reduxStartLoading} className={['breadcrumbItem', 'mb-0', 'font11', 'mr-2'].join(' ')} style={{fontSize: '11px'}} >{bread.name}</a></Link>

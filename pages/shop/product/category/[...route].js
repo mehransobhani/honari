@@ -256,7 +256,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Category);
 export async function getServerSideProps(context){
     let url = context.req.url.substr(1);
     let newUrl = '';
-    //console.log(url);
     if(url.charAt(0) !== 's' || url.charAt(1) !== 'h' || url.charAt(2) !== 'o' || url.charAt(3) !== 'p'){
         ///_next/data/development/shop/product/category/painting/ghalammo-abzar-rang/polet/pallet-guash-21-28cm.json?route=painting&route=ghalammo-abzar-rang&route=polet&route=pallet-guash-21-28cm
         let collect = false;
@@ -267,10 +266,14 @@ export async function getServerSideProps(context){
                 collect = false;
             }
             if(collect){
-                newUrl += url.charAt(i);
+                if(url.charAt(i) === '%' && url.charAt(i+1) === '2' && url.charAt(i+2) === '6'){
+                    newUrl += '&';
+                    i+=2;
+                }else{
+                    newUrl += url.charAt(i);
+                }
             }
         }
-        //console.log("new url : " + newUrl);
         if(newUrl.length !== 0){
             url = newUrl;
         }
@@ -283,6 +286,7 @@ export async function getServerSideProps(context){
     console.log("route: " + url);
     console.log(urlInfo);
     let urlResponse = await urlInfo.json();
+    console.log(urlResponse);
     const m = await fetch(Constants.apiUrl + '/api/menu', {
         method: 'GET'
     });

@@ -252,6 +252,7 @@ const CategoryInsight = (props) => {
             if(response.status === 'done'){
                 props.reduxUpdateCategoryFilterMaxPage(Math.ceil(response.count/12));
                 props.reduxUpdateCategoryFilterResults(response.products);
+                console.info(response.products);
                 /*if(response.products.length === 0){
                     props.reduxUpdateCategoryFilterResults([]);
                     props.reduxUpdateCategoryFilterPage(1);

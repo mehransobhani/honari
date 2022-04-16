@@ -353,7 +353,12 @@ const mapStateToProps = (state) => {
             }
         }
         if(newUrl.length !== 0){
-            url = newUrl;
+            if(url.charAt(i) === '%' && url.charAt(i+1) === '2' && url.charAt(i+2) === '6'){
+                newUrl += '&';
+                i+=2;
+            }else{
+                url = newUrl;
+            }
         }
     }
     const artInfo = await fetch(Constants.apiUrl + '/api/art-information', {
