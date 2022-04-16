@@ -240,7 +240,7 @@ const DeliveryReview = (props) => {
             <div className={['row', 'px-2'].join(' ')}>
                 <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center'].join(' ')}>
                     <img src={Constants.baseUrl + '/assets/images/main_images/checked_green_huge.png'} className={['mt-3'].join(' ')} style={{width: '76px', height: '76px'}} />
-                    <h5 className={['mb-0', 'text-center', 'mt-2'].join(' ')} style={{fontSize: '22px', color: 'black'}}><b>سفارش با موفقیت ثبت شد</b></h5>
+                    <h5 className={['mb-0', 'text-center', 'mt-2'].join(' ')} style={{fontSize: '20px', color: 'black'}}><b>سفارش با موفقیت ثبت شد</b></h5>
                     <p className={['mb-0', 'text-center', 'mt-2'].join(' ')} style={{fontSize: '17px'}}>پردازش سفارش شما آغاز شده است و در اولین فرصت آماده تحویل خواهد بود</p>
                 </div>
                 <div className={['col-12', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center', 'mt-3', 'py-4', 'px-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8', background: '#F7F7F7'}}>
@@ -364,7 +364,7 @@ const DeliveryReview = (props) => {
                 <link rel="icon" href={ Constants.baseUrl + "/favicon.ico"} type="image/x-icon"/>
             </Head>
             <Header menu={props.ssrMenu} />  
-                {orderStage === ''
+                {orderStage === ''  
                 ?
                 (
                 <React.Fragment>
@@ -397,7 +397,7 @@ const DeliveryReview = (props) => {
                             <div className={['col-12', 'mt-4', 'px-3'].join(' ')}>
                                 <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-right', 'rtl'].join(' ')}>
                                     <img src={Constants.baseUrl + '/assets/images/main_images/form.png'} style={{width: '18px', heigth: '18px'}} />
-                                    <h4 className={['text-right', 'mb-0', 'mr-2'].join(' ')} style={{fontSize: '24px', color: '#2b2b2b'}}>فاکتور نهایی خرید</h4>
+                                    <h4 className={['text-right', 'mb-0', 'mr-2'].join(' ')} style={{fontSize: '20px', color: '#2b2b2b'}}>فاکتور نهایی خرید</h4>
                                 </div>
                             </div>
                         </div>
@@ -528,7 +528,7 @@ const DeliveryReview = (props) => {
                                     :
                                     <img className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/unselected_checkbox.png'} style={{width: '15px', height: '15px'}} onClick={() => {setGiftCodeCheckboxSelected(true)}} />
                                 }
-                                <h6 className={['text-right', 'mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '24px', color: '#2B2B2B'}}><b>کد تخفیف دارم</b></h6>
+                                <h6 className={['text-right', 'mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '20px', color: '#2B2B2B'}}><b>کد تخفیف دارم</b></h6>
                             </div>
                             <div className={['col-12', 'px-0'].join(' ')}>
                                 <h6 className={['text-right', 'rtl', 'mb-0', 'mt-1'].join(' ')} style={{fontSize: '14px', color: '#2B2B2B'}}>اگر کد تخفیف هنری دارید این گزینه را تیک بزنید و کد خود را وارد کنید</h6>
@@ -619,12 +619,12 @@ const DeliveryReview = (props) => {
                         <div className={['row', 'mt-5', 'mx-2'].join(' ')}>
                             <div className={['col-12', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-start', 'rtl', 'text-right', 'mb-3', 'px-0'].join(' ')}>
                                 <img src={Constants.baseUrl + '/assets/images/main_images/card_wallet.svg'} style={{width: '18px', height: '18px'}} />
-                                <h5 className={['mb-0', 'mr-2'].join(' ')} style={{fontSize: '24px', color: '#2B2B2B'}}><b>شیوه پرداخت</b></h5>
+                                <h5 className={['mb-0', 'mr-2'].join(' ')} style={{fontSize: '20px', color: '#2B2B2B'}}><b>شیوه پرداخت</b></h5>
                             </div>
                             <div className={['col-12', 'd-flex', 'flex-row', 'text-right', 'rtl', 'align-items-center', 'justify-content-right', 'py-2', 'mr-3'].join(' ')} style={{borderRadius: '2px', border: '1px solid #DEDEDE'}}>
                                 <img src={Constants.baseUrl + '/assets/images/main_images/rec_main_full.png'} style={{width: '14px', height: '14px'}} />
                                 <div className={['d-flex', 'flex-column', 'justify-content-right', 'pr-3'].join(' ')}>
-                                    <h6 className={['text-right', 'mb-0'].join(' ')} style={{fontSize: '24px', color: '#2B2B2B'}}>پرداخت آنلاین</h6>
+                                    <h6 className={['text-right', 'mb-0'].join(' ')} style={{fontSize: '20px', color: '#2B2B2B'}}>پرداخت آنلاین</h6>
                                     <h6 className={['text-right', 'mb-0', 'mt-1'].join(' ')} style={{fontSize: '14px', color: '#4B4B4B'}}>از طریق درگاه بانک</h6>
                                 </div>
                             </div>

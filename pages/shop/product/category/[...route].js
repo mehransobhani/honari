@@ -278,15 +278,25 @@ export async function getServerSideProps(context){
             url = newUrl;
         }
     }
+    console.log("url : " + url);
     const urlInfo = await fetch(Constants.apiUrl + '/api/route-info', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({route: url})
     });
-    console.log("route: " + url);
-    console.log(urlInfo);
+    fetch(Constants.apiUrl + '/api/route-info', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({route: url})
+    }).then((r) => {
+        console.log(r.body);  
+    }).catch((e) => {
+        console.log("an error occured");
+    });
+    //console.log("route: " + url);
+    //console.log(urlInfo);
     let urlResponse = await urlInfo.json();
-    console.log(urlResponse);
+    //console.log(urlResponse);
     const m = await fetch(Constants.apiUrl + '/api/menu', {
         method: 'GET'
     });

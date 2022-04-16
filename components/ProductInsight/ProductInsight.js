@@ -1081,14 +1081,14 @@ const ProductInsight = (props) =>{
                                         <div className={['row', 'align-items-center', 'mt-5', 'pr-md-3', 'mb-5'].join(' ')}>
                                             <div className={['col-6', 'd-flex', 'flex-row', 'align-items-center', 'text-right', 'rtl'].join(' ')}>
                                                 <h6 className={['mb-0', 'ml-2', 'font14md17'].join(' ')}>تعداد : </h6>
-                                                <img onClick={increaseButtonClicked} className={['pointer'].join(' ')} src={Constants.baseUrl + axiosProcessType != 'increase' ? '/assets/images/main_images/plus_gray_circle.png' : '/assets/images/main_images/loading_circle_dotted.png'} style={{width: '26px', height: '26px'}} />
+                                                <img onClick={increaseButtonClicked} className={['pointer'].join(' ')} src={Constants.baseUrl + axiosProcessType != 'increase' ? (Constants.baseUrl + '/assets/images/main_images/plus_gray_circle.png') : (Constants.baseUrl + '/assets/images/main_images/loading_circle_dotted.png')} style={{width: '26px', height: '26px'}} />
                                                 <h6 className={['mb-0', 'px-3', 'text-center', 'font14md17'].join(' ')} style={{color: '#2B2B2B'}}>{getProductOrderCount()}</h6>
                                                 {
                                                     getProductOrderCount() === 1
                                                     ?
-                                                    <img onClick={removeFromCartButtonClicked} className={['pointer'].join(' ')} src={Constants.baseUrl + axiosProcessType != 'remove' ? '/assets/images/main_images/bin_red.png' : '/assets/images/main_images/loading_circle_dotted.png'} style={{width: '26px', height: '26px'}} />
+                                                    <img onClick={removeFromCartButtonClicked} className={['pointer'].join(' ')} src={axiosProcessType != 'remove' ? (Constants.baseUrl + '/assets/images/main_images/bin_red.png') : (Constants.baseUrl + '/assets/images/main_images/loading_circle_dotted.png')} style={{width: '26px', height: '26px'}} />
                                                     :
-                                                    <img onClick={decreaseButtonClicked} className={['pointer'].join(' ')} src={Constants.baseUrl + axiosProcessType != 'decrease'? '/assets/images/main_images/minus_gray_circle.png' : '/assets/images/main_images/loading_circle_dotted.png'} style={{width: '26px', height: '26px'}} />
+                                                    <img onClick={decreaseButtonClicked} className={['pointer'].join(' ')} src={Constants.baseUrl + axiosProcessType != 'decrease'? (Constants.baseUrl + '/assets/images/main_images/minus_gray_circle.png') : (Constants.baseUrl + '/assets/images/main_images/loading_circle_dotted.png')} style={{width: '26px', height: '26px'}} />
                                                 }
                                             </div>
                                             <div onClick={() => {informationRef.current.scrollIntoView(); window.scrollBy(0, -120)}} className={['col-6', 'd-flex', 'flex-row', 'align-items-center', 'pointer'].join(' ')}>
