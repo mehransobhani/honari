@@ -534,7 +534,7 @@ const CategoryInsight = (props) => {
                 {phoneFilter}
             </Drawer>
             <div className={[''].join(' ')} style={{backgroundColor: '#F7F7F7'}}>
-                <div className={['container'].join(' ')} style={{overflowX: 'hidden'}}>
+                <div className={['container'].join(' ')} style={{overflow: 'hidden'}}>
                    <div className={['row', 'align-items-center', 'rtl', 'py-1', 'py-md-2', 'px-2'].join(' ')} style={{overflowX: 'hidden'}}>
                         <img src={Constants.baseUrl + '/assets/images/main_images/youre_here.svg'} style={{width: '80px'}} />
                         <p className={['p-1', 'mb-0', 'font11', 'd-none'].join(' ')} style={{backgroundColor: 'white', border: '1px solid #D8D8D8', borderRadius: '14px 1px 1px 14px', fontSize: '11px'}}>اینجا هستید</p>
@@ -564,7 +564,7 @@ const CategoryInsight = (props) => {
                    </div>
                 </div>
             </div>
-            <div className={['container'].join(' ')} style={{overflowX: 'hidden'}}>
+            <div className={['container'].join(' ')} style={{overflow: 'hidden'}}>
                 <div className={['row', 'rtl', 'mt-3', 'd-flex', 'flex-row', 'align-items-stretch'].join(' ')}>
                     {
                         props.banners.map((cb, key)=>{
