@@ -10,18 +10,22 @@ const RightMenuParentCategoryItem = (props) => {
     const [information, setInformation] = useState(props.information);
     const [showChildrenCategories, setShowChildrenCategories] = useState(false);
 
+    const toggleSetShowChildrenCategories = () => {
+        
+    }
+
     return(
         <div className={['px-2', 'py-3'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')}>
+            <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center'].join(' ')} onClick={() => {setShowChildrenCategories(!showChildrenCategories)}}>
                 <img src={Constants.baseUrl + '/assets/images/menu_images/' + information.parentId + '.svg'} className={['ml-2'].join(' ')} style={{width: '20px', height: '20px'}} alt='' />
                 <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
-                    <Link href={information.parentUrl.substr(18)}><a onClick={props.reduxStartLoading} className={['mb-0'].join(' ')} style={{fontSize: '15px', color: showChildrenCategories ? "#00BAC6" : "#2B2B2B"}}>{information.parentName}</a></Link>
+                    <h5 className={['mb-0'].join(' ')} style={{fontSize: '15px', cursor: 'default', color: showChildrenCategories ? "#00BAC6" : "#2B2B2B"}}>{information.parentName}</h5>
                     {
                         showChildrenCategories == true
                         ?
-                            <img src={Constants.baseUrl + '/assets/images/main_images/down_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} onClick={() => {setShowChildrenCategories(false)}} /> 
+                            <img src={Constants.baseUrl + '/assets/images/main_images/down_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} /> 
                         :
-                            <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} onClick={() => {setShowChildrenCategories(true)}} />        
+                            <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black_small.png'} className={['pointer'].join(' ')} style={{width: '12px', height: '12px'}} />        
                     }
                 </div>
             </div>

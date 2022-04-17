@@ -589,13 +589,13 @@ const SearchWithCategory = (props) => {
                                     <div className={['col-12', 'd-flex', 'flex-row', 'justify-content-center', 'align-items-center', 'mt-2'].join(' ')}>
                                         <button className={[props.reduxSearchFilter.maxPage != 1 ? 'd-flex' : 'd-none', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'shadow-sm'].join(' ')} onClick={paginationPrevButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
                                             <img src={Constants.baseUrl + '/assets/images/main_images/right_arrow_black.png'} style={{width: '8px', height: '8px'}} />
-                                            <span className={['pr-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}}>قبلی</span>
+                                            <span className={['pr-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px', color: '#2B2B2B'}}>قبلی</span>
                                         </button>
                                         <div className={['text-right', 'rtl', 'd-none', 'd-md-block'].join(' ')}><Pagination count={props.reduxSearchFilter.maxPage} shape='rounded' onChange={paginationChanged} page={props.reduxSearchFilter.page} hideNextButton={true} hidePrevButton={true} /></div>
                                         <span className={['d-block', 'd-md-none', 'px-3'].join(' ')}>{ props.reduxSearchFilter.page + '  از  ' + props.reduxSearchFilter.maxPage}</span>
                                         <button className={[props.reduxSearchFilter.maxPage != 1 ?'d-flex' : 'd-none', 'flex-row', 'align-items-center', 'pointer', 'px-3', 'ltr', 'shadow-sm'].join(' ')} onClick={paginationNextButtonClicked} style={{outlineStyle: 'none', borderRadius: '4px', border: '1px solid #dedede', backgroundColor: 'white', paddingTop: '0.37rem', paddingBottom: '0.37rem'}}>
                                             <img src={Constants.baseUrl + '/assets/images/main_images/left_arrow_black.png'} style={{width: '8px', height: '8px'}} />
-                                            <span className={['pl-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px'}}>بعدی</span>
+                                            <span className={['pl-1', 'font-weight-bold'].join(' ')} style={{fontSize: '13px', color: '#2B2B2B'}}>بعدی</span>
                                         </button>
                                     </div>
                                     :

@@ -341,25 +341,24 @@ const ProductCard = (props) => {
                 </Link>
                 <Link href={'/' + props.information.productUrl}>
                     <a className={['p-3', 'text-right', 'rtl', 'h-100', 'd-flex', 'flex-column'].join(' ')} onClick={props.reduxStartLoading}>
-                        <h6 className={['font-weight-bold', 'text-right', 'rtl', 'mb-4'].join(' ')} style={{lineHeight: '1.6rem', color: '#444444'}}>{props.information.productName}</h6>
-                        
+                        <h6 className={['font-weight-bold', 'text-right', 'rtl', 'mb-4', 'font14md16'].join(' ')} style={{lineHeight: '1.6rem', color: '#444444'}}>{props.information.productName}</h6>
                         {
                             props.information.productPrice != -1 ?
                             props.information.productPrice != props.information.discountedPrice ?
                             props.information.discountedPrice == 0 ?
                             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'mt-auto'].join(' ')}>
-                                <h6 className={['text-right', 'rtl', 'mb-0', 'p-1', 'text-muted'].join(' ')} style={{color: '#F15F58', borderRadius: '4px', backgroundColor: '#f2f2f2', fontSize: '14px'}}><del>{props.information.productPrice.toLocaleString()}</del></h6>
-                                <h6 className={['text-right', 'rtl', 'mb-0', 'mr-1'].join(' ')} style={{color: '#F15F58'}}>رایگان</h6>
+                                <h6 className={['text-right', 'rtl', 'mb-0', 'p-1', 'text-muted', 'font14md16'].join(' ')} style={{color: '#F15F58', borderRadius: '4px', backgroundColor: '#f2f2f2', fontSize: '14px'}}><del>{props.information.productPrice.toLocaleString()}</del></h6>
+                                <h6 className={['text-right', 'rtl', 'mb-0', 'mr-1', 'font14md16'].join(' ')} style={{color: '#F15F58'}}>رایگان</h6>
                             </div>
                             :
                             <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'mt-auto'].join(' ')}>
-                                <h6 className={['text-right', 'rtl', 'mb-0', 'p-1', 'text-muted'].join(' ')} style={{color: '#F15F58', borderRadius: '4px', backgroundColor: '#f2f2f2', fontSize: '14px'}}><del>{props.information.productPrice.toLocaleString()}</del></h6>
-                                <h6 className={['text-right', 'rtl', 'mb-0', 'mr-1'].join(' ')} style={{color: '#F15F58'}}>{props.information.discountedPrice.toLocaleString() + ' تومان '}</h6>
+                                <h6 className={['text-right', 'rtl', 'mb-0', 'p-1', 'text-muted', 'font14md16'].join(' ')} style={{color: '#F15F58', borderRadius: '4px', backgroundColor: '#f2f2f2', fontSize: '14px'}}><del>{props.information.productPrice.toLocaleString()}</del></h6>
+                                <h6 className={['text-right', 'rtl', 'mb-0', 'mr-1', 'font14md16'].join(' ')} style={{color: '#F15F58'}}>{props.information.discountedPrice.toLocaleString() + ' تومان '}</h6>
                             </div>
                             :
-                            <h6 className={['text-right', 'rtl', 'mb-0', 'mt-auto'].join(' ')} style={{color: '#F15F58'}}>{props.information.productPrice.toLocaleString() + ' تومان '}</h6>        
+                            <h6 className={['text-right', 'rtl', 'mb-0', 'mt-auto', 'font14md16'].join(' ')} style={{color: '#F15F58'}}>{props.information.productPrice.toLocaleString() + ' تومان '}</h6>        
                             :
-                            <span className={['text-right', 'rtl', 'mb-0', 'px-2', 'mt-auto'].join(' ')} style={{backgroundColor: 'white', color: 'white', borderRadius: '4px'}}>ناموجود</span>
+                            <span className={['text-right', 'rtl', 'mb-0', 'px-2', 'mt-auto', 'font14md16'].join(' ')} style={{backgroundColor: 'white', color: 'white', borderRadius: '4px'}}>ناموجود</span>
                         }
                     </a>
                 </Link>
