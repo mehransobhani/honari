@@ -721,13 +721,13 @@ function BigHeader(props){
                                     ?
                                     (
                                         <React.Fragment>
-                                            <p className={['mb-0', 'rtl'].join(' ')} style={{fontSize: '18px'}}><del style={{color: 'gray'}}>{sumOfCartPrices().toLocaleString()}</del></p>
-                                            <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{fontSize: '18px', color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString() + " تومان "}</p>
+                                            <p className={['mb-0', 'rtl'].join(' ')} style={{fontSize: '19px'}}><del style={{color: 'gray'}}>{sumOfCartPrices().toLocaleString()}</del></p>
+                                            <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{fontSize: '19px', color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString() + " تومان "}</p>
                                         </React.Fragment>
                                     )  
                                     :
                                     (
-                                        <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{fontSize: '18px', color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString()}</p>
+                                        <p className={['mb-0', 'rtl', 'px-1'].join(' ')} style={{fontSize: '19px', color: '#00BAC6'}}>{sumOfCartDiscountedPrices().toLocaleString()}</p>
                                     )
                                     }
                                 </div>
@@ -798,6 +798,9 @@ function BigHeader(props){
     const RightMenu = () => {
         return (
             <div className={['']} style={{minWidth: '270px', overflowX: 'hidden'}}>
+                {
+                props.reduxLoad === true ? <div className={['w-100'].join(' ')} style={{position: 'absolute', top: '0', left: '0', zIndex: '3000'}}><StyledLinearProgressActive /></div> : null
+                }
                 <div className={['d-flex', 'flex-row', 'rtl'].join(' ')} style={{}}>
                     <Link href={'/'}><img onClick={props.reduxStartLoading} src={Constants.baseUrl + '/assets/images/main_images/honari.png'} className={['poniter'].join(' ')} style={{width: '36px', height: '36px', marginRight: '10px', marginTop: '10px', marginBottom: '10px'}} /></Link>
                     <div className={['d-flex', 'flex-column', 'rtl'].join(' ')} style={{marginTop: '10px', marginBottom: '10px'}}>
@@ -1551,6 +1554,21 @@ function BigHeader(props){
                 
                     desktopMenu 
                
+            }
+            {
+                props.home == true
+                ?
+                (
+                <div className={['container'].join(' ')} style={{overflow: 'hidden'}}>
+                    <div onClick={() => {setRightMenuHeaderNumber(0);}} className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'px-2', 'd-md-none', 'mt-3'].join(' ')}>
+                        <button onClick={toggleDrawer('right', true)} className={['px-3', 'pointer', 'py-2'].join(' ')} style={{borderRadius: '16px', background: '#F2F2F2', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دسته‌بندی محصولات</button>
+                        <a href='https://honari.com/academy' className={['px-3', 'py-2', 'pointer'].join(' ')} style={{borderRadius: '16px', background: '#F2F2F2', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دوره‌های آنلاین</a>
+                        <Link href='/site/help'><a onClick={props.reduxStartLoading} className={['px-3', 'pointer', 'py-2'].join(' ')} style={{borderRadius: '16px', background: '#F2F2F2', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>راهنمای خرید</a></Link>
+                    </div>
+                </div>
+                )
+                : 
+                null
             }
         </React.Fragment>
     );

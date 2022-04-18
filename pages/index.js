@@ -286,9 +286,9 @@ const carouselTouchEndListener = (event) => {
       <Header home={true} menu={props.ssrMenu} />
       <div className={['container', 'ltr'].join(' ')}>
         <div className={['row', 'rtl', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-between', 'pb-2', 'px-2', 'd-md-none', 'mt-2'].join(' ')}>
-            <button className={['px-3', 'pointer', 'py-2'].join(' ')} style={{borderRadius: '16px', background: '#F2F2F2', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دسته‌بندی محصولات</button>
-            <a href='https://honari.com/academy' className={['px-3', 'py-2', 'pointer'].join(' ')} style={{borderRadius: '16px', background: '#F2F2F2', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دوره‌های آنلاین</a>
-            <Link href='/site/help'><a onClick={props.reduxStartLoading} className={['px-3', 'pointer', 'py-2'].join(' ')} style={{borderRadius: '16px', background: '#F2F2F2', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>راهنمای خرید</a></Link>
+            <button className={['px-3', 'pointer', 'py-2', 'd-none'].join(' ')} style={{borderRadius: '16px', background: '#F2F2F2', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دسته‌بندی محصولات</button>
+            <a href='https://honari.com/academy' className={['px-3', 'py-2', 'pointer', 'd-none'].join(' ')} style={{borderRadius: '16px', background: '#F2F2F2', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>دوره‌های آنلاین</a>
+            <Link href='/site/help'><a onClick={props.reduxStartLoading} className={['px-3', 'pointer', 'py-2', 'd-none'].join(' ')} style={{borderRadius: '16px', background: '#F2F2F2', fontSize: '11px', outlineStyle: 'none', borderStyle: 'none'}}>راهنمای خرید</a></Link>
         </div>
         { 
           mainBanners.length !== 0
