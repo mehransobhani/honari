@@ -33,6 +33,7 @@ function MyApp({ Component, pageProps }) {
         alert('خطا در برقراری ارتباط');
       });
     }
+    /*
     window.erxesSettings = {
       messenger: {
           brand_id: "2a4ghQ",
@@ -125,11 +126,13 @@ function MyApp({ Component, pageProps }) {
     script.async = true;
   
     const entry = document.getElementsByTagName('script')[0];
-    entry.parentNode.insertBefore(script, entry);
+    entry.parentNode.insertBefore(script, entry);*/
 
-    const googleAnalyticsScript = document.createElement('script');
-    googleAnalyticsScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-84ZXK7F4J1';
-      document.body.appendChild(script);
+      //const script = document.createElement('script');
+
+      const googleAnalyticsScript = document.createElement('script');
+      googleAnalyticsScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-84ZXK7F4J1';
+      //document.body.appendChild(script);
       googleAnalyticsScript.onload = () => {
           // Google Analytics
           (function (i, s, o, g, r, a, m) {
@@ -165,6 +168,28 @@ function MyApp({ Component, pageProps }) {
             //alert('data pushed');
         //});
       }
+
+      const chatwoot = document.createElement('script');
+      chatwoot.src = '/assets/js/empty.js'
+      chatwoot.async = true;
+      document.body.appendChild(chatwoot);
+      chatwoot.onload = () => {
+        (function(d,t) {
+          var BASE_URL="http://185.213.10.90:3000";
+          var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+          g.src=BASE_URL+"/packs/js/sdk.js";
+          g.defer = true;
+          g.async = true;
+          s.parentNode.insertBefore(g,s);
+          g.onload=function(){
+            window.chatwootSDK.run({
+              websiteToken: '5pRR26SehjSNWbKoezHiQbVD',
+              baseUrl: BASE_URL
+            })
+          }
+        })(document,"script");  
+      }
+
       
       /*const noscriptTagmanager = document.createElement('noscript');
       const iframeTagmanager = document.createElement('iframe');
