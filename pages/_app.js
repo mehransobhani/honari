@@ -170,7 +170,7 @@ function MyApp({ Component, pageProps }) {
       }
 
       const chatwoot = document.createElement('script');
-      chatwoot.src = '/assets/js/empty.js'
+      chatwoot.src = Constants.baseUrl + '/assets/js/empty.js'
       chatwoot.async = true;
       document.body.appendChild(chatwoot);
       chatwoot.onload = () => {
