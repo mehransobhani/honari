@@ -687,18 +687,7 @@ const DeliveryReview = (props) => {
                             <div className={['col-12', 'd-flex', 'flex-row', 'rtl', 'justify-content-between', 'align-items-center', 'py-2'].join(' ')} style={{borderRadius: '2px', border: '1px solid #D8D8D8', background: '#F7F7F7'}}>
                                 <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px'}}><b>مبلغ نهایی سفارش</b></h6>
                                 {
-                                    (userOrderPriceInformation.price + userShippingPriceInformation.price) === (userOrderPriceInformation.discountedPrice + userShippingPriceInformation.discountedPrice)
-                                    ?
-                                    (
-                                        <h6 className={['mb-0', 'text-center'].join(' ')} style={{color: 'red', fontSize: '17px'}}>{(userOrderPriceInformation.discountedPrice + userShippingPriceInformation.discountedPrice).toLocaleString() + ' تومان'}</h6>
-                                    )
-                                    :
-                                    (
-                                        <div className={['d-flex', 'flex-column', 'align-items-center'].join(' ')}>
-                                            <h6 className={['mb-0', 'text-center'].join(' ')} style={{color: 'gray', fontSize: '17px'}}><del>{(userOrderPriceInformation.price + userShippingPriceInformation.price).toLocaleString()}</del></h6>
-                                            <h6 className={['mb-0', 'text-center'].join(' ')} style={{color: 'red', fontSize: '17px'}}>{(userOrderPriceInformation.discountedPrice + userShippingPriceInformation.discountedPrice).toLocaleString() + ' تومان'}</h6>
-                                        </div>
-                                    )
+                                totalPriceComponent()
                                 }
                             </div>
                             <button onClick={confirmOrder} className={['col-12', 'py-3', 'mt-3'].join(' ')} style={{color: 'white', fontSize: '17px', borderRadius: '2px', background: '#00BAC6', outline: 'none', border: 'none'}}>{paymentButtonText}</button>
