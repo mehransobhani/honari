@@ -175,7 +175,7 @@ function MyApp({ Component, pageProps }) {
       document.body.appendChild(chatwoot);
       chatwoot.onload = () => {
         (function(d,t) {
-          var BASE_URL="http://185.213.10.90:3000";
+          var BASE_URL="https://chatwoot.honari.com";
           var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
           g.src=BASE_URL+"/packs/js/sdk.js";
           g.defer = true;
