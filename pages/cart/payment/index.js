@@ -23,6 +23,7 @@ const Payment = (props) => {
     const [availableWorkTimes, setAvailableWorkTimes] = useState([]);
     const [selectedWorkTimeDate, setSelectedWorkTimeDate] = useState(0);
     const [selectedWorkTimeId, setSelectedWorkTimeId] = useState(0);
+    const [requiresWorkTimeId, setRequiresWorkTimeId] = useState(false);
 
     useEffect(() => {
         props.reduxUpdateUserTotally(props.ssrUser);
@@ -119,8 +120,8 @@ const Payment = (props) => {
                 console.warn(response.options);
                 setDeliveryOptions(response.options);
             }else if(response.status === 'failed'){
-                alert(response.message);
-                alert(response.umessage);
+                console.warn(response.message);
+                props.reduxUpdateSnackbar('warning', true, response.umessage);
             }
         }).catch((error) => {
             alert('خطا در برقراری ارتباط');
@@ -149,8 +150,21 @@ const Payment = (props) => {
         });
     }
 
-    const deliveryServiceSelected =  (serviceId) => {
+    const deliveryServiceSelected =  (serviceId, scheduling) => {
         setSelectedDeliveryId(serviceId);
+        if(scheduling == 1){
+            setRequiresWorkTimeId(true);
+            setTemporaryInformation(serviceId, 0, 0);
+            //setAvailableWorkTimes([]);
+            getActiveDeliveryWorkTimes(serviceId);
+        }else{
+            setRequiresWorkTimeId(false);
+            setAvailableWorkTimes([]);
+            setTemporaryInformation(serviceId, 0, 0);
+            setSelectedWorkTimeDate(0);
+        }
+        
+        /*
         if(serviceId == 14){
             setAvailableWorkTimes([]);
             setTemporaryInformation(serviceId, 0, 0);
@@ -159,6 +173,7 @@ const Payment = (props) => {
             setTemporaryInformation(serviceId, 0, 0);
             getActiveDeliveryWorkTimes(serviceId);
         }
+        */
     }
 
     const workTimeSelected = (workTime, id) => {
@@ -276,45 +291,55 @@ const Payment = (props) => {
             </div>
             <div className={['row', 'mt-2', 'rtl', 'mx-1'].join(' ')}>
                 {
-                    deliverOptions.map((option, counter) => {
-                        let priceTitle = <p className={['mb-0', 'pl-1', 'text-right'].join(' ')} style={{fontSize: '17px', fontWeight: '500'}}>هزینه ارسال :</p>
-                        let previousPrice = <del className={['mb-0', 'px-1', 'text-right'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'gray'}}>{option.price}</del>;
-                        let price = <p className={['mb-0', 'px-1', 'text-right'].join(' ')} style={{fontSize: '17px', fontWeight: '500'}}>{option.price + ' تومان'}</p>;
-                        let discountedPrice = <p className={['mb-0', 'px-1', 'text-right'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: '#00BAC6'}}>{option.discountedPrice + ' تومان'}</p>
-                        if(option.discountedPrice === 0){
-                            discountedPrice = <p className={['mb-0']} style={{fontSize: '17px', fontWeight: '500', color: '#00BAC6'}}>رایگان</p>
-                            price = null;
-                        }else if(option.discountedPrice < option.price){
-                            price = null;
-                        }else if(option.discountedPrice == option.price){
-                            discountedPrice = null;
-                            previousPrice = null;
-                        }
-                        let backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: 'white'};
-                        if(option.id === selectedDeliveryId){
-                            backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: 'linear-gradient(270deg, #DEEEEF 0%, rgba(222, 238, 239, 0) 89.58%)'};
-                        }
-                        return( 
-                            <div key={counter} className={['col-12', 'col-md-6', 'p-3', 'd-flex', 'flex-row', 'align-items-center', 'justify-cotent-right', 'pointer'].join(' ')} style={backgroundStyle} onClick={() => {deliveryServiceSelected(option.id);}}>
-                                {
-                                    selectedDeliveryId === option.id
-                                    ?
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/rec_main_full.png'} style={{width: '18px', height: '18px'}} />
-                                    :
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/rec_main_empty.png'} style={{width: '18px', height: '18px'}} />
-                                }
-                                <div className={['d-flex', 'flex-column', 'justify-content-right'].join(' ')}>
-                                    <h5 className={['mb-0', 'mr-3', 'text-right'].join(' ')} style={{fontSize: '17px', fontWeight: '500'}}>{option.fname}</h5>
-                                    <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'text-right', 'mr-3'].join(' ')}>
-                                        {priceTitle}
-                                        {previousPrice}
-                                        {price}
-                                        {discountedPrice}
+                    deliverOptions.length != 0 
+                    ?
+                    (
+                        deliverOptions.map((option, counter) => {
+                            let priceTitle = <p className={['mb-0', 'pl-1', 'text-right'].join(' ')} style={{fontSize: '17px', fontWeight: '500'}}>هزینه ارسال :</p>
+                            let previousPrice = <del className={['mb-0', 'px-1', 'text-right'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: 'gray'}}>{option.price}</del>;
+                            let price = <p className={['mb-0', 'px-1', 'text-right'].join(' ')} style={{fontSize: '17px', fontWeight: '500'}}>{option.price + ' تومان'}</p>;
+                            let discountedPrice = <p className={['mb-0', 'px-1', 'text-right'].join(' ')} style={{fontSize: '17px', fontWeight: '500', color: '#00BAC6'}}>{option.discountedPrice + ' تومان'}</p>
+                            if(option.discountedPrice === 0){
+                                discountedPrice = <p className={['mb-0']} style={{fontSize: '17px', fontWeight: '500', color: '#00BAC6'}}>رایگان</p>
+                                price = null;
+                            }else if(option.discountedPrice < option.price){
+                                price = null;
+                            }else if(option.discountedPrice == option.price){
+                                discountedPrice = null;
+                                previousPrice = null;
+                            }
+                            let backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: 'white'};
+                            if(option.id === selectedDeliveryId){
+                                backgroundStyle = {border: '1px solid #DEDEDE', borderRadius: '1px', background: 'linear-gradient(270deg, #DEEEEF 0%, rgba(222, 238, 239, 0) 89.58%)'};
+                            }
+                            return( 
+                                <div key={counter} className={['col-12', 'col-md-6', 'p-3', 'd-flex', 'flex-row', 'align-items-center', 'justify-cotent-right', 'pointer'].join(' ')} style={backgroundStyle} onClick={() => {deliveryServiceSelected(option.id, option.scheduling);}}>
+                                    {
+                                        selectedDeliveryId === option.id
+                                        ?
+                                        <img src={Constants.baseUrl + '/assets/images/main_images/rec_main_full.png'} style={{width: '18px', height: '18px'}} />
+                                        :
+                                        <img src={Constants.baseUrl + '/assets/images/main_images/rec_main_empty.png'} style={{width: '18px', height: '18px'}} />
+                                    }
+                                    <div className={['d-flex', 'flex-column', 'justify-content-right'].join(' ')}>
+                                        <h5 className={['mb-0', 'mr-3', 'text-right'].join(' ')} style={{fontSize: '17px', fontWeight: '500'}}>{option.fname}</h5>
+                                        <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'text-right', 'mr-3'].join(' ')}>
+                                            {priceTitle}
+                                            {previousPrice}
+                                            {price}
+                                            {discountedPrice}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        );
-                    })
+                            );
+                        })
+                    )
+                    :
+                    (
+                        <div className={['col-12', 'p-3', 'd-flex', 'flex-row', 'align-items-center', 'justify-cotent-right'].join(' ')} >
+                            <h6 className={['text-right', 'mb-0'].join(' ')} style={{fontSize: '16px'}}>سرویس انتقال فعالی یافت نشد. شما میتوانید این موضوع را از طریق چت وبسایت و یا تلفن پشتیبانی به ما اطلاع دهید</h6>     
+                        </div>
+                    )
                 }
             </div>
             {
@@ -358,14 +383,14 @@ const Payment = (props) => {
                 :
                 null
             }
-            <div className={['row', 'pl-3', 'mr-2'].join(' ')}>
+            <div className={['row', 'pl-3', 'mr-2', deliverOptions.length == 0 ? 'd-none' : ''].join(' ')}>
                 {
-                    (selectedDeliveryId == 14 && selectedWorkTimeDate == 0) || ((selectedDeliveryId == 11 || selectedDeliveryId == 12) && selectedWorkTimeDate != 0)
+                    (selectedDeliveryId != 0 && ((requiresWorkTimeId == false) || (requiresWorkTimeId == true && selectedWorkTimeDate != 0)))
                     ?
                     <Link href={'/cart/payment/deliveryReview'}>
                         <div onClick={() => {props.reduxStartLoading()}} className={['d-flex', 'col-12', 'col-lg-3', 'felx-row', 'px-3', 'py-2', 'align-items-center', 'justify-content-center', 'rtl', 'mb-0', 'mt-3', 'pointer', 'ml-1'].join(' ')} style={{borderRadius: '2px', background: '#00BAC6'}}>
                             <h6 className={['mb-0'].join(' ')} style={{fontSize: '17px', color: 'white'}}>تایید و نهایی کردن خرید</h6>
-                            <img className={['mr-2'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '10px', height: '10px'}} />
+                            <img className={['mr-2X'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/left_arrow_white_small.png'} style={{width: '10px', height: '10px'}} />
                         </div>
                     </Link>
                     :

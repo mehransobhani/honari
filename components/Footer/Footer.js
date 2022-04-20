@@ -86,8 +86,10 @@ const Footer = () => {
                                     </div>
                                 </div>
                                 <div className={['w-100', 'd-flex', 'flex-row', 'ltr', 'align-items-center', 'justify-content-center', 'justify-content-md-start', 'mt-3', 'mt-md-0'].join(' ')} style={{flex: '1'}}>
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/enamad.png'} style={{width: '70px', height: '70px'}} />
-                                    <img src={Constants.baseUrl + '/assets/images/main_images/reza.png'} style={{width: '70px', height: '70px'}} />
+                                <img id='jxlzesgtesgtesgtjxlzjxlzapfu' style={{cursor: 'pointer', width: '70px', height: '70px'}} onclick={() => {window.open("https://logo.samandehi.ir/Verify.aspx?id=1000115&p=rfthobpdobpdobpdrfthrfthdshw")}} alt='logo-samandehi' src='https://logo.samandehi.ir/logo.aspx?id=1000115&p=nbpdlymalymalymanbpdnbpdujyn'/>
+                                <img src="https://trustseal.enamad.ir/logo.aspx?id=91725&amp;p=hSBmkXiKaCllJEFN" alt=""
+                                     onclick={() => {window.open('https://trustseal.enamad.ir/Verify.aspx?id=91725&amp;p=hSBmkXiKaCllJEFN&quot')}}
+                                     style={{cursor: 'pointer', width: '70px', height: '70px'}} id="hSBmkXiKaCllJEFN" />
                                 </div>
                             </div>
                             <div className={['d-none', 'd-md-flex', 'flex-row', 'rtl', 'mt-3'].join(' ')} style={{fontSize: '14px'}}>
