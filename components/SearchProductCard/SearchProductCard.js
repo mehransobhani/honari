@@ -7,10 +7,11 @@ const SearchProductcard = (props) => {
 
     return (
         <div className={['col-6', 'col-md-3', 'p-2'].join(' ')}>
+	    <Link href={props.information.product_url}><a>
             <div className={['d-flex', 'flex-column'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede', height: '100%'}} >
-                <img src={props.information.product_image} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
+                <img src={'https://admin.' + props.information.product_image.substr(8)} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
                 <div className={['text-right', 'rtl', 'd-flex', 'flex-column', 'mt-auto'].join(' ')} style={{heigth: '100%'}}>
-                    <Link href={'/' + props.information.product_url}><a><h6 className={['font-weight-bold', 'text-right', 'rtl', 'p-3'].join(' ')}>{props.information.product_title}</h6></a></Link>
+                    <h6 className={['font-weight-bold', 'text-right', 'rtl', 'p-3'].join(' ')}>{props.information.product_title}</h6>
                     {
                         props.information.has_stock === "true"  
                         ?
@@ -20,6 +21,7 @@ const SearchProductcard = (props) => {
                     }
                 </div>
             </div>
+	    </a></Link>
         </div>
     );
 }

@@ -548,7 +548,7 @@ function BigHeader(props){
                                     props.reduxCart.information.map((item, counter) => {
                                         return(
                                             <div key={counter} className={['rtl', 'd-flex', 'flex-row', 'py-3'].join(' ')} style={{borderBottom: '1px solid #DEDEDE'}}>
-                                                <Link href={'/' + item.url}><img className={['pointer'].join(' ')} onClick={props.reduxStartLoading}  src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '70px', height: '70px', borderRadius: '2px'}} /></Link>
+                                                <Link href={'/' + item.url}><img className={['pointer'].join(' ')} onClick={props.reduxStartLoading}  src={'http://admin.honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '70px', height: '70px', borderRadius: '2px'}} /></Link>
                                                 <div className={['d-flex', 'flex-column'].join(' ')} style={{flex: '1'}}>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
                                                         <img className={['pointer'].join(' ')} src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '16px', height: '16px'}} onClick={() => {removeProductFromCart(counter)}} />
@@ -662,7 +662,7 @@ function BigHeader(props){
                                     props.reduxCart.information.map((item, counter) => {
                                         return(
                                             <div key={counter} className={['rtl', 'd-flex', 'flex-row', 'py-3'].join(' ')} style={{borderBottom: counter != props.reduxCart.information.length - 1 ? '1px solid #DEDEDE' : ''}}>
-                                                <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '70px', height: '70px', borderRadius: '2px'}} />
+                                                <img src={'https://admin.honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '70px', height: '70px', borderRadius: '2px'}} />
                                                 <div className={['d-flex', 'flex-column', 'pl-1'].join(' ')} style={{flex: '1'}}>
                                                     <div className={['d-flex', 'flex-row', 'ltr', 'justify-content-between'].join(' ')}>
                                                         <img className={['pointer']} src={Constants.baseUrl + '/assets/images/main_images/bin_red.png'} style={{width: '20px', height: '20px'}} onClick={() => {removeProductFromCart(counter)}} />
@@ -1061,7 +1061,7 @@ function BigHeader(props){
                                 return(
                                     <Link key={index} href={item.fields.product_url}>
                                         <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 2px 4px 0 rgba(222, 222, 222, 0.4)'}}>
-                                            <img src={item.fields.product_image} style={{width: '46px', height: '46px'}} />
+                                            <img src={'https://admin.' + item.fields.product_image.substr(8)} style={{width: '46px', height: '46px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
                                                 {
@@ -1176,7 +1176,7 @@ function BigHeader(props){
                                 return(
                                     <Link key={index} href={item.fields.product_url}>
                                         <a onClick={props.reduxStartLoading} key={index} className={['d-flex', 'flex-row', 'align-items-center', 'pointer', 'p-2', 'm-2', 'rtl'].join(' ')} style={{border: '1px solid rgba(216, 216, 216, 0.1)', borderRadius: '3px', boxShadow: '0 2px 4px 0 rgba(222, 222, 222, 0.4)'}}>
-                                            <img src={item.fields.product_image} style={{width: '36px', height: '36px'}} />
+                                            <img src={'https://admin.' + item.fields.product_image.substr(8)} style={{width: '36px', height: '36px'}} />
                                             <div className={['d-flex', 'flex-row', 'align-items-center', 'justify-content-between'].join(' ')} style={{flex: '1'}}>
                                                 <h6 className={['mb-0', 'rtl', 'pr-2', 'text-right'].join(' ')} style={{fontSize: '13px', color: 'black'}}>{item.fields.product_title}</h6>
                                                 {

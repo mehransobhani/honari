@@ -50,7 +50,7 @@ const NewProduct = (props) => {
                 {
                     products.map((product, counter) => {
                             return(
-                                <SimilarProductCard key={counter} imageUrl={'https://honari.com/image/resizeTest/shop/_600x/thumb_' + product.prodID + '.jpg'} name={product.name} price={product.price} discountedPrice={product.price} anchor={product.url}/>
+                                <SimilarProductCard key={counter} imageUrl={'http://admin.honari.com/image/resizeTest/shop/_600x/thumb_' + product.prodID + '.jpg'} name={product.name} price={product.price} discountedPrice={product.price} anchor={product.url}/>
                             );
                     })
                 }

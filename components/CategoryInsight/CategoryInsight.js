@@ -103,7 +103,7 @@ const CategoryInsight = (props) => {
     useEffect(()=>{
         if(props.reduxCategoryFilter.id !== -1){
             /*axios.post(Constants.apiUrl + '/api/filtered-paginated-category-products', {
-                id: props.id, //props.reduxCategoryFilter.id,
+               id: props.id, //props.reduxCategoryFilter.id,
                 page: props.reduxCategoryFilter.page,
                 order: props.reduxCategoryFilter.order,
                 minPrice: props.reduxCategoryFilter.minPrice,
@@ -573,7 +573,7 @@ const CategoryInsight = (props) => {
                                 <div className={['col-4', 'p-2', 'align-self-stretch'].join(' ')} style={{}} key={key}>
                                     <Link href={categoryUrl.substring(18)}>
                                         <a onClick={props.reduxStartLoading} className={['w-100', 'd-flex', 'flex-column', 'pointer'].join(' ')} style={{borderRadius: '4px', border: '1px solid #dedede', height: '100%', boxShadow: '0 0.05rem 0.09rem rgba(0, 0, 0, 0.08)'}}>
-                                            <img src={cb.image} className={['w-100'].join(' ')} />
+                                            <img src={'https://admin.' + cb.image.substr(8)} className={['w-100'].join(' ')} />
                                             <h6 className={['py-3', 'text-center', 'mb-0', 'font11md17', 'font-weight-normal'].join(' ')} style={{lineHeight: '1.2rem'}}>{cb.title}</h6>
                                         </a>
                                     </Link>

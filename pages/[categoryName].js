@@ -161,7 +161,7 @@ const CategoryLandingPage = (props) => {
                                 </div>
                             </div>
                             <div className={['col-12', 'col-md-8', 'px-2', 'p-md-0', 'pr-md-2', 'mt-3', 'mt-md-0'].join(' ')}>
-                                <img src={'https://honari.com/image/art_banners/' + props.ssrArtInfo.result.image} style={{width: '100%', height: '100%', maxHeight: '400px', borderRadius: '4px'}} />
+                                <img src={'https://admin.honari.com/image/art_banners/' + props.ssrArtInfo.result.image} style={{width: '100%', height: '100%', maxHeight: '400px', borderRadius: '4px'}} />
                             </div>
                             <div className={['col-12'].join(' ')} ref={categories}></div>
                         </div>
@@ -188,7 +188,7 @@ const CategoryLandingPage = (props) => {
                                         <Link key={counter} href={banner.anchor}>
                                             <a className={['col-6', 'col-md-2', 'px-2', 'mt-3'].join(' ')}>
                                                 <div className={['d-flex', 'flex-column', 'pointer'].join(' ')} style={{border: '1px solid #dedede', borderRadius: '4px', height: '100%', boxShadow: '0 0.05rem 0.09rem rgba(0, 0, 0, 0.08)'}} onClick={props.clicked}>
-                                                    <img src={banner.img} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
+                                                    <img src={'https://admin.' + banner.img.substr(8)} style={{width: '100%', height: 'auto', borderRadius: '4px 4px 0 0'}} />
                                                     {/*<h6 className={['my-3', 'text-right', 'mx-2', 'font-weight-bold'].join(' ')}>{props.name}</h6>*/}
                                                 </div>            
                                             </a>

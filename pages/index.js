@@ -276,7 +276,6 @@ const carouselTouchEndListener = (event) => {
   }
 }
 
-
   return (
     <React.Fragment>
       <Head>
@@ -317,7 +316,7 @@ const carouselTouchEndListener = (event) => {
                 {
                   props.ssrInfo.carousel.map((c, i) => {
                     return (
-                      <Link key={i} href={props.ssrInfo.carousel[i].anchor}><a draggable='false' className={['mainCarouselImage', i!=carouselIndex ? 'd-none' : ''].join(' ')} onClick={props.reduxStartLoading}><img src={props.ssrInfo.carousel[i].img /*mainBanners[0].img*/} draggable='false' className={['pointer', 'shadow-sm', 'mainCarouselImage'].join(' ')} style={{width: '100%', height: '100%', borderRadius: '4px'}} /></a></Link>
+                      <Link key={i} href={props.ssrInfo.carousel[i].anchor}><a draggable='false' className={['mainCarouselImage', i!=carouselIndex ? 'd-none' : ''].join(' ')} onClick={props.reduxStartLoading}><img src={'https://admin.honari.com/' + props.ssrInfo.carousel[i].img.substr(19) /*mainBanners[0].img*/} draggable='false' className={['pointer', 'shadow-sm', 'mainCarouselImage'].join(' ')} style={{width: '100%', height: '100%', borderRadius: '4px'}} /></a></Link>
                     );
                   })
                 }
@@ -329,10 +328,10 @@ const carouselTouchEndListener = (event) => {
                   (
                     <React.Fragment>
                       <div style={{flex: '1'}}>
-                      <Link href={props.ssrInfo.topBanners[0].anchor}><a><img src={props.ssrInfo.topBanners[0].img /*'https://s4.uupload.ir/files/b2_efw.jpg'*/ /*mainBanners[1].img*/} className={['pointer', 'mt-3', 'mt-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></a></Link>
+                      <Link href={props.ssrInfo.topBanners[0].anchor}><a><img src={'https://admin.honari.com/' + props.ssrInfo.topBanners[0].img.substr(19) /*'https://s4.uupload.ir/files/b2_efw.jpg'*/ /*mainBanners[1].img*/} className={['pointer', 'mt-3', 'mt-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></a></Link>
                       </div>
                       <div className={['ml-3', 'ml-md-0', 'mt-0', 'mt-md-2'].join(' ')} style={{flex: '1'}}>
-                      <Link href={props.ssrInfo.topBanners[1].anchor}><a><img src={props.ssrInfo.topBanners[1].img /*'mainBanners[2].img*/} className={['pointer', 'mt-3', 'mt-md-4', 'mr-3', 'mr-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></a></Link>
+                      <Link href={props.ssrInfo.topBanners[1].anchor}><a><img src={'https://admin.honari.com/' + props.ssrInfo.topBanners[1].img.substr(19) /*'mainBanners[2].img*/} className={['pointer', 'mt-3', 'mt-md-4', 'mr-3', 'mr-md-0', 'shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '4px'}} /></a></Link>
                       </div>
                     </React.Fragment>
                   )
@@ -383,7 +382,7 @@ const carouselTouchEndListener = (event) => {
               return (
                 <Link href={category.anchor}>
                   <a onClick={props.reduxStartLoading} className={['col-6', 'col-md-2', 'px-2', 'py-0', 'my-0', index >= 2 ? 'mt-3' : '' , 'mt-md-0'].join(' ')} style={{position: 'relative', borderRadius: '2px'}}>
-                    <img src={category.img} className={['shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '2px'}} />
+                    <img src={'https://admin.honari.com/' + category.img.substr(19)} className={['shadow-sm'].join(' ')} style={{width: '100%', borderRadius: '2px'}} />
                     {/*<div className={['d-flex', 'pointer', 'flex-row', 'justify-content-center', 'align-items-center', 'shadow-sm'].join(' ')} style={{height: '200px', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' , border: '1px solid #dedede', borderRadius: '4px', background: 'url(' + category.categoryImage + ')'}}>
                       <div className={['d-flex', 'flex-column', 'align-items-center'].join(' ')}>
                         <h6 className={['w-100', 'rtl', 'text-center', 'm-0', 'px-1'].join(' ')} style={{fontSize: '24px', fontWeight: 'bold', color: 'white'}}>{category.categoryName}</h6>

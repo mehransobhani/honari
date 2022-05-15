@@ -104,7 +104,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className={['row'].join(' ')}>
-                <p className={['col-12', 'text-center', 'rtl', 'm-0', 'py-2', 'text-secondary'].join(' ')}>تمامی حقوق برای شرکت هنربخشان نوین شایگان محفوض است و انتشار با ذکر دقیق مطلب و لینک به سایت هنری بلامانع است</p>
+                <p className={['col-12', 'text-center', 'rtl', 'm-0', 'py-2', 'text-secondary'].join(' ')}>تمامی حقوق برای شرکت هنربخشان نوین شایگان محفوظ است و انتشار با ذکر دقیق مطلب و لینک به سایت هنری بلامانع است</p>
             </div>
         </div>
     );

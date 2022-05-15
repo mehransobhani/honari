@@ -190,7 +190,7 @@ const UserOrders = (props) => {
                                     <span className={['col-2', 'text-center', 'rtl'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>{item.price + ' تومان'}</span>
                                     <span className={['col-2', 'text-center'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>{item.orderReferenceId}</span>
                                     <Link href={'/users/factor/' + item.id} ><a className={['col-1', 'text-center', 'pointer'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>مشاهده</a></Link>
-                                    <span className={['col-2', 'text-center'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>
+                                    <span className={['col-2', 'text-center', item.status == 1 ? '' : 'd-none'].join(' ')} style={{fontSize: '12px', color: 'black', fontWeight: '500'}}>
                                         {
                                             loadingOrderIndex !== counter
                                             ?
@@ -205,6 +205,7 @@ const UserOrders = (props) => {
                                             <button className={['text-center', 'mb-0', 'pointer', 'txt-warning'].join(' ')} style={{fontSize: '11px', background: 'none', border: 'none', outline: 'none'}}>کمی صبر کنید</button>
                                         }
                                     </span>
+				    <Link href={'/users/returned/' + item.id + '?class=my-order-button'}><a className={['col-2', 'text-center', item.d <= 1209600 && item.status != 1 ? '' : 'd-none'].join(' ')} style={{fontSize: '12px', color: 'red', fontWeight: '500'}} >مرجوع کردن</a></Link>
                                 </div>
                                 <div className={['row', 'px-2', 'py-2', 'mx-0', 'mt-1', 'd-md-none'].join(' ')} style={{borderRadius: '3px', border: '1px solid #DEDEDE'}}>
                                     <div className={['col-6', 'd-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right'].join(' ')}>
@@ -232,7 +233,13 @@ const UserOrders = (props) => {
                                             ?
                                                 <button onClick={() => {cancelOrder(counter)}} className={['text-center', 'mb-0', 'pointer'].join(' ')} style={{fontSize: '11px', background: 'none', color: 'red', border: 'none', outline: 'none'}}>لغو سفارش</button>
                                             :
-                                                null
+                                                (
+							item.d <= 1209600
+							?
+							<Link href={'/users/returned/' + item.id + '?class=my-order-button'}><a className={['text-center', item.d <= 1209600 && item.status != 1 ? '' : 'd-none'].join(' ')} style={{fontSize: '12px', color: 'red', fontWeight: '500'}} >مرجوع کردن</a></Link>
+							:
+							null
+						)
                                         }
                                     </div>
                                 </div>

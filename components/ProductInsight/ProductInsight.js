@@ -136,7 +136,7 @@ const ProductInsight = (props) =>{
     const checkImagesExistance = (names) => {
         let a = [1,2,3];
         names.map((name, index) => {
-            let url = 'https://honari.com/image/resizeTest/shop/_85x/thumb_' + name + '.jpg';
+            let url = 'https://admin.honari.com/image/resizeTest/shop/_85x/thumb_' + name + '.jpg';
             axios.get(url).then((r) => {
                 let ois = otherImages;
                 ois.push(name);
@@ -918,7 +918,7 @@ const ProductInsight = (props) =>{
                             :
                             <Skeleton variant="rectangular" style={{width: '100%', height: '440px'}} />
                         }
-                        <img src={'https://honari.com/image/resizeTest/shop/_1000x/thumb_' + otherImages[selectedImage] + '.jpg'} className={[styles.mainImage, mainImageClass].join(' ')} style={{width: '100%'}} onLoad={mainImageOnLoadListener} />
+                        <img src={'https://admin.honari.com/image/resizeTest/shop/_1000x/thumb_' + otherImages[selectedImage] + '.jpg'} className={[styles.mainImage, mainImageClass].join(' ')} style={{width: '100%'}} onLoad={mainImageOnLoadListener} />
                         {
                             aparatScript !== undefined && props.information.aparat !== ''
                             ?
@@ -932,7 +932,7 @@ const ProductInsight = (props) =>{
                             {
                                 otherImages.map((oi, index) => {
                                     return (
-                                        <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + oi + '.jpg'} onClick={() => {changeSelectedImage(index)}} className={['pointer', otherImages.length <= 1 ? 'd-none' : ''].join(' ')} key={index} style={{width: '3rem', borderRadius: '2px', border: '1px solid #DEDEDE'}} />
+                                        <img src={'https://admin.honari.com/image/resizeTest/shop/_85x/thumb_' + oi + '.jpg'} onClick={() => {changeSelectedImage(index)}} className={['pointer', otherImages.length <= 1 ? 'd-none' : ''].join(' ')} key={index} style={{width: '3rem', borderRadius: '2px', border: '1px solid #DEDEDE'}} />
                                     );
                                 })
                             }
@@ -940,7 +940,7 @@ const ProductInsight = (props) =>{
                                 aparatScript !== undefined && props.information.aparat !== ''
                                 ?
                                 <div className={['pointer'].join(' ')} style={{width: '3rem', height: '3rem', position: 'relative', borderRadius: '2px'}} onClick={videoImageClicked}>
-                                    <img style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '2', opacity: '100%', border: '1px solid #DEDEDE', borderRadius: '2px'}} src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + otherImages[0] + '.jpg'} className={['pointer'].join(' ')} />
+                                    <img style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '2', opacity: '100%', border: '1px solid #DEDEDE', borderRadius: '2px'}} src={'https://admin.honari.com/image/resizeTest/shop/_85x/thumb_' + otherImages[0] + '.jpg'} className={['pointer'].join(' ')} />
                                     <img src={Constants.baseUrl + '/assets/images/main_images/square_black.png'} className={[''].join(' ')} style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', opacity: '40%', zIndex: '3', border: '1px solid #DEDEDE', borderRadius: '2px'}} />
                                     <img src={Constants.baseUrl + '/assets/images/main_images/play_white_small.png'} className={[''].join(' ')} style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', opacity: '100%', zIndex: '4', border: '1px solid #DEDEDE', borderRadius: '2px'}} />
                                 </div>

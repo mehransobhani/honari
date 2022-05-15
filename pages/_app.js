@@ -155,19 +155,19 @@ function MyApp({ Component, pageProps }) {
 
       
       const googleTagmanager = document.createElement('script');
-      googleTagmanager.src = '/newtest/assets/js/google_tagmanager.js';
+      googleTagmanager.src = '/assets/js/google_tagmanager.js';
       googleTagmanager.async = true;
       document.body.appendChild(googleTagmanager);
       
-      googleTagmanager.onload = () => {
+      //googleTagmanager.onload = () => {
         //let confirmButton = document.getElementById('gtm-testing-button');
         //confirmButton.addEventListener('click', () => {
-            dataLayer.push({
-              event: 'homePageViewed'
-            });
+            //dataLayer.push({
+              //event: 'homePageViewed'
+            //});
             //alert('data pushed');
         //});
-      }
+      //}
 
       const chatwoot = document.createElement('script');
       chatwoot.src = Constants.baseUrl + '/assets/js/empty.js'

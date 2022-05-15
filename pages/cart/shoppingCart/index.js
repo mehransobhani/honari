@@ -415,7 +415,7 @@ const ShoppingCart = (props) => {
                                                 }
                                                 <h6 className={['mb-0', 'text-center', 'rtl'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '1.3'}}>{product.price === 0 ? 'موجود نیست !' : product.label}</h6>
                                                 <div className={['d-flex', 'flex-row', 'rtl', 'align-items-center', 'justify-content-right'].join(' ')} style={{flex: '2'}}>
-                                                    <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + product.prodID + '.jpg'} style={{width: '100px', height: '100px'}} />
+                                                    <img src={'http://admin.honari.com/image/resizeTest/shop/_85x/thumb_' + product.prodID + '.jpg'} style={{width: '100px', height: '100px'}} />
                                                     <h6 className={['mb-0', 'pr-1', 'rtl', 'text-right', 'mt-1'].join(' ')} style={{fontSize: '17px', color: '#444444', lineHeight: '1.6rem'}}>{product.name}</h6>
                                                 </div>
                                             </div>
@@ -498,7 +498,7 @@ const ShoppingCart = (props) => {
                                                 <img src={Constants.baseUrl + (axiosProcessInformation.type === 'remove' && axiosProcessInformation.index === counter ? '/assets/images/main_images/loading_circle_dotted.png' : '/assets/images/main_images/bin_red.png')} className={['pointer'].join(' ')} style={{width: '18px', height: '18px', position: 'relative', bottom: '-0.3rem', left: '0.3rem'}} onClick={() => {removeProductFromCart(counter)}} />
                                             </div>
                                             <div className={['d-flex', 'flex-row', 'rtl', 'px-3'].join(' ')}>
-                                                <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + product.prodID + '.jpg'} style={{width: '77px', height: '77px'}} />
+                                                <img src={'http://admin.honari.com/image/resizeTest/shop/_85x/thumb_' + product.prodID + '.jpg'} style={{width: '77px', height: '77px'}} />
                                                 <div className={['d-flex', 'flex-column', 'pr-2'].join(' ')} style={{flex: '1'}}>
                                                     <h6 className={['text-right', 'rtl', 'mb-0', 'mt-1'].join(' ')} style={{fontSize: '17px', color: '#444444', lineHeight: '1.6rem'}}>{product.name}</h6>
                                                     <h6 className={['text-right', 'rtl', 'mb-0', 'mt-auto'].join(' ')} style={{fontSize: '14px', color: '#444444'}}>{product.price === 0 ? 'موجود نیست !' : product.label}</h6>

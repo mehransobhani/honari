@@ -414,7 +414,7 @@ const DeliveryReview = (props) => {
                                     <React.Fragment>
                                         <div className={['row', 'rtl', 'py-2', 'mt-1', 'align-items-center', 'mx-1', 'mx-lg-0'].join(' ')} style={{borderRight: '1px solid #D8D8D8', borderBottom: '1px solid #D8D8D8', borderLeft: '1px solid #D8D8D8'}}>
                                             <div className={['col-5', 'text-right', 'mb-0', 'pr-2', 'd-flex', 'flex-row', 'align-items-center'].join(' ')} style={{color: '#444444'}}>
-                                                <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} className={['finalFactorImage'].join(' ')} style={{borderRadius: '1px'}} />
+                                                <img src={'https://admin.honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} className={['finalFactorImage'].join(' ')} style={{borderRadius: '1px'}} />
                                                 <div className={['d-flex', 'flex-column', 'text-right', 'mr-2'].join(' ')}>
                                                     <h5 className={['mb-0', 'font11md17'].join(' ')} style={{lineHeight: '1.6rem'}}>{item.name}</h5>
                                                     <h5 className={['mb-0', 'font11md17', 'mt-2', 'd-none', 'd-lg-block'].join(' ')} style={{}}>{item.label}</h5>
@@ -465,7 +465,7 @@ const DeliveryReview = (props) => {
                                     <React.Fragment>
                                             <div className={['rtl', 'py-2', 'mt-1', 'd-flex', 'd-flex-row', 'align-items-center', 'd-none'].join(' ')} style={{borderBottom: '1px solid #D8D8D8', width: '700px'}}>
                                                 <div className={['text-right', 'mb-0', 'pr-2', 'd-flex', 'flex-row', 'align-items-center'].join(' ')} style={{fontSize: '17px', color: '#444444', flex: '4'}}>
-                                                    <img src={'https://honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '75px', height: '75px', borderRadius: '1px'}} />
+                                                    <img src={'https://admin.honari.com/image/resizeTest/shop/_85x/thumb_' + item.prodID + '.jpg'} style={{width: '75px', height: '75px', borderRadius: '1px'}} />
                                                     <div className={['d-flex', 'flex-column', 'text-right', 'mr-2'].join(' ')}>
                                                         <h5 className={['mb-0', 'font14md17'].join(' ')} style={{fontSize: '17px', lineHeight: '1.6rem'}}>{item.name}</h5>
                                                         <h5 className={['mb-0', 'font11md17', 'mt-2'].join(' ')} style={{fontSize: '14px'}}>{item.label}</h5>

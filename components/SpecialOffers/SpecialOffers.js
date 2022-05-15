@@ -70,14 +70,14 @@ const SpecialOffer = (props) => {
                         {
                             props.offers[page*2] !== undefined 
                             ?
-                            <SpecialOfferCard url={props.offers[page*2].productUrl} imageUrl={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + props.offers[page*2].prodID + '.jpg'} title={props.offers[page*2].productName} price={props.offers[page*2].productPrice} discountedPrice={props.offers[page*2].productDiscountedPrice} timeLeft={props.offers[page*2].timeLeft} bgColor='#dff1f5' />
+                            <SpecialOfferCard url={props.offers[page*2].productUrl} imageUrl={'https://honari.com/old/image/resizeTest/shop/_200x/thumb_' + props.offers[page*2].prodID + '.jpg'} title={props.offers[page*2].productName} price={props.offers[page*2].productPrice} discountedPrice={props.offers[page*2].productDiscountedPrice} timeLeft={props.offers[page*2].timeLeft} bgColor='#dff1f5' />
                             :
                             null
                         }
                         {
                             props.offers[(page*2) + 1] !== undefined 
                             ?
-                            <SpecialOfferCard url={props.offers[(page*2) + 1 ].productUrl} imageUrl={'https://honari.com/image/resizeTest/shop/_200x/thumb_' + props.offers[(page*2) + 1].prodID + '.jpg'} title={props.offers[(page*2)+1].productName} price={props.offers[(page*2)+1].productPrice} discountedPrice={props.offers[(page*2)+1].productDiscountedPrice} timeLeft={props.offers[(page*2)+1].timeLeft} bgColor='#f0efd8'/>
+                            <SpecialOfferCard url={props.offers[(page*2) + 1 ].productUrl} imageUrl={'https://honari.com/old/image/resizeTest/shop/_200x/thumb_' + props.offers[(page*2) + 1].prodID + '.jpg'} title={props.offers[(page*2)+1].productName} price={props.offers[(page*2)+1].productPrice} discountedPrice={props.offers[(page*2)+1].productDiscountedPrice} timeLeft={props.offers[(page*2)+1].timeLeft} bgColor='#f0efd8'/>
                             :
                             null
                         }
